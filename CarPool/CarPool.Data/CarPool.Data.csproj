@@ -24,6 +24,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CarPool.Common\CarPool.Common.csproj" />
     <ProjectReference Include="..\CarPool.Data.Common\CarPool.Data.Common.csproj" />
+    <ProjectReference Include="..\CarPool.Data.Models\CarPool.Data.Models.csproj" />
   </ItemGroup>
 
 </Project>

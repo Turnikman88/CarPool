@@ -47,6 +47,12 @@ namespace CarPool.Data.Models
 
         public virtual Rating Ratings { get; set; }
 
+        public Guid ProfilePictureId { get; set; }
+
+        public virtual ProfilePicture ProfilePicture { get; set; }
+
+        public int MyProperty { get; set; }
+
         public bool IsBlocked { get; set; }
 
         // Audit info

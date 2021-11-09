@@ -3,6 +3,7 @@
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
+    using CarPool.Data.Models;
     using Microsoft.EntityFrameworkCore;
 
     public partial class DeliverITDBContext : DbContext
@@ -15,14 +16,25 @@
             : base(options)
         {
         }
+
+        public virtual DbSet<ApplicationRole> ApplicationRoles { get; set; }
+
+        public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }      
+        
+        public virtual DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }      
+        
+        public virtual DbSet<Location> Locations { get; set; }
+        
+        public virtual DbSet<ProfilePicture> ProfilePictures { get; set; } 
+        
+        public virtual DbSet<Rating> Ratings { get; set; }        
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
             //modelBuilder.Seed();
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
-
-
 
         // For soft delete
         public override int SaveChanges()
