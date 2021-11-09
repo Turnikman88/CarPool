@@ -1,4 +1,4 @@
-﻿namespace DeliverIT.Models
+﻿namespace CarPool.Data
 {
     using System.Reflection;
     using System.Threading;
@@ -6,13 +6,13 @@
     using CarPool.Data.Models;
     using Microsoft.EntityFrameworkCore;
 
-    public partial class DeliverITDBContext : DbContext
+    public partial class CarPoolDBContext : DbContext
     {
-        public DeliverITDBContext()
+        public CarPoolDBContext()
         {
         }
 
-        public DeliverITDBContext(DbContextOptions<DeliverITDBContext> options)
+        public CarPoolDBContext(DbContextOptions<CarPoolDBContext> options)
             : base(options)
         {
         }
@@ -20,8 +20,6 @@
         public virtual DbSet<ApplicationRole> ApplicationRoles { get; set; }
 
         public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }      
-        
-        public virtual DbSet<ApplicationUserRole> ApplicationUserRoles { get; set; }      
         
         public virtual DbSet<Location> Locations { get; set; }
         
@@ -32,8 +30,17 @@
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            //modelBuilder.Seed();
-            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+
+            modelBuilder.Entity<Location>()
+                        .Property(p => p.Latitude).
+                        HasColumnType("decimal(18,4)");
+
+            modelBuilder.Entity<Location>()
+                        .Property(p => p.Longitude)
+                        .HasColumnType("decimal(18,4)");
+
+            // modelBuilder.Seed();
+            // modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
         // For soft delete

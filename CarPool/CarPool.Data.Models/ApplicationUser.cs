@@ -2,19 +2,19 @@
 namespace CarPool.Data.Models
 {
     using System;
+    using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
 
     using CarPool.Common;
     using CarPool.Data.Common.Models;
 
-    public class ApplicationUser : IAuditInfo, IDeletableEntity
+    public class ApplicationUser : BaseDeletableModel<Guid>
     {
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid();
+            ProfilePicture = new HashSet<ProfilePicture>();
         }
-
-        public Guid Id { get; set; }
 
         [MinLength(2)]
         [MaxLength(20)]
@@ -45,24 +45,12 @@ namespace CarPool.Data.Models
 
         public double Rating { get; set; }
 
-        public virtual Rating Ratings { get; set; }
-
         public Guid ProfilePictureId { get; set; }
 
-        public virtual ProfilePicture ProfilePicture { get; set; }
+        public virtual ICollection<ProfilePicture> ProfilePicture { get; set; }
 
-        public int MyProperty { get; set; }
+        public Guid RoleId { get; set; }
 
         public bool IsBlocked { get; set; }
-
-        // Audit info
-        public DateTime CreatedOn { get; set; }
-
-        public DateTime? ModifiedOn { get; set; }
-
-        // Deletable entity
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
     }
 }

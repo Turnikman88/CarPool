@@ -13,6 +13,8 @@
             this.ApplicationUsers = new HashSet<ApplicationUser>();
         }
 
+        public Guid AddedByUserId { get; set; }
+
         public Guid ApplicationUserId { get; set; }
 
         public int Value { get; set; }

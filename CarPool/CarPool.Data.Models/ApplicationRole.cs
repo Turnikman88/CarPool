@@ -2,10 +2,10 @@
 namespace CarPool.Data.Models
 {
     using System;
-
+    using System.Collections.Generic;
     using CarPool.Data.Common.Models;
 
-    public class ApplicationRole : IAuditInfo, IDeletableEntity
+    public class ApplicationRole : BaseDeletableModel<Guid>
     {
         public ApplicationRole(string name)
         {
@@ -13,16 +13,8 @@ namespace CarPool.Data.Models
             this.Name = name;
         }
 
-        public Guid Id { get; set; }
-
         public string Name { get; set; }
 
-        public DateTime CreatedOn { get; set; }
-
-        public DateTime? ModifiedOn { get; set; }
-
-        public bool IsDeleted { get; set; }
-
-        public DateTime? DeletedOn { get; set; }
+        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

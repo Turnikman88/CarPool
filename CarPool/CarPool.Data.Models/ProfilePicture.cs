@@ -10,7 +10,7 @@
         public ProfilePicture()
         {
             this.Id = Guid.NewGuid();
-            this.ApplicationUsers = new HashSet<ApplicationUser>();
+            //this.ApplicationUsers = new HashSet<ApplicationUser>();
         }
 
         public Guid AddedByUserId { get; set; }
@@ -19,6 +19,6 @@
 
         public string Extension { get; set; }
 
-        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
+        //public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
     }
 }
