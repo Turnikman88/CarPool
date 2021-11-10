@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CarPool.Data.Models
 {
-    public partial class City : BaseDeletableModel<int>
+    public class City : BaseDeletableModel<int>
     {
         public City()
         {

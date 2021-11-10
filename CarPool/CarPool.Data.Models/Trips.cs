@@ -9,9 +9,9 @@ namespace CarPool.Data.Models
     {
         public Trips()
         {
-            this.Id = Guid.NewGuid();
+            
         }
 
-        public string Start { get; set; }
+        public string StartAddress { get; set; }
     }
 }
