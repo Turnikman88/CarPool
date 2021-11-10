@@ -51,6 +51,9 @@ namespace CarPool.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ApplicationRoleId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -58,12 +61,14 @@ namespace CarPool.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
@@ -74,6 +79,7 @@ namespace CarPool.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
@@ -81,19 +87,15 @@ namespace CarPool.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ProfilePictureId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");
-
-                    b.Property<Guid?>("RatingId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
@@ -104,9 +106,14 @@ namespace CarPool.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RatingId");
+                    b.HasIndex("ApplicationRoleId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("ApplicationUsers");
+
+                    b.HasCheckConstraint("Password_contains_space", "Password NOT LIKE '% %'");
                 });
 
             modelBuilder.Entity("CarPool.Data.Models.Location", b =>
@@ -138,6 +145,9 @@ namespace CarPool.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId")
+                        .IsUnique();
+
                     b.ToTable("Locations");
                 });
 
@@ -147,13 +157,16 @@ namespace CarPool.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AddedByUserId")
+                    b.Property<Guid>("ApplicationUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Extension")
+                    b.Property<byte[]>("ImageData")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImageTitle")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifiedOn")
@@ -161,7 +174,8 @@ namespace CarPool.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddedByUserId");
+                    b.HasIndex("ApplicationUserId")
+                        .IsUnique();
 
                     b.ToTable("ProfilePictures");
                 });
@@ -192,21 +206,41 @@ namespace CarPool.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("CarPool.Data.Models.ApplicationUser", b =>
                 {
-                    b.HasOne("CarPool.Data.Models.Rating", null)
+                    b.HasOne("CarPool.Data.Models.ApplicationRole", null)
                         .WithMany("ApplicationUsers")
-                        .HasForeignKey("RatingId");
+                        .HasForeignKey("ApplicationRoleId");
+                });
+
+            modelBuilder.Entity("CarPool.Data.Models.Location", b =>
+                {
+                    b.HasOne("CarPool.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithOne("Location")
+                        .HasForeignKey("CarPool.Data.Models.Location", "ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CarPool.Data.Models.ProfilePicture", b =>
                 {
-                    b.HasOne("CarPool.Data.Models.ApplicationUser", "AddedByUser")
-                        .WithMany("ProfilePicture")
-                        .HasForeignKey("AddedByUserId")
+                    b.HasOne("CarPool.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithOne("ProfilePicture")
+                        .HasForeignKey("CarPool.Data.Models.ProfilePicture", "ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CarPool.Data.Models.Rating", b =>
+                {
+                    b.HasOne("CarPool.Data.Models.ApplicationUser", null)
+                        .WithMany("Ratings")
+                        .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

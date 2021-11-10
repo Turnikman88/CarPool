@@ -6,19 +6,17 @@
 
     public class ProfilePicture : BaseModel<Guid>
     {
-        // The contents of the image is in the file system
         public ProfilePicture()
         {
             this.Id = Guid.NewGuid();
-            //this.ApplicationUsers = new HashSet<ApplicationUser>();
         }
+        
+        public string ImageTitle { get; set; }
 
-        public Guid AddedByUserId { get; set; }
+        public byte[] ImageData { get; set; }
 
-        public ApplicationUser AddedByUser { get; set; }
+        public Guid ApplicationUserId { get; set; }
 
-        public string Extension { get; set; }
-
-        //public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

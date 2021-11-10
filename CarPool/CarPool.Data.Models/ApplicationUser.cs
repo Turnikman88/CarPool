@@ -1,5 +1,4 @@
-﻿// ReSharper disable VirtualMemberCallInConstructor
-namespace CarPool.Data.Models
+﻿namespace CarPool.Data.Models
 {
     using System;
     using System.Collections.Generic;
@@ -13,7 +12,6 @@ namespace CarPool.Data.Models
         public ApplicationUser()
         {
             this.Id = Guid.NewGuid();
-            ProfilePicture = new HashSet<ProfilePicture>();
         }
 
         [MinLength(2)]
@@ -45,12 +43,15 @@ namespace CarPool.Data.Models
 
         public double Rating { get; set; }
 
-        public Guid ProfilePictureId { get; set; }
-
-        public virtual ICollection<ProfilePicture> ProfilePicture { get; set; }
-
         public Guid RoleId { get; set; }
 
         public bool IsBlocked { get; set; }
+
+        public Location Location { get; set; }
+
+        public virtual ProfilePicture ProfilePicture { get; set; }
+
+        public virtual ICollection<Rating> Ratings { get; set; }
+
     }
 }

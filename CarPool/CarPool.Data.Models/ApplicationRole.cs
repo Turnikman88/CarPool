@@ -1,5 +1,4 @@
-﻿// ReSharper disable VirtualMemberCallInConstructor
-namespace CarPool.Data.Models
+﻿namespace CarPool.Data.Models
 {
     using System;
     using System.Collections.Generic;

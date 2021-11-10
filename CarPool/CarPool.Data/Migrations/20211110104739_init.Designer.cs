@@ -10,8 +10,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarPool.Data.Migrations
 {
     [DbContext(typeof(CarPoolDBContext))]
-    [Migration("20211109220406_initial1")]
-    partial class initial1
+    [Migration("20211110104739_init")]
+    partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -53,6 +53,9 @@ namespace CarPool.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
+                    b.Property<Guid?>("ApplicationRoleId")
+                        .HasColumnType("uniqueidentifier");
+
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
@@ -60,12 +63,14 @@ namespace CarPool.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("Email")
-                        .HasColumnType("nvarchar(max)");
+                        .IsRequired()
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<bool>("EmailConfirmed")
                         .HasColumnType("bit");
 
                     b.Property<string>("FirstName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
@@ -76,28 +81,25 @@ namespace CarPool.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<string>("LastName")
+                        .IsRequired()
                         .HasColumnType("nvarchar(20)")
                         .HasMaxLength(20);
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<int>("MyProperty")
-                        .HasColumnType("int");
-
                     b.Property<string>("Password")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("PhoneNumber")
+                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
-
-                    b.Property<Guid>("ProfilePictureId")
-                        .HasColumnType("uniqueidentifier");
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");
 
-                    b.Property<Guid?>("RatingsId")
+                    b.Property<Guid>("RoleId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<string>("Username")
@@ -106,38 +108,14 @@ namespace CarPool.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("RatingsId");
+                    b.HasIndex("ApplicationRoleId");
+
+                    b.HasIndex("Email")
+                        .IsUnique();
 
                     b.ToTable("ApplicationUsers");
-                });
 
-            modelBuilder.Entity("CarPool.Data.Models.ApplicationUserRole", b =>
-                {
-                    b.Property<int>("ApplicationRoleId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("ApplicationUserId")
-                        .HasColumnType("int");
-
-                    b.Property<Guid?>("ApplicationRoleId1")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<Guid?>("ApplicationUserId1")
-                        .HasColumnType("uniqueidentifier");
-
-                    b.Property<DateTime?>("DeletedOn")
-                        .HasColumnType("datetime2");
-
-                    b.Property<bool>("IsDeleted")
-                        .HasColumnType("bit");
-
-                    b.HasKey("ApplicationRoleId", "ApplicationUserId");
-
-                    b.HasIndex("ApplicationRoleId1");
-
-                    b.HasIndex("ApplicationUserId1");
-
-                    b.ToTable("ApplicationUserRoles");
+                    b.HasCheckConstraint("Password_contains_space", "Password NOT LIKE '% %'");
                 });
 
             modelBuilder.Entity("CarPool.Data.Models.Location", b =>
@@ -169,6 +147,9 @@ namespace CarPool.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId")
+                        .IsUnique();
+
                     b.ToTable("Locations");
                 });
 
@@ -178,13 +159,16 @@ namespace CarPool.Data.Migrations
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
 
-                    b.Property<Guid>("AddedByUserId")
+                    b.Property<Guid>("ApplicationUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
 
-                    b.Property<string>("Extension")
+                    b.Property<byte[]>("ImageData")
+                        .HasColumnType("varbinary(max)");
+
+                    b.Property<string>("ImageTitle")
                         .HasColumnType("nvarchar(max)");
 
                     b.Property<DateTime?>("ModifiedOn")
@@ -192,7 +176,8 @@ namespace CarPool.Data.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("AddedByUserId");
+                    b.HasIndex("ApplicationUserId")
+                        .IsUnique();
 
                     b.ToTable("ProfilePictures");
                 });
@@ -201,6 +186,9 @@ namespace CarPool.Data.Migrations
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
+                        .HasColumnType("uniqueidentifier");
+
+                    b.Property<Guid>("AddedByUserId")
                         .HasColumnType("uniqueidentifier");
 
                     b.Property<Guid>("ApplicationUserId")
@@ -220,32 +208,41 @@ namespace CarPool.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("ApplicationUserId");
+
                     b.ToTable("Ratings");
                 });
 
             modelBuilder.Entity("CarPool.Data.Models.ApplicationUser", b =>
                 {
-                    b.HasOne("CarPool.Data.Models.Rating", "Ratings")
+                    b.HasOne("CarPool.Data.Models.ApplicationRole", null)
                         .WithMany("ApplicationUsers")
-                        .HasForeignKey("RatingsId");
+                        .HasForeignKey("ApplicationRoleId");
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.ApplicationUserRole", b =>
+            modelBuilder.Entity("CarPool.Data.Models.Location", b =>
                 {
-                    b.HasOne("CarPool.Data.Models.ApplicationRole", "ApplicationRole")
-                        .WithMany()
-                        .HasForeignKey("ApplicationRoleId1");
-
                     b.HasOne("CarPool.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithMany()
-                        .HasForeignKey("ApplicationUserId1");
+                        .WithOne("Location")
+                        .HasForeignKey("CarPool.Data.Models.Location", "ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
             modelBuilder.Entity("CarPool.Data.Models.ProfilePicture", b =>
                 {
-                    b.HasOne("CarPool.Data.Models.ApplicationUser", "AddedByUser")
-                        .WithMany("ProfilePicture")
-                        .HasForeignKey("AddedByUserId")
+                    b.HasOne("CarPool.Data.Models.ApplicationUser", "ApplicationUser")
+                        .WithOne("ProfilePicture")
+                        .HasForeignKey("CarPool.Data.Models.ProfilePicture", "ApplicationUserId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
+            modelBuilder.Entity("CarPool.Data.Models.Rating", b =>
+                {
+                    b.HasOne("CarPool.Data.Models.ApplicationUser", null)
+                        .WithMany("Ratings")
+                        .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -10,7 +10,6 @@
         public Rating()
         {
             this.Id = Guid.NewGuid();
-            this.ApplicationUsers = new HashSet<ApplicationUser>();
         }
 
         public Guid AddedByUserId { get; set; }
@@ -20,7 +19,5 @@
         public int Value { get; set; }
 
         public string Feedback { get; set; }
-
-        public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
     }
 }

@@ -30,17 +30,8 @@
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-
-            modelBuilder.Entity<Location>()
-                        .Property(p => p.Latitude).
-                        HasColumnType("decimal(18,4)");
-
-            modelBuilder.Entity<Location>()
-                        .Property(p => p.Longitude)
-                        .HasColumnType("decimal(18,4)");
-
             // modelBuilder.Seed();
-            // modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
+            modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 
         // For soft delete

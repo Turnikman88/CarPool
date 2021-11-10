@@ -9,14 +9,14 @@
         public Location()
         {
             this.Id = Guid.NewGuid();
-            this.CreatedOn = DateTime.UtcNow;
         }
 
-        // Latitude and Longitude
         public Guid ApplicationUserId { get; set; }
 
         public decimal Latitude { get; set; }
 
         public decimal Longitude { get; set; }
+
+        public ApplicationUser ApplicationUser { get; set; }
     }
 }
