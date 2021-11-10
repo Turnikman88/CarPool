@@ -21,7 +21,7 @@
 
         public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }      
         
-        public virtual DbSet<Location> Locations { get; set; }
+        public virtual DbSet<Address> Addresses { get; set; }
         
         public virtual DbSet<ProfilePicture> ProfilePictures { get; set; } 
         

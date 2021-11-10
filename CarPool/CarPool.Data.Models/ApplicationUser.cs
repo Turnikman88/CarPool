@@ -43,11 +43,13 @@
 
         public double Rating { get; set; }
 
-        public Guid RoleId { get; set; }
+        public int RoleId { get; set; }
 
         public bool IsBlocked { get; set; }
 
-        public Location Location { get; set; }
+        public int AddressId { get; set; }
+
+        public virtual Address Address { get; set; }
 
         public virtual ProfilePicture ProfilePicture { get; set; }
 

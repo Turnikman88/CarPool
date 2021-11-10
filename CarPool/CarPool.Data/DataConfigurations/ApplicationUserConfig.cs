@@ -15,9 +15,9 @@ namespace CarPool.Data.DataConfigurations
                 .WithOne(o => o.ApplicationUser)
                 .HasForeignKey<ProfilePicture>(f => f.ApplicationUserId);
 
-            builder.HasOne(o => o.Location)
-                .WithOne(o => o.ApplicationUser)
-                .HasForeignKey<Location>(f => f.ApplicationUserId);
+            builder.HasOne(o => o.Address)
+                .WithMany(m => m.ApplicationUsers)
+                .HasForeignKey(f => f.AddressId);
 
             builder.Property(e => e.Password).IsRequired();
 

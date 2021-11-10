@@ -10,7 +10,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace CarPool.Data.Migrations
 {
     [DbContext(typeof(CarPoolDBContext))]
-    [Migration("20211110104739_init")]
+    [Migration("20211110120536_init")]
     partial class init
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -20,6 +20,45 @@ namespace CarPool.Data.Migrations
                 .HasAnnotation("ProductVersion", "3.1.21")
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+            modelBuilder.Entity("CarPool.Data.Models.Address", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<int>("CityId")
+                        .HasColumnType("int");
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<decimal>("Latitude")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<decimal>("Longitude")
+                        .HasColumnType("decimal(18,4)");
+
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<string>("StreetName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CityId");
+
+                    b.ToTable("Locations");
+                });
 
             modelBuilder.Entity("CarPool.Data.Models.ApplicationRole", b =>
                 {
@@ -52,6 +91,9 @@ namespace CarPool.Data.Migrations
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
                         .HasColumnType("uniqueidentifier");
+
+                    b.Property<int>("AddressId")
+                        .HasColumnType("int");
 
                     b.Property<Guid?>("ApplicationRoleId")
                         .HasColumnType("uniqueidentifier");
@@ -108,6 +150,8 @@ namespace CarPool.Data.Migrations
 
                     b.HasKey("Id");
 
+                    b.HasIndex("AddressId");
+
                     b.HasIndex("ApplicationRoleId");
 
                     b.HasIndex("Email")
@@ -118,14 +162,15 @@ namespace CarPool.Data.Migrations
                     b.HasCheckConstraint("Password_contains_space", "Password NOT LIKE '% %'");
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.Location", b =>
+            modelBuilder.Entity("CarPool.Data.Models.City", b =>
                 {
-                    b.Property<Guid>("Id")
+                    b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
-                        .HasColumnType("uniqueidentifier");
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-                    b.Property<Guid>("ApplicationUserId")
-                        .HasColumnType("uniqueidentifier");
+                    b.Property<int>("CountryId")
+                        .HasColumnType("int");
 
                     b.Property<DateTime>("CreatedOn")
                         .HasColumnType("datetime2");
@@ -136,21 +181,44 @@ namespace CarPool.Data.Migrations
                     b.Property<bool>("IsDeleted")
                         .HasColumnType("bit");
 
-                    b.Property<decimal>("Latitude")
-                        .HasColumnType("decimal(18,4)");
+                    b.Property<DateTime?>("ModifiedOn")
+                        .HasColumnType("datetime2");
 
-                    b.Property<decimal>("Longitude")
-                        .HasColumnType("decimal(18,4)");
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CountryId");
+
+                    b.ToTable("City");
+                });
+
+            modelBuilder.Entity("CarPool.Data.Models.Country", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int")
+                        .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
+
+                    b.Property<DateTime>("CreatedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DeletedOn")
+                        .HasColumnType("datetime2");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
 
+                    b.Property<string>("Name")
+                        .HasColumnType("nvarchar(max)");
+
                     b.HasKey("Id");
 
-                    b.HasIndex("ApplicationUserId")
-                        .IsUnique();
-
-                    b.ToTable("Locations");
+                    b.ToTable("Country");
                 });
 
             modelBuilder.Entity("CarPool.Data.Models.ProfilePicture", b =>
@@ -213,18 +281,33 @@ namespace CarPool.Data.Migrations
                     b.ToTable("Ratings");
                 });
 
+            modelBuilder.Entity("CarPool.Data.Models.Address", b =>
+                {
+                    b.HasOne("CarPool.Data.Models.City", "City")
+                        .WithMany("Addresses")
+                        .HasForeignKey("CityId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+                });
+
             modelBuilder.Entity("CarPool.Data.Models.ApplicationUser", b =>
                 {
+                    b.HasOne("CarPool.Data.Models.Address", "Address")
+                        .WithMany("ApplicationUsers")
+                        .HasForeignKey("AddressId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
                     b.HasOne("CarPool.Data.Models.ApplicationRole", null)
                         .WithMany("ApplicationUsers")
                         .HasForeignKey("ApplicationRoleId");
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.Location", b =>
+            modelBuilder.Entity("CarPool.Data.Models.City", b =>
                 {
-                    b.HasOne("CarPool.Data.Models.ApplicationUser", "ApplicationUser")
-                        .WithOne("Location")
-                        .HasForeignKey("CarPool.Data.Models.Location", "ApplicationUserId")
+                    b.HasOne("CarPool.Data.Models.Country", "Country")
+                        .WithMany()
+                        .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });

@@ -5,13 +5,8 @@
     using System.Collections.Generic;
     using CarPool.Data.Common.Models;
 
-    public class Rating : BaseModel<Guid>
+    public class Rating : BaseModel<int>
     {
-        public Rating()
-        {
-            this.Id = Guid.NewGuid();
-        }
-
         public Guid AddedByUserId { get; set; }
 
         public Guid ApplicationUserId { get; set; }

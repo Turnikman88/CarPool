@@ -4,11 +4,10 @@
     using System.Collections.Generic;
     using CarPool.Data.Common.Models;
 
-    public class ApplicationRole : BaseDeletableModel<Guid>
+    public class ApplicationRole : BaseDeletableModel<int>
     {
         public ApplicationRole(string name)
         {
-            this.Id = Guid.NewGuid();
             this.Name = name;
         }
 
