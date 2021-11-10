@@ -17,19 +17,23 @@
         {
         }
 
+        public virtual DbSet<Address> Addresses { get; set; }
+
         public virtual DbSet<ApplicationRole> ApplicationRoles { get; set; }
 
-        public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }      
-        
-        public virtual DbSet<Address> Addresses { get; set; }
-        
-        public virtual DbSet<ProfilePicture> ProfilePictures { get; set; } 
-        
+        public virtual DbSet<ApplicationUser> ApplicationUsers { get; set; }
+
+        public virtual DbSet<City> Cities { get; set; }
+
+        public virtual DbSet<Country> Countries { get; set; }
+
+        public virtual DbSet<ProfilePicture> ProfilePictures { get; set; }
+
         public virtual DbSet<Rating> Ratings { get; set; }
 
-        public virtual DbSet<Trips> Trips { get; set; }
-
         public virtual DbSet<TripPassenger> TripPassengers { get; set; }
+
+        public virtual DbSet<Trips> Trips { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -44,7 +48,7 @@
             UpdateSoftDeleteStatuses();
             return base.SaveChanges();
         }
-              
+
         public override Task<int> SaveChangesAsync(bool acceptAllChangesOnSuccess, CancellationToken cancellationToken = default(CancellationToken))
         {
             UpdateSoftDeleteStatuses();

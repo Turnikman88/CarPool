@@ -13,9 +13,11 @@
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
     </PackageReference>
+    <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\CarPool.API.Infrastructure\CarPool.API.Infrastructure.csproj" />
     <ProjectReference Include="..\CarPool.Data.Common\CarPool.Data.Common.csproj" />
     <ProjectReference Include="..\CarPool.Data.Models\CarPool.Data.Models.csproj" />
     <ProjectReference Include="..\CarPool.Data\CarPool.Data.csproj" />

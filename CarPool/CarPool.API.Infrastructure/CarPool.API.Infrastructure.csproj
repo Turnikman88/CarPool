@@ -1,0 +1,21 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.Http" Version="2.2.2" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CarPool.Common\CarPool.Common.csproj" />
+    <ProjectReference Include="..\CarPool.Data.Common\CarPool.Data.Common.csproj" />
+    <ProjectReference Include="..\CarPool.Data.Models\CarPool.Data.Models.csproj" />
+    <ProjectReference Include="..\CarPool.Data\CarPool.Data.csproj" />
+    <ProjectReference Include="..\CarPool.Services.Data\CarPool.Services.Data.csproj" />
+    <ProjectReference Include="..\CarPool.Services.Mapping\CarPool.Services.Mapping.csproj" />
+    <ProjectReference Include="..\CarPool.Services\CarPool.Services.csproj" />
+  </ItemGroup>
+
+</Project>
