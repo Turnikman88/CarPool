@@ -11,6 +11,8 @@
     {
         public ApplicationUser()
         {
+            this.Trips = new HashSet<Trips>();
+            this.Ratings = new HashSet<Rating>();
             this.Id = Guid.NewGuid();
         }
 
@@ -54,6 +56,8 @@
         public virtual ProfilePicture ProfilePicture { get; set; }
 
         public virtual ICollection<Rating> Ratings { get; set; }
+
+        public virtual ICollection<Trips> Trips { get; set; }
 
     }
 }

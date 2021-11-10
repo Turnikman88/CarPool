@@ -19,4 +19,8 @@
     <ProjectReference Include="..\CarPool.Data.Models\CarPool.Data.Models.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Migrations\" />
+  </ItemGroup>
+
 </Project>

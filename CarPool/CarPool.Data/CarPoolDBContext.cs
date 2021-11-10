@@ -25,7 +25,11 @@
         
         public virtual DbSet<ProfilePicture> ProfilePictures { get; set; } 
         
-        public virtual DbSet<Rating> Ratings { get; set; }        
+        public virtual DbSet<Rating> Ratings { get; set; }
+
+        public virtual DbSet<Trips> Trips { get; set; }
+
+        public virtual DbSet<TripPassenger> TripPassengers { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
