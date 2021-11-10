@@ -14,5 +14,8 @@
         public int Value { get; set; }
 
         public string Feedback { get; set; }
+
+        public virtual ApplicationUser ApplicationUser { get; set; }
+
     }
 }

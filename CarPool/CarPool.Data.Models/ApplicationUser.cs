@@ -45,15 +45,17 @@
 
         public double Rating { get; set; }
 
-        public int RoleId { get; set; }
-
         public bool IsBlocked { get; set; }
 
         public int AddressId { get; set; }
 
         public virtual Address Address { get; set; }
 
+        public int? ApplicationRoleId { get; set; }
+
         public virtual ProfilePicture ProfilePicture { get; set; }
+
+        public virtual ApplicationRole ApplicationRole { get; set; }
 
         public virtual ICollection<Rating> Ratings { get; set; }
 

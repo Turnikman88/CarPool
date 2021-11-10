@@ -11,11 +11,11 @@ namespace CarPool.Data.Models
         public Address()
         {
             this.ApplicationUsers = new HashSet<ApplicationUser>();
+            this.TripsDestinationAddress = new HashSet<Trips>();
+            this.TripsStartAddress = new HashSet<Trips>();
         }
 
         public int CityId { get; set; }
-
-        public virtual City City { get; set; }
 
         public string StreetName { get; set; }
 
@@ -23,6 +23,12 @@ namespace CarPool.Data.Models
 
         public decimal Longitude { get; set; }
 
+        public virtual City City { get; set; }
+
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
+
+        public virtual ICollection<Trips> TripsDestinationAddress { get; set; }
+        
+        public virtual ICollection<Trips> TripsStartAddress { get; set; }
     }
 }

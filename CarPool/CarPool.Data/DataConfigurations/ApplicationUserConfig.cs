@@ -11,9 +11,11 @@ namespace CarPool.Data.DataConfigurations
     {
         public void Configure(EntityTypeBuilder<ApplicationUser> builder)
         {
-            builder.HasOne(o => o.ProfilePicture)
-                .WithOne(o => o.ApplicationUser)
-                .HasForeignKey<ProfilePicture>(f => f.ApplicationUserId);
+            builder.HasIndex(e => e.ApplicationRoleId);
+
+            builder.HasOne(d => d.ApplicationRole)
+                    .WithMany(p => p.ApplicationUsers)
+                    .HasForeignKey(d => d.ApplicationRoleId);
 
             builder.HasOne(o => o.Address)
                 .WithMany(m => m.ApplicationUsers)
