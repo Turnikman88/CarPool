@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CarPool.Common.Contracts
+﻿namespace CarPool.Common.Contracts
 {
     public interface IMailSettings
     {

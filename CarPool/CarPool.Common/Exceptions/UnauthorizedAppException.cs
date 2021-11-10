@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Globalization;
 
-namespace CarPool.Common
+namespace CarPool.Common.Exceptions
 {
     public class UnauthorizedAppException : ApplicationException
     {

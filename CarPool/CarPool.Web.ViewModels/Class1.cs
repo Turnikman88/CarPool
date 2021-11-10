@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CarPool.Web.ViewModels
+﻿namespace CarPool.Web.ViewModels
 {
     public class Class1
     {

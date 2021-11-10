@@ -1,9 +1,7 @@
-﻿namespace CarPool.Data.Models
+﻿namespace CarPool.Data.Models.DatabaseModels
 {
-    using System;
-    using System.Collections;
-    using System.Collections.Generic;
     using CarPool.Data.Common.Models;
+    using System;
 
     public class Rating : BaseModel<int>
     {

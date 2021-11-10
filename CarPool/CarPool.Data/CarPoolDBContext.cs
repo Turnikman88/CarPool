@@ -1,10 +1,11 @@
 ﻿namespace CarPool.Data
 {
+    using CarPool.Data.Models.DAL;
+    using CarPool.Data.Models.DatabaseModels;
+    using Microsoft.EntityFrameworkCore;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
-    using CarPool.Data.Models;
-    using Microsoft.EntityFrameworkCore;
 
     public partial class CarPoolDBContext : DbContext
     {
@@ -38,7 +39,7 @@
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
-            // modelBuilder.Seed();
+            modelBuilder.Seed();
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
         }
 

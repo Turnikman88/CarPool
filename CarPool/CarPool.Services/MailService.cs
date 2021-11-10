@@ -1,13 +1,10 @@
-﻿using CarPool.Common;
-using CarPool.Common.Contracts;
+﻿using CarPool.Common.Contracts;
 using CarPool.Services.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using MailKit.Net.Smtp;
 using MailKit.Security;
 using MimeKit;
 using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CarPool.Services

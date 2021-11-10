@@ -1,9 +1,6 @@
-﻿using CarPool.Data.Models;
+﻿using CarPool.Data.Models.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CarPool.Data.DataConfigurations
 {
@@ -14,7 +11,7 @@ namespace CarPool.Data.DataConfigurations
             builder.HasIndex(x => x.DriverId);
 
             builder.Property(p => p.Price)
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
             builder.HasOne(d => d.DestinationAddress)
                     .WithMany(p => p.TripsDestinationAddress)

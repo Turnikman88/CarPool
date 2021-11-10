@@ -1,10 +1,8 @@
 ﻿
 using CarPool.Data.Common.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace CarPool.Data.Models
+namespace CarPool.Data.Models.DatabaseModels
 {
     public class Address : BaseDeletableModel<int>
     {
@@ -28,7 +26,7 @@ namespace CarPool.Data.Models
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
 
         public virtual ICollection<Trips> TripsDestinationAddress { get; set; }
-        
+
         public virtual ICollection<Trips> TripsStartAddress { get; set; }
     }
 }

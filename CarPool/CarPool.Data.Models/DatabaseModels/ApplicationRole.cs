@@ -1,8 +1,7 @@
-﻿namespace CarPool.Data.Models
+﻿namespace CarPool.Data.Models.DatabaseModels
 {
-    using System;
-    using System.Collections.Generic;
     using CarPool.Data.Common.Models;
+    using System.Collections.Generic;
 
     public class ApplicationRole : BaseDeletableModel<int>
     {

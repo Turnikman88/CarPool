@@ -1,7 +1,4 @@
 ﻿using CarPool.Common.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CarPool.Common
 {

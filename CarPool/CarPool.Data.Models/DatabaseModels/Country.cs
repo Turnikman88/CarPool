@@ -1,9 +1,7 @@
 ﻿using CarPool.Data.Common.Models;
-using System;
 using System.Collections.Generic;
-using System.Text;
 
-namespace CarPool.Data.Models
+namespace CarPool.Data.Models.DatabaseModels
 {
     public class Country : BaseDeletableModel<int>
     {

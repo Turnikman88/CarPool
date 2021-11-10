@@ -19,7 +19,7 @@ namespace CarPool.Data.Migrations
                 .HasAnnotation("Relational:MaxIdentifierLength", 128)
                 .HasAnnotation("SqlServer:ValueGenerationStrategy", SqlServerValueGenerationStrategy.IdentityColumn);
 
-            modelBuilder.Entity("CarPool.Data.Models.Address", b =>
+            modelBuilder.Entity("CarPool.Data.Models.DatabaseModels.Address", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -39,10 +39,10 @@ namespace CarPool.Data.Migrations
                         .HasColumnType("bit");
 
                     b.Property<decimal>("Latitude")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,6)");
 
                     b.Property<decimal>("Longitude")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,6)");
 
                     b.Property<DateTime?>("ModifiedOn")
                         .HasColumnType("datetime2");
@@ -56,9 +56,61 @@ namespace CarPool.Data.Migrations
                     b.HasIndex("CityId");
 
                     b.ToTable("Addresses");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CityId = 1,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 784, DateTimeKind.Utc).AddTicks(620),
+                            IsDeleted = false,
+                            Latitude = 42.698334m,
+                            Longitude = 23.319941m,
+                            StreetName = "Vasil Levski 14"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CityId = 2,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 784, DateTimeKind.Utc).AddTicks(5764),
+                            IsDeleted = false,
+                            Latitude = 42.682073m,
+                            Longitude = 23.326622m,
+                            StreetName = "blv. Iztochen 23"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CityId = 3,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 784, DateTimeKind.Utc).AddTicks(5878),
+                            IsDeleted = false,
+                            Latitude = 42.698334m,
+                            Longitude = 23.254942m,
+                            StreetName = "blv. Halic 12"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CityId = 4,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 784, DateTimeKind.Utc).AddTicks(5888),
+                            IsDeleted = false,
+                            Latitude = 42.711242m,
+                            Longitude = 23.316655m,
+                            StreetName = "blv. Zeus 12"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CityId = 5,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 784, DateTimeKind.Utc).AddTicks(5893),
+                            IsDeleted = false,
+                            Latitude = 42.625045m,
+                            Longitude = 23.400539m,
+                            StreetName = "blv. Romunska Morava 1"
+                        });
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.ApplicationRole", b =>
+            modelBuilder.Entity("CarPool.Data.Models.DatabaseModels.ApplicationRole", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -85,7 +137,7 @@ namespace CarPool.Data.Migrations
                     b.ToTable("ApplicationRoles");
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.ApplicationUser", b =>
+            modelBuilder.Entity("CarPool.Data.Models.DatabaseModels.ApplicationUser", b =>
                 {
                     b.Property<Guid>("Id")
                         .ValueGeneratedOnAdd()
@@ -135,7 +187,7 @@ namespace CarPool.Data.Migrations
 
                     b.Property<string>("PhoneNumber")
                         .IsRequired()
-                        .HasColumnType("nvarchar(max)");
+                        .HasColumnType("nvarchar(450)");
 
                     b.Property<double>("Rating")
                         .HasColumnType("float");
@@ -153,12 +205,15 @@ namespace CarPool.Data.Migrations
                     b.HasIndex("Email")
                         .IsUnique();
 
+                    b.HasIndex("PhoneNumber")
+                        .IsUnique();
+
                     b.ToTable("ApplicationUsers");
 
                     b.HasCheckConstraint("Password_contains_space", "Password NOT LIKE '% %'");
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.City", b =>
+            modelBuilder.Entity("CarPool.Data.Models.DatabaseModels.City", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -192,9 +247,107 @@ namespace CarPool.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Cities");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CountryId = 1,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(6410),
+                            IsDeleted = false,
+                            Name = "Sofia"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CountryId = 1,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8306),
+                            IsDeleted = false,
+                            Name = "Plovdiv"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CountryId = 1,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8338),
+                            IsDeleted = false,
+                            Name = "Varna"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CountryId = 2,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8341),
+                            IsDeleted = false,
+                            Name = "Istanbul"
+                        },
+                        new
+                        {
+                            Id = 5,
+                            CountryId = 3,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8343),
+                            IsDeleted = false,
+                            Name = "Athens"
+                        },
+                        new
+                        {
+                            Id = 6,
+                            CountryId = 3,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8349),
+                            IsDeleted = false,
+                            Name = "Thessaloniki"
+                        },
+                        new
+                        {
+                            Id = 7,
+                            CountryId = 3,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8351),
+                            IsDeleted = false,
+                            Name = "Patras"
+                        },
+                        new
+                        {
+                            Id = 8,
+                            CountryId = 4,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8353),
+                            IsDeleted = false,
+                            Name = "Yash"
+                        },
+                        new
+                        {
+                            Id = 9,
+                            CountryId = 2,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8355),
+                            IsDeleted = false,
+                            Name = "Odrin"
+                        },
+                        new
+                        {
+                            Id = 10,
+                            CountryId = 2,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8358),
+                            IsDeleted = false,
+                            Name = "Ankara"
+                        },
+                        new
+                        {
+                            Id = 11,
+                            CountryId = 4,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8360),
+                            IsDeleted = false,
+                            Name = "Bucharest"
+                        },
+                        new
+                        {
+                            Id = 12,
+                            CountryId = 4,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8362),
+                            IsDeleted = false,
+                            Name = "Craiova"
+                        });
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.Country", b =>
+            modelBuilder.Entity("CarPool.Data.Models.DatabaseModels.Country", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -223,9 +376,39 @@ namespace CarPool.Data.Migrations
                         .IsUnique();
 
                     b.ToTable("Countries");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 781, DateTimeKind.Utc).AddTicks(8254),
+                            IsDeleted = false,
+                            Name = "Bulgaria"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 781, DateTimeKind.Utc).AddTicks(9966),
+                            IsDeleted = false,
+                            Name = "Turkey"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 781, DateTimeKind.Utc).AddTicks(9993),
+                            IsDeleted = false,
+                            Name = "Greece"
+                        },
+                        new
+                        {
+                            Id = 4,
+                            CreatedOn = new DateTime(2021, 11, 10, 22, 52, 0, 781, DateTimeKind.Utc).AddTicks(9996),
+                            IsDeleted = false,
+                            Name = "Romania"
+                        });
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.ProfilePicture", b =>
+            modelBuilder.Entity("CarPool.Data.Models.DatabaseModels.ProfilePicture", b =>
                 {
                     b.Property<Guid>("Id")
                         .HasColumnType("uniqueidentifier");
@@ -253,7 +436,7 @@ namespace CarPool.Data.Migrations
                     b.ToTable("ProfilePictures");
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.Rating", b =>
+            modelBuilder.Entity("CarPool.Data.Models.DatabaseModels.Rating", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -285,7 +468,7 @@ namespace CarPool.Data.Migrations
                     b.ToTable("Ratings");
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.TripPassenger", b =>
+            modelBuilder.Entity("CarPool.Data.Models.DatabaseModels.TripPassenger", b =>
                 {
                     b.Property<Guid>("ApplicationUserId")
                         .HasColumnType("uniqueidentifier");
@@ -312,7 +495,7 @@ namespace CarPool.Data.Migrations
                     b.ToTable("TripPassengers");
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.Trips", b =>
+            modelBuilder.Entity("CarPool.Data.Models.DatabaseModels.Trips", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -359,7 +542,7 @@ namespace CarPool.Data.Migrations
                         .HasColumnType("int");
 
                     b.Property<decimal>("Price")
-                        .HasColumnType("decimal(18,4)");
+                        .HasColumnType("decimal(18,2)");
 
                     b.Property<int>("StartAddressId")
                         .HasColumnType("int");
@@ -375,85 +558,85 @@ namespace CarPool.Data.Migrations
                     b.ToTable("Trips");
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.Address", b =>
+            modelBuilder.Entity("CarPool.Data.Models.DatabaseModels.Address", b =>
                 {
-                    b.HasOne("CarPool.Data.Models.City", "City")
+                    b.HasOne("CarPool.Data.Models.DatabaseModels.City", "City")
                         .WithMany("Addresses")
                         .HasForeignKey("CityId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.ApplicationUser", b =>
+            modelBuilder.Entity("CarPool.Data.Models.DatabaseModels.ApplicationUser", b =>
                 {
-                    b.HasOne("CarPool.Data.Models.Address", "Address")
+                    b.HasOne("CarPool.Data.Models.DatabaseModels.Address", "Address")
                         .WithMany("ApplicationUsers")
                         .HasForeignKey("AddressId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("CarPool.Data.Models.ApplicationRole", "ApplicationRole")
+                    b.HasOne("CarPool.Data.Models.DatabaseModels.ApplicationRole", "ApplicationRole")
                         .WithMany("ApplicationUsers")
                         .HasForeignKey("ApplicationRoleId");
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.City", b =>
+            modelBuilder.Entity("CarPool.Data.Models.DatabaseModels.City", b =>
                 {
-                    b.HasOne("CarPool.Data.Models.Country", "Country")
+                    b.HasOne("CarPool.Data.Models.DatabaseModels.Country", "Country")
                         .WithMany("Cities")
                         .HasForeignKey("CountryId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.ProfilePicture", b =>
+            modelBuilder.Entity("CarPool.Data.Models.DatabaseModels.ProfilePicture", b =>
                 {
-                    b.HasOne("CarPool.Data.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("CarPool.Data.Models.DatabaseModels.ApplicationUser", "ApplicationUser")
                         .WithOne("ProfilePicture")
-                        .HasForeignKey("CarPool.Data.Models.ProfilePicture", "ApplicationUserId")
+                        .HasForeignKey("CarPool.Data.Models.DatabaseModels.ProfilePicture", "ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.Rating", b =>
+            modelBuilder.Entity("CarPool.Data.Models.DatabaseModels.Rating", b =>
                 {
-                    b.HasOne("CarPool.Data.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("CarPool.Data.Models.DatabaseModels.ApplicationUser", "ApplicationUser")
                         .WithMany("Ratings")
                         .HasForeignKey("ApplicationUserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.TripPassenger", b =>
+            modelBuilder.Entity("CarPool.Data.Models.DatabaseModels.TripPassenger", b =>
                 {
-                    b.HasOne("CarPool.Data.Models.ApplicationUser", "ApplicationUser")
+                    b.HasOne("CarPool.Data.Models.DatabaseModels.ApplicationUser", "ApplicationUser")
                         .WithMany()
                         .HasForeignKey("ApplicationUserId")
                         .HasConstraintName("FK_TripPassengerRelation_ApplicationUsers")
                         .IsRequired();
 
-                    b.HasOne("CarPool.Data.Models.Trips", "Trip")
+                    b.HasOne("CarPool.Data.Models.DatabaseModels.Trips", "Trip")
                         .WithMany()
                         .HasForeignKey("TripId")
                         .HasConstraintName("FK_TripPassengerRelation_Trips")
                         .IsRequired();
                 });
 
-            modelBuilder.Entity("CarPool.Data.Models.Trips", b =>
+            modelBuilder.Entity("CarPool.Data.Models.DatabaseModels.Trips", b =>
                 {
-                    b.HasOne("CarPool.Data.Models.Address", "DestinationAddress")
+                    b.HasOne("CarPool.Data.Models.DatabaseModels.Address", "DestinationAddress")
                         .WithMany("TripsDestinationAddress")
                         .HasForeignKey("DestinationAddressId")
                         .HasConstraintName("FK_Trips_DestinationAddresses")
                         .IsRequired();
 
-                    b.HasOne("CarPool.Data.Models.ApplicationUser", "Driver")
+                    b.HasOne("CarPool.Data.Models.DatabaseModels.ApplicationUser", "Driver")
                         .WithMany("Trips")
                         .HasForeignKey("DriverId")
                         .HasConstraintName("FK_Trips_ApplicationUsers")
                         .IsRequired();
 
-                    b.HasOne("CarPool.Data.Models.Address", "StartAddress")
+                    b.HasOne("CarPool.Data.Models.DatabaseModels.Address", "StartAddress")
                         .WithMany("TripsStartAddress")
                         .HasForeignKey("StartAddressId")
                         .HasConstraintName("FK_Trips_StartAddresses")

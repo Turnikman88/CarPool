@@ -1,11 +1,10 @@
-﻿namespace CarPool.Data.Models
+﻿namespace CarPool.Data.Models.DatabaseModels
 {
+    using CarPool.Common;
+    using CarPool.Data.Common.Models;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-
-    using CarPool.Common;
-    using CarPool.Data.Common.Models;
 
     public class ApplicationUser : BaseDeletableModel<Guid>
     {

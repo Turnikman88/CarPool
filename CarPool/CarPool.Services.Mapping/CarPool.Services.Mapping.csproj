@@ -8,4 +8,8 @@
     <ProjectReference Include="..\CarPool.Common\CarPool.Common.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Mappers\" />
+  </ItemGroup>
+
 </Project>

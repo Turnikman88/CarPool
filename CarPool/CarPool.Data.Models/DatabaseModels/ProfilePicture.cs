@@ -1,8 +1,7 @@
-﻿namespace CarPool.Data.Models
+﻿namespace CarPool.Data.Models.DatabaseModels
 {
-    using System;
-    using System.Collections.Generic;
     using CarPool.Data.Common.Models;
+    using System;
 
     public class ProfilePicture : BaseModel<Guid>
     {
@@ -10,7 +9,7 @@
         {
             this.Id = Guid.NewGuid();
         }
-        
+
         public string ImageTitle { get; set; }
 
         public byte[] ImageData { get; set; }

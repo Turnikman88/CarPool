@@ -77,8 +77,8 @@ namespace CarPool.Data.Migrations
                     DeletedOn = table.Column<DateTime>(nullable: true),
                     CityId = table.Column<int>(nullable: false),
                     StreetName = table.Column<string>(nullable: false),
-                    Latitude = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
-                    Longitude = table.Column<decimal>(type: "decimal(18,4)", nullable: false)
+                    Latitude = table.Column<decimal>(type: "decimal(18,6)", nullable: false),
+                    Longitude = table.Column<decimal>(type: "decimal(18,6)", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -193,7 +193,7 @@ namespace CarPool.Data.Migrations
                     DepartureDate = table.Column<DateTime>(nullable: false),
                     ArrivalDate = table.Column<DateTime>(nullable: false),
                     Distance = table.Column<double>(nullable: false),
-                    Price = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     PassengersCount = table.Column<int>(nullable: false),
                     FreeSeats = table.Column<int>(nullable: false),
                     AdditionalComment = table.Column<string>(nullable: true)
@@ -248,6 +248,48 @@ namespace CarPool.Data.Migrations
                         onDelete: ReferentialAction.Restrict);
                 });
 
+            migrationBuilder.InsertData(
+                table: "Countries",
+                columns: new[] { "Id", "CreatedOn", "DeletedOn", "IsDeleted", "ModifiedOn", "Name" },
+                values: new object[,]
+                {
+                    { 1, new DateTime(2021, 11, 10, 22, 52, 0, 781, DateTimeKind.Utc).AddTicks(8254), null, false, null, "Bulgaria" },
+                    { 2, new DateTime(2021, 11, 10, 22, 52, 0, 781, DateTimeKind.Utc).AddTicks(9966), null, false, null, "Turkey" },
+                    { 3, new DateTime(2021, 11, 10, 22, 52, 0, 781, DateTimeKind.Utc).AddTicks(9993), null, false, null, "Greece" },
+                    { 4, new DateTime(2021, 11, 10, 22, 52, 0, 781, DateTimeKind.Utc).AddTicks(9996), null, false, null, "Romania" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Cities",
+                columns: new[] { "Id", "CountryId", "CreatedOn", "DeletedOn", "IsDeleted", "ModifiedOn", "Name" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(6410), null, false, null, "Sofia" },
+                    { 2, 1, new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8306), null, false, null, "Plovdiv" },
+                    { 3, 1, new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8338), null, false, null, "Varna" },
+                    { 4, 2, new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8341), null, false, null, "Istanbul" },
+                    { 9, 2, new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8355), null, false, null, "Odrin" },
+                    { 10, 2, new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8358), null, false, null, "Ankara" },
+                    { 5, 3, new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8343), null, false, null, "Athens" },
+                    { 6, 3, new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8349), null, false, null, "Thessaloniki" },
+                    { 7, 3, new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8351), null, false, null, "Patras" },
+                    { 8, 4, new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8353), null, false, null, "Yash" },
+                    { 11, 4, new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8360), null, false, null, "Bucharest" },
+                    { 12, 4, new DateTime(2021, 11, 10, 22, 52, 0, 783, DateTimeKind.Utc).AddTicks(8362), null, false, null, "Craiova" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Addresses",
+                columns: new[] { "Id", "CityId", "CreatedOn", "DeletedOn", "IsDeleted", "Latitude", "Longitude", "ModifiedOn", "StreetName" },
+                values: new object[,]
+                {
+                    { 1, 1, new DateTime(2021, 11, 10, 22, 52, 0, 784, DateTimeKind.Utc).AddTicks(620), null, false, 42.698334m, 23.319941m, null, "Vasil Levski 14" },
+                    { 2, 2, new DateTime(2021, 11, 10, 22, 52, 0, 784, DateTimeKind.Utc).AddTicks(5764), null, false, 42.682073m, 23.326622m, null, "blv. Iztochen 23" },
+                    { 3, 3, new DateTime(2021, 11, 10, 22, 52, 0, 784, DateTimeKind.Utc).AddTicks(5878), null, false, 42.698334m, 23.254942m, null, "blv. Halic 12" },
+                    { 4, 4, new DateTime(2021, 11, 10, 22, 52, 0, 784, DateTimeKind.Utc).AddTicks(5888), null, false, 42.711242m, 23.316655m, null, "blv. Zeus 12" },
+                    { 5, 5, new DateTime(2021, 11, 10, 22, 52, 0, 784, DateTimeKind.Utc).AddTicks(5893), null, false, 42.625045m, 23.400539m, null, "blv. Romunska Morava 1" }
+                });
+
             migrationBuilder.CreateIndex(
                 name: "IX_Addresses_CityId",
                 table: "Addresses",
@@ -267,6 +309,12 @@ namespace CarPool.Data.Migrations
                 name: "IX_ApplicationUsers_Email",
                 table: "ApplicationUsers",
                 column: "Email",
+                unique: true);
+
+            migrationBuilder.CreateIndex(
+                name: "IX_ApplicationUsers_PhoneNumber",
+                table: "ApplicationUsers",
+                column: "PhoneNumber",
                 unique: true);
 
             migrationBuilder.CreateIndex(

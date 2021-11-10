@@ -1,9 +1,6 @@
-﻿using CarPool.Data.Models;
+﻿using CarPool.Data.Models.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CarPool.Data.DataConfigurations
 {
@@ -35,7 +32,9 @@ namespace CarPool.Data.DataConfigurations
 
             builder.Property(e => e.PhoneNumber).IsRequired();
 
-            builder.HasQueryFilter(x => !x.IsDeleted);  
-        }    
+            builder.HasIndex(e => e.PhoneNumber).IsUnique();
+
+            builder.HasQueryFilter(x => !x.IsDeleted);
+        }
     }
 }

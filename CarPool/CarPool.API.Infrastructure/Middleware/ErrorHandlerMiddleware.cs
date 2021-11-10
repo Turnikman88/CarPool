@@ -1,4 +1,4 @@
-﻿using CarPool.Common;
+﻿using CarPool.Common.Exceptions;
 using Microsoft.AspNetCore.Http;
 using System;
 using System.Collections.Generic;
