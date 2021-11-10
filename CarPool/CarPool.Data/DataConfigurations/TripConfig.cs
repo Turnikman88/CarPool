@@ -13,6 +13,9 @@ namespace CarPool.Data.DataConfigurations
         {
             builder.HasIndex(x => x.DriverId);
 
+            builder.Property(p => p.Price)
+                        .HasColumnType("decimal(18,4)");
+
             builder.HasOne(d => d.DestinationAddress)
                     .WithMany(p => p.TripsDestinationAddress)
                     .HasForeignKey(d => d.DestinationAddressId)

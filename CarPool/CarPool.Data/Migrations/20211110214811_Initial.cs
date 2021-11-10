@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarPool.Data.Migrations
 {
-    public partial class plshelp : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -25,7 +25,7 @@ namespace CarPool.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Country",
+                name: "Countries",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -38,11 +38,11 @@ namespace CarPool.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Country", x => x.Id);
+                    table.PrimaryKey("PK_Countries", x => x.Id);
                 });
 
             migrationBuilder.CreateTable(
-                name: "City",
+                name: "Cities",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -56,11 +56,11 @@ namespace CarPool.Data.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_City", x => x.Id);
+                    table.PrimaryKey("PK_Cities", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_City_Country_CountryId",
+                        name: "FK_Cities_Countries_CountryId",
                         column: x => x.CountryId,
-                        principalTable: "Country",
+                        principalTable: "Countries",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -84,9 +84,9 @@ namespace CarPool.Data.Migrations
                 {
                     table.PrimaryKey("PK_Addresses", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Addresses_City_CityId",
+                        name: "FK_Addresses_Cities_CityId",
                         column: x => x.CityId,
-                        principalTable: "City",
+                        principalTable: "Cities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
@@ -192,6 +192,8 @@ namespace CarPool.Data.Migrations
                     DestinationAddressId = table.Column<int>(nullable: false),
                     DepartureDate = table.Column<DateTime>(nullable: false),
                     ArrivalDate = table.Column<DateTime>(nullable: false),
+                    Distance = table.Column<double>(nullable: false),
+                    Price = table.Column<decimal>(type: "decimal(18,4)", nullable: false),
                     PassengersCount = table.Column<int>(nullable: false),
                     FreeSeats = table.Column<int>(nullable: false),
                     AdditionalComment = table.Column<string>(nullable: true)
@@ -200,9 +202,21 @@ namespace CarPool.Data.Migrations
                 {
                     table.PrimaryKey("PK_Trips", x => x.Id);
                     table.ForeignKey(
+                        name: "FK_Trips_DestinationAddresses",
+                        column: x => x.DestinationAddressId,
+                        principalTable: "Addresses",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
                         name: "FK_Trips_ApplicationUsers",
                         column: x => x.DriverId,
                         principalTable: "ApplicationUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Restrict);
+                    table.ForeignKey(
+                        name: "FK_Trips_StartAddresses",
+                        column: x => x.StartAddressId,
+                        principalTable: "Addresses",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
@@ -256,19 +270,19 @@ namespace CarPool.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_City_CountryId",
-                table: "City",
+                name: "IX_Cities_CountryId",
+                table: "Cities",
                 column: "CountryId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_City_Name_CountryId",
-                table: "City",
+                name: "IX_Cities_Name_CountryId",
+                table: "Cities",
                 columns: new[] { "Name", "CountryId" },
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Country_Name",
-                table: "Country",
+                name: "IX_Countries_Name",
+                table: "Countries",
                 column: "Name",
                 unique: true);
 
@@ -294,9 +308,19 @@ namespace CarPool.Data.Migrations
                 column: "TripId");
 
             migrationBuilder.CreateIndex(
+                name: "IX_Trips_DestinationAddressId",
+                table: "Trips",
+                column: "DestinationAddressId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_Trips_DriverId",
                 table: "Trips",
                 column: "DriverId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Trips_StartAddressId",
+                table: "Trips",
+                column: "StartAddressId");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
@@ -323,10 +347,10 @@ namespace CarPool.Data.Migrations
                 name: "ApplicationRoles");
 
             migrationBuilder.DropTable(
-                name: "City");
+                name: "Cities");
 
             migrationBuilder.DropTable(
-                name: "Country");
+                name: "Countries");
         }
     }
 }

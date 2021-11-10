@@ -19,6 +19,10 @@ namespace CarPool.Data.Models
 
         public DateTime ArrivalDate { get; set; }
 
+        public double Distance { get; set; }
+
+        public decimal Price { get; set; }
+
         public int PassengersCount { get; set; }
 
         public int FreeSeats { get; set; }

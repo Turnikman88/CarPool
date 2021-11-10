@@ -191,7 +191,7 @@ namespace CarPool.Data.Migrations
                     b.HasIndex("Name", "CountryId")
                         .IsUnique();
 
-                    b.ToTable("City");
+                    b.ToTable("Cities");
                 });
 
             modelBuilder.Entity("CarPool.Data.Models.Country", b =>
@@ -222,7 +222,7 @@ namespace CarPool.Data.Migrations
                     b.HasIndex("Name")
                         .IsUnique();
 
-                    b.ToTable("Country");
+                    b.ToTable("Countries");
                 });
 
             modelBuilder.Entity("CarPool.Data.Models.ProfilePicture", b =>
@@ -340,6 +340,9 @@ namespace CarPool.Data.Migrations
                     b.Property<int>("DestinationAddressId")
                         .HasColumnType("int");
 
+                    b.Property<double>("Distance")
+                        .HasColumnType("float");
+
                     b.Property<Guid>("DriverId")
                         .HasColumnType("uniqueidentifier");
 
@@ -354,6 +357,9 @@ namespace CarPool.Data.Migrations
 
                     b.Property<int>("PassengersCount")
                         .HasColumnType("int");
+
+                    b.Property<decimal>("Price")
+                        .HasColumnType("decimal(18,4)");
 
                     b.Property<int>("StartAddressId")
                         .HasColumnType("int");
