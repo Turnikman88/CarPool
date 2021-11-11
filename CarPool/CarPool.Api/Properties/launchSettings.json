@@ -9,7 +9,7 @@
     }
   },
   "profiles": {
-    "DeliverIT.API": {
+    "CarPool.API": {
       "commandName": "Project",
       "launchBrowser": true,
       "launchUrl": "swagger/index.html",

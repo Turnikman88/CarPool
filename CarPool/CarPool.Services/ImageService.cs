@@ -1,19 +1,25 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
-using System.Text;
-using System.Drawing;
+using SixLabors.ImageSharp;
+using SixLabors.ImageSharp.Advanced;
+using SixLabors.ImageSharp.Formats;
+using SixLabors.ImageSharp.PixelFormats;
+
 namespace CarPool.Services
 {
     public class ImageService
     {
-        /*public byte[] ImageToByteArray(Image imageIn)
+/*        public static byte[] ConvertImageToByteArray(string imagePath)
         {
-            using (var ms = new MemoryStream())
+            byte[] imageByteArray = null;
+            FileStream fileStream = new FileStream(imagePath, FileMode.Open, FileAccess.Read);
+            using (BinaryReader reader = new BinaryReader(fileStream))
             {
-                imageIn.Save(ms, imageIn.RawFormat);
-                return ms.ToArray();
+                imageByteArray = new byte[reader.BaseStream.Length];
+                for (int i = 0; i; reader.BaseStream.Length; i++)
+                    imageByteArray[i] = reader.ReadByte();
             }
+            return imageByteArray;
         }*/
     }
 }

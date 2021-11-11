@@ -283,7 +283,6 @@ namespace CarPool.Data.Models.DAL
                 {
                     Id = 1,                   
                     ApplicationUserId = userId1,
-                    IsPermanentBlock = false,
                     BlockedOn = System.DateTime.Today,
                     BlockedDue = System.DateTime.Today.AddDays(5)
                 },
@@ -291,7 +290,7 @@ namespace CarPool.Data.Models.DAL
                 {
                     Id = 2,
                     ApplicationUserId = userId1,
-                    IsPermanentBlock = true
+                    BlockedOn = System.DateTime.Today
                 }
             };
 
