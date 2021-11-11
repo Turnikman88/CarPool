@@ -9,8 +9,8 @@ namespace CarPool.Data.Models.DatabaseModels
         public Address()
         {
             this.ApplicationUsers = new HashSet<ApplicationUser>();
-            this.TripsDestinationAddress = new HashSet<Trips>();
-            this.TripsStartAddress = new HashSet<Trips>();
+            this.TripsDestinationAddress = new HashSet<Trip>();
+            this.TripsStartAddress = new HashSet<Trip>();
         }
 
         public int CityId { get; set; }
@@ -25,8 +25,8 @@ namespace CarPool.Data.Models.DatabaseModels
 
         public virtual ICollection<ApplicationUser> ApplicationUsers { get; set; }
 
-        public virtual ICollection<Trips> TripsDestinationAddress { get; set; }
+        public virtual ICollection<Trip> TripsDestinationAddress { get; set; }
 
-        public virtual ICollection<Trips> TripsStartAddress { get; set; }
+        public virtual ICollection<Trip> TripsStartAddress { get; set; }
     }
 }

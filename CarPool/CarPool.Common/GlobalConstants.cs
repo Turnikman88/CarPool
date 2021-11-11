@@ -11,5 +11,9 @@
         public const string INVALID_EMAIL = "Invalid Email Address";
 
         public const string NO_FEEDBACK = "(No feedback)";
+
+        public const string NO_COMMENT = "(No comment)";
+
+        public const string NO_TITLE = "(No title)";
     }
 }

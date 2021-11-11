@@ -34,7 +34,7 @@
 
         public virtual DbSet<TripPassenger> TripPassengers { get; set; }
 
-        public virtual DbSet<Trips> Trips { get; set; }
+        public virtual DbSet<Trip> Trips { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

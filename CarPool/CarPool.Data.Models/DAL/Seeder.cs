@@ -289,13 +289,56 @@ namespace CarPool.Data.Models.DAL
                 },
                 new Ban
                 {
-                    Id = 1,
+                    Id = 2,
                     ApplicationUserId = userId1,
                     IsPermanentBlock = true
                 }
             };
 
-            db.Entity<Rating>().HasData(ratings);
+            db.Entity<Ban>().HasData(bans);
+
+            var trips = new List<Trip>()
+            {
+                new Trip
+                {
+                    Id = 1,
+                    DriverId = userId0,
+                    StartAddressId = 1,
+                    DestinationAddressId = 2,
+                    DepartureTime = DateTime.Now,
+                    ArrivalTime = DateTime.Now.AddHours(3),
+                    Distance = 340,
+                    PassengersCount = 2,
+                    FreeSeats = 2                    
+                },
+                new Trip
+                {
+                    Id = 2,
+                    DriverId = userId1,
+                    StartAddressId = 2,
+                    DestinationAddressId = 3,
+                    DepartureTime = DateTime.Now,
+                    ArrivalTime = DateTime.Now.AddHours(2),
+                    Distance = 240,
+                    PassengersCount = 1,
+                    FreeSeats = 2,
+                    AdditionalComment = "NO SMOKEING"
+                }
+            };
+
+            db.Entity<Trip>().HasData(trips);
+
+            var pictures = new List<ProfilePicture>()
+            {
+                new ProfilePicture
+                {
+                    Id = 1,
+                    ApplicationUserId = userId0,
+                    //ImageData = 
+                }
+            };
+
+            db.Entity<ProfilePicture>().HasData(pictures);
         }
     }
 }

@@ -10,7 +10,7 @@
     {
         public ApplicationUser()
         {
-            this.Trips = new HashSet<Trips>();
+            this.Trips = new HashSet<Trip>();
             this.Ratings = new HashSet<Rating>();
             this.Id = Guid.NewGuid();
         }
@@ -60,7 +60,7 @@
 
      // public virtual ICollection<Rating> RatingsGiven { get; set; }
 
-        public virtual ICollection<Trips> Trips { get; set; }
+        public virtual ICollection<Trip> Trips { get; set; }
 
     }
 }

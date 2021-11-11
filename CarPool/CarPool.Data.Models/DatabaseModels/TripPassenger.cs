@@ -10,7 +10,7 @@ namespace CarPool.Data.Models.DatabaseModels
 
         public ApplicationUser ApplicationUser { get; set; }
 
-        public Trips Trip { get; set; }
+        public Trip Trip { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

@@ -4,9 +4,9 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace CarPool.Data.DataConfigurations
 {
-    class TripConfig : IEntityTypeConfiguration<Trips>
+    class TripConfig : IEntityTypeConfiguration<Trip>
     {
-        public void Configure(EntityTypeBuilder<Trips> builder)
+        public void Configure(EntityTypeBuilder<Trip> builder)
         {
             builder.HasIndex(x => x.DriverId);
 
