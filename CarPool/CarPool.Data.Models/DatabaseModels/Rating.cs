@@ -1,5 +1,6 @@
 ﻿namespace CarPool.Data.Models.DatabaseModels
 {
+    using CarPool.Common;
     using CarPool.Data.Common.Models;
     using System;
 
@@ -11,9 +12,8 @@
 
         public int Value { get; set; }
 
-        public string Feedback { get; set; }
+        public string Feedback { get; set; } = GlobalConstants.NO_FEEDBACK;
 
         public virtual ApplicationUser ApplicationUser { get; set; }
-
     }
 }

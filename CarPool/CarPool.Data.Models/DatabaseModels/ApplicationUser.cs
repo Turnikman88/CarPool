@@ -42,9 +42,7 @@
         [Phone]
         public string PhoneNumber { get; set; }
 
-        public double Rating { get; set; }
-
-        public bool IsBlocked { get; set; }
+        //public double Rating { get; set; }
 
         public int AddressId { get; set; }
 
@@ -54,9 +52,13 @@
 
         public virtual ProfilePicture ProfilePicture { get; set; }
 
+        public virtual Ban Ban { get; set; }
+
         public virtual ApplicationRole ApplicationRole { get; set; }
 
         public virtual ICollection<Rating> Ratings { get; set; }
+
+     // public virtual ICollection<Rating> RatingsGiven { get; set; }
 
         public virtual ICollection<Trips> Trips { get; set; }
 

@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Services\" />
+    <PackageReference Include="AutoMapper.Extensions.Microsoft.DependencyInjection" Version="8.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\CarPool.Data\CarPool.Data.csproj" />
+    <ProjectReference Include="..\CarPool.Services.Mapping\CarPool.Services.Mapping.csproj" />
   </ItemGroup>
 
 </Project>

@@ -10,6 +10,16 @@ namespace CarPool.Data.Models.DAL
     {
         public static void Seed(this ModelBuilder db)
         {
+            var userId0 = Guid.NewGuid();
+
+            var userId1 = Guid.NewGuid();
+
+            var userId2 = Guid.NewGuid();
+
+            var userId3 = Guid.NewGuid();
+
+            var userId4 = Guid.NewGuid();
+
             var countries = new List<Country>()
             {
              new Country
@@ -159,6 +169,133 @@ namespace CarPool.Data.Models.DAL
             };
 
             db.Entity<Address>().HasData(addresses);
+
+            var roles = new List<ApplicationRole>()
+            {
+                new ApplicationRole
+                {
+                    Id = 1,
+                    Name = "Admin"
+                },
+                new ApplicationRole
+                {
+                    Id = 2,
+                    Name = "User"
+                }
+            };
+
+            db.Entity<ApplicationRole>().HasData(roles);
+
+            var ratings = new List<Rating>()
+            {
+                new Rating
+                {
+                    Id = 1,
+                    AddedByUserId = userId0,
+                    ApplicationUserId = userId1,
+                    Value = 4,
+                    Feedback = "Nice car"
+                },
+                new Rating
+                {
+                    Id = 2,
+                    AddedByUserId = userId1,
+                    ApplicationUserId = userId0,
+                    Value = 1,
+                    Feedback = "Bad person"
+                },
+                new Rating
+                {
+                    Id = 3,
+                    AddedByUserId = userId2,
+                    ApplicationUserId = userId3,
+                    Value = 5                    
+                }
+            };
+
+            db.Entity<Rating>().HasData(ratings);
+
+            var users = new List<ApplicationUser>()
+            {
+               new ApplicationUser
+                {
+                    Id = userId0,
+                    Username = "misha_m",
+                    FirstName = "Misho",
+                    LastName = "Mishkov",
+                    Email = "mishkov@misho.com",
+                    EmailConfirmed = true,
+                    Password = "12345678",
+                    PhoneNumber = "+35920768005",
+                    //Rating = 1,
+                    ApplicationRoleId = 2,
+                    AddressId = 1                    
+                },
+                new ApplicationUser
+                {
+                    Id = userId1,
+                    Username = "petio_p",
+                    EmailConfirmed = true,
+                    PhoneNumber = "+35924492877",
+                    //Rating = 3,
+                    ApplicationRoleId = 2,
+                    FirstName = "Peter",
+                    LastName = "Petrov",
+                    Email = "petio@mvc.net",
+                    Password = "123456789",
+                    AddressId = 2
+                },
+                new ApplicationUser
+                {
+                    Id = userId2,
+                    Username = "koksal",
+                    EmailConfirmed = true,
+                    PhoneNumber = "+35922649764",
+                    //Rating = 4,
+                    ApplicationRoleId = 2,
+                    FirstName = "Koksal",
+                    LastName = "Baba",
+                    Email = "koksal@asd.tr",
+                    Password = "1234567899",
+                    AddressId = 3
+                },
+                new ApplicationUser
+                {
+                    Id = userId3,
+                    Username = "cicibar",
+                    EmailConfirmed = true,
+                    PhoneNumber = "+35924775508",
+                    //Rating = 5,
+                    ApplicationRoleId = 2,
+                    FirstName = "Nikolaos",
+                    LastName = "Tsitsibaris",
+                    Email = "indebt@greece.gov",
+                    Password = "12345678999",
+                    AddressId = 4
+                }
+            };
+
+            db.Entity<ApplicationUser>().HasData(users);
+
+            var bans = new List<Ban>()
+            {
+                new Ban
+                {
+                    Id = 1,                   
+                    ApplicationUserId = userId1,
+                    IsPermanentBlock = false,
+                    BlockedOn = System.DateTime.Today,
+                    BlockedDue = System.DateTime.Today.AddDays(5)
+                },
+                new Ban
+                {
+                    Id = 1,
+                    ApplicationUserId = userId1,
+                    IsPermanentBlock = true
+                }
+            };
+
+            db.Entity<Rating>().HasData(ratings);
         }
     }
 }

@@ -3,13 +3,8 @@
     using CarPool.Data.Common.Models;
     using System;
 
-    public class ProfilePicture : BaseModel<Guid>
-    {
-        public ProfilePicture()
-        {
-            this.Id = Guid.NewGuid();
-        }
-
+    public class ProfilePicture : BaseModel<int>
+    {      
         public string ImageTitle { get; set; }
 
         public byte[] ImageData { get; set; }
