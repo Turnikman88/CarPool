@@ -16,10 +16,10 @@ namespace CarPool.Services.Data.Services
         private readonly CarPoolDBContext _db;
         private readonly ICheckExistenceService _check;
 
-        public CityService(CarPoolDBContext db, ICheckExistenceService _check)
+        public CityService(CarPoolDBContext db, ICheckExistenceService check)
         {
             this._db = db;
-            this._check = _check;
+            this._check = check;
         }
 
         public async Task<IEnumerable<CityDTO>> GetAsync()

@@ -19,6 +19,8 @@ namespace CarPool.Services.Mapping.DTOs
         public double Rating { get; set; }
 
         public IEnumerable<string> Feedbacks { get; set; }
+
+        public IEnumerable<string> Trips { get; set; }
     }
 }
 

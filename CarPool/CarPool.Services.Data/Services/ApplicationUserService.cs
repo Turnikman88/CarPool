@@ -1,26 +1,42 @@
 ﻿using AutoMapper;
 using CarPool.Data;
 using CarPool.Data.Models.DatabaseModels;
+using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
 
 namespace CarPool.Services.Data.Services
 {
-    public class ApplicationUserService
+    public class ApplicationUserService : IApplicationUserService
     {
         private readonly CarPoolDBContext _db;
-        private readonly IMapper _mapper;
 
-        public ApplicationUserService(CarPoolDBContext db, IMapper mapper)
+        public ApplicationUserService(CarPoolDBContext db)
         {
             this._db = db;
-            _mapper = mapper;
         }
-        public void test()
+
+        public Task<ApplicationUserDTO> DeleteAsync(int id)
         {
-            var a = this._mapper.Map<ApplicationUserDTO>(new ApplicationUser { });
+            throw new NotImplementedException();
+        }
+
+        public Task<IEnumerable<ApplicationUserDTO>> GetAsync()
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ApplicationUserDTO> PostAsync(ApplicationUserDTO obj)
+        {
+            throw new NotImplementedException();
+        }
+
+        public Task<ApplicationUserDTO> UpdateAsync(int id, ApplicationUserDTO obj)
+        {
+            throw new NotImplementedException();
         }
     }
 }

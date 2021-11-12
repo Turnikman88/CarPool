@@ -27,10 +27,15 @@
 
         public const string CITY_NOT_FOUND = "City not found";
 
+        public const string PROFILE_PICTURE_NOT_FOUND = "Profile picture not found";
+
         public const string INVALID_ID = "Invalid Id!";
 
         public const string COUNTRY_NOT_FOUND = "Country not found!";
 
         public const string COUNTRY_EXISTS = "Country with this name already exists!";
+
+        public const string PICTURE_EXISTS = "This picture is already on your profile!";
+
     }
 }

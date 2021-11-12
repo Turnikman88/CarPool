@@ -4,7 +4,7 @@
     using CarPool.Data.Common.Models;
     using System;
 
-    public class ProfilePicture : BaseModel<int>
+    public class ProfilePicture : BaseDeletableModel<int>
     {
         public string ImageTitle { get; set; } = GlobalConstants.NO_TITLE;
 

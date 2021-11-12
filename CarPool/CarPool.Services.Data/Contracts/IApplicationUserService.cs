@@ -5,7 +5,7 @@ using System.Text;
 
 namespace CarPool.Services.Data.Contracts
 {
-    public interface IApplicationUser : ICRUDshared<ApplicationUserDTO>
+    public interface IApplicationUserService : ICRUDshared<ApplicationUserDTO>
     {
 
     }
