@@ -27,6 +27,8 @@
 
         public const string CITY_NOT_FOUND = "City not found";
 
+        public const string TRIP_NOT_FOUND = "Trip not found";
+
         public const string PROFILE_PICTURE_NOT_FOUND = "Profile picture not found";
 
         public const string INVALID_ID = "Invalid Id!";

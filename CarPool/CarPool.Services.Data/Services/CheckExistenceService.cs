@@ -34,5 +34,11 @@ namespace CarPool.Services.Data.Contracts
         {
             return await _db.Addresses.AnyAsync(x => x.StreetName == addressStreet && x.City.Name == cityName && x.City.CountryId == countryId);
         }
+
+        public async Task<bool> FindAddressByIDAsync(int id)
+        {
+            return await _db.Addresses.AnyAsync(x => x.Id == id);
+
+        }
     }
 }
