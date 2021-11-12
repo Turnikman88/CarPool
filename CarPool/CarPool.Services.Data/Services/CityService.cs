@@ -77,7 +77,7 @@ namespace CarPool.Services.Data.Services
 
         public async Task<CityDTO> PostAsync(CityDTO obj)
         {
-            _ = await _check.CityExists(obj.Name, obj.CountryId)
+            _ = await _check.CityExistsAsync(obj.Name, obj.CountryId)
                 == true ? throw new AppException(GlobalConstants.CITY_EXISTS) : 0;
 
             CityDTO result = null;
@@ -105,7 +105,7 @@ namespace CarPool.Services.Data.Services
 
         public async Task<CityDTO> UpdateAsync(int id, CityDTO obj)
         {
-            _ = await _check.CityExists(obj.Name, obj.CountryId)
+            _ = await _check.CityExistsAsync(obj.Name, obj.CountryId)
                 == true ? throw new AppException(GlobalConstants.CITY_EXISTS) : 0;
             CheckId(id);
 
