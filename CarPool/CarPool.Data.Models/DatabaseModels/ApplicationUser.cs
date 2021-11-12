@@ -35,7 +35,7 @@
         [MinLength(8)]
         [DataType(DataType.Password)]
         [RegularExpression(
-            @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$",
+            GlobalConstants.PhoneRegex,
             ErrorMessage = GlobalConstants.PASSWORD_ERROR_MESSAGE)]
         public string Password { get; set; }
 

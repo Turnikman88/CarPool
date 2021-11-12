@@ -4,40 +4,48 @@ using CarPool.Common.Exceptions;
 using CarPool.Data.Models.DatabaseModels;
 using CarPool.Services.Mapping.DTOs;
 using System.Linq;
+using System.Text.RegularExpressions;
 
 namespace CarPool.Services.Mapping.Mappers
 {
     public static class CityDTOMapperExtension
     {
-        public static CityDTO GetDTO(this City city)
+        public static ApplicationUserDTO GetDTO(this ApplicationUser user)
         {
-            if (city is null || city.Name is null || city.Id <= 0 || city.CountryId <= 0 || city.Country.Name is null)
+            if (user is null || user.FirstName is null || user.LastName is null
+                || user.Username is null || user.Password is null || user.Email is null 
+                || !Regex.IsMatch(user.PhoneNumber, GlobalConstants.PhoneRegex))                
             {
                 throw new AppException(GlobalConstants.INCORRECT_DATA); ;
             }
 
-            return new CityDTO
+            return new ApplicationUserDTO
             {
-                Id = city.Id,
-                Name = city.Name,
-                CountryId = city.CountryId,
-                CountryName = city.Country.Name,
-                Addresses = city.Addresses.Select(x => x.StreetName).ToList()
+                Username = user.Username,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Rating = user.Ratings.Select(x => x.Value).ToList().Average(),
+                Feedbacks = user.Ratings.Select(x => x.Feedback).ToList(),
+                Trips = user.Trips.Select(x => $" Id:{x.Id} ")
             };
         }
 
-        public static City GetEntity(this CityDTO city)
+        public static ApplicationUser GetEntity(this ApplicationUserDTO ApplicationUser)
         {
-            if (city is null || city.Name is null || city.Id < 0 || city.CountryId <= 0)
+            if (ApplicationUser is null || ApplicationUser.FirstName is null || ApplicationUser.LastName is null
+                || ApplicationUser.Password is null || ApplicationUser.Email is null
+                || !Regex.IsMatch(ApplicationUser.PhoneNumber, GlobalConstants.PhoneRegex))
             {
                 throw new AppException(GlobalConstants.INCORRECT_DATA);
             }
 
-            return new City
+            return new ApplicationUser
             {
-                Id = city.Id,
-                Name = city.Name,
-                CountryId = city.CountryId
+                Id = ApplicationUser.Id,
+                Name = ApplicationUser.Name,
+                CountryId = ApplicationUser.CountryId
             };
         }
     }
