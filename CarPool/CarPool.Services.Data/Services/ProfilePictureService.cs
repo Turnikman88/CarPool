@@ -24,8 +24,12 @@ namespace CarPool.Services
         public async Task<ProfilePictureDTO> DeleteAsync(int id)
         {
             var picture = await this._db.ProfilePictures
-                .FirstOrDefaultAsync(x => x.Id == id)
-                ?? throw new AppException(GlobalConstants.PROFILE_PICTURE_NOT_FOUND);
+                .FirstOrDefaultAsync(x => x.Id == id);
+                
+            if (picture is null)
+            {
+                return new ProfilePictureDTO { ErrorMessage = GlobalConstants.PROFILE_PICTURE_NOT_FOUND };
+            }
 
             picture.DeletedOn = System.DateTime.Now;
             this._db.ProfilePictures.Remove(picture);
@@ -37,8 +41,10 @@ namespace CarPool.Services
 
         public async Task<ProfilePictureDTO> PostAsync(ProfilePictureDTO obj)
         {
-            _ = await _db.ProfilePictures.FirstOrDefaultAsync(x => x.ImageData == obj.ImageData) != null
-                ? throw new AppException(GlobalConstants.PICTURE_EXISTS) : 0;
+            if(await _db.ProfilePictures.FirstOrDefaultAsync(x => x.ImageData == obj.ImageData) != null)
+            {
+                return new ProfilePictureDTO { ErrorMessage = GlobalConstants.PICTURE_EXISTS };
+            }
 
             var newPicture = obj.GetEntity();
             var deletedPicture = await _db.ProfilePictures
@@ -64,17 +70,22 @@ namespace CarPool.Services
 
         public async Task<ProfilePictureDTO> UpdateAsync(int id, ProfilePictureDTO obj)
         {
-            _ = await _db.ProfilePictures.FirstOrDefaultAsync(x => x.ImageData == obj.ImageData) != null 
-                ? throw new AppException(GlobalConstants.PICTURE_EXISTS) : 0;
+            if(await _db.ProfilePictures.FirstOrDefaultAsync(x => x.ImageData == obj.ImageData) != null)
+            {
+                return new ProfilePictureDTO { ErrorMessage = GlobalConstants.PICTURE_EXISTS };
+            }
 
             if (obj.ImageData.Length == 0)
             {
-                throw new AppException(GlobalConstants.INCORRECT_DATA);
+                return new ProfilePictureDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
             }
 
             var picture = await this._db.ProfilePictures
-                .FirstOrDefaultAsync(x => x.Id == id)
-                ?? throw new AppException(GlobalConstants.PROFILE_PICTURE_NOT_FOUND);
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (picture is null)
+            {
+                return new ProfilePictureDTO { ErrorMessage = GlobalConstants.PROFILE_PICTURE_NOT_FOUND };
+            }
 
             picture.ImageData = obj.ImageData;
             await _db.SaveChangesAsync();

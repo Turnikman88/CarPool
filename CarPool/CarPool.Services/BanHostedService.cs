@@ -1,4 +1,4 @@
-﻿/*using CarPool.Services.Data.Contracts;
+﻿using CarPool.Services.Data.Contracts;
 using CarPool.Services.Data.Services;
 using Microsoft.Extensions.Hosting;
 using System;
@@ -51,4 +51,3 @@ namespace CarPool.Services
         }
 
     }
-*/

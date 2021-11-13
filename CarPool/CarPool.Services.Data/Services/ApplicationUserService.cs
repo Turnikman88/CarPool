@@ -43,8 +43,12 @@ namespace CarPool.Services.Data.Services
         public async Task<ApplicationUserDTO> DeleteAsync(Guid id)
         {
             var user = await _db.ApplicationUsers
-                .FirstOrDefaultAsync(x => x.Id == id)
-                ?? throw new AppException(GlobalConstants.USER_NOT_FOUND);
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (user is null)
+            {
+                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_NOT_FOUND };
+            }
 
             var userDTO = user.GetDTO();
 
@@ -82,7 +86,7 @@ namespace CarPool.Services.Data.Services
                 if (!IsValidUser(obj.Username, obj.Email,
                 obj.EmailConfirmed, obj.Password, obj.PhoneNumber))
                 {
-                    throw new AppException(GlobalConstants.INCORRECT_DATA);
+                    return new ApplicationUserDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
                 }
 
                 await _db.ApplicationUsers.AddAsync(newUser);
@@ -105,12 +109,17 @@ namespace CarPool.Services.Data.Services
 
         public async Task<ApplicationUserDTO> UpdateAsync(Guid id, ApplicationUserDTO obj)
         {
-            _ = await _db.ApplicationUsers.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Email == obj.Email)
-                != null ? throw new AppException(GlobalConstants.USER_EXISTS) : 0;
+            if (await _db.ApplicationUsers.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Email == obj.Email) != null)
+            {
+                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_EXISTS };
+            }
 
             var user = await _db.ApplicationUsers
-                .FirstOrDefaultAsync(x => x.Id == id)
-                ?? throw new AppException(GlobalConstants.USER_NOT_FOUND);
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (user is null)
+            {
+                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_NOT_FOUND };
+            }
 
             MapUser(obj, user);
 
@@ -122,8 +131,12 @@ namespace CarPool.Services.Data.Services
         public async Task<ApplicationUserDisplayDTO> BanUserAsync(Guid id, DateTime? due)
         {
             var user = await _db.ApplicationUsers
-               .FirstOrDefaultAsync(x => x.Id == id)
-               ?? throw new AppException(GlobalConstants.USER_NOT_FOUND);
+               .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (user is null)
+            {
+                return new ApplicationUserDisplayDTO { ErrorMessage = GlobalConstants.USER_NOT_FOUND };
+            }
 
             user.Ban.BlockedOn = DateTime.UtcNow.Date;
             user.Ban.BlockedDue = due;
