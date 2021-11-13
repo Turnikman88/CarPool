@@ -1,4 +1,5 @@
-﻿using System;
+﻿using CarPool.Common;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
@@ -14,13 +15,12 @@ namespace CarPool.Services.Mapping.DTOs
 
         public string Email { get; set; }
 
+        public bool EmailConfirmed { get; set; }
+
         public string PhoneNumber { get; set; }
-
-        public double Rating { get; set; }
-
-        public IEnumerable<string> Feedbacks { get; set; }
-
-        public IEnumerable<string> Trips { get; set; }
+             
+        public string Password { get; set; }
+        
     }
 }
 

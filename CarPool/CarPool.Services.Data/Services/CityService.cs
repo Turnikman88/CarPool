@@ -22,11 +22,12 @@ namespace CarPool.Services.Data.Services
             this._check = check;
         }
 
-        public async Task<IEnumerable<CityDTO>> GetAsync()
+        public async Task<IEnumerable<CityDTO>> GetAsync(int page)
         {
             return await this._db.Cities
                 .Include(x => x.Addresses)
                 .Include(x => x.Country)
+                .Skip(page * GlobalConstants.PageSkip)
                 .Select(x => x.GetDTO())
                 .ToListAsync();
         }
@@ -55,22 +56,24 @@ namespace CarPool.Services.Data.Services
             return city.GetDTO();
         }
 
-        public async Task<IEnumerable<CityDTO>> GetCitiesByNameAsync(string name)
+        public async Task<IEnumerable<CityDTO>> GetCitiesByNameAsync(int page, string name)
         {
             return await this._db.Cities
                 .Include(x => x.Addresses)
                 .Include(x => x.Country)
                 .Where(x=>x.Name.ToLower().Contains(name.ToLower()))
+                .Skip(page * GlobalConstants.PageSkip)
                 .Select(x => x.GetDTO())
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<CityDTO>> GetCitiesByCountryNameAsync(string name)
+        public async Task<IEnumerable<CityDTO>> GetCitiesByCountryNameAsync(int page, string name)
         {
             return await this._db.Cities
                 .Include(x => x.Addresses)
                 .Include(x => x.Country)
                 .Where(x => x.Country.Name.ToLower().Contains(name.ToLower()))
+                .Skip(page * GlobalConstants.PageSkip)
                 .Select(x => x.GetDTO())
                 .ToListAsync();
         }
