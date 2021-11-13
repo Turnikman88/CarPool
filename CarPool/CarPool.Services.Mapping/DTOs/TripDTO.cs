@@ -1,11 +1,12 @@
 ﻿using CarPool.Common;
+using CarPool.Services.Mapping.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CarPool.Services.Mapping.DTOs
 {
-    public class TripDTO
+    public class TripDTO : IErrorMessage
     {
         public string DriverId { get; set; }
 
@@ -48,5 +49,7 @@ namespace CarPool.Services.Mapping.DTOs
         public List<string> PassengersNameID { get; set; } = new List<string>();
 
         public string AdditionalComment { get; set; } = GlobalConstants.NO_COMMENT;
+
+        public string ErrorMessage { get; set; }
     }
 }

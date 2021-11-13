@@ -1,10 +1,11 @@
-﻿using System;
+﻿using CarPool.Services.Mapping.Contracts;
+using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CarPool.Services.Mapping.DTOs
 {
-    public class AddressDTO
+    public class AddressDTO : IErrorMessage
     {
         public int CityId { get; set; }
 
@@ -19,5 +20,7 @@ namespace CarPool.Services.Mapping.DTOs
         public decimal Latitude { get; set; }
 
         public decimal Longitude { get; set; }
+        public string ErrorMessage { get; set; }
+
     }
 }

@@ -28,7 +28,7 @@ namespace CarPool.Services.Mapping.Mappers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                EmailConfirmed = user.EmailConfirmed,
+                EmailConfirmed = user.EmailConfirmed, //?
                 PhoneNumber = user.PhoneNumber,
                 Password = user.Password                             
             };

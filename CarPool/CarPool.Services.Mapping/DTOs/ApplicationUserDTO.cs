@@ -1,11 +1,12 @@
 ﻿using CarPool.Common;
+using CarPool.Services.Mapping.Contracts;
 using System;
 using System.Collections.Generic;
 using System.Text;
 
 namespace CarPool.Services.Mapping.DTOs
 {
-    public class ApplicationUserDTO
+    public class ApplicationUserDTO : IErrorMessage
     {
         public string Username { get; set; }
 
@@ -20,7 +21,7 @@ namespace CarPool.Services.Mapping.DTOs
         public string PhoneNumber { get; set; }
              
         public string Password { get; set; }
-        
+        public string ErrorMessage { get; set; }
     }
 }
 

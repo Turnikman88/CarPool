@@ -25,7 +25,7 @@ namespace CarPool.Services.Data.Services
             this._db = db;
         }
 
-        public async Task<IEnumerable<ApplicationUserDisplayDTO>> FilterUsers(int page, string part)
+        public async Task<IEnumerable<ApplicationUserDisplayDTO>> FilterUsersAsync(int page, string part)
         {
             return await _db.ApplicationUsers.Where(x => x.Email.Contains(part) 
             || x.PhoneNumber.Contains(part) 
@@ -119,7 +119,7 @@ namespace CarPool.Services.Data.Services
             return user.GetDTO();
         }
 
-        public async Task<ApplicationUserDisplayDTO> BanUser(Guid id, DateTime? due)
+        public async Task<ApplicationUserDisplayDTO> BanUserAsync(Guid id, DateTime? due)
         {
             var user = await _db.ApplicationUsers
                .FirstOrDefaultAsync(x => x.Id == id)
@@ -133,7 +133,7 @@ namespace CarPool.Services.Data.Services
             return user.GetDisplayDTO();
         }
 
-        public async Task RemoveBan()
+        public async Task RemoveBanAsync()
         {
             await _db.ApplicationUsers.Include(x => x.Ban)
                 .Where(x => x.Ban.BlockedDue < DateTime.UtcNow.Date)
