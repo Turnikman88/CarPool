@@ -35,13 +35,12 @@
         [MinLength(8)]
         [DataType(DataType.Password)]
         [RegularExpression(
-            GlobalConstants.PhoneRegex,
+            GlobalConstants.PassRegex,
             ErrorMessage = GlobalConstants.PASSWORD_ERROR_MESSAGE)]
         public string Password { get; set; }
 
         [Phone]
         public string PhoneNumber { get; set; }
-
 
         public int AddressId { get; set; }
 

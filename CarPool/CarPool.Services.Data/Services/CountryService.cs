@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
-
+using JW;
 namespace CarPool.Services.Data.Services
 {
     public class CountryService : ICountryService
@@ -37,20 +37,24 @@ namespace CarPool.Services.Data.Services
                 .FirstOrDefaultAsync() ?? throw new AppException(GlobalConstants.COUNTRY_NOT_FOUND);
         }
 
-        public async Task<IEnumerable<CountryDTO>> GetCountriesByPartNameAsync(string part)
+        public async Task<IEnumerable<CountryDTO>> GetCountriesByPartNameAsync(int page, string part)
         {
             return await _db.Countries
                 .Where(x => x.Name.Contains(part))
                 .Include(c => c.Cities)
+                .Skip(page * GlobalConstants.PageSkip)
                 .Select(x => x.GetDTO())
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<CountryDTO>> GetAsync()
+        public async Task<IEnumerable<CountryDTO>> GetAsync(int page)
         {
+            
             return await _db.Countries
                 .Include(c => c.Cities)
+                .Skip(page * GlobalConstants.PageSkip)
                 .Select(x => x.GetDTO())
+                .Take(10)
                 .ToListAsync();
         }              
     }

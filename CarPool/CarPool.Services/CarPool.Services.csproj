@@ -6,11 +6,13 @@
 
   <ItemGroup>
     <PackageReference Include="MailKit" Version="2.15.0" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="6.0.0" />
     <PackageReference Include="MimeKit" Version="2.15.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\CarPool.Common\CarPool.Common.csproj" />
+    <ProjectReference Include="..\CarPool.Services.Data\CarPool.Services.Data.csproj" />
     <ProjectReference Include="..\CarPool.Services.Mapping\CarPool.Services.Mapping.csproj" />
   </ItemGroup>
 

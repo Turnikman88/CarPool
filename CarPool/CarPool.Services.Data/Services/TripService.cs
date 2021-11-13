@@ -28,10 +28,11 @@ namespace CarPool.Services.Data.Services
             _country = country;
         }
 
-        public async Task<IEnumerable<TripDTO>> GetAsync()
+        public async Task<IEnumerable<TripDTO>> GetAsync(int page)
         {
             return await this._db.Trips.Include(x => x.Driver)
                                  .Include(x => x.StartAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
+                                 .Skip(page * GlobalConstants.PageSkip)
                                  .Select(x => x.GetDTO()).ToListAsync();
         }
 
