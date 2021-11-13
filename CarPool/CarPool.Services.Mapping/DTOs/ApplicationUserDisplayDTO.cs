@@ -25,8 +25,6 @@ namespace CarPool.Services.Mapping.DTOs
 
         public bool IsBlocked { get; set; }
 
-        public string BlockedDue { get; set; } = GlobalConstants.
-
         public IEnumerable<string> Feedbacks { get; set; }
 
         public IEnumerable<string> Trips { get; set; }

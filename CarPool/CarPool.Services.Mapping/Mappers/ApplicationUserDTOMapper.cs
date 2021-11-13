@@ -78,7 +78,8 @@ namespace CarPool.Services.Mapping.Mappers
                 Trips = user.Trips.Select(x => $"Start Location: {x.StartAddress}, End Location: {x.DestinationAddress}, Price: {x.Price}" +
                 $"Start: {x.DepartureTime.ToShortDateString()}"),
                 Vehicle = user.Vehicle.Model,
-                VehicleColor = user.Vehicle.Color
+                VehicleColor = user.Vehicle.Color,
+                IsBlocked = user.Ban.BlockedOn == null ? false : true,               
             };
         }
     }

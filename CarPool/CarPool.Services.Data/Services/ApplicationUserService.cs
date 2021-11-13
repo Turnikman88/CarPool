@@ -25,7 +25,7 @@ namespace CarPool.Services.Data.Services
             this._db = db;
         }
 
-        public async Task<IEnumerable<ApplicationUserDisplayDTO>> FilterUsers(string part)
+        public async Task<IEnumerable<ApplicationUserDisplayDTO>> FilterUsers(int page, string part)
         {
             return await _db.ApplicationUsers.Where(x => x.Email.Contains(part) 
             || x.PhoneNumber.Contains(part) 
@@ -34,6 +34,8 @@ namespace CarPool.Services.Data.Services
                 .Include(x => x.Ratings)
                 .Include(x => x.Trips)
                 .Include(x => x.Vehicle)
+                .Include(x => x.Ban)
+                .Skip(page * GlobalConstants.PageSkip)
                 .Select(x => x.GetDisplayDTO())
                 .ToListAsync();
         }
@@ -60,6 +62,8 @@ namespace CarPool.Services.Data.Services
                 .Include(x => x.Ratings)
                 .Include(x => x.Trips)
                 .Include(x => x.Vehicle)
+                .Include(x => x.Ban)
+                .Skip(page * GlobalConstants.PageSkip)
                 .Select(x => x.GetDisplayDTO())
                 .ToListAsync();
         }
@@ -115,9 +119,27 @@ namespace CarPool.Services.Data.Services
             return user.GetDTO();
         }
 
-        public async Task<ApplicationUserDisplayDTO> BlockUser()
+        public async Task<ApplicationUserDisplayDTO> BanUser(Guid id, DateTime? due)
         {
+            var user = await _db.ApplicationUsers
+               .FirstOrDefaultAsync(x => x.Id == id)
+               ?? throw new AppException(GlobalConstants.USER_NOT_FOUND);
 
+            user.Ban.BlockedOn = DateTime.UtcNow.Date;
+            user.Ban.BlockedDue = due;
+
+            await _db.SaveChangesAsync();
+
+            return user.GetDisplayDTO();
+        }
+
+        public async Task RemoveBan()
+        {
+            await _db.ApplicationUsers.Include(x => x.Ban)
+                .Where(x => x.Ban.BlockedDue < DateTime.UtcNow.Date)
+                .ForEachAsync(x => { x.Ban.BlockedOn = null; x.Ban.BlockedDue = null; });
+
+            await _db.SaveChangesAsync();            
         }
 
         private static void MapUser(ApplicationUserDTO obj, ApplicationUser user)
