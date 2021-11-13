@@ -36,6 +36,8 @@
 
         public virtual DbSet<Trip> Trips { get; set; }
 
+        public virtual DbSet<UserVehicle> UserVehicles { get; set; }
+
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);

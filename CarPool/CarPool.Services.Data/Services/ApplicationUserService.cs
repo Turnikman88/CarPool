@@ -26,7 +26,9 @@ namespace CarPool.Services.Data.Services
 
         public async Task<IEnumerable<ApplicationUserDTO>> GetAsync()
         {
-            return await _db.ApplicationUsers.
+            //return await _db.ApplicationUsers.
+            throw new NotImplementedException();
+
         }
 
         public Task<ApplicationUserDTO> PostAsync(ApplicationUserDTO obj)

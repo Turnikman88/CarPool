@@ -42,7 +42,6 @@
         [Phone]
         public string PhoneNumber { get; set; }
 
-        //public double Rating { get; set; }
 
         public int AddressId { get; set; }
 
@@ -58,7 +57,9 @@
 
         public virtual ICollection<Rating> Ratings { get; set; }
 
-     // public virtual ICollection<Rating> RatingsGiven { get; set; }
+        // public virtual ICollection<Rating> RatingsGiven { get; set; }
+
+        public UserVehicle Vehicle { get; set; }
 
         public virtual ICollection<Trip> Trips { get; set; }
 

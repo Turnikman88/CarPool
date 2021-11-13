@@ -11,6 +11,12 @@ namespace CarPool.Services.Mapping.DTOs
 
         public string DriverName { get; set; }
 
+        public string DriverVehicle { get; set; }
+
+        public string DriverVehicleColor { get; set; }
+
+        public string DriverPhonenumber { get; set; }
+
         public int StartAddressId { get; set; }
 
         public string StartAddressCity { get; set; }
@@ -39,7 +45,7 @@ namespace CarPool.Services.Mapping.DTOs
 
         public int FreeSeats { get; set; }
 
-        //public Dictionary<string,string> PassengersNameID { get; set; }
+        public List<string> PassengersNameID { get; set; } = new List<string>();
 
         public string AdditionalComment { get; set; } = GlobalConstants.NO_COMMENT;
     }

@@ -14,6 +14,9 @@ namespace CarPool.Services.Mapping.Mappers
             {
                 DriverId = trip.DriverId.ToString(),
                 DriverName = $"{trip.Driver.FirstName} {trip.Driver.LastName}",
+                DriverPhonenumber = trip.Driver.PhoneNumber,
+                DriverVehicle = trip.Driver.Vehicle.Model,
+                DriverVehicleColor = trip.Driver.Vehicle.Color,
                 StartAddressId = trip.StartAddressId,
                 StartAddressCountry = trip.StartAddress.City.Country.Name,
                 StartAddressCity = trip.StartAddress.City.Name,
@@ -36,6 +39,15 @@ namespace CarPool.Services.Mapping.Mappers
         {
             return new Trip
             {
+                StartAddressId = tripDTO.StartAddressId,
+                DestinationAddressId = tripDTO.DestinationAddressId,
+                DepartureTime = tripDTO.DepartureTime,
+                ArrivalTime = tripDTO.ArrivalTime,
+                Distance = tripDTO.Distance,
+                FreeSeats = tripDTO.FreeSeats,
+                PassengersCount = tripDTO.PassengersCount,
+                Price = tripDTO.Price,
+                AdditionalComment = tripDTO.AdditionalComment
             };
         }
     }
