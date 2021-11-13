@@ -2,6 +2,7 @@
 using CarPool.Services.Mapping.DTOs;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Text;
 
 namespace CarPool.Services.Mapping.Mappers
@@ -31,7 +32,11 @@ namespace CarPool.Services.Mapping.Mappers
                 FreeSeats = trip.FreeSeats,
                 PassengersCount = trip.PassengersCount,
                 Price = trip.Price,
-                AdditionalComment = trip.AdditionalComment
+                AdditionalComment = trip.AdditionalComment,
+                PassengersNameID = trip.Passengers
+                                       .Where(p => p.TripId == trip.Id)
+                                       .Select(x=>x.ApplicationUser.FirstName + x.ApplicationUser.LastName + " " + x.ApplicationUserId)
+                                       .ToList()
             };
         }
 

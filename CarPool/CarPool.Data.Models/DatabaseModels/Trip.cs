@@ -1,11 +1,17 @@
 ﻿using CarPool.Common;
 using CarPool.Data.Common.Models;
 using System;
+using System.Collections.Generic;
 
 namespace CarPool.Data.Models.DatabaseModels
 {
     public class Trip : BaseModel<int>
     {
+        public Trip()
+        {
+            Passengers = new HashSet<TripPassenger>();
+        }
+
         public Guid DriverId { get; set; }
 
         public int StartAddressId { get; set; }
@@ -23,6 +29,8 @@ namespace CarPool.Data.Models.DatabaseModels
         public int PassengersCount { get; set; }
 
         public int FreeSeats { get; set; }
+
+        public virtual ICollection<TripPassenger> Passengers { get; set; }
 
         public string AdditionalComment { get; set; } = GlobalConstants.NO_COMMENT;
 
