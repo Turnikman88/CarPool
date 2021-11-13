@@ -4,7 +4,7 @@ using System;
 
 namespace CarPool.Data.Models.DatabaseModels
 {
-    public class Trip : BaseDeletableModel<int>
+    public class Trip : BaseModel<int>
     {
         public Guid DriverId { get; set; }
 
