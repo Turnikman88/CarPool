@@ -49,13 +49,6 @@ namespace CarPool.Services.Data.Services
 
         public async Task<TripDTO> PostAsync(TripDTO obj)
         {
-            _ = await _check.FindAddressByIDAsync(obj.StartAddressId)
-                == true ? throw new AppException(GlobalConstants.ADDRESS_EXISTS) : 0;
-
-            _ = await _check.FindAddressByIDAsync(obj.DestinationAddressId)
-                == true ? throw new AppException(GlobalConstants.ADDRESS_EXISTS) : 0;
-
-
             var post = obj.GetModel();
 
             await this._db.Trips.AddAsync(post);
@@ -66,12 +59,6 @@ namespace CarPool.Services.Data.Services
 
         public async Task<TripDTO> UpdateAsync(int id, TripDTO obj)
         {
-            _ = await _check.FindAddressByIDAsync(obj.StartAddressId)
-                == true ? throw new AppException(GlobalConstants.ADDRESS_EXISTS) : 0;
-
-            _ = await _check.FindAddressByIDAsync(obj.DestinationAddressId)
-                == true ? throw new AppException(GlobalConstants.ADDRESS_EXISTS) : 0;
-
             _check.CheckId(id);
 
             var toUpdate = await this._db.Trips.Include(x=> x.StartAddress)
@@ -101,7 +88,11 @@ namespace CarPool.Services.Data.Services
         {
             _check.CheckId(id);
 
-            var trip = await this._db.Trips.FirstOrDefaultAsync(x => x.Id == id) ?? throw new AppException(GlobalConstants.TRIP_NOT_FOUND);
+            var trip = await this._db.Trips.FirstOrDefaultAsync(x => x.Id == id) //?? throw new AppException(GlobalConstants.TRIP_NOT_FOUND);
+
+            if (trip is null)
+                return new TripDTO() { ErrorMessage = GlobalConstants.TRIP_NOT_FOUND };
+
             this._db.Trips.Remove(trip);
             await _db.SaveChangesAsync();
 

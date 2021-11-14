@@ -42,15 +42,23 @@ namespace CarPool.Services.Data.Services
         public async Task<AddressDTO> GetByIdAsync(int id)
         {
             _check.CheckId(id);
-            var result = await _db.Addresses.Include(c => c.City).ThenInclude(c => c.Country).FirstOrDefaultAsync(x=>x.Id == id);
-            return result != null ? result.GetDTO() : throw new AppException(GlobalConstants.ADDRESS_NOT_FOUND);
+
+            var result = await _db.Addresses
+                .Include(c => c.City)
+                .ThenInclude(c => c.Country)
+                .FirstOrDefaultAsync(x=>x.Id == id);
+
+            return result != null ? result.GetDTO() : new AddressDTO() { ErrorMessage = GlobalConstants.ADDRESS_NOT_FOUND };
         }
 
 
         public async Task<AddressDTO> PostAsync(AddressDTO obj)
         {
-            _ = await _check.AddressExistsAsync(obj.StreetName, obj.CityName, obj.CountryId) 
-                == true ? throw new AppException(GlobalConstants.ADDRESS_EXISTS) : 0;
+            if(!await _check.AddressExistsAsync(obj.StreetName, obj.CityName, obj.CountryId))
+                return new AddressDTO() { ErrorMessage = GlobalConstants.ADDRESS_EXISTS };
+
+            //_ = await _check.AddressExistsAsync(obj.StreetName, obj.CityName, obj.CountryId) 
+            //    == true ? throw new AppException(GlobalConstants.ADDRESS_EXISTS) : 0;
 
             AddressDTO result = null;
 
@@ -98,8 +106,11 @@ namespace CarPool.Services.Data.Services
         {
             _check.CheckId(id);
 
-            var address = await this._db.Addresses.FirstOrDefaultAsync(x => x.Id == id) ?? throw new AppException(GlobalConstants.ADDRESS_NOT_FOUND);
-
+            var address = await this._db.Addresses.FirstOrDefaultAsync(x => x.Id == id); //?? throw new AppException(GlobalConstants.ADDRESS_NOT_FOUND);
+            
+            if(address is null)
+                return new AddressDTO() { ErrorMessage = GlobalConstants.ADDRESS_NOT_FOUND };
+            
             address.DeletedOn = System.DateTime.UtcNow;
             await _db.SaveChangesAsync();
 
