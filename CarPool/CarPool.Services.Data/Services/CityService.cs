@@ -34,12 +34,14 @@ namespace CarPool.Services.Data.Services
 
         public async Task<CityDTO> GetCityByIdAsync(int id)
         {
-            CheckId(id);
+            _check.CheckId(id);
             var city = await _db.Cities
                 .Include(x => x.Addresses)
                 .Include(x => x.Country)
-                .FirstOrDefaultAsync(x => x.Id == id)
-                ?? throw new AppException(GlobalConstants.CITY_NOT_FOUND);
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (city is null)
+                return new CityDTO() { ErrorMessage = GlobalConstants.CITY_NOT_FOUND };
 
             return city.GetDTO();
         }
@@ -50,8 +52,10 @@ namespace CarPool.Services.Data.Services
             var city = await _db.Cities
                 .Include(x => x.Addresses)
                 .Include(x => x.Country)
-                .FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower())
-                ?? throw new AppException(GlobalConstants.CITY_NOT_FOUND);
+                .FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
+
+            if (city is null)
+                return new CityDTO() { ErrorMessage = GlobalConstants.CITY_NOT_FOUND };
 
             return city.GetDTO();
         }
@@ -61,7 +65,7 @@ namespace CarPool.Services.Data.Services
             return await this._db.Cities
                 .Include(x => x.Addresses)
                 .Include(x => x.Country)
-                .Where(x=>x.Name.ToLower().Contains(name.ToLower()))
+                .Where(x => x.Name.ToLower().Contains(name.ToLower()))
                 .Skip(page * GlobalConstants.PageSkip)
                 .Select(x => x.GetDTO())
                 .ToListAsync();
@@ -80,8 +84,11 @@ namespace CarPool.Services.Data.Services
 
         public async Task<CityDTO> PostAsync(CityDTO obj)
         {
-            _ = await _check.CityExistsAsync(obj.Name, obj.CountryId)
-                == true ? throw new AppException(GlobalConstants.CITY_EXISTS) : 0;
+            // _ = await _check.CityExistsAsync(obj.Name, obj.CountryId)
+            //     == true ? throw new AppException(GlobalConstants.CITY_EXISTS) : 0;
+
+            if (await _check.CityExistsAsync(obj.Name, obj.CountryId))
+                return new CityDTO() { ErrorMessage = GlobalConstants.CITY_EXISTS };
 
             CityDTO result = null;
 
@@ -108,20 +115,23 @@ namespace CarPool.Services.Data.Services
 
         public async Task<CityDTO> UpdateAsync(int id, CityDTO obj)
         {
-            _ = await _check.CityExistsAsync(obj.Name, obj.CountryId)
-                == true ? throw new AppException(GlobalConstants.CITY_EXISTS) : 0;
-            CheckId(id);
+            _check.CheckId(id);
+
+            if (await _check.CityExistsAsync(obj.Name, obj.CountryId))
+                return new CityDTO() { ErrorMessage = GlobalConstants.CITY_EXISTS };
+
 
             var city = await this._db.Cities
                 .Include(x => x.Addresses)
                 .Include(x => x.Country)
-                .FirstOrDefaultAsync(x => x.Id == id)
-                ?? throw new AppException(GlobalConstants.CITY_NOT_FOUND);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
-            if (obj.Name == null)
-            {
-                throw new AppException(GlobalConstants.INCORRECT_DATA);
-            }
+            if (city is null)
+                return new CityDTO() { ErrorMessage = GlobalConstants.CITY_NOT_FOUND };
+
+            if (obj.Name is null)
+                return new CityDTO() { ErrorMessage = GlobalConstants.INCORRECT_DATA };
+
 
             city.Name = obj.Name;
             city.CountryId = obj.CountryId;
@@ -132,13 +142,15 @@ namespace CarPool.Services.Data.Services
 
         public async Task<CityDTO> DeleteAsync(int id)
         {
-            CheckId(id);
+            _check.CheckId(id);
 
             var city = await this._db.Cities
                 .Include(x => x.Addresses)
                 .Include(x => x.Country)
-                .FirstOrDefaultAsync(x => x.Id == id)
-                ?? throw new AppException(GlobalConstants.CITY_NOT_FOUND);
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (city is null)
+                return new CityDTO() { ErrorMessage = GlobalConstants.CITY_NOT_FOUND };
 
             city.DeletedOn = System.DateTime.Now;
             this._db.Cities.Remove(city);
@@ -146,13 +158,6 @@ namespace CarPool.Services.Data.Services
 
             return city.GetDTO();
         }
-        
-        private static void CheckId(int id)
-        {
-            if (id <= 0)
-            {
-                throw new AppException(GlobalConstants.INVALID_ID);
-            }
-        }
+
     }
 }
