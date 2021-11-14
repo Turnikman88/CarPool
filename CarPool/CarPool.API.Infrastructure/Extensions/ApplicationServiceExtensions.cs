@@ -27,7 +27,6 @@ namespace CarPool.API.Extensions
             services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IProfilePictureService, ProfilePictureService>();
 
-            //services.AddSingleton<IBanService, BanService>();
             services.AddHostedService<BanHostedService>();
             // services.AddScoped<I, >();
 

@@ -8,6 +8,11 @@ namespace CarPool.Services.Mapping.DTOs
 {
     public class ApplicationUserDisplayDTO : IErrorMessage
     {
+        public ApplicationUserDisplayDTO()
+        {
+            this.Vehicle = GlobalConstants.NO_CAR_AVAILABLE;
+            this.VehicleColor = GlobalConstants.NO_CAR_AVAILABLE;
+        }
         public string Username { get; set; }
 
         public string Email { get; set; }
@@ -20,9 +25,9 @@ namespace CarPool.Services.Mapping.DTOs
 
         public decimal Longitude { get; set; }
 
-        public string Vehicle { get; set; } = GlobalConstants.NO_CAR_AVAILABLE;
+        public string Vehicle { get; set; } 
 
-        public string VehicleColor { get; set; } = GlobalConstants.NO_CAR_AVAILABLE;
+        public string VehicleColor { get; set; } 
 
         public bool IsBlocked { get; set; }
 

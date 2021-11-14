@@ -16,7 +16,7 @@ namespace CarPool.Services.Mapping.Mappers
         {
             if (user is null || user.Username is null || user.FirstName is null 
                 || user.LastName is null || user.Email is null 
-                || !Regex.IsMatch(user.PhoneNumber, GlobalConstants.PassRegex)               
+                || !Regex.IsMatch(user.PhoneNumber, GlobalConstants.PhoneRegex)               
                 || user.Password is null)
             {
                 throw new AppException(GlobalConstants.INCORRECT_DATA); ;
@@ -38,7 +38,7 @@ namespace CarPool.Services.Mapping.Mappers
         {
             if (user is null || user.Username is null || user.FirstName is null
                 || user.LastName is null || user.Email is null
-                || !Regex.IsMatch(user.PhoneNumber, GlobalConstants.PassRegex)
+                || !Regex.IsMatch(user.PhoneNumber, GlobalConstants.PhoneRegex)
                 || user.Password is null)
             {
                 throw new AppException(GlobalConstants.INCORRECT_DATA); ;
@@ -60,7 +60,7 @@ namespace CarPool.Services.Mapping.Mappers
         {
             if (user is null || user.Username is null || user.FirstName is null
                 || user.LastName is null || user.Email is null
-                || !Regex.IsMatch(user.PhoneNumber, GlobalConstants.PassRegex)
+                || !Regex.IsMatch(user.PhoneNumber, GlobalConstants.PhoneRegex)
                 || user.Password is null)
             {
                 throw new AppException(GlobalConstants.INCORRECT_DATA); ;
@@ -75,11 +75,12 @@ namespace CarPool.Services.Mapping.Mappers
                 Longitude = user.Address.Longitude,
                 Rating = user.Ratings.Select(x => x.Value).ToList().Average(),
                 Feedbacks = user.Ratings.Select(x => x.Feedback).ToList(),
-                Trips = user.Trips.Select(x => $"Start Location: {x.StartAddress}, End Location: {x.DestinationAddress}, Price: {x.Price}" +
+                Trips = user.Trips.Select(x => $"Start Location: {x.StartAddress.StreetName} " +
+                $", End Location: {x.DestinationAddress.StreetName}, Price: {x.Price}" +
                 $"Start: {x.DepartureTime.ToShortDateString()}"),
-                Vehicle = user.Vehicle.Model,
-                VehicleColor = user.Vehicle.Color,
-                IsBlocked = user.Ban.BlockedOn == null ? false : true,               
+                Vehicle = user.Vehicle?.Model ?? GlobalConstants.NO_CAR_AVAILABLE,
+                VehicleColor = user.Vehicle?.Color ?? GlobalConstants.NO_CAR_AVAILABLE,
+                IsBlocked = user.Ban?.BlockedOn == null ? false : true,               
             };
         }
     }

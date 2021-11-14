@@ -27,7 +27,7 @@ namespace CarPool.Services.Data.Services
 
         public async Task<IEnumerable<ApplicationUserDisplayDTO>> FilterUsersAsync(int page, string part)
         {
-            return await _db.ApplicationUsers.Where(x => x.Email.Contains(part) 
+            var a = await _db.ApplicationUsers.Where(x => x.Email.Contains(part) 
             || x.PhoneNumber.Contains(part) 
             || x.Username.Contains(part))
                 .Include(x => x.Address)
@@ -39,6 +39,7 @@ namespace CarPool.Services.Data.Services
                 .Take(10)
                 .Select(x => x.GetDisplayDTO())
                 .ToListAsync();
+            return a;
         }
 
         public async Task<ApplicationUserDTO> DeleteAsync(Guid id)
