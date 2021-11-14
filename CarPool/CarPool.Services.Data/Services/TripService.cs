@@ -33,6 +33,7 @@ namespace CarPool.Services.Data.Services
             return await this._db.Trips.Include(x => x.Driver)
                                  .Include(x => x.StartAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
                                  .Skip(page * GlobalConstants.PageSkip)
+                                 .Take(10)
                                  .Select(x => x.GetDTO()).ToListAsync();
         }
 
@@ -88,7 +89,7 @@ namespace CarPool.Services.Data.Services
         {
             _check.CheckId(id);
 
-            var trip = await this._db.Trips.FirstOrDefaultAsync(x => x.Id == id) //?? throw new AppException(GlobalConstants.TRIP_NOT_FOUND);
+            var trip = await this._db.Trips.FirstOrDefaultAsync(x => x.Id == id); //?? throw new AppException(GlobalConstants.TRIP_NOT_FOUND);
 
             if (trip is null)
                 return new TripDTO() { ErrorMessage = GlobalConstants.TRIP_NOT_FOUND };

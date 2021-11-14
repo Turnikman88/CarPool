@@ -28,6 +28,7 @@ namespace CarPool.Services.Data.Services
                 .Include(x => x.Addresses)
                 .Include(x => x.Country)
                 .Skip(page * GlobalConstants.PageSkip)
+                .Take(10)
                 .Select(x => x.GetDTO())
                 .ToListAsync();
         }
@@ -67,6 +68,7 @@ namespace CarPool.Services.Data.Services
                 .Include(x => x.Country)
                 .Where(x => x.Name.ToLower().Contains(name.ToLower()))
                 .Skip(page * GlobalConstants.PageSkip)
+                .Take(10)
                 .Select(x => x.GetDTO())
                 .ToListAsync();
         }
@@ -78,6 +80,7 @@ namespace CarPool.Services.Data.Services
                 .Include(x => x.Country)
                 .Where(x => x.Country.Name.ToLower().Contains(name.ToLower()))
                 .Skip(page * GlobalConstants.PageSkip)
+                .Take(10)
                 .Select(x => x.GetDTO())
                 .ToListAsync();
         }

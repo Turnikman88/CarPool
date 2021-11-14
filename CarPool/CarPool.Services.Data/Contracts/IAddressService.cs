@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace CarPool.Services.Data.Contracts
 {
-    interface IAddressService : ICRUDshared<AddressDTO>
+    public interface IAddressService : ICRUDshared<AddressDTO>
     {
         Task<AddressDTO> GetByIdAsync(int id);
     }

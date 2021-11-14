@@ -23,6 +23,11 @@ namespace CarPool.API.Extensions
             services.AddSingleton<IMailSettings, MailSettings>();
             services.AddTransient<IMailService, MailService>();
             services.AddScoped<IApplicationUserService, ApplicationUserService>();
+            services.AddScoped<ITripService, TripService>();
+            services.AddScoped<IAddressService, AddressService>();
+            services.AddScoped<IProfilePictureService, ProfilePictureService>();
+
+            //services.AddSingleton<IBanService, BanService>();
             services.AddHostedService<BanHostedService>();
             // services.AddScoped<I, >();
 

@@ -25,7 +25,7 @@ namespace CarPool.Services.Data.Services
                 .Where(x => x.Id == id)
                 .Include(c => c.Cities)
                 .Select(x => x.GetDTO())
-                .FirstOrDefaultAsync() ?? new CountryDTO { ErrorMessage = GlobalConstants.COUNTRY_NOT_FOUND };
+                .FirstOrDefaultAsync() ?? throw new AppException(GlobalConstants.COUNTRY_NOT_FOUND);
         }
 
         public async Task<CountryDTO> GetCountryByNameAsync(string name)
@@ -34,7 +34,7 @@ namespace CarPool.Services.Data.Services
                 .Include(c => c.Cities)
                 .Where(x => x.Name == name)
                 .Select(x => x.GetDTO())
-                .FirstOrDefaultAsync() ?? new CountryDTO { ErrorMessage = GlobalConstants.COUNTRY_NOT_FOUND };
+                .FirstOrDefaultAsync() ?? throw new AppException(GlobalConstants.COUNTRY_NOT_FOUND);
         }
 
         public async Task<IEnumerable<CountryDTO>> GetCountriesByPartNameAsync(int page, string part)
@@ -43,6 +43,7 @@ namespace CarPool.Services.Data.Services
                 .Where(x => x.Name.Contains(part))
                 .Include(c => c.Cities)
                 .Skip(page * GlobalConstants.PageSkip)
+                .Take(10)
                 .Select(x => x.GetDTO())
                 .ToListAsync();
         }

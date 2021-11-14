@@ -33,10 +33,10 @@ namespace CarPool.Services.Mapping.Mappers
                 PassengersCount = trip.PassengersCount,
                 Price = trip.Price,
                 AdditionalComment = trip.AdditionalComment,
-                PassengersNameID = trip.Passengers
+                /*PassengersNameID = trip.Passengers
                                        .Where(p => p.TripId == trip.Id)
                                        .Select(x=>x.ApplicationUser.FirstName + x.ApplicationUser.LastName + " " + x.ApplicationUserId)
-                                       .ToList()
+                                       .ToList()*/
             };
         }
 
