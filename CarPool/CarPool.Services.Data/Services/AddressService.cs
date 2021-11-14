@@ -29,9 +29,14 @@ namespace CarPool.Services.Data.Services
             _country = country;
         }
 
-        public async Task<IEnumerable<AddressDTO>> GetAsync()
+        public async Task<IEnumerable<AddressDTO>> GetAsync(int page)
         {
-            return await _db.Addresses.Include(c => c.City).ThenInclude(c => c.Country).Select(x=>x.GetDTO()).ToListAsync();
+            return await _db.Addresses
+                .Include(c => c.City)
+                .ThenInclude(c => c.Country)
+                .Skip(page * GlobalConstants.PageSkip)
+                .Take(10)
+                .Select(x=>x.GetDTO()).ToListAsync();
         }
 
         public async Task<AddressDTO> GetByIdAsync(int id)

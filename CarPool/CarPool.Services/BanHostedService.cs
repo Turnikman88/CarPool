@@ -11,13 +11,12 @@ namespace CarPool.Services
 {
     public class BanHostedService : IHostedService, IDisposable
     {
-        private int executionCount = 0;
         private Timer _timer = null!;
-        IApplicationUserService _us;
+        private readonly IApplicationUserService _us;
 
-        public BanHostedService(IApplicationUserService us)
+        public BanHostedService()
         {
-            this._us = us;
+           // this._us = us;
         }
 
         public Task StartAsync(CancellationToken stoppingToken)
@@ -28,18 +27,14 @@ namespace CarPool.Services
             return Task.CompletedTask;
         }
 
-        private async Task DoWork(object? state)
+        private async void DoWork(object? state)
         {
-            var count = Interlocked.Increment(ref executionCount);
-
-            _logger.LogInformation(
-                "Timed Hosted Service is working. Count: {Count}", count);
+            // await _us.RemoveBanAsync();
+            await Task.Run(() => Console.WriteLine("work"));
         }
 
         public Task StopAsync(CancellationToken stoppingToken)
         {
-            _logger.LogInformation("Timed Hosted Service is stopping.");
-
             _timer?.Change(Timeout.Infinite, 0);
 
             return Task.CompletedTask;
@@ -51,3 +46,4 @@ namespace CarPool.Services
         }
 
     }
+}
