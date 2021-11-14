@@ -13,6 +13,7 @@
             this.Trips = new HashSet<Trip>();
             this.Ratings = new HashSet<Rating>();
             this.Id = Guid.NewGuid();
+            this.TripsAsPassenger = new HashSet<TripPassenger>();
         }
 
         [MinLength(2)]
@@ -61,6 +62,8 @@
         public UserVehicle Vehicle { get; set; }
 
         public virtual ICollection<Trip> Trips { get; set; }
+
+        public virtual ICollection<TripPassenger> TripsAsPassenger { get; set; }
 
     }
 }

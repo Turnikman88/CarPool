@@ -7,10 +7,11 @@ namespace CarPool.Data.Models.DatabaseModels
 {
     public class Trip : BaseModel<int>
     {
-/*        public Trip()
+        public Trip()
         {
             Passengers = new HashSet<TripPassenger>();
-        }*/
+            this.AdditionalComment = GlobalConstants.NO_COMMENT;
+        }
 
         public Guid DriverId { get; set; }
 
@@ -30,9 +31,9 @@ namespace CarPool.Data.Models.DatabaseModels
 
         public int FreeSeats { get; set; }
 
-        //public virtual ICollection<TripPassenger> Passengers { get; set; }
+        public virtual ICollection<TripPassenger> Passengers { get; set; }
 
-        public string AdditionalComment { get; set; } = GlobalConstants.NO_COMMENT;
+        public string AdditionalComment { get; set; } 
 
         public virtual ApplicationUser Driver { get; set; }
 

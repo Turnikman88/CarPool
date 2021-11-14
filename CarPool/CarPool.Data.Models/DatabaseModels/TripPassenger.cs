@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace CarPool.Data.Models.DatabaseModels
 {
@@ -6,12 +7,11 @@ namespace CarPool.Data.Models.DatabaseModels
     {
         public int TripId { get; set; }
 
+        public Trip Trip { get; set; }
+
         public Guid ApplicationUserId { get; set; }
 
         public virtual ApplicationUser ApplicationUser { get; set; }
-
-        public Trip Trip { get; set; }
-        public Trip TripTest { get; set; }
 
         public DateTime CreatedOn { get; set; }
 

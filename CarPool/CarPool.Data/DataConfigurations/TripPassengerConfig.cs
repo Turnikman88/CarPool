@@ -8,16 +8,16 @@ namespace CarPool.Data.DataConfigurations
     {
         public void Configure(EntityTypeBuilder<TripPassenger> builder)
         {
-            builder.HasNoKey();
+            builder.HasKey(k => new { k.ApplicationUserId, k.TripId });
 
             builder.HasOne(d => d.ApplicationUser)
-                .WithMany()
+                .WithMany(x=>x.TripsAsPassenger)
                 .HasForeignKey(d => d.ApplicationUserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TripPassengerRelation_ApplicationUsers");
 
             builder.HasOne(d => d.Trip)
-                .WithMany()
+                .WithMany(x=>x.Passengers)
                 .HasForeignKey(d => d.TripId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TripPassengerRelation_Trips");
