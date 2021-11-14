@@ -19,9 +19,10 @@ namespace CarPool.API.Extensions
                 options => options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ICityService, CityService>();
+            services.AddScoped<ICheckExistenceService, CheckExistenceService>();
             services.AddSingleton<IMailSettings, MailSettings>();
             services.AddTransient<IMailService, MailService>();
-            //services.AddScoped<IApplicationUserService, ApplicationUserService>();
+            services.AddScoped<IApplicationUserService, ApplicationUserService>();
             services.AddHostedService<BanHostedService>();
             // services.AddScoped<I, >();
 

@@ -22,15 +22,16 @@ namespace CarPool.Services
         public Task StartAsync(CancellationToken stoppingToken)
         {
             _timer = new Timer(DoWork, null, TimeSpan.Zero,
-                TimeSpan.FromSeconds(5));
+                TimeSpan.FromDays(1));
 
             return Task.CompletedTask;
         }
 
+#pragma warning disable CS8632 
         private async void DoWork(object? state)
         {
-            // await _us.RemoveBanAsync();
-            await Task.Run(() => Console.WriteLine("work"));
+             await _us.RemoveBanAsync();
+            //await Task.Run(() => Console.WriteLine("work"));
         }
 
         public Task StopAsync(CancellationToken stoppingToken)

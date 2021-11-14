@@ -17,6 +17,7 @@
     <ProjectReference Include="..\CarPool.Data.Common\CarPool.Data.Common.csproj" />
     <ProjectReference Include="..\CarPool.Data.Models\CarPool.Data.Models.csproj" />
     <ProjectReference Include="..\CarPool.Data\CarPool.Data.csproj" />
+    <ProjectReference Include="..\CarPool.Services.Data\CarPool.Services.Data.csproj" />
   </ItemGroup>
 
   <ItemGroup>
