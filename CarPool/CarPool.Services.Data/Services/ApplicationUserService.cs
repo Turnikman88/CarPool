@@ -70,6 +70,24 @@ namespace CarPool.Services.Data.Services
                 .ToListAsync();
         }
 
+        public async Task<ApplicationUserDTO> GetUserByEmailAsync(string email)
+        {
+            var user = await _db.ApplicationUsers
+                .Include(x => x.Address)
+                .Include(x => x.Ratings)
+                .Include(x => x.Trips)
+                .Include(x => x.Vehicle)
+                .Include(x => x.Ban).FirstOrDefaultAsync(x=>x.Email == email);
+
+            if(user is null)
+            {
+                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_NOT_FOUND };
+            }
+
+            return user.GetDTO();
+
+        }
+
         public async Task<ApplicationUserDTO> PostAsync(ApplicationUserDTO obj)
         {
             ApplicationUserDTO result = null;

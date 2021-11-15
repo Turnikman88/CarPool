@@ -5,9 +5,10 @@ using System.Text;
 
 namespace CarPool.Services.Mapping.DTOs
 {
-    public class BanDTO
+    public class BanDTO : IErrorMessage
     {
         public int Id { get; set; }
+
         public DateTime? BlockedOn { get; set; }
 
         public DateTime? BlockedDue { get; set; }
@@ -15,5 +16,9 @@ namespace CarPool.Services.Mapping.DTOs
         public Guid ApplicationUserId { get; set; }
 
         public string Reason { get; set; }
+
+        public string ErrorMessage { get; set; }
+
+        public string BanRemovedMessage { get; set; }
     }
 }

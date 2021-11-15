@@ -61,7 +61,7 @@ namespace CarPool.Services.Data.Services
             return city.GetDTO();
         }
 
-        public async Task<IEnumerable<CityDTO>> GetCitiesByNameAsync(int page, string name)
+        public async Task<IEnumerable<CityDTO>> GetCitiesByPartNameAsync(int page, string name)
         {
             return await this._db.Cities
                 .Include(x => x.Addresses)

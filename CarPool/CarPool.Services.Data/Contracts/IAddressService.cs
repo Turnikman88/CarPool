@@ -8,6 +8,6 @@ namespace CarPool.Services.Data.Contracts
 {
     public interface IAddressService : ICRUDshared<AddressDTO>
     {
-        Task<AddressDTO> GetByIdAsync(int id);
+        Task<AddressDTO> GetAddressByIdAsync(int id);
     }
 }

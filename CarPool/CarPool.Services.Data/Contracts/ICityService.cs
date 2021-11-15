@@ -8,7 +8,7 @@ namespace CarPool.Services.Data.Contracts
     {
         Task<CityDTO> GetCityByIdAsync(int id);
         Task<CityDTO> GetCityByNameAsync(string name);
-        Task<IEnumerable<CityDTO>> GetCitiesByNameAsync(int page, string name);
+        Task<IEnumerable<CityDTO>> GetCitiesByPartNameAsync(int page, string name);
         Task<IEnumerable<CityDTO>> GetCitiesByCountryNameAsync(int page, string name);
     }
 }

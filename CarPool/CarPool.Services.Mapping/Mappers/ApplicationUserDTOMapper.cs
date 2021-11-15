@@ -24,11 +24,13 @@ namespace CarPool.Services.Mapping.Mappers
 
             return new ApplicationUserDTO
             {
+                Id = user.Id,
                 Username = user.Username,
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
                 EmailConfirmed = user.EmailConfirmed, //?
+                IsBlocked = user.Ban?.BlockedOn == null ? false : true,
                 PhoneNumber = user.PhoneNumber,
                 Password = user.Password                             
             };

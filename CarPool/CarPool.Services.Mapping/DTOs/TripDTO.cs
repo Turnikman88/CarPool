@@ -8,6 +8,7 @@ namespace CarPool.Services.Mapping.DTOs
 {
     public class TripDTO : IErrorMessage
     {
+        public int Id { get; set; }
         public string DriverId { get; set; }
 
         public string DriverName { get; set; }

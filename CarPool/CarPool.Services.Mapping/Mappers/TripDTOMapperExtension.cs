@@ -13,6 +13,7 @@ namespace CarPool.Services.Mapping.Mappers
         {
             return new TripDTO
             {
+                Id = trip.Id,
                 DriverId = trip.DriverId.ToString(),
                 DriverName = $"{trip.Driver.FirstName} {trip.Driver.LastName}",
                 DriverPhonenumber = trip.Driver.PhoneNumber,

@@ -10,6 +10,7 @@ namespace CarPool.Services.Data.Contracts
     {
         Task<IEnumerable<ApplicationUserDisplayDTO>> FilterUsersAsync(int page, string part);
         Task<IEnumerable<ApplicationUserDisplayDTO>> GetAsync(int page);
+        Task<ApplicationUserDTO> GetUserByEmailAsync(string email);
         Task<ApplicationUserDTO> PostAsync(ApplicationUserDTO obj);
         Task<ApplicationUserDTO> UpdateAsync(Guid id, ApplicationUserDTO obj);
         Task<ApplicationUserDTO> DeleteAsync(Guid id);

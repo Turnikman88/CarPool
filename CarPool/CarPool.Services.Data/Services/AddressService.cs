@@ -39,7 +39,7 @@ namespace CarPool.Services.Data.Services
                 .Select(x=>x.GetDTO()).ToListAsync();
         }
 
-        public async Task<AddressDTO> GetByIdAsync(int id)
+        public async Task<AddressDTO> GetAddressByIdAsync(int id)
         {
             _check.CheckId(id);
 
@@ -86,7 +86,7 @@ namespace CarPool.Services.Data.Services
 
         public async Task<AddressDTO> UpdateAsync(int id, AddressDTO obj)
         {
-            var model = await GetByIdAsync(id);
+            var model = await GetAddressByIdAsync(id);
             var addressToUpdate = model.GetModel();
             var city = _city.GetCityByNameAsync(obj.CityName);
             var country = _country.GetCountryByNameAsync(obj.CountryName);
