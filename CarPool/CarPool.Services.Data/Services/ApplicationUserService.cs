@@ -27,19 +27,19 @@ namespace CarPool.Services.Data.Services
 
         public async Task<IEnumerable<ApplicationUserDisplayDTO>> FilterUsersAsync(int page, string part)
         {
-            var a = await _db.ApplicationUsers.Where(x => x.Email.Contains(part) 
+            return await _db.ApplicationUsers.Where(x => x.Email.Contains(part) 
             || x.PhoneNumber.Contains(part) 
             || x.Username.Contains(part))
                 .Include(x => x.Address)
                 .Include(x => x.Ratings)
                 .Include(x => x.Trips)
+                    .ThenInclude(x => x.DestinationAddress)
                 .Include(x => x.Vehicle)
                 .Include(x => x.Ban)
                 .Skip(page * GlobalConstants.PageSkip)
                 .Take(10)
                 .Select(x => x.GetDisplayDTO())
                 .ToListAsync();
-            return a;
         }
 
         public async Task<ApplicationUserDTO> DeleteAsync(Guid id)
@@ -62,6 +62,7 @@ namespace CarPool.Services.Data.Services
                 .Include(x => x.Address)
                 .Include(x => x.Ratings)
                 .Include(x => x.Trips)
+                    .ThenInclude(x => x.DestinationAddress)
                 .Include(x => x.Vehicle)
                 .Include(x => x.Ban)
                 .Skip(page * GlobalConstants.PageSkip)

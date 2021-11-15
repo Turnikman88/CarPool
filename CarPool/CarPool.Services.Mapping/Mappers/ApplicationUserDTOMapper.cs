@@ -78,7 +78,7 @@ namespace CarPool.Services.Mapping.Mappers
                 Rating = user.Ratings.Select(x => x.Value).ToList().Average(),
                 Feedbacks = user.Ratings.Select(x => x.Feedback).ToList(),
                 Trips = user.Trips.Select(x => $"Start Location: {x.StartAddress.StreetName} " +
-                $", End Location: {x.DestinationAddress.StreetName}, Price: {x.Price}" +
+                $", End Location: {x.DestinationAddress.StreetName}, Price: {x.Price} " +
                 $"Start: {x.DepartureTime.ToShortDateString()}"),
                 Vehicle = user.Vehicle?.Model ?? GlobalConstants.NO_CAR_AVAILABLE,
                 VehicleColor = user.Vehicle?.Color ?? GlobalConstants.NO_CAR_AVAILABLE,
