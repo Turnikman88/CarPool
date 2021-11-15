@@ -33,20 +33,27 @@ namespace CarPool.Services.Data.Services
 
         public async Task<IEnumerable<TripDTO>> GetAsync(int page)
         {
-            return await this._db.Trips.Include(x => x.Driver)
+            var result = await this._db.Trips.Include(x => x.Driver).ThenInclude(x => x.Vehicle)
                                  .Include(x => x.StartAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
+                                 .Include(x => x.DestinationAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
+                                 .Include(x => x.Passengers).ThenInclude(x => x.Trip)
+                                 .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser)
                                  .Skip(page * GlobalConstants.PageSkip)
                                  .Take(10)
                                  .Select(x => x.GetDTO()).ToListAsync();
+            return result;
         }
 
         public async Task<TripDTO> GetTripByIDAsync(int id)
         {
             _check.CheckId(id);
 
-            var result = await this._db.Trips.Include(x => x.Driver)
+            var result = await this._db.Trips.Include(x => x.Driver).ThenInclude(x => x.Vehicle)
                                  .Include(x => x.StartAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
-                                 .FirstOrDefaultAsync(x=>x.Id == id);
+                                 .Include(x => x.DestinationAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
+                                 .Include(x => x.Passengers).ThenInclude(x => x.Trip)
+                                 .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser)
+                                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return result != null ? result.GetDTO() : new TripDTO() { ErrorMessage = (GlobalConstants.TRIP_NOT_FOUND) };
         }
@@ -65,8 +72,11 @@ namespace CarPool.Services.Data.Services
         {
             _check.CheckId(id);
 
-            var toUpdate = await this._db.Trips.Include(x => x.StartAddress)
-                                               .Include(x => x.DestinationAddress)
+            var toUpdate = await this._db.Trips.Include(x => x.Driver).ThenInclude(x => x.Vehicle)
+                                 .Include(x => x.StartAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
+                                 .Include(x => x.DestinationAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
+                                 .Include(x => x.Passengers).ThenInclude(x => x.Trip)
+                                 .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser)
                                                .FirstOrDefaultAsync(x => x.Id == id);
 
             if (toUpdate is null)
@@ -87,14 +97,18 @@ namespace CarPool.Services.Data.Services
             await _db.SaveChangesAsync();
 
             return toUpdate.GetDTO();
-            
+
         }
 
         public async Task<TripDTO> DeleteAsync(int id)
         {
             _check.CheckId(id);
 
-            var trip = await this._db.Trips.FirstOrDefaultAsync(x => x.Id == id); //?? throw new AppException(GlobalConstants.TRIP_NOT_FOUND);
+            var trip = await this._db.Trips.Include(x => x.Driver).ThenInclude(x => x.Vehicle)
+                                 .Include(x => x.StartAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
+                                 .Include(x => x.DestinationAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
+                                 .Include(x => x.Passengers).ThenInclude(x => x.Trip)
+                                 .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser).FirstOrDefaultAsync(x => x.Id == id); //?? throw new AppException(GlobalConstants.TRIP_NOT_FOUND);
 
             if (trip != null)
                 return new TripDTO() { ErrorMessage = GlobalConstants.TRIP_NOT_FOUND };
@@ -111,23 +125,27 @@ namespace CarPool.Services.Data.Services
 
             var user = await this._ap.GetUserByEmailAsync(userToJoinEmail);
 
-            if(user.ErrorMessage != null)
+            if (user.ErrorMessage != null)
             {
                 return new TripDTO { ErrorMessage = user.ErrorMessage };
             }
 
-            if(user.IsBlocked == true)
+            if (user.IsBlocked == true)
             {
                 return new TripDTO { ErrorMessage = GlobalConstants.TRIP_USER_BLOCKED_JOIN };
             }
 
-            var trip = await this._db.Trips.FirstOrDefaultAsync(x => x.Id == id);
-            if(trip == null)
+            var trip = await this._db.Trips.Include(x => x.Driver).ThenInclude(x => x.Vehicle)
+                                 .Include(x => x.StartAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
+                                 .Include(x => x.DestinationAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
+                                 .Include(x => x.Passengers).ThenInclude(x => x.Trip)
+                                 .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser).FirstOrDefaultAsync(x => x.Id == id);
+            if (trip == null)
             {
                 return new TripDTO() { ErrorMessage = (GlobalConstants.TRIP_NOT_FOUND) };
             }
 
-            if(trip.FreeSeats == 0)
+            if (trip.FreeSeats == 0)
             {
                 return new TripDTO { ErrorMessage = GlobalConstants.TRIP_FULL };
             }
@@ -141,7 +159,7 @@ namespace CarPool.Services.Data.Services
             return trip.GetDTO();
         }
 
-        public async Task<TripDTO> LeaveTrip (int id, string userToLeaveEmail)
+        public async Task<TripDTO> LeaveTrip(int id, string userToLeaveEmail)
         {
             _check.CheckId(id);
 
@@ -151,8 +169,12 @@ namespace CarPool.Services.Data.Services
             {
                 return new TripDTO { ErrorMessage = user.ErrorMessage };
             }
-            
-            var trip = await this._db.Trips.FirstOrDefaultAsync(x => x.Id == id);
+
+            var trip = await this._db.Trips.Include(x => x.Driver).ThenInclude(x => x.Vehicle)
+                                 .Include(x => x.StartAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
+                                 .Include(x => x.DestinationAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
+                                 .Include(x => x.Passengers).ThenInclude(x => x.Trip)
+                                 .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser).FirstOrDefaultAsync(x => x.Id == id);
             if (trip == null)
             {
                 return new TripDTO() { ErrorMessage = (GlobalConstants.TRIP_NOT_FOUND) };
