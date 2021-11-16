@@ -41,7 +41,12 @@ namespace CarPool.Services
 
         public async Task<ProfilePictureDTO> PostAsync(ProfilePictureDTO obj)
         {
-            if(await _db.ProfilePictures.FirstOrDefaultAsync(x => x.ImageData == obj.ImageData) != null)
+            if (obj is null || obj.ImageData is null || obj.Id <= 0 || obj.ApplicationUserId == default(Guid))
+            {
+                return new ProfilePictureDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
+            }
+
+            if (await _db.ProfilePictures.FirstOrDefaultAsync(x => x.ImageData == obj.ImageData) != null)
             {
                 return new ProfilePictureDTO { ErrorMessage = GlobalConstants.PICTURE_EXISTS };
             }

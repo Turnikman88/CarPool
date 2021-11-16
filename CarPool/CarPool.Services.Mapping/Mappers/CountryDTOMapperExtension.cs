@@ -12,26 +12,13 @@ namespace CarPool.Services.Mapping.Mappers
         {
             if (country is null || string.IsNullOrEmpty(country.Name) || country.Cities == null)
             {
-                throw new AppException(GlobalConstants.INCORRECT_DATA);
+                return new CountryDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
             }
             return new CountryDTO
             {
                 Id = country.Id,
                 Name = country.Name,
                 Cities = country.Cities.Select(c => c.Name).ToList()
-            };
-        }
-
-        public static Country GetEntity(this CountryDTO country)
-        {
-            if (country is null || string.IsNullOrEmpty(country.Name))
-            {
-                throw new AppException(GlobalConstants.INCORRECT_DATA);
-            }
-            return new Country
-            {
-                Id = country.Id,
-                Name = country.Name
             };
         }
     }

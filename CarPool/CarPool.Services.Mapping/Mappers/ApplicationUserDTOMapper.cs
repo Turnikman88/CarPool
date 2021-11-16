@@ -16,10 +16,10 @@ namespace CarPool.Services.Mapping.Mappers
         {
             if (user is null || user.Username is null || user.FirstName is null 
                 || user.LastName is null || user.Email is null 
-                || !Regex.IsMatch(user.PhoneNumber, GlobalConstants.PhoneRegex)               
-                || user.Password is null)
+                || !Regex.IsMatch(user.PhoneNumber ?? "", GlobalConstants.PhoneRegex)               
+                || !Regex.IsMatch(user.Password ?? "", GlobalConstants.PassRegex))
             {
-                throw new AppException(GlobalConstants.INCORRECT_DATA); ;
+                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
             }
 
             return new ApplicationUserDTO
@@ -37,15 +37,7 @@ namespace CarPool.Services.Mapping.Mappers
         }
 
         public static ApplicationUser GetEntity(this ApplicationUserDTO user)
-        {
-            if (user is null || user.Username is null || user.FirstName is null
-                || user.LastName is null || user.Email is null
-                || !Regex.IsMatch(user.PhoneNumber, GlobalConstants.PhoneRegex)
-                || user.Password is null)
-            {
-                throw new AppException(GlobalConstants.INCORRECT_DATA); ;
-            }
-
+        {            
             return new ApplicationUser
             {
                 Username = user.Username,
@@ -62,10 +54,10 @@ namespace CarPool.Services.Mapping.Mappers
         {
             if (user is null || user.Username is null || user.FirstName is null
                 || user.LastName is null || user.Email is null
-                || !Regex.IsMatch(user.PhoneNumber, GlobalConstants.PhoneRegex)
-                || user.Password is null)
+                || !Regex.IsMatch(user.PhoneNumber ?? "", GlobalConstants.PhoneRegex)
+                || !Regex.IsMatch(user.Password ?? "", GlobalConstants.PassRegex))
             {
-                throw new AppException(GlobalConstants.INCORRECT_DATA); ;
+                return new ApplicationUserDisplayDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
             }
 
             return new ApplicationUserDisplayDTO

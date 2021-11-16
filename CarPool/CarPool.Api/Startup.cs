@@ -1,4 +1,5 @@
 using CarPool.API.Extensions;
+using CarPool.API.Infrastructure.Middleware;
 using CarPool.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;

@@ -14,7 +14,7 @@ namespace CarPool.Services.Mapping.Mappers
         {
             if (picture is null || picture.ImageData is null || picture.Id <= 0 || picture.ApplicationUserId == default(Guid))
             {
-                throw new AppException(GlobalConstants.INCORRECT_DATA);
+                return new ProfilePictureDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
             }
 
             return new ProfilePictureDTO
@@ -27,12 +27,7 @@ namespace CarPool.Services.Mapping.Mappers
         }
 
         public static ProfilePicture GetEntity(this ProfilePictureDTO picture)
-        {
-            if (picture is null || picture.ImageData is null || picture.Id <= 0 || picture.ApplicationUserId == default(Guid))
-            {
-                throw new AppException(GlobalConstants.INCORRECT_DATA);
-            }
-
+        {            
             return new ProfilePicture
             {
                 Id = picture.Id,

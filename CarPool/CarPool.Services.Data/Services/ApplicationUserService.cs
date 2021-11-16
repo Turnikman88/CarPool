@@ -27,8 +27,8 @@ namespace CarPool.Services.Data.Services
 
         public async Task<IEnumerable<ApplicationUserDisplayDTO>> FilterUsersAsync(int page, string part)
         {
-            return await _db.ApplicationUsers.Where(x => x.Email.Contains(part) 
-            || x.PhoneNumber.Contains(part) 
+            return await _db.ApplicationUsers.Where(x => x.Email.Contains(part)
+            || x.PhoneNumber.Contains(part)
             || x.Username.Contains(part))
                 .Include(x => x.Address)
                 .Include(x => x.Ratings)
@@ -82,9 +82,9 @@ namespace CarPool.Services.Data.Services
                 .Include(x => x.Ratings)
                 .Include(x => x.Trips)
                 .Include(x => x.Vehicle)
-                .Include(x => x.Ban).FirstOrDefaultAsync(x=>x.Email == email);
+                .Include(x => x.Ban).FirstOrDefaultAsync(x => x.Email == email);
 
-            if(user is null)
+            if (user is null)
             {
                 return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_NOT_FOUND };
             }
@@ -95,6 +95,24 @@ namespace CarPool.Services.Data.Services
 
         public async Task<ApplicationUserDTO> PostAsync(ApplicationUserDTO obj)
         {
+            if (obj is null || obj.Username is null || obj.FirstName is null
+                || obj.LastName is null || obj.Email is null
+                || !Regex.IsMatch(obj.PhoneNumber ?? "", GlobalConstants.PhoneRegex)
+                || obj.Password is null)
+            {
+                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
+            }
+
+            if (await _db.ApplicationUsers.AnyAsync(x => x.Email == obj.Email))
+            {
+                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_EXISTS };
+            }
+
+            if (await _db.ApplicationUsers.AnyAsync(x => x.PhoneNumber == obj.PhoneNumber))
+            {
+                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_PHONE_EXISTS };
+            }
+
             ApplicationUserDTO result = null;
 
             var newUser = obj.GetEntity();
@@ -105,9 +123,9 @@ namespace CarPool.Services.Data.Services
             if (deleteUser == null)
             {
                 if (!IsValidUser(obj.Username, obj.Email,
-                obj.EmailConfirmed, obj.Password, obj.PhoneNumber))
+                obj.Password, obj.PhoneNumber))
                 {
-                    throw new AppException(GlobalConstants.INCORRECT_DATA);
+                    return new ApplicationUserDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
                 }
 
                 await _db.ApplicationUsers.AddAsync(newUser);
@@ -130,12 +148,17 @@ namespace CarPool.Services.Data.Services
 
         public async Task<ApplicationUserDTO> UpdateAsync(Guid id, ApplicationUserDTO obj)
         {
-            _ = await _db.ApplicationUsers.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Email == obj.Email)
-                != null ? throw new AppException(GlobalConstants.USER_EXISTS) : 0;
+            if (await _db.ApplicationUsers.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Email == obj.Email) != null)
+            {
+                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_EXISTS };
+            }
 
             var user = await _db.ApplicationUsers
-                .FirstOrDefaultAsync(x => x.Id == id)
-                ?? throw new AppException(GlobalConstants.USER_NOT_FOUND);
+                .FirstOrDefaultAsync(x => x.Id == id);
+            if (user is null)
+            {
+                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_NOT_FOUND };
+            }
 
             MapUser(obj, user);
 
@@ -161,28 +184,28 @@ namespace CarPool.Services.Data.Services
                 user.LastName = obj.FirstName;
             }
 
-            if (obj.Email != null && Regex.IsMatch(obj.Email, @"[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+"))
+            if (obj.Email != null && Regex.IsMatch(obj.Email ?? "", @"[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+"))
             {
                 user.Email = obj.Email;
             }
 
-            if (obj.Password != null && Regex.IsMatch(obj.Password, GlobalConstants.PassRegex))
+            if (obj.Password != null && Regex.IsMatch(obj.Password ?? "", GlobalConstants.PassRegex))
             {
                 user.Password = obj.Password;
             }
 
-            if (obj.PhoneNumber != null && Regex.IsMatch(obj.PhoneNumber, GlobalConstants.PhoneRegex))
+            if (obj.PhoneNumber != null && Regex.IsMatch(obj.PhoneNumber ?? "", GlobalConstants.PhoneRegex))
             {
                 user.PhoneNumber = obj.PhoneNumber;
             }
         }
 
-        private bool IsValidUser(string username, string email, bool emailConfirmed, string password, string phoneNumber)
+        private bool IsValidUser(string username, string email, string password, string phoneNumber)
         {
             var validUsername = username.Length >= 2 && username.Length <= 20;
-            var validEmail = Regex.IsMatch(email, @"[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+");
-            var validPassword = Regex.IsMatch(password, GlobalConstants.PassRegex);
-            var validPhone = Regex.IsMatch(phoneNumber, GlobalConstants.PhoneRegex);
+            var validEmail = Regex.IsMatch(email ?? "", @"[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+");
+            var validPassword = Regex.IsMatch(password ?? "", GlobalConstants.PassRegex);
+            var validPhone = Regex.IsMatch(phoneNumber ?? "", GlobalConstants.PhoneRegex);
             return validUsername && validEmail && validPassword && validPhone;
 
         }
