@@ -3,6 +3,7 @@
     using CarPool.Data.Models.DAL;
     using CarPool.Data.Models.DatabaseModels;
     using Microsoft.EntityFrameworkCore;
+    using System.Linq;
     using System.Reflection;
     using System.Threading;
     using System.Threading.Tasks;
@@ -62,15 +63,18 @@
         {
             foreach (var entry in this.ChangeTracker.Entries())
             {
-                switch (entry.State)
+                if (entry.OriginalValues.Properties.Any(x => x.Name == "IsDeleted"))
                 {
-                    case EntityState.Added:
-                        entry.CurrentValues["IsDeleted"] = false;
-                        break;
-                    case EntityState.Deleted:
-                        entry.State = EntityState.Modified;
-                        entry.CurrentValues["IsDeleted"] = true;
-                        break;
+                    switch (entry.State)
+                    {
+                        case EntityState.Added:
+                            entry.CurrentValues["IsDeleted"] = false;
+                            break;
+                        case EntityState.Deleted:
+                            entry.State = EntityState.Modified;
+                            entry.CurrentValues["IsDeleted"] = true;
+                            break;
+                    }
                 }
             }
         }

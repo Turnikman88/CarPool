@@ -113,37 +113,25 @@ namespace CarPool.Services.Data.Services
                 return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_PHONE_EXISTS };
             }
 
-            ApplicationUserDTO result = null;
+            if (!await _db.Addresses.AnyAsync(x => x.Id == obj.AddressId))
+            {
+                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.ADDRESS_NOT_FOUND };
+            }
 
             var newUser = obj.GetEntity();
 
-            var deleteUser = await _db.ApplicationUsers.IgnoreQueryFilters()
-                .FirstOrDefaultAsync(x => x.Email == newUser.Email && x.IsDeleted == true);
-
-            if (deleteUser == null)
+            if (!IsValidUser(obj.Username, obj.Email,
+            obj.Password, obj.PhoneNumber))
             {
-                if (!IsValidUser(obj.Username, obj.Email,
-                obj.Password, obj.PhoneNumber))
-                {
-                    return new ApplicationUserDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
-                }
-
-                await _db.ApplicationUsers.AddAsync(newUser);
-                await _db.SaveChangesAsync();
-                newUser = await _db.ApplicationUsers
-                    .FirstOrDefaultAsync(x => x.Id == newUser.Id);
-
-                result = newUser.GetDTO();
-            }
-            else
-            {
-                deleteUser.DeletedOn = null;
-                deleteUser.IsDeleted = false;
-                await _db.SaveChangesAsync();
-                result = deleteUser.GetDTO();
+                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
             }
 
-            return result;
+            await _db.ApplicationUsers.AddAsync(newUser);
+            await _db.SaveChangesAsync();
+            newUser = await _db.ApplicationUsers
+                .FirstOrDefaultAsync(x => x.Id == newUser.Id);
+
+            return newUser.GetDTO();
         }
 
         public async Task<ApplicationUserDTO> UpdateAsync(Guid id, ApplicationUserDTO obj)

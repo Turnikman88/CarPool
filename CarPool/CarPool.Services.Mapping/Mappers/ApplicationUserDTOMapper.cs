@@ -32,7 +32,8 @@ namespace CarPool.Services.Mapping.Mappers
                 EmailConfirmed = user.EmailConfirmed, //?
                 IsBlocked = user.Ban?.BlockedOn == null ? false : true,
                 PhoneNumber = user.PhoneNumber,
-                Password = user.Password                             
+                Password = user.Password,
+                AddressId = user.AddressId
             };
         }
 
@@ -46,7 +47,8 @@ namespace CarPool.Services.Mapping.Mappers
                 Email = user.Email,
                 EmailConfirmed = user.EmailConfirmed,
                 PhoneNumber = user.PhoneNumber,
-                Password = user.Password
+                Password = user.Password,
+                AddressId = user.AddressId                
             };
         }
 

@@ -25,6 +25,7 @@ namespace CarPool.Services.Mapping.DTOs
              
         public string Password { get; set; }
 
+        public int AddressId { get; set; }
         public string ErrorMessage { get; set; }
     }
 }
