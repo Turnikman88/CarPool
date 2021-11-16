@@ -41,7 +41,7 @@ namespace CarPool.API.Controllers
                 return this.Ok(response);
             }
 
-            return this.NotFound(response);
+            return this.NotFound(response.ErrorMessage);
         }
 
 
@@ -49,7 +49,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
-        public async Task<ActionResult<TripDTO>> CreateAddressAsync(TripDTO obj)
+        public async Task<ActionResult<TripDTO>> CreateTripAsync(TripDTO obj)
         {
             var response = await _ts.PostAsync(obj);
 
@@ -57,14 +57,14 @@ namespace CarPool.API.Controllers
             {
                 return this.Created("Get", response);
             }
-            return this.NotFound(response);
+            return this.NotFound(response.ErrorMessage);
         }
 
         [HttpPut("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
-        public async Task<ActionResult<TripDTO>> UpdateAddressAsync(int id, TripDTO obj)
+        public async Task<ActionResult<TripDTO>> UpdateTripAsync(int id, TripDTO obj)
         {
             var response = await _ts.UpdateAsync(id, obj);
 
@@ -73,7 +73,7 @@ namespace CarPool.API.Controllers
                 return this.Ok(response);
             }
 
-            return this.NotFound(response);
+            return this.NotFound(response.ErrorMessage);
         }
 
         [HttpPut("{email}/join/{id}")]
@@ -89,7 +89,7 @@ namespace CarPool.API.Controllers
                 return this.Accepted(response);
             }
 
-            return this.BadRequest(response);
+            return this.BadRequest(response.ErrorMessage);
         }
 
         [HttpPut("{email}/leave/{id}")]
@@ -105,14 +105,14 @@ namespace CarPool.API.Controllers
                 return this.Accepted(response);
             }
 
-            return this.BadRequest(response);
+            return this.BadRequest(response.ErrorMessage);
         }
 
         [HttpDelete("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
-        public async Task<ActionResult<TripDTO>> DeleteAddressAsync(int id)
+        public async Task<ActionResult<TripDTO>> DeleteTripAsync(int id)
         {
             var response = await _ts.DeleteAsync(id);
 
@@ -121,7 +121,7 @@ namespace CarPool.API.Controllers
                 return this.Ok(response);
             }
 
-            return this.NotFound(response);
+            return this.NotFound(response.ErrorMessage);
         }
 
     }

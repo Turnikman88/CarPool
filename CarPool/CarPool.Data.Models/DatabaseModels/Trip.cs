@@ -21,9 +21,9 @@ namespace CarPool.Data.Models.DatabaseModels
 
         public DateTime DepartureTime { get; set; }
 
-        public DateTime ArrivalTime { get; set; }
+        public int DurationInMinutes { get; set; }
 
-        public double Distance { get; set; }
+        public int Distance { get; set; }
 
         public decimal Price { get; set; }
 

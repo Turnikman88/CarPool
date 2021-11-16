@@ -21,14 +21,16 @@ namespace CarPool.Services.Data.Services
         private readonly ICityService _city;
         private readonly ICountryService _country;
         private readonly IApplicationUserService _ap;
+        private readonly IBingApiService _bing;
 
-        public TripService(CarPoolDBContext db, ICheckExistenceService check, ICityService city, ICountryService country, IApplicationUserService ap)
+        public TripService(CarPoolDBContext db, ICheckExistenceService check, ICityService city, ICountryService country, IApplicationUserService ap, IBingApiService bing)
         {
             _db = db;
             _check = check;
             _city = city;
             _country = country;
             _ap = ap;
+            _bing = bing;
         }
 
         public async Task<IEnumerable<TripDTO>> GetAsync(int page)
@@ -60,9 +62,16 @@ namespace CarPool.Services.Data.Services
 
         public async Task<TripDTO> PostAsync(TripDTO obj)
         {
+            var travelData = await _bing.GetTripDataAsync($"{obj.StartAddressCity} {obj.StartAddressCountry}", $"{obj.DestinationAddressCity} {obj.DestinationAddressCountry}");
+
+            obj.DurationInMinutes = travelData.Item2;
+            obj.Distance = travelData.Item1;
+
             var post = obj.GetModel();
 
             await this._db.Trips.AddAsync(post);
+
+            await _db.SaveChangesAsync();
 
             var result = post.GetDTO();
             return result;
@@ -82,12 +91,14 @@ namespace CarPool.Services.Data.Services
             if (toUpdate is null)
                 return new TripDTO() { ErrorMessage = GlobalConstants.TRIP_NOT_FOUND };
 
+            var travelData = await _bing.GetTripDataAsync($"{obj.StartAddressCity} {obj.StartAddressCountry}", $"{obj.DestinationAddressCity} {obj.DestinationAddressCountry}");
+
             toUpdate.AdditionalComment = obj.AdditionalComment;
-            toUpdate.ArrivalTime = obj.ArrivalTime;
+            toUpdate.DurationInMinutes = travelData.Item2;
             toUpdate.ModifiedOn = System.DateTime.UtcNow;
             toUpdate.DepartureTime = obj.DepartureTime;
             toUpdate.DestinationAddressId = obj.DestinationAddressId;
-            toUpdate.Distance = obj.Distance;
+            toUpdate.Distance = travelData.Item1;
             toUpdate.DriverId = new Guid(obj.DriverId);
             toUpdate.FreeSeats = obj.FreeSeats;
             toUpdate.PassengersCount = obj.PassengersCount;

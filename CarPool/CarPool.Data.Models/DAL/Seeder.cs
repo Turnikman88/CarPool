@@ -305,7 +305,7 @@ namespace CarPool.Data.Models.DAL
                     StartAddressId = 1,
                     DestinationAddressId = 2,
                     DepartureTime = DateTime.Now,
-                    ArrivalTime = DateTime.Now.AddHours(3),
+                    DurationInMinutes = 90,
                     Distance = 340,
                     PassengersCount = 2,
                     FreeSeats = 2                    
@@ -317,7 +317,7 @@ namespace CarPool.Data.Models.DAL
                     StartAddressId = 2,
                     DestinationAddressId = 3,
                     DepartureTime = DateTime.Now,
-                    ArrivalTime = DateTime.Now.AddHours(2),
+                    DurationInMinutes = 120,
                     Distance = 240,
                     PassengersCount = 1,
                     FreeSeats = 2,

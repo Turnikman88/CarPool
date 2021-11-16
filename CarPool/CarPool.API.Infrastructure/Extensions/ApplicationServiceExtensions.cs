@@ -17,15 +17,18 @@ namespace CarPool.API.Extensions
         {
             services.AddDbContext<CarPoolDBContext>(
                 options => options.UseSqlServer(config.GetConnectionString("DefaultConnection")));
+            services.AddScoped<IAddressService, AddressService>();
+            services.AddScoped<IApplicationUserService, ApplicationUserService>();
             services.AddScoped<ICountryService, CountryService>();
             services.AddScoped<ICityService, CityService>();
             services.AddScoped<ICheckExistenceService, CheckExistenceService>();
             services.AddSingleton<IMailSettings, MailSettings>();
             services.AddTransient<IMailService, MailService>();
-            services.AddScoped<IApplicationUserService, ApplicationUserService>();
             services.AddScoped<ITripService, TripService>();
-            services.AddScoped<IAddressService, AddressService>();
             services.AddScoped<IProfilePictureService, ProfilePictureService>();
+            services.AddScoped<IBingApiService, BingApiService>();
+            services.AddScoped<IBanService, BanService>();
+
 
             services.AddHostedService<BanHostedService>();
             // services.AddScoped<I, >();
