@@ -75,11 +75,11 @@ namespace CarPool.Services.Mapping.Mappers
                 PhoneNumber = user.PhoneNumber,
                 Latitude = user.Address.Latitude,
                 Longitude = user.Address.Longitude,
-                Rating = user.Ratings.Select(x => x.Value).ToList().Average(),
+                Rating = user.Ratings.Count > 0 ? user.Ratings.Select(x => x.Value).ToList().Average() : 0,
                 Feedbacks = user.Ratings.Select(x => x.Feedback).ToList(),
                 Trips = user.Trips.Select(x => $"Start Location: {x.StartAddress.StreetName} " +
                 $", End Location: {x.DestinationAddress.StreetName}, Price: {x.Price} " +
-                $"Start: {x.DepartureTime.ToShortDateString()}"),
+                $"Start: {x.DepartureTime.ToShortDateString()}").ToList(),
                 Vehicle = user.Vehicle?.Model ?? GlobalConstants.NO_CAR_AVAILABLE,
                 VehicleColor = user.Vehicle?.Color ?? GlobalConstants.NO_CAR_AVAILABLE,
                 IsBlocked = user.Ban?.BlockedOn == null ? false : true,               

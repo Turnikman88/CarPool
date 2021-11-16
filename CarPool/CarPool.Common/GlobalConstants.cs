@@ -51,6 +51,8 @@
 
         public const string USER_EXISTS = "User with this email already exists!";
 
+        public const string WRONG_GUID = "Wrong guid!";
+
         public const string USER_PERMANENT_BLOCK = "User is permanently blocked!";
 
         public const string USER_UNBLOCKED = "User was successfuly unbanned";

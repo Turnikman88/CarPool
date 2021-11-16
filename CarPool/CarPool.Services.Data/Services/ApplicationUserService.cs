@@ -45,8 +45,12 @@ namespace CarPool.Services.Data.Services
         public async Task<ApplicationUserDTO> DeleteAsync(Guid id)
         {
             var user = await _db.ApplicationUsers
-                .FirstOrDefaultAsync(x => x.Id == id)
-                ?? throw new AppException(GlobalConstants.USER_NOT_FOUND);
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (user is null)
+            {
+                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_NOT_FOUND };
+            }
 
             var userDTO = user.GetDTO();
 
@@ -138,29 +142,6 @@ namespace CarPool.Services.Data.Services
             await _db.SaveChangesAsync();
 
             return user.GetDTO();
-        }
-
-        public async Task<ApplicationUserDisplayDTO> BanUserAsync(Guid id, DateTime? due)
-        {
-            var user = await _db.ApplicationUsers
-               .FirstOrDefaultAsync(x => x.Id == id)
-               ?? throw new AppException(GlobalConstants.USER_NOT_FOUND);
-
-            user.Ban.BlockedOn = DateTime.UtcNow.Date;
-            user.Ban.BlockedDue = due;
-
-            await _db.SaveChangesAsync();
-
-            return user.GetDisplayDTO();
-        }
-
-        public async Task RemoveBanAsync()
-        {
-            await _db.ApplicationUsers.Include(x => x.Ban)
-                .Where(x => x.Ban.BlockedDue < DateTime.UtcNow.Date)
-                .ForEachAsync(x => { x.Ban.BlockedOn = null; x.Ban.BlockedDue = null; });
-
-            await _db.SaveChangesAsync();            
         }
 
         private static void MapUser(ApplicationUserDTO obj, ApplicationUser user)

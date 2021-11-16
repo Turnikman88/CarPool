@@ -27,7 +27,7 @@ namespace CarPool.Services
         public Task StartAsync(CancellationToken stoppingToken)
         {
             _timer = new Timer(DoWork, null, TimeSpan.Zero,
-                TimeSpan.FromMinutes(1));
+                TimeSpan.FromDays(1));
 
             return Task.CompletedTask;
         }
@@ -44,7 +44,7 @@ namespace CarPool.Services
                 .ForEachAsync(x => { x.Ban.BlockedOn = null; x.Ban.BlockedDue = null; });
 
                 await _db.SaveChangesAsync();
-                Console.WriteLine("work");
+                //Console.WriteLine("unban");
             }
         
         }

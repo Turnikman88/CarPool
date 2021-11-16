@@ -35,7 +35,13 @@ namespace CarPool.API.Controllers
         //[Authorize(Roles = Constants.ROLE_EMPLOYEE)]
         public async Task<ActionResult<CountryDTO>> GetCountryByIdAsync(int id)
         {
-            return this.Ok(await _cs.GetCountryByIdAsync(id));
+            var response = await _cs.GetCountryByIdAsync(id);
+
+            if (response.ErrorMessage is null)
+            {
+                return this.Ok(response);
+            }
+            return this.NotFound(new { ErrorMessage = response.ErrorMessage });
         }
 
         [HttpGet("name/{name}")]
@@ -45,7 +51,13 @@ namespace CarPool.API.Controllers
         //[Authorize(Roles = Constants.ROLE_EMPLOYEE)]
         public async Task<ActionResult<CountryDTO>> GetCountryByNameAsync(string name)
         {
-            return this.Ok(await _cs.GetCountryByNameAsync(name));
+            var response = await _cs.GetCountryByNameAsync(name);
+
+            if (response.ErrorMessage is null)
+            {
+                return this.Ok(response);
+            }
+            return this.NotFound(new { ErrorMessage = response.ErrorMessage});
         }
 
         [HttpGet("partname/{part}")]

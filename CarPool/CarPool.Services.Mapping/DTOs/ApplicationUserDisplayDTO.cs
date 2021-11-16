@@ -2,6 +2,7 @@
 using CarPool.Services.Mapping.Contracts;
 using System;
 using System.Collections.Generic;
+using System.Runtime.Serialization;
 using System.Text;
 
 namespace CarPool.Services.Mapping.DTOs
@@ -34,6 +35,7 @@ namespace CarPool.Services.Mapping.DTOs
         public IEnumerable<string> Feedbacks { get; set; }
 
         public IEnumerable<string> Trips { get; set; }
+
         public string ErrorMessage { get; set; }
     }
 }
