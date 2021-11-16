@@ -97,6 +97,12 @@ namespace CarPool.Services.Data.Services
 
             var deletedCity = await _db.Cities.Include(x => x.Country).IgnoreQueryFilters()
                 .FirstOrDefaultAsync(x => x.CountryId == obj.CountryId && x.Name == obj.Name && x.IsDeleted == true);
+
+            if (obj is null || obj.Name is null || obj.Id < 0 || obj.CountryId <= 0)
+            {
+                return new CityDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
+            }
+
             var newCity = obj.GetEntity();
             if (deletedCity == null)
             {

@@ -12,7 +12,7 @@ namespace CarPool.Services.Mapping.Mappers
         {
             if (city is null || city.Name is null || city.Id <= 0 || city.CountryId <= 0 || city.Country.Name is null)
             {
-                throw new AppException(GlobalConstants.INCORRECT_DATA); ;
+                return new CityDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
             }
 
             return new CityDTO
@@ -26,11 +26,7 @@ namespace CarPool.Services.Mapping.Mappers
         }
 
         public static City GetEntity(this CityDTO city)
-        {
-            if (city is null || city.Name is null || city.Id < 0 || city.CountryId <= 0)
-            {
-                throw new AppException(GlobalConstants.INCORRECT_DATA);
-            }
+        {          
 
             return new City
             {
