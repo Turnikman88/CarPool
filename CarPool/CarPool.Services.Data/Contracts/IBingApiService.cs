@@ -7,6 +7,8 @@ namespace CarPool.Services.Data.Contracts
 {
     public interface IBingApiService
     {
-        public Task<(int,int)> GetTripDataAsync(string origin, string destination);
+        Task<(decimal, decimal)> GetLatitudeAndLongitude(string city, string country, string street);
+        Task<(int, int)> GetTripDataCityCountryAsync(string origin, string destination);
+        Task<(int, int)> GetTripDataCoordinatesAsync(string originCoordinates, string destinationCoordinates);
     }
 }

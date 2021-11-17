@@ -67,7 +67,7 @@ namespace CarPool.Services.Data.Services
             var addressDestination = await _ads.GetAddressByIdAsync(obj.DestinationAddressId);
             var addressOrigin = await _ads.GetAddressByIdAsync(obj.StartAddressId);
 
-            var travelData = await _bing.GetTripDataAsync($"{addressOrigin.CityName} {addressOrigin.CountryName}", $"{addressDestination.CityName} {addressDestination.CountryName}");
+            var travelData = await _bing.GetTripDataCoordinatesAsync($"{addressOrigin.Latitude},{addressOrigin.Longitude}", $"{addressDestination.Latitude},{addressDestination.Longitude} ");
 
             obj.DurationInMinutes = travelData.Item2;
             obj.Distance = travelData.Item1;
@@ -97,7 +97,7 @@ namespace CarPool.Services.Data.Services
             if (toUpdate is null)
                 return new TripDTO() { ErrorMessage = GlobalConstants.TRIP_NOT_FOUND };
 
-            var travelData = await _bing.GetTripDataAsync($"{obj.StartAddressCity} {obj.StartAddressCountry}", $"{obj.DestinationAddressCity} {obj.DestinationAddressCountry}");
+            var travelData = await _bing.GetTripDataCityCountryAsync($"{obj.StartAddressCity} {obj.StartAddressCountry}", $"{obj.DestinationAddressCity} {obj.DestinationAddressCountry}");
 
             toUpdate.AdditionalComment = obj.AdditionalComment;
             toUpdate.DurationInMinutes = travelData.Item2;

@@ -19,14 +19,15 @@ namespace CarPool.Services.Data.Services
         private readonly ICheckExistenceService _check;
         private readonly ICityService _city;
         private readonly ICountryService _country;
+        private readonly IBingApiService _bing;
 
-
-        public AddressService(CarPoolDBContext db, ICheckExistenceService check, ICityService city, ICountryService country)
+        public AddressService(CarPoolDBContext db, ICheckExistenceService check, ICityService city, ICountryService country, IBingApiService bing)
         {
             _db = db;
             _check = check;
             _city = city;
             _country = country;
+            _bing = bing;
         }
 
         public async Task<IEnumerable<AddressDTO>> GetAsync(int page)
@@ -36,7 +37,7 @@ namespace CarPool.Services.Data.Services
                 .ThenInclude(c => c.Country)
                 .Skip(page * GlobalConstants.PageSkip)
                 .Take(10)
-                .Select(x=>x.GetDTO()).ToListAsync();
+                .Select(x => x.GetDTO()).ToListAsync();
         }
 
         public async Task<AddressDTO> GetAddressByIdAsync(int id)
@@ -46,27 +47,25 @@ namespace CarPool.Services.Data.Services
             var result = await _db.Addresses
                 .Include(c => c.City)
                 .ThenInclude(c => c.Country)
-                .FirstOrDefaultAsync(x=>x.Id == id);
+                .FirstOrDefaultAsync(x => x.Id == id);
 
             return result != null ? result.GetDTO() : new AddressDTO() { ErrorMessage = GlobalConstants.ADDRESS_NOT_FOUND };
         }
 
-
         public async Task<AddressDTO> PostAsync(AddressDTO obj)
         {
-            if(!await _check.AddressExistsAsync(obj.StreetName, obj.CityName, obj.CountryId))
+            if (await _check.AddressExistsAsync(obj.StreetName, obj.CityName, obj.CountryId))
                 return new AddressDTO() { ErrorMessage = GlobalConstants.ADDRESS_EXISTS };
-
-            //_ = await _check.AddressExistsAsync(obj.StreetName, obj.CityName, obj.CountryId) 
-            //    == true ? throw new AppException(GlobalConstants.ADDRESS_EXISTS) : 0;
 
             AddressDTO result = null;
 
             var deletedAddress = await _db.Addresses.Include(x => x.City).ThenInclude(x => x.Country).IgnoreQueryFilters().FirstOrDefaultAsync(x => x.CityId == obj.CityId && x.StreetName == obj.StreetName && x.City.Country.Name == obj.CountryName && x.IsDeleted == true);
 
+            await AddressAssignData(obj);
+
             var newAddress = obj.GetModel();
 
-            if(deletedAddress == null)
+            if (deletedAddress == null)
             {
                 await this._db.Addresses.AddAsync(newAddress);
                 await _db.SaveChangesAsync();
@@ -86,20 +85,24 @@ namespace CarPool.Services.Data.Services
 
         public async Task<AddressDTO> UpdateAsync(int id, AddressDTO obj)
         {
-            var model = await GetAddressByIdAsync(id);
-            var addressToUpdate = model.GetModel();
-            var city = _city.GetCityByNameAsync(obj.CityName);
-            var country = _country.GetCountryByNameAsync(obj.CountryName);
+            await AddressAssignData(obj);
 
-            addressToUpdate.CityId = city.Id;
-            addressToUpdate.StreetName = obj.StreetName;
-            addressToUpdate.Latitude = obj.Latitude;
-            addressToUpdate.Longitude = obj.Longitude;
-            addressToUpdate.City.CountryId = country.Id;
+            var modelToUpdate = await _db.Addresses
+                .Include(c => c.City)
+                .ThenInclude(c => c.Country)
+                .FirstOrDefaultAsync(x => x.Id == id);
+
+            if (modelToUpdate is null)
+                return new AddressDTO() { ErrorMessage = GlobalConstants.ADDRESS_NOT_FOUND };
+
+            modelToUpdate.CityId = obj.CityId;
+            modelToUpdate.StreetName = obj.StreetName;
+            modelToUpdate.Latitude = obj.Latitude;
+            modelToUpdate.Longitude = obj.Longitude;
 
             await _db.SaveChangesAsync();
-
-            return addressToUpdate.GetDTO();
+            
+            return await GetAddressByIdAsync(id);
         }
 
         public async Task<AddressDTO> DeleteAsync(int id)
@@ -107,15 +110,34 @@ namespace CarPool.Services.Data.Services
             _check.CheckId(id);
 
             var address = await this._db.Addresses.FirstOrDefaultAsync(x => x.Id == id); //?? throw new AppException(GlobalConstants.ADDRESS_NOT_FOUND);
-            
-            if(address is null)
+
+            if (address is null)
                 return new AddressDTO() { ErrorMessage = GlobalConstants.ADDRESS_NOT_FOUND };
-            
+
             address.DeletedOn = System.DateTime.UtcNow;
             await _db.SaveChangesAsync();
 
             return address.GetDTO();
         }
 
+        private async Task<AddressDTO> AddressAssignData(AddressDTO obj)
+        {
+            var cityDetails = await _city.GetCityByNameAsync(obj.CityName);
+            var countryDetails = await _country.GetCountryByNameAsync(obj.CountryName);
+
+            if (cityDetails.ErrorMessage != null)
+            {
+                await _city.PostAsync(new CityDTO { CountryId = countryDetails.Id, Name = obj.CityName });
+                await _db.SaveChangesAsync();
+                cityDetails = await _city.GetCityByNameAsync(obj.CityName);
+            }
+
+            var coordinates = await _bing.GetLatitudeAndLongitude(obj.CityName, obj.CountryName, obj.StreetName);
+            obj.Latitude = coordinates.Item1;
+            obj.Longitude = coordinates.Item2;
+            obj.CityId = cityDetails.Id;
+            obj.CountryId = countryDetails.Id;
+            return obj;
+        }
     }
 }
