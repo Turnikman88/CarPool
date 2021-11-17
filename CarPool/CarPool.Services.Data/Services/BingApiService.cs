@@ -24,10 +24,21 @@ namespace CarPool.Services.Data.Services
             this.httpClientFactory = httpClientFactory;
             this.client = this.httpClientFactory.CreateClient();
         }
-        public async Task<(int, int)> GetTripDataAsync(string origin, string destination)
+
+        public async Task<(decimal, decimal)> GetLatitudeAndLongitude(string city, string country, string street)
         {
+            var cityCountryJSON = await (await client.GetAsync(string.Format(locationUrl, $"{city} {street} {country}"))).Content.ReadAsStringAsync(); 
+            dynamic cityCountryJSONdata = JsonConvert.DeserializeObject<ExpandoObject>(cityCountryJSON, new ExpandoObjectConverter());    
+            var coordinates = cityCountryJSONdata.resourceSets[0].resources[0].point.coordinates;
 
+            decimal latitude = (decimal)coordinates[0];
+            decimal longitude = (decimal)coordinates[1];
 
+            return (latitude, longitude);
+        }
+
+        public async Task<(int, int)> GetTripDataCityCountryAsync(string origin, string destination)
+        {
             var originJson = await (await client.GetAsync(string.Format(locationUrl, origin))).Content.ReadAsStringAsync(); // Get origin JSON
             dynamic originData = JsonConvert.DeserializeObject<ExpandoObject>(originJson, new ExpandoObjectConverter());    // Deserialize
             var originCoords = originData.resourceSets[0].resources[0].point.coordinates;                                   // get latitude and longitude in array
@@ -47,5 +58,18 @@ namespace CarPool.Services.Data.Services
 
             return (distance, duration);
         }
+
+        public async Task<(int, int)> GetTripDataCoordinatesAsync(string originCoordinates, string destinationCoordinates)
+        {
+            var travelDataResult = await client.GetAsync(string.Format(distanceMatrixUrl, originCoordinates, destinationCoordinates));
+            var travelDataJson = await travelDataResult.Content.ReadAsStringAsync();
+            dynamic travelData = JsonConvert.DeserializeObject<ExpandoObject>(travelDataJson, new ExpandoObjectConverter());
+
+            var distance = (int)travelData.resourceSets[0].resources[0].results[0].travelDistance;
+            var duration = (int)travelData.resourceSets[0].resources[0].results[0].travelDuration;
+
+            return (distance, duration);
+        }
+
     }
 }

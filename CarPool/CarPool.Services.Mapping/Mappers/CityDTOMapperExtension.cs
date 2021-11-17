@@ -27,7 +27,6 @@ namespace CarPool.Services.Mapping.Mappers
 
         public static City GetEntity(this CityDTO city)
         {          
-
             return new City
             {
                 Id = city.Id,

@@ -12,6 +12,7 @@ namespace CarPool.Services.Mapping.Mappers
         {
             return new AddressDTO
             {
+                AddressId = address.Id,
                 CityId = address.CityId,
                 CityName = address.City.Name,
                 CountryId = address.City.Country.Id,

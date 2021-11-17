@@ -7,6 +7,7 @@ namespace CarPool.Services.Mapping.DTOs
 {
     public class AddressDTO : IErrorMessage
     {
+        public int AddressId { get; set; }
         public int CityId { get; set; }
 
         public string CityName { get; set; }
@@ -20,6 +21,7 @@ namespace CarPool.Services.Mapping.DTOs
         public decimal Latitude { get; set; }
 
         public decimal Longitude { get; set; }
+
         public string ErrorMessage { get; set; }
 
     }
