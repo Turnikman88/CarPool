@@ -108,8 +108,7 @@ namespace CarPool.Services.Data.Services
             {
                 await this._db.Cities.AddAsync(newCity);
                 await _db.SaveChangesAsync();
-                newCity = await _db.Cities.Include(x => x.Country).FirstOrDefaultAsync(x => x.Id == newCity.Id);
-                result = newCity.GetDTO();
+                result = await GetCityByIdAsync(newCity.Id);
             }
             else
             {

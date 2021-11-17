@@ -34,9 +34,9 @@ namespace CarPool.Services.Mapping.Mappers
                 PassengersCount = trip.PassengersCount,
                 Price = trip.Price,
                 AdditionalComment = trip.AdditionalComment,
-                PassengersNameID = trip.Passengers
+                PassengersNameAndPhone = trip.Passengers
                                        .Where(p => p.TripId == trip.Id)
-                                       .Select(x=>x.ApplicationUser.FirstName + x.ApplicationUser.LastName + " " + x.ApplicationUserId)
+                                       .Select(x=>x.ApplicationUser.FirstName + " " + x.ApplicationUser.LastName + " " + x.ApplicationUser.PhoneNumber)
                                        .ToList()
             };
         }
@@ -45,6 +45,7 @@ namespace CarPool.Services.Mapping.Mappers
         {
             return new Trip
             {
+                DriverId = Guid.Parse(tripDTO.DriverId),
                 StartAddressId = tripDTO.StartAddressId,
                 DestinationAddressId = tripDTO.DestinationAddressId,
                 DepartureTime = tripDTO.DepartureTime,

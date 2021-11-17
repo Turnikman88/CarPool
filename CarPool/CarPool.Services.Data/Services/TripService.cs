@@ -16,6 +16,7 @@ namespace CarPool.Services.Data.Services
 {
     public class TripService : ITripService
     {
+        private readonly IAddressService _ads;
         private readonly CarPoolDBContext _db;
         private readonly ICheckExistenceService _check;
         private readonly ICityService _city;
@@ -23,7 +24,7 @@ namespace CarPool.Services.Data.Services
         private readonly IApplicationUserService _ap;
         private readonly IBingApiService _bing;
 
-        public TripService(CarPoolDBContext db, ICheckExistenceService check, ICityService city, ICountryService country, IApplicationUserService ap, IBingApiService bing)
+        public TripService(CarPoolDBContext db, ICheckExistenceService check, ICityService city, ICountryService country, IApplicationUserService ap, IBingApiService bing, IAddressService ads)
         {
             _db = db;
             _check = check;
@@ -31,6 +32,7 @@ namespace CarPool.Services.Data.Services
             _country = country;
             _ap = ap;
             _bing = bing;
+            _ads = ads;
         }
 
         public async Task<IEnumerable<TripDTO>> GetAsync(int page)
@@ -62,7 +64,10 @@ namespace CarPool.Services.Data.Services
 
         public async Task<TripDTO> PostAsync(TripDTO obj)
         {
-            var travelData = await _bing.GetTripDataAsync($"{obj.StartAddressCity} {obj.StartAddressCountry}", $"{obj.DestinationAddressCity} {obj.DestinationAddressCountry}");
+            var addressDestination = await _ads.GetAddressByIdAsync(obj.DestinationAddressId);
+            var addressOrigin = await _ads.GetAddressByIdAsync(obj.StartAddressId);
+
+            var travelData = await _bing.GetTripDataAsync($"{addressOrigin.CityName} {addressOrigin.CountryName}", $"{addressDestination.CityName} {addressDestination.CountryName}");
 
             obj.DurationInMinutes = travelData.Item2;
             obj.Distance = travelData.Item1;
@@ -70,11 +75,12 @@ namespace CarPool.Services.Data.Services
             var post = obj.GetModel();
 
             await this._db.Trips.AddAsync(post);
-
+            await _db.SaveChangesAsync();
+            var tripPassenger = new TripPassenger() { ApplicationUserId = post.DriverId, TripId = post.Id, CreatedOn = DateTime.UtcNow};
+            await this._db.TripPassengers.AddAsync(tripPassenger);
             await _db.SaveChangesAsync();
 
-            var result = post.GetDTO();
-            return result;
+            return await GetTripByIDAsync(post.Id);
         }
 
         public async Task<TripDTO> UpdateAsync(int id, TripDTO obj)

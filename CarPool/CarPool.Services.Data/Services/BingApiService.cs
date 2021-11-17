@@ -26,6 +26,8 @@ namespace CarPool.Services.Data.Services
         }
         public async Task<(int, int)> GetTripDataAsync(string origin, string destination)
         {
+
+
             var originJson = await (await client.GetAsync(string.Format(locationUrl, origin))).Content.ReadAsStringAsync(); // Get origin JSON
             dynamic originData = JsonConvert.DeserializeObject<ExpandoObject>(originJson, new ExpandoObjectConverter());    // Deserialize
             var originCoords = originData.resourceSets[0].resources[0].point.coordinates;                                   // get latitude and longitude in array

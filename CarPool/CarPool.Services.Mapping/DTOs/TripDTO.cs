@@ -47,7 +47,7 @@ namespace CarPool.Services.Mapping.DTOs
 
         public int FreeSeats { get; set; }
 
-        public List<string> PassengersNameID { get; set; } = new List<string>();
+        public List<string> PassengersNameAndPhone { get; set; } = new List<string>();
 
         public string AdditionalComment { get; set; } = GlobalConstants.NO_COMMENT;
 
