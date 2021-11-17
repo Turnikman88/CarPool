@@ -25,12 +25,12 @@ namespace CarPool.API.Infrastructure.Middleware
             var token = context.Request.Headers["Authorization"].FirstOrDefault()?.Split(" ").Last();
 
             if (token != null)
-                attachUserToContext(context, _auth, token);
+                await attachUserToContext(context, _auth, token);
 
             await _next(context);
         }
 
-        private void attachUserToContext(HttpContext context, IAuthService _auth, string token)
+        private async Task attachUserToContext(HttpContext context, IAuthService _auth, string token)
         {
             try
             {
@@ -50,7 +50,7 @@ namespace CarPool.API.Infrastructure.Middleware
                 var userEmail = jwtToken.Claims.First(x => x.Type == "email").Value;
 
                 // attach user to context on successful jwt validation
-                context.Items["User"] = _auth.GetByEmail(userEmail);
+                context.Items["User"] = await _auth.GetByEmail(userEmail);
             }
             catch
             {

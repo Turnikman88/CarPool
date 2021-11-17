@@ -225,7 +225,7 @@ namespace CarPool.Data.Models.DAL
                     LastName = "Mishkov",
                     Email = "mishkov@misho.com",
                     EmailConfirmed = true,
-                    Password = "User123$",
+                    Password = BCrypt.Net.BCrypt.HashPassword("User123$"),
                     PhoneNumber = "+35920768005",
                     //Rating = 1,
                     ApplicationRoleId = 2,
@@ -242,7 +242,7 @@ namespace CarPool.Data.Models.DAL
                     FirstName = "Peter",
                     LastName = "Petrov",
                     Email = "petio@mvc.net",
-                    Password = "User123$",
+                    Password = BCrypt.Net.BCrypt.HashPassword("User123$"),
                     AddressId = 2
                 },
                 new ApplicationUser
@@ -256,7 +256,7 @@ namespace CarPool.Data.Models.DAL
                     FirstName = "Koksal",
                     LastName = "Baba",
                     Email = "koksal@asd.tr",
-                    Password = "User123$",
+                    Password = BCrypt.Net.BCrypt.HashPassword("User123$"),
                     AddressId = 3
                 },
                 new ApplicationUser
@@ -270,7 +270,7 @@ namespace CarPool.Data.Models.DAL
                     FirstName = "Nikolaos",
                     LastName = "Tsitsibaris",
                     Email = "indebt@greece.gov",
-                    Password = "User123$",
+                    Password = BCrypt.Net.BCrypt.HashPassword("User123$"),
                     AddressId = 4
                 }
             };

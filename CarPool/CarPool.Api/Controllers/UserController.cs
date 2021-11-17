@@ -1,4 +1,5 @@
-﻿using CarPool.Services.Data.Contracts;
+﻿using CarPool.API.Infrastructure.Attributes;
+using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,6 +23,7 @@ namespace CarPool.API.Controllers
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<ApplicationUserDisplayDTO>>> GetAsync(int page)
         {
             return this.Ok(await _us.GetAsync(page));
