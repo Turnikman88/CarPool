@@ -29,7 +29,6 @@ namespace CarPool.API.Extensions
             services.AddScoped<IBingApiService, BingApiService>();
             services.AddScoped<IBanService, BanService>();
 
-
             services.AddHostedService<BanHostedService>();
             // services.AddScoped<I, >();
 

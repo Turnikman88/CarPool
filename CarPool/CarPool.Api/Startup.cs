@@ -27,6 +27,7 @@ namespace CarPool.Api
                     options.JsonSerializerOptions.IgnoreNullValues = true;
                 });
 
+            services.AddHttpClient();
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddApplicationServices(Configuration);
             services.AddSwaggerGen();
