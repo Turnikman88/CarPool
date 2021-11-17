@@ -82,14 +82,18 @@ namespace CarPool.Services.Data.Services
                 .Include(x => x.Ratings)
                 .Include(x => x.Trips)
                 .Include(x => x.Vehicle)
-                .Include(x => x.Ban).FirstOrDefaultAsync(x => x.Email == email);
+                .Include(x => x.ApplicationRole)
+                .Include(x => x.Ban)
+                .Where(x => x.Email == email)
+                .Select(x => x.GetDTO())
+                .FirstOrDefaultAsync();
 
             if (user is null)
             {
                 return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_NOT_FOUND };
             }
 
-            return user.GetDTO();
+            return user;
 
         }
 
@@ -126,12 +130,16 @@ namespace CarPool.Services.Data.Services
                 return new ApplicationUserDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
             }
 
+            newUser.Password = BCrypt.Net.BCrypt.HashPassword(newUser.Password);
+
             await _db.ApplicationUsers.AddAsync(newUser);
             await _db.SaveChangesAsync();
-            newUser = await _db.ApplicationUsers
-                .FirstOrDefaultAsync(x => x.Id == newUser.Id);
 
-            return newUser.GetDTO();
+            return await _db.ApplicationUsers
+                .Include(x => x.ApplicationRole)
+                .Where(x => x.Id == newUser.Id)
+                .Select(x => x.GetDTO())
+                .FirstOrDefaultAsync();           
         }
 
         public async Task<ApplicationUserDTO> UpdateAsync(Guid id, ApplicationUserDTO obj)

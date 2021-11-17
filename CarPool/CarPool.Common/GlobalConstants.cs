@@ -2,6 +2,8 @@
 {
     public static class GlobalConstants
     {
+        public const string Secret = "CarPoolSecretJWT681";
+
         public const string SystemName = "CarPool";
 
         public const string AdministratorRoleName = "Administrator";
@@ -62,5 +64,10 @@
         public const string TRIP_USER_BLOCKED_JOIN = "User is currently banned and cannot join or create trips!";
 
         public const string TRIP_FULL = "This trip is full. No empty seats left.";
+
+        public const string WRONG_CREDENTIALS = "Wrong credentials!";
+
+        public const string LOGGED = "You logged successfully!";
+
     }
 }

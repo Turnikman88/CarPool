@@ -1,4 +1,4 @@
-using CarPool.API.Extensions;
+using CarPool.API.Infrastructure.Extensions;
 using CarPool.API.Infrastructure.Middleware;
 using CarPool.Services;
 using Microsoft.AspNetCore.Builder;
@@ -50,6 +50,13 @@ namespace CarPool.Api
             app.UseHttpsRedirection();
 
             //app.UseMiddleware<ErrorHandlerMiddleware>();
+            app.UseCors(x => x
+                .AllowAnyOrigin()
+                .AllowAnyMethod()
+                .AllowAnyHeader());
+
+            // custom jwt auth middleware
+            app.UseMiddleware<JwtMiddleware>();
 
             app.UseRouting();
 

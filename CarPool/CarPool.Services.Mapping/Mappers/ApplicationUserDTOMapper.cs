@@ -29,10 +29,10 @@ namespace CarPool.Services.Mapping.Mappers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                EmailConfirmed = user.EmailConfirmed, //?
                 IsBlocked = user.Ban?.BlockedOn == null ? false : true,
                 PhoneNumber = user.PhoneNumber,
                 Password = user.Password,
+                Role = user.ApplicationRole.Name,
                 AddressId = user.AddressId
             };
         }
@@ -45,7 +45,6 @@ namespace CarPool.Services.Mapping.Mappers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 Email = user.Email,
-                EmailConfirmed = user.EmailConfirmed,
                 PhoneNumber = user.PhoneNumber,
                 Password = user.Password,
                 AddressId = user.AddressId                

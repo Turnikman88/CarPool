@@ -33,6 +33,10 @@ namespace CarPool.Data.DataConfigurations
             builder.Property(e => e.PhoneNumber).IsRequired();
 
             builder.HasIndex(e => e.PhoneNumber).IsUnique();
+
+            builder.Property(e => e.Username).IsRequired();
+
+            builder.HasIndex(e => e.Username).IsUnique();
         }
     }
 }

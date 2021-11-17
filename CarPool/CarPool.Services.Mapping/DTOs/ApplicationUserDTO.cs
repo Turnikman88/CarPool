@@ -17,8 +17,6 @@ namespace CarPool.Services.Mapping.DTOs
 
         public string Email { get; set; }
 
-        public bool EmailConfirmed { get; set; }
-
         public bool IsBlocked { get; set; }
 
         public string PhoneNumber { get; set; }
@@ -26,6 +24,9 @@ namespace CarPool.Services.Mapping.DTOs
         public string Password { get; set; }
 
         public int AddressId { get; set; }
+
+        public string Role { get; set; }
+
         public string ErrorMessage { get; set; }
     }
 }

@@ -9,7 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 
-namespace CarPool.API.Extensions
+namespace CarPool.API.Infrastructure.Extensions
 {
     public static class ApplicationServiceExtensions
     {
@@ -28,6 +28,7 @@ namespace CarPool.API.Extensions
             services.AddScoped<IProfilePictureService, ProfilePictureService>();
             services.AddScoped<IBingApiService, BingApiService>();
             services.AddScoped<IBanService, BanService>();
+            services.AddScoped<IAuthService, AuthService>();
 
             services.AddHostedService<BanHostedService>();
             // services.AddScoped<I, >();
