@@ -225,7 +225,7 @@ namespace CarPool.Data.Models.DAL
                     LastName = "Mishkov",
                     Email = "mishkov@misho.com",
                     EmailConfirmed = true,
-                    Password = "12345678",
+                    Password = "User123$",
                     PhoneNumber = "+35920768005",
                     //Rating = 1,
                     ApplicationRoleId = 2,
@@ -242,7 +242,7 @@ namespace CarPool.Data.Models.DAL
                     FirstName = "Peter",
                     LastName = "Petrov",
                     Email = "petio@mvc.net",
-                    Password = "123456789",
+                    Password = "User123$",
                     AddressId = 2
                 },
                 new ApplicationUser
@@ -256,7 +256,7 @@ namespace CarPool.Data.Models.DAL
                     FirstName = "Koksal",
                     LastName = "Baba",
                     Email = "koksal@asd.tr",
-                    Password = "1234567899",
+                    Password = "User123$",
                     AddressId = 3
                 },
                 new ApplicationUser
@@ -270,7 +270,7 @@ namespace CarPool.Data.Models.DAL
                     FirstName = "Nikolaos",
                     LastName = "Tsitsibaris",
                     Email = "indebt@greece.gov",
-                    Password = "12345678999",
+                    Password = "User123$",
                     AddressId = 4
                 }
             };
