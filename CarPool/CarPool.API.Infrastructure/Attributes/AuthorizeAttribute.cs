@@ -1,8 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Text;
+using System.Threading.Tasks;
+using CarPool.Common;
 using CarPool.Services.Mapping.DTOs;
 using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
 
 namespace CarPool.API.Infrastructure.Attributes
@@ -10,16 +13,19 @@ namespace CarPool.API.Infrastructure.Attributes
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeAttribute : Attribute, IAuthorizationFilter
     {
-        public string Roles { get; set; } = "User";
+        public string Roles { get; set; } = GlobalConstants.UserRoleName;
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
-            var user = context.HttpContext.Items["User"] as ResponseAuthDTO;
+            var user = context.HttpContext.Items[GlobalConstants.UserRoleName] as ResponseAuthDTO;
+
             if (user == null || user.Role != Roles)
             {
-                // not logged in
-                //context.Result = new JsonResult(new { message = "Unauthorized" }) { StatusCode = StatusCodes.Status401Unauthorized };
-                throw new Exception();
+                context.Result = new UnauthorizedObjectResult(GlobalConstants.NOT_AUTHORIZED);
+            }
+            else if (user.isBlocked)
+            {
+                context.Result = new UnauthorizedObjectResult(user.Message);
             }
         }
     }

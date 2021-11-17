@@ -2,11 +2,13 @@
 {
     public static class GlobalConstants
     {
-        public const string Secret = "CarPoolSecretJWT681";
+        public const string Secret = "CarPoolSecretTelerikAcademy"; //minimum 16 letters
 
         public const string SystemName = "CarPool";
 
         public const string AdministratorRoleName = "Administrator";
+
+        public const string UserRoleName = "User";
 
         public const string PassRegex = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$";
 
@@ -69,5 +71,6 @@
 
         public const string LOGGED = "You logged successfully!";
 
+        public const string NOT_AUTHORIZED = "You are not authorized!";
     }
 }

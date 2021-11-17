@@ -30,6 +30,7 @@ namespace CarPool.Services.Data.Services
         {
             var user = await _db.ApplicationUsers
                 .Include(x => x.ApplicationRole)
+                .Include(x => x.Ban)
                 .Where(x => x.Email == model.Email)
                 .FirstOrDefaultAsync(); 
 
@@ -40,16 +41,38 @@ namespace CarPool.Services.Data.Services
 
             var token = generateJwtToken(user.GetDTO());
 
-            return new ResponseAuthDTO { Token = token, Message = GlobalConstants.LOGGED };
+            return new ResponseAuthDTO 
+            { 
+                Token = token,
+                Message = GlobalConstants.LOGGED,
+            };
         }
 
         public async Task<ResponseAuthDTO> GetByEmail(string email)
         {
-            return await _db.ApplicationUsers
+            var user =  await _db.ApplicationUsers
                 .Include(x => x.ApplicationRole)
-                .Where(x => x.Email == email)
-                .Select(x => new ResponseAuthDTO {Email = x.Email, Role = x.ApplicationRole.Name })
+                .Include(x => x.Ban)
+                .Where(x => x.Email == email)                
                 .FirstOrDefaultAsync();
+
+            var model = new ResponseAuthDTO
+            {
+                isBlocked = user.Ban?.BlockedOn == null ? false : true,
+
+            };
+            if (model.isBlocked)
+            {
+                model.BlockedDue = user.Ban?.BlockedDue == null ? "Unknown" : user.Ban?.BlockedDue.ToString();
+                model.Message = GlobalConstants.TRIP_USER_BLOCKED_JOIN;
+            }
+            else
+            {
+                model.Role = user.ApplicationRole.Name;
+                model.Email = user.Email;                
+            }
+
+            return model;
         }
 
         private string generateJwtToken(ApplicationUserDTO user)
@@ -59,10 +82,10 @@ namespace CarPool.Services.Data.Services
             var key = Encoding.ASCII.GetBytes(GlobalConstants.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] { new Claim("id", user.Id.ToString())
-                , new Claim("role", user.Role)
-                ,new Claim("email", user.Email)}),
-                Expires = DateTime.UtcNow.AddHours(3),
+                Subject = new ClaimsIdentity(new[] {
+                new Claim("role", user.Role),
+                new Claim("email", user.Email)}),
+                Expires = DateTime.UtcNow.AddMinutes(10),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };
             var token = tokenHandler.CreateToken(tokenDescriptor);
