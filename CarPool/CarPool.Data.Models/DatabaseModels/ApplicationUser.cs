@@ -5,6 +5,8 @@
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
+    using System.ComponentModel.DataAnnotations.Schema;
+    using System.Linq;
 
     public class ApplicationUser : BaseModel<Guid>
     {
@@ -53,6 +55,9 @@
         public virtual ProfilePicture ProfilePicture { get; set; }
 
         public virtual Ban Ban { get; set; }
+
+        [NotMapped]
+        public double AverageRating { get => Ratings.Count > 0 ? Ratings.Select(x => x.Value).ToList().Average() : 0; }  //Ratings?.Select(x => x.Value).Average() ?? 0.00;
 
         public virtual ApplicationRole ApplicationRole { get; set; }
 

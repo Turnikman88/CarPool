@@ -30,6 +30,14 @@ namespace CarPool.API.Controllers
             return this.Ok(await _us.GetAsync(page));
         }
 
+        [HttpGet("/topusers")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        public async Task<ActionResult<IEnumerable<ApplicationTopUserDTO>>> GetTopUsers()
+        {
+            return this.Ok(await _us.TopUsers());
+        }
+
         [HttpGet("filter")]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]

@@ -51,6 +51,17 @@ namespace CarPool.Services.Mapping.Mappers
             };
         }
 
+        public static ApplicationTopUserDTO GetTopUserDTO(this ApplicationUser user)
+        {
+            return new ApplicationTopUserDTO
+            {
+                Username = user.Username,
+                Email = user.Email,
+                PhoneNumber = user.PhoneNumber,
+                Rating = user.AverageRating
+            };
+        }
+
         public static ApplicationUserDisplayDTO GetDisplayDTO(this ApplicationUser user)
         {
             if (user is null || user.Username is null || user.FirstName is null
@@ -68,7 +79,7 @@ namespace CarPool.Services.Mapping.Mappers
                 PhoneNumber = user.PhoneNumber,
                 Latitude = user.Address.Latitude,
                 Longitude = user.Address.Longitude,
-                Rating = user.Ratings.Count > 0 ? user.Ratings.Select(x => x.Value).ToList().Average() : 0,
+                Rating = user.AverageRating, //user.Ratings.Count > 0 ? user.Ratings.Select(x => x.Value).ToList().Average() : 0,
                 Feedbacks = user.Ratings.Select(x => x.Feedback).ToList(),
                 Trips = user.Trips.Select(x => $"Start Location: {x.StartAddress.StreetName} " +
                 $", End Location: {x.DestinationAddress.StreetName}, Price: {x.Price} " +

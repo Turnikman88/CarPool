@@ -25,27 +25,29 @@ namespace CarPool.Services.Data.Services
             this._db = db;
         }
 
+
+
         public async Task<IEnumerable<ApplicationUserDisplayDTO>> FilterUsersAsync(int page, string part)
         {
             return await _db.ApplicationUsers.Where(x => x.Email.Contains(part)
-            || x.PhoneNumber.Contains(part)
-            || x.Username.Contains(part))
-                .Include(x => x.Address)
-                .Include(x => x.Ratings)
-                .Include(x => x.Trips)
-                    .ThenInclude(x => x.DestinationAddress)
-                .Include(x => x.Vehicle)
-                .Include(x => x.Ban)
-                .Skip(page * GlobalConstants.PageSkip)
-                .Take(10)
-                .Select(x => x.GetDisplayDTO())
-                .ToListAsync();
+                                                   || x.PhoneNumber.Contains(part)
+                                                   || x.Username.Contains(part))
+                                                       .Include(x => x.Address)
+                                                       .Include(x => x.Ratings)
+                                                       .Include(x => x.Trips)
+                                                           .ThenInclude(x => x.DestinationAddress)
+                                                       .Include(x => x.Vehicle)
+                                                       .Include(x => x.Ban)
+                                                       .Skip(page * GlobalConstants.PageSkip)
+                                                       .Take(10)
+                                                       .Select(x => x.GetDisplayDTO())
+                                                       .ToListAsync();
         }
 
         public async Task<ApplicationUserDTO> DeleteAsync(string email)
         {
             var user = await _db.ApplicationUsers
-                .FirstOrDefaultAsync(x => x.Email == email);
+                                .FirstOrDefaultAsync(x => x.Email == email);
 
             if (user is null)
             {
@@ -62,31 +64,29 @@ namespace CarPool.Services.Data.Services
 
         public async Task<IEnumerable<ApplicationUserDisplayDTO>> GetAsync(int page)
         {
-            return await _db.ApplicationUsers
-                .Include(x => x.Address)
-                .Include(x => x.Ratings)
-                .Include(x => x.Trips)
-                    .ThenInclude(x => x.DestinationAddress)
-                .Include(x => x.Vehicle)
-                .Include(x => x.Ban)
-                .Skip(page * GlobalConstants.PageSkip)
-                .Take(10)
-                .Select(x => x.GetDisplayDTO())
-                .ToListAsync();
+            return await _db.ApplicationUsers.Include(x => x.Address)
+                                             .Include(x => x.Ratings)
+                                             .Include(x => x.Trips)
+                                                 .ThenInclude(x => x.DestinationAddress)
+                                             .Include(x => x.Vehicle)
+                                             .Include(x => x.Ban)
+                                             .Skip(page * GlobalConstants.PageSkip)
+                                             .Take(10)
+                                             .Select(x => x.GetDisplayDTO())
+                                             .ToListAsync();
         }
 
         public async Task<ApplicationUserDTO> GetUserByEmailAsync(string email)
         {
-            var user = await _db.ApplicationUsers
-                .Include(x => x.Address)
-                .Include(x => x.Ratings)
-                .Include(x => x.Trips)
-                .Include(x => x.Vehicle)
-                .Include(x => x.ApplicationRole)
-                .Include(x => x.Ban)
-                .Where(x => x.Email == email)
-                .Select(x => x.GetDTO())
-                .FirstOrDefaultAsync();
+            var user = await _db.ApplicationUsers.Include(x => x.Address)
+                                                 .Include(x => x.Ratings)
+                                                 .Include(x => x.Trips)
+                                                 .Include(x => x.Vehicle)
+                                                 .Include(x => x.ApplicationRole)
+                                                 .Include(x => x.Ban)
+                                                 .Where(x => x.Email == email)
+                                                 .Select(x => x.GetDTO())
+                                                 .FirstOrDefaultAsync();
 
             if (user is null)
             {
@@ -135,11 +135,10 @@ namespace CarPool.Services.Data.Services
             await _db.ApplicationUsers.AddAsync(newUser);
             await _db.SaveChangesAsync();
 
-            return await _db.ApplicationUsers
-                .Include(x => x.ApplicationRole)
-                .Where(x => x.Id == newUser.Id)
-                .Select(x => x.GetDTO())
-                .FirstOrDefaultAsync();           
+            return await _db.ApplicationUsers.Include(x => x.ApplicationRole)
+                                             .Where(x => x.Id == newUser.Id)
+                                             .Select(x => x.GetDTO())
+                                             .FirstOrDefaultAsync();           
         }
 
         public async Task<ApplicationUserDTO> UpdateAsync(string email, ApplicationUserDTO obj)
@@ -149,8 +148,8 @@ namespace CarPool.Services.Data.Services
                 return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_EXISTS };
             }
 
-            var user = await _db.ApplicationUsers
-                .FirstOrDefaultAsync(x => x.Email == email);
+            var user = await _db.ApplicationUsers .FirstOrDefaultAsync(x => x.Email == email);
+
             if (user is null)
             {
                 return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_NOT_FOUND };
@@ -163,6 +162,15 @@ namespace CarPool.Services.Data.Services
             return user.GetDTO();
         }
 
+        public async Task<IEnumerable<ApplicationTopUserDTO>> TopUsers()
+        {
+            return await _db.ApplicationUsers.Include(x => x.Ratings)
+                                             .OrderByDescending(x => x.Ratings.Select(x=> x.Value).Average())
+                                             .Take(10)
+                                             .Select(x => x.GetTopUserDTO())
+                                             .ToListAsync();
+        }
+        
         private static void MapUser(ApplicationUserDTO obj, ApplicationUser user)
         {
             if (obj.Username != null && obj.Username.Length >= 2 && obj.Username.Length <= 20)

@@ -59,7 +59,12 @@ namespace CarPool.Services.Data.Services
 
             AddressDTO result = null;
 
-            var deletedAddress = await _db.Addresses.Include(x => x.City).ThenInclude(x => x.Country).IgnoreQueryFilters().FirstOrDefaultAsync(x => x.CityId == obj.CityId && x.StreetName == obj.StreetName && x.City.Country.Name == obj.CountryName && x.IsDeleted == true);
+            var deletedAddress = await _db.Addresses.Include(x => x.City).ThenInclude(x => x.Country)
+                                                    .IgnoreQueryFilters()
+                                                    .FirstOrDefaultAsync(x => x.CityId == obj.CityId 
+                                                    && x.StreetName == obj.StreetName 
+                                                    && x.City.Country.Name == obj.CountryName 
+                                                    && x.IsDeleted == true);
 
             await AddressAssignData(obj);
 
@@ -69,7 +74,8 @@ namespace CarPool.Services.Data.Services
             {
                 await this._db.Addresses.AddAsync(newAddress);
                 await _db.SaveChangesAsync();
-                newAddress = await _db.Addresses.Include(x => x.City).ThenInclude(x => x.Country).FirstOrDefaultAsync(x => x.Id == newAddress.Id);
+                newAddress = await _db.Addresses.Include(x => x.City).ThenInclude(x => x.Country)
+                                                .FirstOrDefaultAsync(x => x.Id == newAddress.Id);
                 result = newAddress.GetDTO();
             }
             else
@@ -87,10 +93,9 @@ namespace CarPool.Services.Data.Services
         {
             await AddressAssignData(obj);
 
-            var modelToUpdate = await _db.Addresses
-                .Include(c => c.City)
-                .ThenInclude(c => c.Country)
-                .FirstOrDefaultAsync(x => x.Id == id);
+            var modelToUpdate = await _db.Addresses.Include(c => c.City)
+                                                   .ThenInclude(c => c.Country)
+                                                   .FirstOrDefaultAsync(x => x.Id == id);
 
             if (modelToUpdate is null)
                 return new AddressDTO() { ErrorMessage = GlobalConstants.ADDRESS_NOT_FOUND };
