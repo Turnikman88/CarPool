@@ -131,40 +131,40 @@ namespace CarPool.Data.Models.DAL
                     Id = 1,
                     CityId = 1,
                     StreetName = "Vasil Levski 14",
-                    Latitude = 42.698334M,
-                    Longitude = 23.319941M
+                    Latitude = 42.6860436M,
+                    Longitude = 23.320311M
                 },
                 new Address
                 {
                     Id = 2,
                     CityId = 2,
                     StreetName = "blv. Iztochen 23",
-                    Latitude = 42.682073M, 
-                    Longitude = 23.326622M
+                    Latitude = 42.1382775M,
+                    Longitude = 24.7604295M
                 },
                 new Address
                 {
                     Id = 3,
                     CityId = 3,
                     StreetName = "blv. Halic 12",
-                    Latitude = 42.698334M,
-                    Longitude = 23.254942M
+                    Latitude = 41.022079M,
+                    Longitude = 28.9483964M
                 },
                 new Address
                 {
                     Id = 4,
                     CityId = 4,
                     StreetName = "blv. Zeus 12",
-                    Latitude = 42.711242M, 
-                    Longitude = 23.316655M
+                    Latitude = 37.9916167M,
+                    Longitude = 23.7363294M
                 },
                 new Address
                 {
                     Id = 5,
                     CityId = 5,
                     StreetName = "blv. Romunska Morava 1",
-                    Latitude = 42.625045M, 
-                    Longitude = 23.400539M
+                    Latitude = 44.432558M, 
+                    Longitude = 26.111871M
                 }
             };
 
@@ -209,11 +209,14 @@ namespace CarPool.Data.Models.DAL
                     Id = 3,
                     AddedByUserId = userId2,
                     ApplicationUserId = userId3,
-                    Value = 5                    
+                    Value = 5
                 }
             };
 
+
             db.Entity<Rating>().HasData(ratings);
+
+            
 
             var users = new List<ApplicationUser>()
             {
@@ -229,7 +232,7 @@ namespace CarPool.Data.Models.DAL
                     PhoneNumber = "+35920768005",
                     //Rating = 1,
                     ApplicationRoleId = 2,
-                    AddressId = 1                    
+                    AddressId = 1
                 },
                 new ApplicationUser
                 {
@@ -277,11 +280,50 @@ namespace CarPool.Data.Models.DAL
 
             db.Entity<ApplicationUser>().HasData(users);
 
+            var vehicles = new List<UserVehicle>()
+            {
+                new UserVehicle
+                {
+                    Id = 1,
+                    ApplicationUserId = userId0,
+                    Color = "Red",
+                    FuelConsumptionPerHundredKilometers = 12,
+                    Model = "Ferrari"
+                },
+                new UserVehicle
+                {
+                    Id = 2,
+                    ApplicationUserId = userId1,
+                    Color = "Blue",
+                    FuelConsumptionPerHundredKilometers = 8,
+                    Model = "Alfa Romeo"
+                },
+                new UserVehicle
+                {
+                    Id = 3,
+                    ApplicationUserId = userId2,
+                    Color = "Black",
+                    FuelConsumptionPerHundredKilometers = 10,
+                    Model = "Mercedes S Class"
+                },
+                new UserVehicle
+                {
+                    Id = 4,
+                    ApplicationUserId = userId3,
+                    Color = "Silver",
+                    FuelConsumptionPerHundredKilometers = 15,
+                    Model = "BMW M5"
+                },
+
+            };
+
+            db.Entity<UserVehicle>().HasData(vehicles);
+
             var bans = new List<Ban>()
             {
                 new Ban
                 {
-                    Id = 1,                   
+                    Id = 1,
                     ApplicationUserId = userId1,
                     BlockedOn = System.DateTime.Today,
                     BlockedDue = System.DateTime.Today.AddDays(5)
@@ -308,7 +350,7 @@ namespace CarPool.Data.Models.DAL
                     DurationInMinutes = 90,
                     Distance = 340,
                     PassengersCount = 2,
-                    FreeSeats = 2                    
+                    FreeSeats = 2
                 },
                 new Trip
                 {

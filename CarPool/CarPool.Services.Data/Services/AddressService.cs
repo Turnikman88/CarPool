@@ -45,9 +45,9 @@ namespace CarPool.Services.Data.Services
             _check.CheckId(id);
 
             var result = await _db.Addresses
-                .Include(c => c.City)
-                .ThenInclude(c => c.Country)
-                .FirstOrDefaultAsync(x => x.Id == id);
+                                 .Include(c => c.City)
+                                 .ThenInclude(c => c.Country)
+                                 .FirstOrDefaultAsync(x => x.Id == id);
 
             return result != null ? result.GetDTO() : new AddressDTO() { ErrorMessage = GlobalConstants.ADDRESS_NOT_FOUND };
         }

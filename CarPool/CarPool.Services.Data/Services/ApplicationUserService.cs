@@ -124,8 +124,7 @@ namespace CarPool.Services.Data.Services
 
             var newUser = obj.GetEntity();
 
-            if (!IsValidUser(obj.Username, obj.Email,
-            obj.Password, obj.PhoneNumber))
+            if (!IsValidUser(obj.Username, obj.Email, obj.Password, obj.PhoneNumber))
             {
                 return new ApplicationUserDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
             }

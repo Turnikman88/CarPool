@@ -16,29 +16,32 @@ namespace CarPool.Services.Data.Services
 {
     public class TripService : ITripService
     {
+        private readonly IApplicationUserService _ap;
         private readonly IAddressService _ads;
-        private readonly CarPoolDBContext _db;
+        private readonly IBingApiService _bing;
         private readonly ICheckExistenceService _check;
         private readonly ICityService _city;
         private readonly ICountryService _country;
-        private readonly IApplicationUserService _ap;
-        private readonly IBingApiService _bing;
+        private readonly CarPoolDBContext _db;
+        private readonly IFuelService _fuelService;
 
-        public TripService(CarPoolDBContext db, 
-            ICheckExistenceService check, 
-            ICityService city, 
-            ICountryService country, 
-            IApplicationUserService ap, 
-            IBingApiService bing, 
-            IAddressService ads)
+        public TripService(CarPoolDBContext db,
+            ICheckExistenceService check,
+            ICityService city,
+            ICountryService country,
+            IApplicationUserService ap,
+            IBingApiService bing,
+            IAddressService ads, 
+            IFuelService fuelService)
         {
-            _db = db;
+            _ap = ap;
+            _ads = ads;
+            _bing = bing;
             _check = check;
             _city = city;
             _country = country;
-            _ap = ap;
-            _bing = bing;
-            _ads = ads;
+            _db = db;
+            _fuelService = fuelService;
         }
 
         public async Task<IEnumerable<TripDTO>> GetAsync(int page)
@@ -70,13 +73,15 @@ namespace CarPool.Services.Data.Services
 
         public async Task<TripDTO> PostAsync(TripDTO obj)
         {
-            var addressDestination = await _ads.GetAddressByIdAsync(obj.DestinationAddressId);
             var addressOrigin = await _ads.GetAddressByIdAsync(obj.StartAddressId);
+            var addressDestination = await _ads.GetAddressByIdAsync(obj.DestinationAddressId);
+            var vehicle = await _db.UserVehicles.FirstOrDefaultAsync(x => x.ApplicationUserId == Guid.Parse(obj.DriverId));
 
             var travelData = await _bing.GetTripDataCoordinatesAsync($"{addressOrigin.Latitude},{addressOrigin.Longitude}", $"{addressDestination.Latitude},{addressDestination.Longitude} ");
 
             obj.DurationInMinutes = travelData.Item2;
             obj.Distance = travelData.Item1;
+            obj.Price = await _fuelService.Price(obj.Distance, vehicle.FuelConsumptionPerHundredKilometers) / (obj.FreeSeats + obj.PassengersCount);
 
             var post = obj.GetModel();
 
@@ -105,6 +110,8 @@ namespace CarPool.Services.Data.Services
 
             var travelData = await _bing.GetTripDataCityCountryAsync($"{obj.StartAddressCity} {obj.StartAddressCountry}", $"{obj.DestinationAddressCity} {obj.DestinationAddressCountry}");
 
+            var price = await _fuelService.Price(obj.Distance, toUpdate.Driver.Vehicle.FuelConsumptionPerHundredKilometers) / (obj.FreeSeats + obj.PassengersCount);
+
             toUpdate.AdditionalComment = obj.AdditionalComment;
             toUpdate.DurationInMinutes = travelData.Item2;
             toUpdate.ModifiedOn = System.DateTime.UtcNow;
@@ -114,7 +121,7 @@ namespace CarPool.Services.Data.Services
             toUpdate.DriverId = new Guid(obj.DriverId);
             toUpdate.FreeSeats = obj.FreeSeats;
             toUpdate.PassengersCount = obj.PassengersCount;
-            toUpdate.Price = obj.Price;
+            toUpdate.Price = price;
             toUpdate.StartAddressId = obj.StartAddressId;
 
             await _db.SaveChangesAsync();
