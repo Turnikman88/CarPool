@@ -1,4 +1,5 @@
 ﻿using CarPool.API.Infrastructure.Attributes;
+using CarPool.Common;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using Microsoft.AspNetCore.Mvc;
@@ -32,6 +33,7 @@ namespace CarPool.API.Controllers
         [HttpGet("filter")]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<ApplicationUserDisplayDTO>>> FilterUsersAsync(int page, string part)
         {
             return this.Ok(await _us.FilterUsersAsync(page, part));
@@ -40,6 +42,7 @@ namespace CarPool.API.Controllers
         [HttpGet("{email}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
+        [Authorize]
         public async Task<ActionResult<ApplicationUserDisplayDTO>> GetUserByEmailAsync(string email)
         {
             var response = await _us.GetUserByEmailAsync(email);
@@ -70,9 +73,12 @@ namespace CarPool.API.Controllers
         [HttpPut]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
-        public async Task<ActionResult<ApplicationUserDisplayDTO>> UpdateAsync(Guid id, ApplicationUserDTO obj)
-        {
-            var response = await _us.UpdateAsync(id, obj);
+        [Authorize]
+        public async Task<ActionResult<ApplicationUserDisplayDTO>> UpdateAsync(ApplicationUserDTO obj)
+        {            
+            var user = HttpContext.Items[GlobalConstants.UserRoleName] as ResponseAuthDTO;
+
+            var response = await _us.UpdateAsync(user.Email, obj);
 
             if (response.ErrorMessage is null)
             {
@@ -85,9 +91,12 @@ namespace CarPool.API.Controllers
         [HttpDelete]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
-        public async Task<ActionResult<ApplicationUserDisplayDTO>> DeleteAsync(Guid id)
+        [Authorize]
+        public async Task<ActionResult<ApplicationUserDisplayDTO>> DeleteAsync()
         {
-            var response = await _us.DeleteAsync(id);
+            var user = HttpContext.Items[GlobalConstants.UserRoleName] as ResponseAuthDTO;
+
+            var response = await _us.DeleteAsync(user.Email);
 
             if (response.ErrorMessage is null)
             {

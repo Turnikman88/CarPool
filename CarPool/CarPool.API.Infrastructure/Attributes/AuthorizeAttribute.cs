@@ -19,14 +19,15 @@ namespace CarPool.API.Infrastructure.Attributes
         {
             var user = context.HttpContext.Items[GlobalConstants.UserRoleName] as ResponseAuthDTO;
 
-            if (user == null || user.Role != Roles)
-            {
-                context.Result = new UnauthorizedObjectResult(GlobalConstants.NOT_AUTHORIZED);
-            }
-            else if (user.isBlocked)
+            if (user != null && user.isBlocked == true)
             {
                 context.Result = new UnauthorizedObjectResult(user.Message);
             }
+            else if (user == null || user.Role != Roles)
+            {
+                context.Result = new UnauthorizedObjectResult(GlobalConstants.NOT_AUTHORIZED);
+            }
+            
         }
     }
 }

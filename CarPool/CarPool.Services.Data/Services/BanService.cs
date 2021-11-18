@@ -42,6 +42,7 @@ namespace CarPool.Services.Data.Services
 
             await _db.SaveChangesAsync();
             return new BanDTO { 
+                Id = user.Ban.Id,
                 ApplicationUserId = user.Id,
                 UserEmail = user.Email,
                 BlockedOn = user.Ban.BlockedOn,
@@ -55,9 +56,10 @@ namespace CarPool.Services.Data.Services
                 .Include(x => x.Address)
                 .Include(x => x.Ratings)
                 .Include(x => x.Trips)
+                    .ThenInclude(x => x.DestinationAddress)
                 .Include(x => x.Vehicle)
                 .Include(x => x.Ban)
-                .Where(x=>x.Ban.BlockedDue > DateTime.UtcNow)
+                .Where(x=> x.Ban != null && x.Ban.BlockedOn != null || x.Ban.BlockedDue > DateTime.UtcNow)
                 .Skip(page * GlobalConstants.PageSkip)
                 .Take(10)
                 .Select(x => x.GetDisplayDTO())

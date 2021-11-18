@@ -1,4 +1,5 @@
-﻿using CarPool.Services.Data.Contracts;
+﻿using CarPool.API.Infrastructure.Attributes;
+using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using System;
@@ -22,6 +23,7 @@ namespace CarPool.API.Controllers
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<CityDTO>>> GetCitiesAsync(int page)
         {
             return this.Ok(await _cs.GetAsync(page));
@@ -31,6 +33,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(401)]
+        [Authorize]
         public async Task<ActionResult<CityDTO>> GetCityByIdAsync(int id)
         {
             var response = await _cs.GetCityByIdAsync(id);
@@ -46,6 +49,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(401)]
+        [Authorize]
         public async Task<ActionResult<CityDTO>> GetCityByNameAsync(string name)
         {
             var response = await _cs.GetCityByNameAsync(name);
@@ -61,6 +65,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(401)]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<CityDTO>>> GetCitiesByPartNameAsync(int page, string part)
         {
             return this.Ok(await _cs.GetCitiesByPartNameAsync(page, part));
@@ -77,6 +82,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
+        [Authorize]
         public async Task<ActionResult<CityDTO>> CreateCityAsync(CityDTO obj)
         {
             var response = await _cs.PostAsync(obj);
@@ -92,6 +98,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
+        [Authorize]
         public async Task<ActionResult<CityDTO>> UpdateCityAsync(int id, CityDTO obj)
         {
             var response = await _cs.UpdateAsync(id, obj);
@@ -108,6 +115,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
+        [Authorize]
         public async Task<ActionResult<CityDTO>> DeleteCityAsync(int id)
         {
             var response = await _cs.DeleteAsync(id);

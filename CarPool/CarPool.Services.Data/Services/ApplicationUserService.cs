@@ -42,10 +42,10 @@ namespace CarPool.Services.Data.Services
                 .ToListAsync();
         }
 
-        public async Task<ApplicationUserDTO> DeleteAsync(Guid id)
+        public async Task<ApplicationUserDTO> DeleteAsync(string email)
         {
             var user = await _db.ApplicationUsers
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Email == email);
 
             if (user is null)
             {
@@ -142,15 +142,15 @@ namespace CarPool.Services.Data.Services
                 .FirstOrDefaultAsync();           
         }
 
-        public async Task<ApplicationUserDTO> UpdateAsync(Guid id, ApplicationUserDTO obj)
+        public async Task<ApplicationUserDTO> UpdateAsync(string email, ApplicationUserDTO obj)
         {
-            if (await _db.ApplicationUsers.Where(x => x.Id != id).FirstOrDefaultAsync(x => x.Email == obj.Email) != null)
+            if (await _db.ApplicationUsers.Where(x => x.Email != email).FirstOrDefaultAsync(x => x.Email == obj.Email) != null)
             {
                 return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_EXISTS };
             }
 
             var user = await _db.ApplicationUsers
-                .FirstOrDefaultAsync(x => x.Id == id);
+                .FirstOrDefaultAsync(x => x.Email == email);
             if (user is null)
             {
                 return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_NOT_FOUND };

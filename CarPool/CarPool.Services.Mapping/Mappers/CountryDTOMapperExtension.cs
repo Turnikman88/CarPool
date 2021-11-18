@@ -21,5 +21,14 @@ namespace CarPool.Services.Mapping.Mappers
                 Cities = country.Cities.Select(c => c.Name).ToList()
             };
         }
+        public static Country GetEntity(this CountryDTO country)
+        {
+            
+            return new Country
+            {
+                Id = country.Id,
+                Name = country.Name
+            };
+        }
     }
 }

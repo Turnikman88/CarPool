@@ -1,4 +1,5 @@
-﻿using CarPool.Services.Data.Contracts;
+﻿using CarPool.API.Infrastructure.Attributes;
+using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,6 +24,7 @@ namespace CarPool.API.Controllers
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
+        [Authorize]
         public async Task<ActionResult<IEnumerable<TripDTO>>> GetTripsAsync(int page)
         {
             return this.Ok(await _ts.GetAsync(page));
@@ -32,6 +34,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
         [ProducesResponseType(401)]
+        [Authorize]
         public async Task<ActionResult<TripDTO>> GetTripByIdAsync(int id)
         {
             var response = await _ts.GetTripByIDAsync(id);
@@ -49,6 +52,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(201)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
+        [Authorize]
         public async Task<ActionResult<TripDTO>> CreateTripAsync(TripDTO obj)
         {
             var response = await _ts.PostAsync(obj);
@@ -64,6 +68,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
+        [Authorize]
         public async Task<ActionResult<TripDTO>> UpdateTripAsync(int id, TripDTO obj)
         {
             var response = await _ts.UpdateAsync(id, obj);
@@ -80,6 +85,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(202)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
+        [Authorize]
         public async Task<ActionResult<TripDTO>> JoinTripAsync(int id, string email)
         {
             var response = await _ts.JoinTrip(id, email);
@@ -96,6 +102,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(202)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
+        [Authorize]
         public async Task<ActionResult<TripDTO>> LeaveTripAsync(int id, string email)
         {
             var response = await _ts.LeaveTrip(id, email);
@@ -112,6 +119,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(200)]
         [ProducesResponseType(400)]
         [ProducesResponseType(401)]
+        [Authorize]
         public async Task<ActionResult<TripDTO>> DeleteTripAsync(int id)
         {
             var response = await _ts.DeleteAsync(id);

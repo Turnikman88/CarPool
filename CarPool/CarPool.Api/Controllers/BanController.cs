@@ -1,4 +1,6 @@
-﻿using CarPool.Services.Data.Contracts;
+﻿using CarPool.API.Infrastructure.Attributes;
+using CarPool.Common;
+using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -23,12 +25,18 @@ namespace CarPool.API.Controllers
         [HttpGet]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult<IEnumerable<ApplicationUserDisplayDTO>>> GetAllBannedUsersAsync(int page)
         {
             return this.Ok(await _bs.GetAllBannedUsersAsync(page));
         }
 
+
         [HttpPatch("{email}/{days?}")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(400)]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult<BanDTO>> BanUserAsync(string email, string reason, string days)
         {
             var response = await _bs.BanUserAsync(email, reason, days);
@@ -42,6 +50,10 @@ namespace CarPool.API.Controllers
         }
 
         [HttpPatch("{email}/unban")]
+        [ProducesResponseType(200)]
+        [ProducesResponseType(401)]
+        [ProducesResponseType(400)]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult<BanDTO>> UnbanUserAsync(string email)
         {
             var response = await _bs.UnbanUserAsync(email);

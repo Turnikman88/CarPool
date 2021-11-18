@@ -6,7 +6,7 @@
 
         public const string SystemName = "CarPool";
 
-        public const string AdministratorRoleName = "Administrator";
+        public const string AdministratorRoleName = "Admin";
 
         public const string UserRoleName = "User";
 

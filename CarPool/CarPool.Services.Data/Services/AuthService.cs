@@ -61,7 +61,7 @@ namespace CarPool.Services.Data.Services
                 isBlocked = user.Ban?.BlockedOn == null ? false : true,
 
             };
-            if (model.isBlocked)
+            if (model.isBlocked == true)
             {
                 model.BlockedDue = user.Ban?.BlockedDue == null ? "Unknown" : user.Ban?.BlockedDue.ToString();
                 model.Message = GlobalConstants.TRIP_USER_BLOCKED_JOIN;
@@ -82,9 +82,9 @@ namespace CarPool.Services.Data.Services
             var key = Encoding.ASCII.GetBytes(GlobalConstants.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] {
-                new Claim("role", user.Role),
-                new Claim("email", user.Email)}),
+                Subject = new ClaimsIdentity(new[] {                    
+                    new Claim("role", user.Role),
+                    new Claim("email", user.Email)}),
                 Expires = DateTime.UtcNow.AddMinutes(10),
                 SigningCredentials = new SigningCredentials(new SymmetricSecurityKey(key), SecurityAlgorithms.HmacSha256Signature)
             };

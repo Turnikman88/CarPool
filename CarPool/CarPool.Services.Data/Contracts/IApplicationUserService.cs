@@ -16,8 +16,8 @@ namespace CarPool.Services.Data.Contracts
 
         Task<ApplicationUserDTO> PostAsync(ApplicationUserDTO obj);
 
-        Task<ApplicationUserDTO> UpdateAsync(Guid id, ApplicationUserDTO obj);
+        Task<ApplicationUserDTO> UpdateAsync(string email, ApplicationUserDTO obj);
 
-        Task<ApplicationUserDTO> DeleteAsync(Guid id);
+        Task<ApplicationUserDTO> DeleteAsync(string email);
     }
 }
