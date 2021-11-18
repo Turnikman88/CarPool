@@ -28,13 +28,13 @@ namespace CarPool.API.Controllers
             return this.Ok(await _auth.Authenticate(model));
         }
 
-        [HttpPost]
-        [ProducesResponseType(200)]
-        [ProducesResponseType(401)]
-        [Authorize]
-        public async Task<ActionResult<IEnumerable<ResponseAuthDTO>>> Logout(RequestAuthDTO model)
-        {
-            return this.Ok(await _auth.Authenticate(model));
-        }
+       // [HttpPost]
+       // [ProducesResponseType(200)]
+       // [ProducesResponseType(401)]
+       // [Authorize]
+       // public async Task<ActionResult<IEnumerable<ResponseAuthDTO>>> Logout(RequestAuthDTO model)
+       // {
+       //     return this.Ok(await _auth.Authenticate(model));
+       // }
     }
 }

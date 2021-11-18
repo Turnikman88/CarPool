@@ -24,7 +24,13 @@ namespace CarPool.Services.Data.Services
         private readonly IApplicationUserService _ap;
         private readonly IBingApiService _bing;
 
-        public TripService(CarPoolDBContext db, ICheckExistenceService check, ICityService city, ICountryService country, IApplicationUserService ap, IBingApiService bing, IAddressService ads)
+        public TripService(CarPoolDBContext db, 
+            ICheckExistenceService check, 
+            ICityService city, 
+            ICountryService country, 
+            IApplicationUserService ap, 
+            IBingApiService bing, 
+            IAddressService ads)
         {
             _db = db;
             _check = check;

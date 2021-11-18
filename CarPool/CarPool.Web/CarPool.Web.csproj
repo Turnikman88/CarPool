@@ -19,4 +19,9 @@
     <ProjectReference Include="..\CarPool.Data\CarPool.Data.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Controllers\" />
+    <Folder Include="Views\" />
+  </ItemGroup>
+
 </Project>
