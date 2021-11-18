@@ -14,12 +14,14 @@ namespace CarPool.Services.Data.Services
     public class CityService : ICityService
     {
         private readonly CarPoolDBContext _db;
+        private readonly ICountryService _cs;
         private readonly ICheckExistenceService _check;
 
-        public CityService(CarPoolDBContext db, ICheckExistenceService check)
+        public CityService(CarPoolDBContext db, ICheckExistenceService check, ICountryService cs)
         {
             this._db = db;
             this._check = check;
+            this._cs = cs;
         }
 
         public async Task<IEnumerable<CityDTO>> GetAsync(int page)
@@ -87,21 +89,23 @@ namespace CarPool.Services.Data.Services
 
         public async Task<CityDTO> PostAsync(CityDTO obj)
         {
-            // _ = await _check.CityExistsAsync(obj.Name, obj.CountryId)
-            //     == true ? throw new AppException(GlobalConstants.CITY_EXISTS) : 0;
+            var country = await _cs.GetCountryByNameAsync(obj.CountryName);
+            obj.CountryId = country.Id;
 
             if (await _check.CityExistsAsync(obj.Name, obj.CountryId))
                 return new CityDTO() { ErrorMessage = GlobalConstants.CITY_EXISTS };
+
 
             CityDTO result = null;
 
             var deletedCity = await _db.Cities.Include(x => x.Country).IgnoreQueryFilters()
                 .FirstOrDefaultAsync(x => x.CountryId == obj.CountryId && x.Name == obj.Name && x.IsDeleted == true);
 
-            if (obj is null || obj.Name is null || obj.Id < 0 || obj.CountryId <= 0)
+            if (obj is null || obj.Name is null)
             {
                 return new CityDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
             }
+
 
             var newCity = obj.GetEntity();
             if (deletedCity == null)
@@ -125,9 +129,11 @@ namespace CarPool.Services.Data.Services
         {
             _check.CheckId(id);
 
+            var country = await _cs.GetCountryByNameAsync(obj.CountryName);
+            obj.CountryId = country.Id;
+
             if (await _check.CityExistsAsync(obj.Name, obj.CountryId))
                 return new CityDTO() { ErrorMessage = GlobalConstants.CITY_EXISTS };
-
 
             var city = await this._db.Cities
                 .Include(x => x.Addresses)

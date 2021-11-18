@@ -61,7 +61,7 @@
 
         public const string USER_PERMANENT_BLOCK = "User is permanently blocked!";
 
-        public const string USER_UNBLOCKED = "User was successfuly unbanned";
+        public const string USER_UNBLOCKED = "User with email {0} was successfuly unbanned";
 
         public const string TRIP_USER_BLOCKED_JOIN = "User is currently banned and cannot join or create trips!";
 

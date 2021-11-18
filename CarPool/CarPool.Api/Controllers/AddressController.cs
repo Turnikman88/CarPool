@@ -56,7 +56,7 @@ namespace CarPool.API.Controllers
             {
                 return this.Created("Get", response);
             }
-            return this.NotFound(response);
+            return this.NotFound(response.ErrorMessage);
         }
 
         [HttpPut("{id}")]
@@ -72,7 +72,7 @@ namespace CarPool.API.Controllers
                 return this.Ok(response);
             }
 
-            return this.NotFound(response);
+            return this.NotFound(response.ErrorMessage);
         }
 
         [HttpDelete("{id}")]
@@ -88,7 +88,7 @@ namespace CarPool.API.Controllers
                 return this.Ok(response);
             }
 
-            return this.NotFound(response);
+            return this.NotFound(response.ErrorMessage);
         }
     }
 }

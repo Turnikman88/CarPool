@@ -29,7 +29,6 @@ namespace CarPool.Services.Mapping.Mappers
         {          
             return new City
             {
-                Id = city.Id,
                 Name = city.Name,
                 CountryId = city.CountryId
             };

@@ -15,6 +15,8 @@ namespace CarPool.Services.Mapping.DTOs
 
         public Guid ApplicationUserId { get; set; }
 
+        public string UserEmail { get; set; }
+
         public string Reason { get; set; }
 
         public string ErrorMessage { get; set; }

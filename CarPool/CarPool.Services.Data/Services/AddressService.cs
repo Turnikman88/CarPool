@@ -109,12 +109,16 @@ namespace CarPool.Services.Data.Services
         {
             _check.CheckId(id);
 
-            var address = await this._db.Addresses.FirstOrDefaultAsync(x => x.Id == id); //?? throw new AppException(GlobalConstants.ADDRESS_NOT_FOUND);
+            var address = await this._db.Addresses
+                                        .Include(c => c.City)
+                                        .ThenInclude(c => c.Country)
+                                        .FirstOrDefaultAsync(x => x.Id == id);
 
-            if (address is null)
+            if (address is null || address.IsDeleted)
                 return new AddressDTO() { ErrorMessage = GlobalConstants.ADDRESS_NOT_FOUND };
 
             address.DeletedOn = System.DateTime.UtcNow;
+            address.IsDeleted = true;
             await _db.SaveChangesAsync();
 
             return address.GetDTO();
@@ -125,7 +129,7 @@ namespace CarPool.Services.Data.Services
             var cityDetails = await _city.GetCityByNameAsync(obj.CityName);
             var countryDetails = await _country.GetCountryByNameAsync(obj.CountryName);
 
-            if (cityDetails.ErrorMessage != null)
+            if (cityDetails.ErrorMessage != null || countryDetails.ErrorMessage != null)
             {
                 await _city.PostAsync(new CityDTO { CountryId = countryDetails.Id, Name = obj.CityName });
                 await _db.SaveChangesAsync();

@@ -23,13 +23,16 @@ namespace CarPool.Services.Data.Services
 
         public async Task<BanDTO> BanUserAsync(string email, string reason, string days)
         {
+            if (string.IsNullOrEmpty(reason) || string.IsNullOrWhiteSpace(reason))
+                reason = GlobalConstants.NO_COMMENT;
+
             var user = await _db.ApplicationUsers
                 .Include(x=>x.Ban)
                .FirstOrDefaultAsync(x => x.Email == email);
 
             if (user is null)
                 return new BanDTO() { ErrorMessage = GlobalConstants.USER_NOT_FOUND };
-
+            user.Ban = new CarPool.Data.Models.DatabaseModels.Ban();
             user.Ban.BlockedOn = DateTime.UtcNow.Date;
             user.Ban.Reason = reason;
 
@@ -38,7 +41,12 @@ namespace CarPool.Services.Data.Services
             //if days are empty, null or whitespace ban will be permanent
 
             await _db.SaveChangesAsync();
-            return new BanDTO { ApplicationUserId = user.Id, BlockedOn = user.Ban.BlockedOn, BlockedDue = user.Ban.BlockedDue, Reason = reason };
+            return new BanDTO { 
+                ApplicationUserId = user.Id,
+                UserEmail = user.Email,
+                BlockedOn = user.Ban.BlockedOn,
+                BlockedDue = user.Ban.BlockedDue,
+                Reason = reason };
         }
 
         public async Task<IEnumerable<ApplicationUserDisplayDTO>> GetAllBannedUsersAsync(int page)
@@ -69,7 +77,7 @@ namespace CarPool.Services.Data.Services
 
             await _db.SaveChangesAsync();
 
-            return new BanDTO() { ApplicationUserId = user.Id, BanRemovedMessage = GlobalConstants.USER_UNBLOCKED };
+            return new BanDTO() { ApplicationUserId = user.Id, BanRemovedMessage = string.Format(GlobalConstants.USER_UNBLOCKED, $"{user.Email}") };
         }
     }
 }
