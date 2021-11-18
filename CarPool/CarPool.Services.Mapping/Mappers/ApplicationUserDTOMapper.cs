@@ -79,7 +79,7 @@ namespace CarPool.Services.Mapping.Mappers
                 PhoneNumber = user.PhoneNumber,
                 Latitude = user.Address.Latitude,
                 Longitude = user.Address.Longitude,
-                Rating = user.AverageRating, //user.Ratings.Count > 0 ? user.Ratings.Select(x => x.Value).ToList().Average() : 0,
+                Rating = user.AverageRating, 
                 Feedbacks = user.Ratings.Select(x => x.Feedback).ToList(),
                 Trips = user.Trips.Select(x => $"Start Location: {x.StartAddress.StreetName} " +
                 $", End Location: {x.DestinationAddress.StreetName}, Price: {x.Price} " +
