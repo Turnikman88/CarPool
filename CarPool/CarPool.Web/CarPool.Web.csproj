@@ -17,4 +17,12 @@
     <PackageReference Include="Microsoft.AspNetCore.Mvc.Razor.RuntimeCompilation" Version="3.1.20" />
   </ItemGroup>
 
+  <ItemGroup>
+    <ProjectReference Include="..\CarPool.Common\CarPool.Common.csproj" />
+    <ProjectReference Include="..\CarPool.Services.Data\CarPool.Services.Data.csproj" />
+    <ProjectReference Include="..\CarPool.Services.Mapping\CarPool.Services.Mapping.csproj" />
+    <ProjectReference Include="..\CarPool.Web.Infrastructure\CarPool.Web.Infrastructure.csproj" />
+    <ProjectReference Include="..\CarPool.Web.ViewModels\CarPool.Web.ViewModels.csproj" />
+  </ItemGroup>
+
 </Project>

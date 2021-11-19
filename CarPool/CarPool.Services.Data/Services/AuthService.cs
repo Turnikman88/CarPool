@@ -26,6 +26,8 @@ namespace CarPool.Services.Data.Services
             _db = db;
         }
 
+
+
         public async Task<ResponseAuthDTO> Authenticate(RequestAuthDTO model)
         {
             var user = await _db.ApplicationUsers
