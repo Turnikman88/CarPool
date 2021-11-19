@@ -12,5 +12,10 @@ namespace CarPool.Web.Controllers
         {
             return this.View();
         }
+
+        public IActionResult About()
+        {
+            return this.View();
+        }
     }
 }

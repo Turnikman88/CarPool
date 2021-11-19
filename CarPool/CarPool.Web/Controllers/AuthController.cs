@@ -20,7 +20,7 @@ namespace CarPool.Web.Controllers
             _auth = auth;
         }
 
-        [HttpPost]
+        /*[HttpPost]
         public async Task<IActionResult> Login([FromBody] GetLoggedUserInfoRequestModel requestModel)
         {
             //TODO: SUBSTITUDE WITH YOUR OWN ACCOUNT-CHECKING METHOD
@@ -37,7 +37,7 @@ namespace CarPool.Web.Controllers
 
             //Return whatever you want, does not matter (as long as its valid 200 response-type)
             return Json(new { Success = true, Message = "Successfull login" });
-        }
+        }*/
 
         [HttpGet]
         [Authorize]

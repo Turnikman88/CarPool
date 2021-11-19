@@ -27,7 +27,7 @@ namespace CarPool.Web
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
-            services.AddApplicationServices(Configuration);
+            //services.AddApplicationServices(Configuration);
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(o =>
             {

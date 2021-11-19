@@ -6618,7 +6618,7 @@ div.btn-default {
     border-color: transparent;
     border-radius: 8px;
     background-color: transparent;
-    background-color: #FF3CAC;
+   /* background-color: #FF3CAC;*/
     transition-duration: 300ms;
     color: var(--color-white);
     font-size: 16px;
@@ -10811,10 +10811,15 @@ body.active-light-mode {
   body.active-light-mode .tagcloud a:hover,
   body.active-light-mode .wp-block-tag-cloud a:hover {
     border-color: var(--color-primary); }
-  body.active-light-mode a.btn-default.text-underline,
-  body.active-light-mode button.btn-default.text-underline {
-    border-color: #181818;
-    color: #181818; }
+    body.active-light-mode a.btn-default.text-underline,
+    body.active-light-mode button.btn-default.text-underline {
+        border-color: #059DFF;
+        color: #059DFF;
+    }
+    body.active-light-mode a.btn-default.text-underline:hover{
+        background-color: #059DFF;
+        color: white;
+    }
   body.active-light-mode .single-demo .thumbnail .image-active-light-mode {
     display: block; }
   body.active-light-mode .single-demo .thumbnail .image-dark {
