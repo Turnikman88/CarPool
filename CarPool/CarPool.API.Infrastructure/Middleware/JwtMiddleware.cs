@@ -50,7 +50,7 @@ namespace CarPool.API.Infrastructure.Middleware
                 var userEmail = jwtToken.Claims.First(x => x.Type == "email").Value;
 
                 // attach user to context on successful jwt validation
-                context.Items[GlobalConstants.UserRoleName] = await _auth.GetByEmail(userEmail);
+                context.Items[GlobalConstants.UserRoleName] = await _auth.GetByEmailAsync(userEmail);
             }
             catch
             {

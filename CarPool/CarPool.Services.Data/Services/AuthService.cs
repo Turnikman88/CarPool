@@ -26,15 +26,13 @@ namespace CarPool.Services.Data.Services
             _db = db;
         }
 
-
-
-        public async Task<ResponseAuthDTO> Authenticate(RequestAuthDTO model)
+        public async Task<ResponseAuthDTO> AuthenticateAsync(RequestAuthDTO model)
         {
             var user = await _db.ApplicationUsers
                 .Include(x => x.ApplicationRole)
                 .Include(x => x.Ban)
                 .Where(x => x.Email == model.Email)
-                .FirstOrDefaultAsync(); 
+                .FirstOrDefaultAsync();
 
             if (user is null || !BCrypt.Net.BCrypt.Verify(model.Password, user.Password))
             {
@@ -43,26 +41,30 @@ namespace CarPool.Services.Data.Services
 
             var token = generateJwtToken(user.GetDTO());
 
-            return new ResponseAuthDTO 
-            { 
+            return new ResponseAuthDTO
+            {
                 Token = token,
                 Message = GlobalConstants.LOGGED,
             };
         }
 
-        public async Task<ResponseAuthDTO> GetByEmail(string email)
+        public async Task<ResponseAuthDTO> GetByEmailAsync(string email)
         {
-            var user =  await _db.ApplicationUsers
+            var user = await _db.ApplicationUsers
                 .Include(x => x.ApplicationRole)
                 .Include(x => x.Ban)
-                .Where(x => x.Email == email)                
+                .Where(x => x.Email == email)
                 .FirstOrDefaultAsync();
+
+            if (user is null)
+                return new ResponseAuthDTO { Message = GlobalConstants.WRONG_CREDENTIALS };
 
             var model = new ResponseAuthDTO
             {
                 isBlocked = user.Ban?.BlockedOn == null ? false : true,
 
             };
+
             if (model.isBlocked == true)
             {
                 model.BlockedDue = user.Ban?.BlockedDue == null ? "Unknown" : user.Ban?.BlockedDue.ToString();
@@ -71,11 +73,21 @@ namespace CarPool.Services.Data.Services
             else
             {
                 model.Role = user.ApplicationRole.Name;
-                model.Email = user.Email;                
+                model.Email = user.Email;
             }
 
             return model;
         }
+
+        public async Task<bool> IsPasswordValidAsync(string email, string password)
+        {
+            var userPassword = await _db.ApplicationUsers
+                .Where(x => x.Email == email)
+                .Select(x => x.Password)
+                .FirstOrDefaultAsync();
+            return BCrypt.Net.BCrypt.Verify(password, userPassword);
+        }
+
 
         private string generateJwtToken(ApplicationUserDTO user)
         {
@@ -84,7 +96,7 @@ namespace CarPool.Services.Data.Services
             var key = Encoding.ASCII.GetBytes(GlobalConstants.Secret);
             var tokenDescriptor = new SecurityTokenDescriptor
             {
-                Subject = new ClaimsIdentity(new[] {                    
+                Subject = new ClaimsIdentity(new[] {
                     new Claim("role", user.Role),
                     new Claim("email", user.Email)}),
                 Expires = DateTime.UtcNow.AddMinutes(10),
