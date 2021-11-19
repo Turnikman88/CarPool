@@ -333,4 +333,11 @@
 
 })(window, document, jQuery)
 
+$(window).on('load'), function () {
+    /*if ($('#body-id').hasClass('active-dark-mode')) {
+        alert("test");
+    }*/
+    alert("test");
+};
+
 

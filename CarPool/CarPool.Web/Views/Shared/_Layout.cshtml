@@ -18,11 +18,13 @@
     <link rel="stylesheet" href="assets/css/plugins/slick-theme.css">
     <link rel="stylesheet" href="assets/css/plugins/lightbox.css">
     <link rel="stylesheet" href="assets/css/style.css">
+    <link rel="stylesheet" href="assets/css/custom.css">
+
     @RenderSection("Styles", required: false)
 
 </head>
 
-<body class="active-dark-mode">
+<body id="body-id" class="active-dark-mode">
     <main class="page-wrapper">
         <div class="header-transparent-with-topbar">
             <!-- Start Header Area  -->
@@ -42,10 +44,10 @@
                                 <nav class="mainmenu-nav d-none d-lg-block">
                                     <ul class="mainmenu">
                                         <li class="has-droupdown has-menu-child-item">
-                                            <a href="#">Home</a>                                            
+                                            <a href="#">Home</a>
                                         </li>
-                                        <li><a href="about.html">About</a></li>                                   
-                                        
+                                        <li><a href="about.html">About</a></li>
+
                                         <li><a href="contact.html">Contact</a></li>
                                     </ul>
 
@@ -68,7 +70,7 @@
                                 <div id="my_switcher" class="my_switcher">
                                     <ul>
                                         <li>
-                                            <a href="javascript: void(0);" data-theme="light" class="setColor light">
+                                            <a  href="javascript: void(0);" data-theme="light" class="setColor light">
                                                 <img class="sun-image" src="assets/images/icons/sun-01.svg" alt="Sun images">
                                             </a>
                                         </li>
@@ -235,6 +237,16 @@
             <div class="rn-gradient-circle theme-pink"></div>
         </div>
         <!-- End Theme Style  -->
+
+        <!-- ***** Preloader Start ***** -->
+        <div id="preloader">
+            <div class="jumper">
+                <div></div>
+                <div></div>
+                <div></div>
+            </div>
+        </div>
+        <!-- ***** Preloader End ***** -->
         @RenderBody();
         <!-- Start Footer Area  -->
         <footer class="rn-footer footer-style-default footer-style-1">
@@ -381,8 +393,16 @@
     <script src="assets/js/vendor/text-type.js"></script>
     <script src="assets/js/vendor/jquery.style.swicher.js"></script>
     <script src="assets/js/vendor/js.cookie.js"></script>
+
     <!-- Main JS -->
     <script src="assets/js/main.js"></script>
+    <script src="assets/js/custom.js"></script>
+    <script>$('body').change(function () {
+            /*if ($('#body-id').hasClass('active-dark-mode')) {
+                alert("test");
+            }*/
+            alert("test");
+        });</script>>
     @RenderSection("Scripts", required: false)
 </body>
 </html>

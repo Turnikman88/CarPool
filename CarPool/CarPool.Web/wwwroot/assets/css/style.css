@@ -82,11 +82,11 @@
 /*-- Variables --*/
 @import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap");
 :root {
-    --color-primary: #059DFF;
+    --color-primary: #2B86C5;
     --color-primary-rgba: rgb(5, 157, 255);
-    --color-primary-alt: #059DFF;
-    --color-primary-light: #059DFF;
-    --color-primary-lightest: #059DFF;
+    --color-primary-alt: #2B86C5;
+    --color-primary-light: #2B86C5;
+    --color-primary-lightest: #2B86C5;
     --color-secondary: #FF3CAC;
     --color-tertiary: #6549D5;
     --color-tertiary-alt: #6549D5;
@@ -98,7 +98,7 @@
     --color-light-green-darker: #001f27;
     --color-pink-darker: #2f011d;
     --color-heading: #ffffff;
-    --color-body: #acacac;
+    --color-body: #f5f5f5;
     --color-dark: #060606;
     --color-darker: rgba(6, 6, 6, 0.7);
     --color-darkest: rgba(0, 0, 0, 0.3);
@@ -115,7 +115,7 @@
     --color-white: #ffffff;
     --color-success: #3EB75E;
     --color-danger: #FF0003;
-    --color-warning: #FF8F3C;
+    --color-warning: #FF3CAC;
     --color-info: #1BA2DB;
     --color-facebook: #3B5997;
     --color-twitter: #1BA1F2;
@@ -1101,6 +1101,10 @@ iframe {
 
 .bg_image--5 {
   background-image: url(../images/bg/bg-image-5.jpg); }
+
+.bg_image--5-white {
+    background-image: url(../images/bg/bg-image-5-white.jpg);
+}
 
 .bg_image--6 {
   background-image: url(../images/bg/bg-image-6.jpg); }
