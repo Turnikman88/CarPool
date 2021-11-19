@@ -43,7 +43,7 @@ namespace CarPool.Web.Controllers
 
             //Return whatever you want, does not matter (as long as its valid 200 response-type)
             return Json(new { Success = true, Message = "Successfull login" });
-        }*/
+        }
 
         [HttpGet]
         [Authorize]
