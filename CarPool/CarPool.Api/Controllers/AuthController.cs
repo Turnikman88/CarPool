@@ -25,7 +25,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(401)]
         public async Task<ActionResult<IEnumerable<ResponseAuthDTO>>> Login(RequestAuthDTO model)
         {
-            return this.Ok(await _auth.Authenticate(model));
+            return this.Ok(await _auth.AuthenticateAsync(model));
         }
 
        // [HttpPost]
