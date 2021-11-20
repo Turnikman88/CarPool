@@ -1,14 +1,11 @@
 ﻿using CarPool.Common;
-using CarPool.Common.Exceptions;
 using CarPool.Data;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using CarPool.Services.Mapping.Mappers;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CarPool.Services.Data.Services
@@ -52,6 +49,24 @@ namespace CarPool.Services.Data.Services
             return result != null ? result.GetDTO() : new AddressDTO() { ErrorMessage = GlobalConstants.ADDRESS_NOT_FOUND };
         }
 
+        public async Task<int> AddressToId(AddressDTO obj)
+        {
+            var address = await _db.Addresses
+                                 .Include(c => c.City)
+                                 .ThenInclude(c => c.Country)
+                                 .FirstOrDefaultAsync(x => x.City.Country.Name == obj.CountryName
+                                 && x.City.Name == obj.CityName
+                                 && x.StreetName == obj.StreetName);
+
+            if (address is null)
+            {
+                return address.Id;
+            }
+
+            var postNewAddress = await PostAsync(obj);
+            return postNewAddress.AddressId;
+        }
+
         public async Task<AddressDTO> PostAsync(AddressDTO obj)
         {
             if (await _check.AddressExistsAsync(obj.StreetName, obj.CityName, obj.CountryId))
@@ -61,9 +76,9 @@ namespace CarPool.Services.Data.Services
 
             var deletedAddress = await _db.Addresses.Include(x => x.City).ThenInclude(x => x.Country)
                                                     .IgnoreQueryFilters()
-                                                    .FirstOrDefaultAsync(x => x.CityId == obj.CityId 
-                                                    && x.StreetName == obj.StreetName 
-                                                    && x.City.Country.Name == obj.CountryName 
+                                                    .FirstOrDefaultAsync(x => x.CityId == obj.CityId
+                                                    && x.StreetName == obj.StreetName
+                                                    && x.City.Country.Name == obj.CountryName
                                                     && x.IsDeleted == true);
 
             await AddressAssignData(obj);
@@ -106,7 +121,7 @@ namespace CarPool.Services.Data.Services
             modelToUpdate.Longitude = obj.Longitude;
 
             await _db.SaveChangesAsync();
-            
+
             return await GetAddressByIdAsync(id);
         }
 
@@ -136,6 +151,12 @@ namespace CarPool.Services.Data.Services
 
             if (cityDetails.ErrorMessage != null || countryDetails.ErrorMessage != null)
             {
+                if (countryDetails.ErrorMessage != null)
+                {
+                    var newCountry = await _country.PostAsync(new CountryDTO { Name = obj.CountryName });
+                    countryDetails.Id = newCountry.Id;
+                }
+
                 await _city.PostAsync(new CityDTO { CountryId = countryDetails.Id, Name = obj.CityName });
                 await _db.SaveChangesAsync();
                 cityDetails = await _city.GetCityByNameAsync(obj.CityName);

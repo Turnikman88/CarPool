@@ -1,14 +1,11 @@
 ﻿using CarPool.Common;
 using CarPool.Data;
-using CarPool.Data.Models.DatabaseModels;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using CarPool.Services.Mapping.Mappers;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using System;
-using System.Collections.Generic;
 using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 using System.Security.Claims;
@@ -81,6 +78,15 @@ namespace CarPool.Services.Data.Services
             }
 
             return model;
+        }
+
+        public async Task<bool> ConfirmEmail(string token)
+        {
+            var tokenByte = Convert.FromBase64String(token);
+            var tokenToEmail = System.Text.Encoding.Unicode.GetString(tokenByte);
+            var user = await _db.ApplicationUsers.FirstOrDefaultAsync(x => x.Email == tokenToEmail);
+
+            return user == null ? false : true;
         }
 
         public async Task<bool> IsPasswordValidAsync(string email, string password)

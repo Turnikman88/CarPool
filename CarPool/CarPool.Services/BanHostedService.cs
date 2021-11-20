@@ -1,13 +1,9 @@
 ﻿using CarPool.Data;
-using CarPool.Services.Data.Contracts;
-using CarPool.Services.Data.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -41,12 +37,12 @@ namespace CarPool.Services
 
                 await _db.ApplicationUsers.Include(x => x.Ban)
                 .Where(x => x.Ban.BlockedDue < DateTime.UtcNow.Date)
-                .ForEachAsync(x => { x.Ban.BlockedOn = null; x.Ban.BlockedDue = null; });
+                .ForEachAsync(x => { x.Ban.BlockedOn = null; x.Ban.BlockedDue = null; x.ApplicationRoleId = 2; });
 
                 await _db.SaveChangesAsync();
                 //Console.WriteLine("unban");
             }
-        
+
         }
 
         public Task StopAsync(CancellationToken stoppingToken)
@@ -60,6 +56,6 @@ namespace CarPool.Services
         {
             _timer?.Dispose();
         }
-       
+
     }
 }

@@ -1,4 +1,5 @@
 ﻿using CarPool.Common;
+using CarPool.Services.Contracts;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using CarPool.Web.ViewModels.DTOs;
@@ -6,25 +7,29 @@ using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace CarPool.Web.Controllers
 {
+
     public class AuthController : Controller
     {
         private readonly IAuthService _auth;
         private readonly IApplicationUserService _us;
         private readonly IAddressService _ads;
+        private readonly IBanService _ban;
+        private readonly IMailService _mail;
 
-        public AuthController(IAuthService auth, IApplicationUserService us, IAddressService ads)
+        public AuthController(IAuthService auth,
+            IApplicationUserService us,
+            IAddressService ads,
+            IBanService ban)
         {
-            _auth = auth;
+            this._auth = auth;
             this._us = us;
             this._ads = ads;
+            this._ban = ban;
         }
 
         public IActionResult Login()
@@ -35,7 +40,7 @@ namespace CarPool.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Login(RequestAuthDTO model)
         {
-            if (! await _auth.IsPasswordValidAsync(model.Email, model.Password))
+            if (!await _auth.IsPasswordValidAsync(model.Email, model.Password))
             {
                 this.ModelState.AddModelError("Password", GlobalConstants.WRONG_CREDENTIALS);
                 return this.View(model);
@@ -62,6 +67,34 @@ namespace CarPool.Web.Controllers
             return Ok();
         }
 
+        // TODO: Move in admin panel
+        [HttpGet]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public IActionResult Ban()
+        {
+            return View(new BanUserDTO());
+        }
+
+        [HttpPost]
+        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
+        public async Task<IActionResult> Ban(string email, string reason, System.DateTime? days)
+        {
+            await _ban.BanUserAsync(email, reason, days);
+            return this.View(); // return json with model 
+        }
+
+        [HttpGet]
+        [Authorize(Roles = GlobalConstants.NotConfirmedRoleName)]
+        public async Task<IActionResult> ConfirmEmail(string token)
+        {
+            if (await _auth.ConfirmEmail(token))
+            {
+                return this.RedirectToAction("index", "home");
+            }
+
+            return this.RedirectToAction("error", "home");
+        }
+
         [HttpGet]
         public IActionResult Register()
         {
@@ -82,7 +115,9 @@ namespace CarPool.Web.Controllers
             }
 
             //var toCustomer = model.GetCustomerDTO();
-           // await this._us.PostAsync(toCustomer);
+            //await this._us.PostAsync(toCustomer);
+
+            await _mail.SendEmailAsync(new MailDTO { Reciever = model.Email });
             return this.Redirect(nameof(Login));
         }
 
@@ -91,7 +126,9 @@ namespace CarPool.Web.Controllers
             //You can add more claims as you wish but keep these KEYS here as is
             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
             identity.AddClaim(new Claim(ClaimTypes.Email, email));
-            identity.AddClaim(new Claim(ClaimTypes.Role, userRoleName));
+            //identity.AddClaim(new Claim(ClaimTypes.Role, userRoleName));
+            //identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, email));
+
 
             var principal = new ClaimsPrincipal(identity);
 

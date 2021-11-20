@@ -1,9 +1,6 @@
 ﻿using CarPool.Common;
-using System;
-using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using System.Text;
 
 namespace CarPool.Web.ViewModels.DTOs
 {
@@ -29,7 +26,7 @@ namespace CarPool.Web.ViewModels.DTOs
         public string PhoneNumber { get; set; }
 
         [Required]
-        [EmailAddress(ErrorMessage = GlobalConstants.INVALID_EMAIL)] 
+        [EmailAddress(ErrorMessage = GlobalConstants.INVALID_EMAIL)]
         public string Email { get; set; }
 
         [Required]
@@ -47,5 +44,14 @@ namespace CarPool.Web.ViewModels.DTOs
         [Required]
         [MinLength(5, ErrorMessage = GlobalConstants.ADDRESS_TOO_SHORT)]
         public string Address { get; set; }
+
+        [Required]
+        [MinLength(5, ErrorMessage = GlobalConstants.ADDRESS_TOO_SHORT)]
+        public string City { get; set; }
+
+        [Required]
+        [MinLength(5, ErrorMessage = GlobalConstants.ADDRESS_TOO_SHORT)]
+        public string Country { get; set; }
+
     }
 }

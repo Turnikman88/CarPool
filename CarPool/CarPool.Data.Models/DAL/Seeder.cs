@@ -2,7 +2,6 @@
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CarPool.Data.Models.DAL
 {
@@ -163,7 +162,7 @@ namespace CarPool.Data.Models.DAL
                     Id = 5,
                     CityId = 5,
                     StreetName = "blv. Romunska Morava 1",
-                    Latitude = 44.432558M, 
+                    Latitude = 44.432558M,
                     Longitude = 26.111871M
                 }
             };
@@ -181,6 +180,16 @@ namespace CarPool.Data.Models.DAL
                 {
                     Id = 2,
                     Name = "User"
+                },
+                new ApplicationRole
+                {
+                    Id = 3,
+                    Name = "Banned"
+                },
+                new ApplicationRole
+                {
+                    Id = 4,
+                    Name = "NotConfirmed"
                 }
             };
 
@@ -216,7 +225,7 @@ namespace CarPool.Data.Models.DAL
 
             db.Entity<Rating>().HasData(ratings);
 
-            
+
 
             var users = new List<ApplicationUser>()
             {

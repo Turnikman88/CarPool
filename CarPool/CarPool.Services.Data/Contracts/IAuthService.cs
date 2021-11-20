@@ -1,7 +1,4 @@
 ﻿using CarPool.Services.Mapping.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CarPool.Services.Data.Contracts
@@ -15,6 +12,8 @@ namespace CarPool.Services.Data.Contracts
         Task<ResponseAuthDTO> GetByEmailAsync(string email);
 
         Task<bool> IsPasswordValidAsync(string email, string password);
+
+        Task<bool> ConfirmEmail(string token);
 
     }
 }

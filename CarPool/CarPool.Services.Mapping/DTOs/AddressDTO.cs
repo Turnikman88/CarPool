@@ -1,13 +1,11 @@
 ﻿using CarPool.Services.Mapping.Contracts;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CarPool.Services.Mapping.DTOs
 {
     public class AddressDTO : IErrorMessage
     {
         public int AddressId { get; set; }
+
         public int CityId { get; set; }
 
         public string CityName { get; set; }

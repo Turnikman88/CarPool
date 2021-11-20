@@ -2,11 +2,9 @@
 using CarPool.Common;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarPool.API.Controllers
@@ -37,11 +35,11 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(401)]
         [ProducesResponseType(400)]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public async Task<ActionResult<BanDTO>> BanUserAsync(string email, string reason, string days)
+        public async Task<ActionResult<BanDTO>> BanUserAsync(string email, string reason, DateTime? days)
         {
             var response = await _bs.BanUserAsync(email, reason, days);
 
-            if(response.ErrorMessage is null)
+            if (response.ErrorMessage is null)
             {
                 return Ok(response);
             }

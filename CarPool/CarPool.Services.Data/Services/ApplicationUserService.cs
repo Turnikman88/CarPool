@@ -1,18 +1,14 @@
-﻿using AutoMapper;
-using CarPool.Common;
-using CarPool.Common.Exceptions;
+﻿using CarPool.Common;
 using CarPool.Data;
 using CarPool.Data.Models.DatabaseModels;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using CarPool.Services.Mapping.Mappers;
 using Microsoft.EntityFrameworkCore;
-using System;
 using System.Collections.Generic;
-using System.Text;
-using System.Threading.Tasks;
 using System.Linq;
 using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace CarPool.Services.Data.Services
 {
@@ -137,7 +133,7 @@ namespace CarPool.Services.Data.Services
             return await _db.ApplicationUsers.Include(x => x.ApplicationRole)
                                              .Where(x => x.Id == newUser.Id)
                                              .Select(x => x.GetDTO())
-                                             .FirstOrDefaultAsync();           
+                                             .FirstOrDefaultAsync();
         }
 
         public async Task<ApplicationUserDTO> UpdateAsync(string email, ApplicationUserDTO obj)
@@ -147,7 +143,7 @@ namespace CarPool.Services.Data.Services
                 return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_EXISTS };
             }
 
-            var user = await _db.ApplicationUsers .FirstOrDefaultAsync(x => x.Email == email);
+            var user = await _db.ApplicationUsers.FirstOrDefaultAsync(x => x.Email == email);
 
             if (user is null)
             {
@@ -161,15 +157,16 @@ namespace CarPool.Services.Data.Services
             return user.GetDTO();
         }
 
+
         public async Task<IEnumerable<ApplicationTopUserDTO>> TopUsers()
         {
             return await _db.ApplicationUsers.Include(x => x.Ratings)
-                                             .OrderByDescending(x => x.Ratings.Select(x=> x.Value).Average())
+                                             .OrderByDescending(x => x.Ratings.Select(x => x.Value).Average())
                                              .Take(10)
                                              .Select(x => x.GetTopUserDTO())
                                              .ToListAsync();
         }
-        
+
         private static void MapUser(ApplicationUserDTO obj, ApplicationUser user)
         {
             if (obj.Username != null && obj.Username.Length >= 2 && obj.Username.Length <= 20)

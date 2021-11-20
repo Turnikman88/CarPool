@@ -1,7 +1,5 @@
 ﻿using CarPool.Services.Mapping.DTOs;
-using System;
 using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CarPool.Services.Data.Contracts
@@ -21,5 +19,6 @@ namespace CarPool.Services.Data.Contracts
         Task<ApplicationUserDTO> UpdateAsync(string email, ApplicationUserDTO obj);
 
         Task<ApplicationUserDTO> DeleteAsync(string email);
+
     }
 }

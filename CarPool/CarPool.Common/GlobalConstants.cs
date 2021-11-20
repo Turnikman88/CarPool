@@ -2,6 +2,8 @@
 {
     public static class GlobalConstants
     {
+        public const string Domain = "localhost:5001";
+
         public const string Secret = "CarPoolSecretTelerikAcademy"; //minimum 16 letters
 
         public const string SystemName = "CarPool";
@@ -9,6 +11,10 @@
         public const string AdministratorRoleName = "Admin";
 
         public const string UserRoleName = "User";
+
+        public const string BannedRoleName = "Banned";
+
+        public const string NotConfirmedRoleName = "NotConfirmed";
 
         public const string PassRegex = @"^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{8,}$";
 
@@ -19,7 +25,7 @@
         public const string VALUE_LENGTH_ERROR = "Value for {0} must be between {2} and {1}.";
 
         public const string PASSWORD_ERROR_MESSAGE = "Password must be at least 8 symbols and should contain capital letter, digit and special symbol (+, -, *, &, ^, …)";
-        
+
         public const string PASSWORDS_MUST_MATCH = "Password and Confirmation Password must match.";
 
         public const string INVALID_EMAIL = "Invalid Email Address!";

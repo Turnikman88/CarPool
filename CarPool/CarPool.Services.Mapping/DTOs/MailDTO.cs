@@ -10,11 +10,13 @@ namespace CarPool.Services.Mapping.DTOs
 
         [Required]
         [EmailAddress(ErrorMessage = GlobalConstants.INVALID_EMAIL)]
-        public string Email { get; set; }
+        public string Reciever { get; set; }
+
+        public string EmailFrom { get; set; }
 
         public string Subject { get; set; }
 
-        public string Phone { get; set; } 
+        public string Phone { get; set; }
 
         [Required]
         public string Message { get; set; }
