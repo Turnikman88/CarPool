@@ -26,6 +26,10 @@ namespace CarPool.Services.Data.Services
             _db = db;
         }
 
+        public async Task<bool> IsExistingAsync(string email)
+        {
+            return await _db.ApplicationUsers.AnyAsync(x => x.Email == email);
+        }
         public async Task<ResponseAuthDTO> AuthenticateAsync(RequestAuthDTO model)
         {
             var user = await _db.ApplicationUsers
@@ -85,7 +89,11 @@ namespace CarPool.Services.Data.Services
                 .Where(x => x.Email == email)
                 .Select(x => x.Password)
                 .FirstOrDefaultAsync();
-            return BCrypt.Net.BCrypt.Verify(password, userPassword);
+            if (userPassword != null)
+            {
+                return BCrypt.Net.BCrypt.Verify(password, userPassword);
+            }
+            return false;
         }
 
 

@@ -16,8 +16,11 @@
 
         public const int PageSkip = 10;
 
+        public const string VALUE_LENGTH_ERROR = "Value for {0} must be between {2} and {1}.";
 
         public const string PASSWORD_ERROR_MESSAGE = "Password must be at least 8 symbols and should contain capital letter, digit and special symbol (+, -, *, &, ^, …)";
+        
+        public const string PASSWORDS_MUST_MATCH = "Password and Confirmation Password must match.";
 
         public const string INVALID_EMAIL = "Invalid Email Address!";
 
@@ -33,11 +36,13 @@
 
         public const string ADDRESS_EXISTS = "This address already exists!";
 
-        public const string ADDRESS_NOT_FOUND = "Address not found";
+        public const string ADDRESS_NOT_FOUND = "Address not found!";
 
-        public const string CITY_NOT_FOUND = "City not found";
+        public const string ADDRESS_TOO_SHORT = "Address name cannot be that short";
 
-        public const string TRIP_NOT_FOUND = "Trip not found";
+        public const string CITY_NOT_FOUND = "City not found!";
+
+        public const string TRIP_NOT_FOUND = "Trip not found!";
 
         public const string PROFILE_PICTURE_NOT_FOUND = "Profile picture not found";
 
@@ -57,6 +62,8 @@
 
         public const string USER_PHONE_EXISTS = "User with this phone number already exists!";
 
+        public const string WRONG_PHONE = "Incorrect phone number!";
+
         public const string WRONG_GUID = "Wrong guid!";
 
         public const string USER_PERMANENT_BLOCK = "User is permanently blocked!";
@@ -72,5 +79,7 @@
         public const string LOGGED = "You logged successfully!";
 
         public const string NOT_AUTHORIZED = "You are not authorized!";
+
+        public const string NOT_PROVIDED = "(Not provided)";
     }
 }

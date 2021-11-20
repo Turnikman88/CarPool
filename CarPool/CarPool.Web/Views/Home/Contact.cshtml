@@ -1,86 +1,115 @@
-﻿<div class="main-content">
-        <div class="rwt-contact-area rn-section-gap">
-            <div class="container">
-                <div class="row">                    
-                </div>
-                <div class="row row--15">
-                    <div class="col-lg-12">
-                        <div class="rn-contact-address mt_dec--30">
-                            <div class="row">
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="rn-address">
-                                        <div class="icon">
-                                            <i class="feather-headphones"></i>
-                                        </div>
-                                        <div class="inner">
-                                            <h4 class="title">Contact Phone Number</h4>
-                                            <p><a href="#">+444 555 666 777</a></p>
-                                            <p><a href="#">+222 222 222 333</a></p>
-                                        </div>
+﻿@model MailDTO
+<div class="main-content">
+    <div class="rwt-contact-area rn-section-gap">
+        <div class="container">
+            <div class="row">
+            </div>
+            <div class="row row--15">
+                <div class="col-lg-12">
+                    <div class="rn-contact-address mt_dec--30">
+                        <div class="row">
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="rn-address">
+                                    <div class="icon">
+                                        <i class="feather-headphones"></i>
+                                    </div>
+                                    <div class="inner">
+                                        <h4 class="title">Contact Phone Number</h4>
+                                        <p><a href="#">+444 555 666 777</a></p>
+                                        <p><a href="#">+222 222 222 333</a></p>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="rn-address">
-                                        <div class="icon">
-                                            <i class="feather-mail"></i>
-                                        </div>
-                                        <div class="inner">
-                                            <h4 class="title">Our Email Address</h4>
-                                            <p><a href="mailto:admin@gmail.com">admin@gmail.com</a></p>
-                                            <p><a href="mailto:example@gmail.com">example@gmail.com</a></p>
-                                        </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="rn-address">
+                                    <div class="icon">
+                                        <i class="feather-mail"></i>
+                                    </div>
+                                    <div class="inner">
+                                        <h4 class="title">Our Email Address</h4>
+                                        <p><a href="mailto:admin@gmail.com">admin@gmail.com</a></p>
+                                        <p><a href="mailto:example@gmail.com">example@gmail.com</a></p>
                                     </div>
                                 </div>
-                                <div class="col-lg-4 col-md-6 col-12">
-                                    <div class="rn-address">
-                                        <div class="icon">
-                                            <i class="feather-map-pin"></i>
-                                        </div>
-                                        <div class="inner">
-                                            <h4 class="title">Our Location</h4>
-                                            <p>5678 Bangla Main Road, cities 580 <br> GBnagla, example 54786</p>
-                                        </div>
+                            </div>
+                            <div class="col-lg-4 col-md-6 col-12">
+                                <div class="rn-address">
+                                    <div class="icon">
+                                        <i class="feather-map-pin"></i>
+                                    </div>
+                                    <div class="inner">
+                                        <h4 class="title">Our Location</h4>
+                                        <p>South Bali. South Bali includes <br> Kuta, Western Bukit</p>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
-                <div class="row mt--40 row--15">
-                    <div class="col-lg-7">
-                        <form class="contact-form-1 rwt-dynamic-form" id="contact-form" method="POST" action="mail.php">
-                            <div class="form-group">
-                                <input type="text" name="contact-name" id="contact-name" placeholder="Your Name">
-                            </div>
-                            <div class="form-group">
-                                <input type="text" name="contact-phone" id="contact-phone" placeholder="Phone Number">
-                            </div>
-                            <div class="form-group">
-                                <input type="email" id="contact-email" name="contact-email" placeholder="Your Email">
-                            </div>
+            <div class="row mt--40 row--15">
+                <div class="col-lg-7">
+                    <form asp-action="Contact" class="contact-form-1 rwt-dynamic-form">
+                        <div class="form-group">
+                            <input asp-for="Name" placeholder="Your Name">
+                            <span asp-validation-for="Name" class="form-error"></span>
 
-                            <div class="form-group">
-                                <input type="text" id="subject" name="subject" placeholder="Your Subject">
-                            </div>
-
-                            <div class="form-group">
-                                <textarea name="contact-message" id="contact-message" placeholder="Your Message"></textarea>
-                            </div>
-
-                            <div class="form-group">
-                                <button name="submit" type="submit" id="submit" class="btn-default btn-large rn-btn">
-                                    <span>Submit Now</span>
-                                </button>
-                            </div>
-                        </form>
-                    </div>
-                    <div class="col-lg-5 mt_md--30 mt_sm--30">
-                        <div class="google-map-style-1">
-                            <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.523191023296!2d73.1520519145274!3d-0.6968991354632055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x24b599bc41b83293%3A0x401e1205d7adee5f!2zQjAzMCwgQWRkdSBDaXR5LCDQnNCw0LvQtNC40LLQuA!5e0!3m2!1sbg!2sbg!4v1635522792510!5m2!1sbg!2sbg" width="600" height="550" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                         </div>
+                        <div class="form-group">
+                            <input asp-for="Phone" placeholder="Phone Number">
+                            <span asp-validation-for="Phone" class="form-error"></span>
+
+                        </div>
+                        <div class="form-group">
+                            <input asp-for="Email" placeholder="Your Email">
+                            <span asp-validation-for="Email" class="form-error"></span>
+
+                        </div>
+
+                        <div class="form-group">
+                            <input type="text" asp-for="Subject" name="subject" placeholder="Your Subject">
+                        </div>
+
+                        <div class="form-group">
+                            <textarea asp-for="Message" placeholder="Your Message"></textarea>
+                            <span asp-validation-for="Message" class="form-error"></span>
+                        </div>
+
+                        <div class="form-group">
+                            <button type="submit" class="btn-default btn-large rn-btn"
+                                    style="background-color: #FF3CAC; cursor: pointer;">
+                                <span>Submit Now</span>
+                            </button>
+                        </div>
+                    </form>
+                </div>
+                <div class="col-lg-5 mt_md--30 mt_sm--30">
+                    <div class="google-map-style-1">
+                        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3989.523191023296!2d73.1520519145274!3d-0.6968991354632055!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x24b599bc41b83293%3A0x401e1205d7adee5f!2zQjAzMCwgQWRkdSBDaXR5LCDQnNCw0LvQtNC40LLQuA!5e0!3m2!1sbg!2sbg!4v1635522792510!5m2!1sbg!2sbg" width="600" height="550" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
                     </div>
                 </div>
             </div>
         </div>
     </div>
+</div>
+@if (Model.isSent)
+{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function JSalert() {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: '<h5 class="modal-alert"> Your messsage was sent </h5>',
+                showConfirmButton: false,              
+                timer: 2600
+            })
+        }
+        JSalert();
+        
+    </script>
+}
+@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+}

@@ -14,6 +14,8 @@ namespace CarPool.Services.Mapping.DTOs
 
         public string Subject { get; set; }
 
+        public string Phone { get; set; } 
+
         [Required]
         public string Message { get; set; }
         public bool isSent { get; set; }

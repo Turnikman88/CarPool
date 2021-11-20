@@ -25,7 +25,7 @@ namespace CarPool.Services
             email.Subject = mailRequest.Subject ?? "";
 
             var builder = new BodyBuilder();
-            builder.TextBody = $"From: '{mailRequest.Name}' Email: '{mailRequest.Email}':{Environment.NewLine}{mailRequest.Message}";
+            builder.TextBody = $"From: '{mailRequest.Name}' Phone: {mailRequest.Phone} Email: '{mailRequest.Email}':{Environment.NewLine}{mailRequest.Message}";
             email.Body = builder.ToMessageBody();
             using var smtp = new SmtpClient();
 

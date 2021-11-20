@@ -1,6 +1,7 @@
 ﻿using CarPool.Common;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
+using CarPool.Web.ViewModels.DTOs;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authorization;
@@ -16,33 +17,40 @@ namespace CarPool.Web.Controllers
     public class AuthController : Controller
     {
         private readonly IAuthService _auth;
+        private readonly IApplicationUserService _us;
+        private readonly IAddressService _ads;
 
-        public AuthController(IAuthService auth)
+        public AuthController(IAuthService auth, IApplicationUserService us, IAddressService ads)
         {
             _auth = auth;
+            this._us = us;
+            this._ads = ads;
+        }
+
+        public IActionResult Login()
+        {
+            return this.View(new RequestAuthDTO());
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login([FromBody] RequestAuthDTO model)
+        public async Task<IActionResult> Login(RequestAuthDTO model)
         {
             if (! await _auth.IsPasswordValidAsync(model.Email, model.Password))
             {
-                return BadRequest(GlobalConstants.WRONG_CREDENTIALS);
+                this.ModelState.AddModelError("Password", GlobalConstants.WRONG_CREDENTIALS);
+                return this.View(model);
             }
-            //TODO: SUBSTITUDE WITH YOUR OWN ACCOUNT-CHECKING METHOD
             var loggedUserResult = await _auth.GetByEmailAsync(model.Email);
 
-            //Optional result checking for the account-checking method
             if (loggedUserResult.Message != null)
             {
-                return BadRequest(loggedUserResult.Message);
+                this.ModelState.AddModelError("Password", GlobalConstants.TRIP_USER_BLOCKED_JOIN);
+                return this.View(model);
             }
 
-            //The real magic happens here
             await SignInWithRoleAsync(model.Email, loggedUserResult.Role);
 
-            //Return whatever you want, does not matter (as long as its valid 200 response-type)
-            return Json(new { Success = true, Message = "Successfull login" });
+            return this.RedirectToAction("index", "home");
         }
 
         [HttpGet]
@@ -51,16 +59,32 @@ namespace CarPool.Web.Controllers
         {
             await HttpContext.SignOutAsync();
 
-            //Return whatever you want, does not matter (as long as its valid 200 response-type)
             return Ok();
         }
 
-       // [HttpGet]
-       // [Authorize]
-       // public async Task<IActionResult> ExpireCookies(string useremail)
-       // {
-       //
-       // }
+        [HttpGet]
+        public IActionResult Register()
+        {
+            return View(new ApplicationUserDTO());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Register(RegisterDTO model)
+        {
+            if (await _auth.IsExistingAsync(model.Email))
+            {
+                this.ModelState.AddModelError("Email", GlobalConstants.USER_EXISTS);
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            //var toCustomer = model.GetCustomerDTO();
+           // await this._us.PostAsync(toCustomer);
+            return this.Redirect(nameof(Login));
+        }
 
         private async Task SignInWithRoleAsync(string email, string userRoleName)
         {

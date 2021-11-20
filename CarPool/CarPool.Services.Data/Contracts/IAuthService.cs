@@ -8,6 +8,8 @@ namespace CarPool.Services.Data.Contracts
 {
     public interface IAuthService
     {
+        Task<bool> IsExistingAsync(string email);
+
         Task<ResponseAuthDTO> AuthenticateAsync(RequestAuthDTO model);
 
         Task<ResponseAuthDTO> GetByEmailAsync(string email);
