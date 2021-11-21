@@ -17,7 +17,7 @@ namespace CarPool.Web.ViewModels.Mappers
                 IsBlocked = false,
                 PhoneNumber = user.PhoneNumber,
                 Password = user.Password,
-                Role = GlobalConstants.UserRoleName,
+                Role = GlobalConstants.NotConfirmedRoleName,
                 AddressId = user.AddressId
             };
         }

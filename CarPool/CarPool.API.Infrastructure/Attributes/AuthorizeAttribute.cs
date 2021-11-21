@@ -13,7 +13,7 @@ namespace CarPool.API.Infrastructure.Attributes
     [AttributeUsage(AttributeTargets.Class | AttributeTargets.Method)]
     public class AuthorizeAttribute : Attribute, IAuthorizationFilter
     {
-        public string Roles { get; set; } = GlobalConstants.UserRoleName;
+        public string Roles { get; set; } = $"{GlobalConstants.NotConfirmedRoleName},{GlobalConstants.UserRoleName}";
 
         public void OnAuthorization(AuthorizationFilterContext context)
         {
@@ -23,7 +23,11 @@ namespace CarPool.API.Infrastructure.Attributes
             {
                 context.Result = new UnauthorizedObjectResult(user.Message);
             }
-            else if (user == null || user.Role != Roles)
+            if (user != null && user.Role == GlobalConstants.AdministratorRoleName)
+            {
+
+            }
+            else if (user == null || !Roles.Contains(user.Role))
             {
                 context.Result = new UnauthorizedObjectResult(GlobalConstants.NOT_AUTHORIZED);
             }

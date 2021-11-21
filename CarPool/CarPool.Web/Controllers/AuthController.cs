@@ -107,7 +107,7 @@ namespace CarPool.Web.Controllers
             await this._us.PostAsync(toUser);
 
             await _mail.SendEmailAsync(new MailDTO { Reciever = userData.Email });
-            return this.Redirect(nameof(Login));
+            return this.RedirectToAction("index", "home");
         }
 
         //[HttpPost]
@@ -190,7 +190,8 @@ namespace CarPool.Web.Controllers
         {
             if (await _auth.ConfirmEmail(token))
             {
-                return this.RedirectToAction("index", "home");
+                //here must change cookie role claim to user
+                return this.RedirectToAction("login", "home");
             }
 
             return this.RedirectToAction("error", "home");

@@ -16,7 +16,7 @@
             this.Ratings = new HashSet<Rating>();
             this.Id = Guid.NewGuid();
             this.TripsAsPassenger = new HashSet<TripPassenger>();
-            this.ApplicationRoleId = 2;
+            this.ApplicationRoleId = 4;
         }
 
         [MinLength(2)]
