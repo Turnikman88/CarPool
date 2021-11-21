@@ -103,21 +103,48 @@ body.active-light-mode input:-webkit-autofill {
 }
 
 .holder {
-    width: 400px;
+    width: 800px;
     height: 400px;
     position: relative;
 }
-
+.holder error {
+    width: 100%;
+    height: 200px;
+    right:0;
+}
 .frame {
     width: 100%;
     height: 100%;
+    right:0;
+    
 }
 
 .bar {
     position: absolute;
     bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 50px;
-    background-color: #ffad3c;
+    right: 0;
+    width: 70px;
+    height: 70px;
+    background-color: #090909;
+    z-index: 0;
+}
+body.active-light-mode .bar {
+    background-color: white;
+}
+.modal{
+    z-index: 999;
+}
+.modal-backdrop{
+    z-index: 0;
+}
+.modal-content{
+    background-color: #2b2b2b;
+}
+
+body.active-light-mode .modal-content {
+    background-color: white;
+}
+
+body.active-light-mode .modal-body .main-content {
+    background-color: white;
 }

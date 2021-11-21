@@ -21,5 +21,7 @@ namespace CarPool.Services.Mapping.DTOs
         [Required]
         public string Message { get; set; }
         public bool isSent { get; set; }
+
+        public bool isFromContact { get; set; }
     }
 }

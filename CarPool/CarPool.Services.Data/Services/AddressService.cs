@@ -58,7 +58,7 @@ namespace CarPool.Services.Data.Services
                                  && x.City.Name == obj.CityName
                                  && x.StreetName == obj.StreetName);
 
-            if (address is null)
+            if (address != null)
             {
                 return address.Id;
             }

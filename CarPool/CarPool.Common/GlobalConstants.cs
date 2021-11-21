@@ -2,7 +2,7 @@
 {
     public static class GlobalConstants
     {
-        public const string Domain = "localhost:5001";
+        public const string Domain = "https://localhost:5001";
 
         public const string Secret = "CarPoolSecretTelerikAcademy"; //minimum 16 letters
 

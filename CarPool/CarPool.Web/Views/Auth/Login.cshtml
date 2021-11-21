@@ -1,40 +1,42 @@
 ﻿@model RequestAuthDTO
-@section Styles{
-    <link rel="stylesheet" href="~/css/form.css">
-}
-<div class="main-content">
-    <div class="rwt-contact-area rn-section-gap">
-        <div class="container">
-            <div class="row mt--40 row--15">
-                <div class="col" style="width: 400px; height=400px;">
-                    <div class="holder">
-                        <div class="bar"></div>
-                        @*<iframe class="frame" src='https://my.spline.design/grogucopy-728e6bde88f37af013fde98a2c11f1fb/' frameborder='0' style="width: 400px; height: 400px;"></iframe>*@
-                    </div>                </div>
-                <div class="col-sm-5">
-                    <form asp-action="Login" class="contact-form-1 rwt-dynamic-form">
-                        <div class="form-group">
-                            <input asp-for="Email" placeholder="Your Email">
-                            <span asp-validation-for="Email" class="form-error"></span>
 
+<div class="rwt-split-area rn-section-gap">
+    <div class="wrapper">
+        <div class="rn-splite-style">
+            <div class="split-wrapper">
+                <div class="row g-0 radius-10 align-items-center">
+                    <div class="col-lg">
+                        <div class="thumbnail">
+                            <div class="holder">
+                                <div class="bar"></div>
+                                <iframe class="frame" src='https://my.spline.design/noisedisplacecopy-11481c1cb7e92b46bddb6e8c6d0a0c04/' frameborder='0' style="width: 800px; height:400px;"></iframe>
+                            </div>
                         </div>
-                        <div class="form-group">
-                            <input asp-for="Password" type="password" placeholder="Password">
-                            <span asp-validation-for="Password" class="form-error"></span>
-                        </div>
+                    </div>
+                    <div class="col-lg-4" style="margin-right:30px;">
+                        <form asp-action="Login" class="contact-form-1 rwt-dynamic-form">
+                            <div class="form-group">
+                                <input asp-for="Email" placeholder="Your Email">
+                                <span asp-validation-for="Email" class="form-error"></span>
 
-                        <div class="form-group">
-                            <button type="submit" class="btn-default btn-large rn-btn"
-                                    style="background-color: #FF3CAC; cursor: pointer;">
-                                <span>Log In</span>
-                            </button>
-                            <a style="margin-left:10px;" asp-controller="Auth" asp-action="Register">Register</a>
-                            <a style="margin-left:10px;" asp-controller="Auth" asp-action="GoogleSignUp">Sign up with Google</a>
-                        </div>
-                    </form>
+                            </div>
+                            <div class="form-group">
+                                <input asp-for="Password" type="password" placeholder="Password">
+                                <span asp-validation-for="Password" class="form-error"></span>
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn-default btn-large rn-btn"
+                                        style="background-color: #FF3CAC; cursor: pointer;">
+                                    <span>Log In</span>
+                                </button>
+                                <a style="margin-left:10px;" asp-controller="Auth" asp-action="Register">Register</a>
+                                <a style="margin-left:10px;" asp-controller="Auth" asp-action="GoogleLogin">Sign up with Google</a>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

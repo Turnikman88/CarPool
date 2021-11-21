@@ -22,21 +22,27 @@ namespace CarPool.Services
         {
             mailRequest.EmailFrom = _mailSettings.Mail;
 
-            var email = new MimeMessage();
-            email.Sender = MailboxAddress.Parse(mailRequest.EmailFrom);
-            email.To.Add(MailboxAddress.Parse(mailRequest.Reciever));
-            email.Subject = mailRequest.Subject ?? "";
-
             var builder = new BodyBuilder();
-            if (mailRequest.EmailFrom == mailRequest.Reciever)
+            string reciver = null;
+
+            if (mailRequest.isFromContact)
             {
+                reciver = mailRequest.EmailFrom;
                 builder.TextBody = $"From: '{mailRequest.Name}' Phone: {mailRequest.Phone} Email: '{mailRequest.Reciever}':{Environment.NewLine}{mailRequest.Message}";
             }
             else
             {
+                reciver = mailRequest.Reciever;
                 var token = Convert.ToBase64String(System.Text.Encoding.Unicode.GetBytes(mailRequest.Reciever));
-                builder.TextBody = $"Please click this link to confirm your email {GlobalConstants.Domain}/Auth/ConfirmEmail/{token}";
+                builder.TextBody = $"Please click this link to confirm your email {GlobalConstants.Domain}/Auth/ConfirmEmail?token={token}";
             }
+
+            var email = new MimeMessage();
+            email.Sender = MailboxAddress.Parse(mailRequest.EmailFrom);
+            email.To.Add(MailboxAddress.Parse(reciver));
+            email.Subject = mailRequest.Subject ?? "";
+
+            
             email.Body = builder.ToMessageBody();
             using var smtp = new SmtpClient();
 

@@ -16,9 +16,14 @@ $(window).on('load', function () {
     });
 });
 
-$(window).on('load'), function () {
-    /*if ($('#body-id').hasClass('active-dark-mode')) {
-        alert("test");
-    }*/
-    alert("test");
-};
+showInPopup = (url, title) => {
+    $.ajax({
+        type: "GET",
+        url: url,
+        success: function (res) {
+            $("#form-modal .modal-body").html(res);
+            $("#form-modal .modal-title").html(title);
+            $("#form-modal").modal('show');
+        }
+    })
+}

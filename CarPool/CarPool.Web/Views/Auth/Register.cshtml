@@ -1,4 +1,4 @@
-﻿@model GoogleRegisterDTO
+﻿@*@model RegisterDTO
 
 <div class="rwt-split-area rn-section-gap">
     <div class="wrapper">
@@ -14,7 +14,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4" style="margin-right:30px;">
-                        <form action=@Url.Action("GoogleSignUp", "Auth") method="post" class="contact-form-1 rwt-dynamic-form">
+                        <form asp-action="Register" class="contact-form-1 rwt-dynamic-form">
                             <div class="form-group">
                                 <input asp-for="PhoneNumber" placeholder="Your phone number">
                                 <span asp-validation-for="PhoneNumber" class="form-error"></span>
@@ -22,7 +22,7 @@
                             </div>
 
                             <div class="form-group">
-                                <input asp-for="Country" placeholder="Country">
+                                <input asp-for="Country" placeholder="Where are you now">
                                 <span asp-validation-for="Country" class="form-error"></span>
                             </div>
 
@@ -32,7 +32,7 @@
                             </div>
 
                             <div class="form-group">
-                                <input asp-for="Address" placeholder="Address">
+                                <input asp-for="Address" placeholder="Where are you now">
                                 <span asp-validation-for="Address" class="form-error"></span>
                             </div>
 
@@ -53,3 +53,4 @@
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
 }
+*@

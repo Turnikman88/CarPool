@@ -37,10 +37,7 @@ namespace CarPool.Web.Controllers
             _mail = mail;
         }
 
-        public IActionResult Login()
-        {
-            return this.View(new RequestAuthDTO());
-        }
+
 
         [AllowAnonymous, Route("account/google-login")]
         public IActionResult GoogleLogin()
@@ -73,16 +70,44 @@ namespace CarPool.Web.Controllers
                 return this.RedirectToAction("index", "home");
             }
 
-            var model = GetGoogleData(result);
-            return this.RedirectToAction("GoogleRegistration", "Auth", model);
+            return this.RedirectToAction("GoogleSignUp", "Auth");
             //return Json(claims);
         }
 
 
         [HttpGet]
-        public IActionResult GoogleSignUp(RegisterDTO model)
+        public IActionResult GoogleSignUp()
         {
-            return View(model);
+            return this.View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> GoogleSignUp(GoogleRegisterDTO model)
+        {
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var userData = GetGoogleData(result);
+
+            userData.AddressId = await _ads.AddressToId(new AddressDTO
+            {
+                StreetName = model.Address,
+                CountryName = model.Country,
+                CityName = model.City
+            });
+
+            userData.PhoneNumber = model.PhoneNumber;
+
+            var toUser = userData.GetDTO();
+
+            await this._us.PostAsync(toUser);
+
+            await _mail.SendEmailAsync(new MailDTO { Reciever = userData.Email });
+            return this.Redirect(nameof(Login));
         }
 
         //[HttpPost]
@@ -107,6 +132,11 @@ namespace CarPool.Web.Controllers
         //    await _mail.SendEmailAsync(new MailDTO { Reciever = model.Email });
         //    return this.Redirect(nameof(Login));
         //}
+
+        public IActionResult Login()
+        {
+            return this.View(new RequestAuthDTO());
+        }
 
         [HttpPost]
         public async Task<IActionResult> Login(RequestAuthDTO model)
@@ -155,7 +185,7 @@ namespace CarPool.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = GlobalConstants.NotConfirmedRoleName)]
+        //[Authorize(Roles = GlobalConstants.NotConfirmedRoleName)]
         public async Task<IActionResult> ConfirmEmail(string token)
         {
             if (await _auth.ConfirmEmail(token))
