@@ -3,10 +3,13 @@ using CarPool.Services.Contracts;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using CarPool.Web.ViewModels.DTOs;
+using CarPool.Web.ViewModels.Mappers;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
 
@@ -24,18 +27,86 @@ namespace CarPool.Web.Controllers
         public AuthController(IAuthService auth,
             IApplicationUserService us,
             IAddressService ads,
-            IBanService ban)
+            IBanService ban,
+            IMailService mail)
         {
             this._auth = auth;
             this._us = us;
             this._ads = ads;
             this._ban = ban;
+            _mail = mail;
         }
 
         public IActionResult Login()
         {
             return this.View(new RequestAuthDTO());
         }
+
+        [AllowAnonymous, Route("account/google-login")]
+        public IActionResult GoogleLogin()
+        {
+            var properties = new AuthenticationProperties { RedirectUri = Url.Action("GoogleResponse") };
+
+            return Challenge(properties, GoogleDefaults.AuthenticationScheme);
+        }
+
+        [AllowAnonymous, Route("account/google-response")]
+        public async Task<IActionResult> GoogleResponse()
+        {
+            var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
+
+            var claims = result.Principal.Identities.FirstOrDefault()
+                .Claims.Select(claim => new
+                {
+                    claim.Issuer,
+                    claim.OriginalIssuer,
+                    claim.Type,
+                    claim.Value
+                });
+
+            var email = claims.Where(c => c.Type == ClaimTypes.Email)
+                   .Select(c => c.Value).SingleOrDefault();
+
+            if (await _auth.IsExistingAsync(email))
+            {
+                await SignInWithRoleAsync(email, GlobalConstants.UserRoleName);
+                return this.RedirectToAction("index", "home");
+            }
+
+            var model = GetGoogleData(result);
+            return this.RedirectToAction("GoogleRegistration", "Auth", model);
+            //return Json(claims);
+        }
+
+
+        [HttpGet]
+        public IActionResult GoogleSignUp(RegisterDTO model)
+        {
+            return View(model);
+        }
+
+        //[HttpPost]
+        //public async Task<IActionResult> GoogleRegistration(RegisterDTO model)
+        //{
+        //    if (!this.ModelState.IsValid)
+        //    {
+        //        return this.View(model);
+        //    }
+        //
+        //    model.AddressId = await _ads.AddressToId(new AddressDTO
+        //    {
+        //        StreetName = model.Address,
+        //        CountryName = model.Country,
+        //        CityName = model.City
+        //    });
+        //
+        //
+        //    var toCustomer = model.GetDTO();
+        //    await this._us.PostAsync(toCustomer);
+        //
+        //    await _mail.SendEmailAsync(new MailDTO { Reciever = model.Email });
+        //    return this.Redirect(nameof(Login));
+        //}
 
         [HttpPost]
         public async Task<IActionResult> Login(RequestAuthDTO model)
@@ -64,7 +135,7 @@ namespace CarPool.Web.Controllers
         {
             await HttpContext.SignOutAsync();
 
-            return Ok();
+            return this.RedirectToAction("index", "home");
         }
 
         // TODO: Move in admin panel
@@ -114,11 +185,51 @@ namespace CarPool.Web.Controllers
                 return this.View(model);
             }
 
-            //var toCustomer = model.GetCustomerDTO();
-            //await this._us.PostAsync(toCustomer);
+            model.AddressId = await _ads.AddressToId(new AddressDTO
+            {
+                StreetName = model.Address,
+                CountryName = model.Country,
+                CityName = model.City
+            });
+
+
+            var toCustomer = model.GetDTO();
+            await this._us.PostAsync(toCustomer);
 
             await _mail.SendEmailAsync(new MailDTO { Reciever = model.Email });
             return this.Redirect(nameof(Login));
+        }
+        private RegisterDTO GetGoogleData(AuthenticateResult result)
+        {
+            var claims = result.Principal.Identities.FirstOrDefault()
+                            .Claims.Select(claim => new
+                            {
+                                claim.Issuer,
+                                claim.OriginalIssuer,
+                                claim.Type,
+                                claim.Value
+                            });
+
+            var email = claims.Where(c => c.Type == ClaimTypes.Email)
+                   .Select(c => c.Value).SingleOrDefault();
+            var password = claims.Where(c => c.Type == ClaimTypes.NameIdentifier)
+                    .Select(c => c.Value).SingleOrDefault();
+            var firstName = claims.Where(c => c.Type == ClaimTypes.GivenName)
+                   .Select(c => c.Value).SingleOrDefault();
+            var lastName = claims.Where(c => c.Type == ClaimTypes.Surname)
+                   .Select(c => c.Value).SingleOrDefault();
+            var username = email.Split('@');
+            var model = new RegisterDTO
+            {
+                Email = email,
+                Password = $"User#{password}",
+                FirstName = firstName,
+                LastName = lastName,
+                ConfirmPassword = $"User#{password}",
+                Username = username[0]
+
+            };
+            return model;
         }
 
         private async Task SignInWithRoleAsync(string email, string userRoleName)
@@ -126,8 +237,8 @@ namespace CarPool.Web.Controllers
             //You can add more claims as you wish but keep these KEYS here as is
             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
             identity.AddClaim(new Claim(ClaimTypes.Email, email));
-            //identity.AddClaim(new Claim(ClaimTypes.Role, userRoleName));
-            //identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, email));
+            identity.AddClaim(new Claim(ClaimTypes.Role, userRoleName));
+            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, email));
 
 
             var principal = new ClaimsPrincipal(identity);

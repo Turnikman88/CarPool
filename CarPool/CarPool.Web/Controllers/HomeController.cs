@@ -1,10 +1,8 @@
 ﻿using CarPool.Common;
 using CarPool.Services.Contracts;
 using CarPool.Services.Mapping.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarPool.Web.Controllers
@@ -16,8 +14,9 @@ namespace CarPool.Web.Controllers
         {
             _ms = ms;
         }
+
         public IActionResult Index()
-        {   
+        {
             return this.View();
         }
 
@@ -26,6 +25,8 @@ namespace CarPool.Web.Controllers
             return this.View();
         }
 
+
+        [Authorize]
         public IActionResult Contact()
         {
             return this.View(new MailDTO());

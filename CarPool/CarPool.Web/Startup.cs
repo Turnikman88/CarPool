@@ -1,15 +1,14 @@
 using CarPool.Web.Infrastructure.Extensions;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using System;
-using System.Collections.Generic;
-using System.Linq;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace CarPool.Web
@@ -35,9 +34,21 @@ namespace CarPool.Web
             services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
             .AddCookie(o =>
             {
+                o.LoginPath = "/account/google-login";
                 o.Cookie.Name = "auth_cookie";
                 o.SlidingExpiration = true;
-                o.ExpireTimeSpan = TimeSpan.FromMinutes(20);
+                o.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+            }).AddGoogle(o =>
+            {
+                o.ClientId = Configuration["Authentication:Google:ClientId"];
+                o.ClientSecret = Configuration["Authentication:Google:ClientSecret"];
+                o.ClaimActions.MapJsonKey("urn:google:picture", "picture", "url");
+                o.Events.OnTicketReceived = ctx =>
+                {
+                    var userEmail = ctx.Principal.FindFirstValue(ClaimTypes.Email);
+                    //Check the user exists in database and if not create.
+                    return Task.CompletedTask;
+                };
             });
         }
 

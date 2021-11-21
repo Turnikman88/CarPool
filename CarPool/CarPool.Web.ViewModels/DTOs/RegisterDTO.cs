@@ -53,5 +53,8 @@ namespace CarPool.Web.ViewModels.DTOs
         [MinLength(5, ErrorMessage = GlobalConstants.ADDRESS_TOO_SHORT)]
         public string Country { get; set; }
 
+
+        public int AddressId { get; set; }
+
     }
 }

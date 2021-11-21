@@ -9,7 +9,7 @@
                 <div class="col" style="width: 400px; height=400px;">
                     <div class="holder">
                         <div class="bar"></div>
-                        <iframe class="frame" src='https://my.spline.design/grogucopy-728e6bde88f37af013fde98a2c11f1fb/' frameborder='0' style="width: 400px; height: 400px;"></iframe>
+                        @*<iframe class="frame" src='https://my.spline.design/grogucopy-728e6bde88f37af013fde98a2c11f1fb/' frameborder='0' style="width: 400px; height: 400px;"></iframe>*@
                     </div>                </div>
                 <div class="col-sm-5">
                     <form asp-action="Login" class="contact-form-1 rwt-dynamic-form">
@@ -28,7 +28,8 @@
                                     style="background-color: #FF3CAC; cursor: pointer;">
                                 <span>Log In</span>
                             </button>
-                            <a style="margin-left:10px;" asp-controller="Home" asp-action="About">Register</a>
+                            <a style="margin-left:10px;" asp-controller="Auth" asp-action="Register">Register</a>
+                            <a style="margin-left:10px;" asp-controller="Auth" asp-action="GoogleSignUp">Sign up with Google</a>
                         </div>
                     </form>
                 </div>
