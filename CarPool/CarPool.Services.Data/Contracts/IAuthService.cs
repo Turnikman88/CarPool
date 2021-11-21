@@ -13,7 +13,7 @@ namespace CarPool.Services.Data.Contracts
 
         Task<bool> IsPasswordValidAsync(string email, string password);
 
-        Task<bool> ConfirmEmail(string token);
+        Task<string> ConfirmEmail(string token);
 
     }
 }

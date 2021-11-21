@@ -188,10 +188,12 @@ namespace CarPool.Web.Controllers
         //[Authorize(Roles = GlobalConstants.NotConfirmedRoleName)]
         public async Task<IActionResult> ConfirmEmail(string token)
         {
-            if (await _auth.ConfirmEmail(token))
+            var email = await _auth.ConfirmEmail(token);
+            if (email != null)
             {
                 //here must change cookie role claim to user
-                return this.RedirectToAction("login", "home");
+                await this.SignInWithRoleAsync(email, GlobalConstants.UserRoleName);
+                return this.RedirectToAction("index", "home");
             }
 
             return this.RedirectToAction("error", "home");
@@ -269,7 +271,6 @@ namespace CarPool.Web.Controllers
             var identity = new ClaimsIdentity(CookieAuthenticationDefaults.AuthenticationScheme);
             identity.AddClaim(new Claim(ClaimTypes.Email, email));
             identity.AddClaim(new Claim(ClaimTypes.Role, userRoleName));
-            identity.AddClaim(new Claim(ClaimTypes.NameIdentifier, email));
 
 
             var principal = new ClaimsPrincipal(identity);

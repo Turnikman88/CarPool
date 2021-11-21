@@ -80,7 +80,7 @@ namespace CarPool.Services.Data.Services
             return model;
         }
 
-        public async Task<bool> ConfirmEmail(string token)
+        public async Task<string> ConfirmEmail(string token)
         {
             var tokenByte = Convert.FromBase64String(token);
             var tokenToEmail = System.Text.Encoding.Unicode.GetString(tokenByte);
@@ -91,7 +91,7 @@ namespace CarPool.Services.Data.Services
                 user.ApplicationRoleId = 2;
             }
             await _db.SaveChangesAsync();
-            return user == null ? false : true;
+            return user.Email;
         }
 
         public async Task<bool> IsPasswordValidAsync(string email, string password)
