@@ -89,7 +89,7 @@ namespace CarPool.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> GoogleSignUp(GoogleRegisterDTO model)
         {
-            /*if (!this.ModelState.IsValid)
+            if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
@@ -111,7 +111,7 @@ namespace CarPool.Web.Controllers
 
             await this._us.PostAsync(toUser);
 
-            await _mail.SendEmailAsync(new MailDTO { Reciever = userData.Email });*/
+            await _mail.SendEmailAsync(new MailDTO { Reciever = userData.Email });
 
             ViewData["MessageSent"] = true;
             return this.View();
@@ -217,14 +217,15 @@ namespace CarPool.Web.Controllers
             await this._us.PostAsync(toCustomer);
 
             await _mail.SendEmailAsync(new MailDTO { Reciever = model.Email });
+            ViewData["MessageSent"] = true;
             return this.Redirect(nameof(Login));
         }
 
-/*        [HttpPost]
-        public async Task<IActionResult> ForgottenPassword(ForgottenPasswordDTO model)
-        {
+        /*        [HttpPost]
+                public async Task<IActionResult> ForgottenPassword(ForgottenPasswordDTO model)
+                {
 
-        }*/
+                }*/
 
         private RegisterDTO GetGoogleData(AuthenticateResult result)
         {
