@@ -8,6 +8,8 @@ namespace CarPool.Services.Data.Contracts
     {
         Task<IEnumerable<CountryDTO>> GetAsync(int page);
 
+        Task<IEnumerable<CountryDTO>> RenderCountryListAsync();
+
         Task<CountryDTO> GetCountryByIdAsync(int id);
 
         Task<CountryDTO> GetCountryByNameAsync(string name);

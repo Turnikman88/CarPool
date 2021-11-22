@@ -1,6 +1,8 @@
 ﻿using CarPool.Common;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CarPool.Web.ViewModels.DTOs
 {
@@ -46,13 +48,13 @@ namespace CarPool.Web.ViewModels.DTOs
         public string Address { get; set; }
 
         [Required]
-        [MinLength(5, ErrorMessage = GlobalConstants.ADDRESS_TOO_SHORT)]
+        [MinLength(5, ErrorMessage = GlobalConstants.CITY_TOO_SHORT)]
         public string City { get; set; }
 
         [Required]
-        [MinLength(5, ErrorMessage = GlobalConstants.ADDRESS_TOO_SHORT)]
         public string Country { get; set; }
 
+        public List<SelectListItem> Countries { get; set; } = new List<SelectListItem>();
 
         public int AddressId { get; set; }
 

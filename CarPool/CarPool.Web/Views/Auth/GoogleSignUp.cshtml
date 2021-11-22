@@ -49,6 +49,37 @@
         </div>
     </div>
 </div>
-@section Scripts{
-    <partial name="_ValidationScriptsPartial" />
+@if (ViewData.ContainsKey("MessageSent") && (bool)ViewData["MessageSent"] == true)
+{
+
+
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script>
+        function JSalert() {
+            Swal.fire({
+                position: 'center',
+                icon: 'success',
+                title: '<h5 class="modal-alert"> Your messsage was sent </h5>',
+                showConfirmButton: false,
+                timer: 2600
+            },
+                function () {
+                    window.location.href = 'https://localhost:5001/home/index';
+            }
+                
+        }
+
+        JSalert();
+
+@*        openMaps = (url) => {
+window.open(url)
 }
+        openMaps('localhost:5001/home/index');
+*@
+    </script>
+}
+
+
+@*@section Scripts{
+        <partial name="_ValidationScriptsPartial" />
+    }*@

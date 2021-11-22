@@ -125,7 +125,7 @@ body.active-light-mode input:-webkit-autofill {
     right: 0;
     width: 70px;
     height: 70px;
-    background-color: #090909;
+    background-color: #060606;
     z-index: 0;
 }
 body.active-light-mode .bar {

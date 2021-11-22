@@ -911,9 +911,10 @@ All Extend Here
   margin: 0;
   list-style: none; }
 
-ul li a, ol li a, #scrollUp, .form-group input, .form-group textarea, .mainmenu-nav .mainmenu li.has-droupdown .submenu li a, .service.service__style--1 .icon, .service.service__style--1 .content .title, .service.service__style--1 .content .title a, .service.service__style--1 .content p, .service.gallery-style .content .title, .service.gallery-style .content .title a, .service.gallery-style .content p, .service.service__style--2 .content .title, .service.service__style--2 .content .title a, .service.service__style--2 .content p, .card-box .inner .content .title a, .rwt-card, .rwt-card .inner .thumbnail .card-image img, .rwt-card .inner .content .title a, .filter-button-default button, .rn-slick-dot .slick-dots li button::after, .rn-address .inner p a, .rbt-single-widget.widget_recent_comments ul li a, .rbt-single-widget.widget_recent_entries ul li a, .rbt-single-widget.widget_archive ul li a, .rbt-single-widget.widget_categories ul li a, .rbt-single-widget.widget_meta ul li a, .rbt-single-widget.widget_pages ul li a, .rbt-single-widget.widget_nav_menu ul li a, .rbt-single-widget.widget_recent_comments ul li span, .rbt-single-widget.widget_recent_entries ul li span, .rbt-single-widget.widget_archive ul li span, .rbt-single-widget.widget_categories ul li span, .rbt-single-widget.widget_meta ul li span, .rbt-single-widget.widget_pages ul li span, .rbt-single-widget.widget_nav_menu ul li span, .tagcloud a,
+ul li a, ol li a, #scrollUp, .form-group select, .form-group input, .form-group textarea, .mainmenu-nav .mainmenu li.has-droupdown .submenu li a, .service.service__style--1 .icon, .service.service__style--1 .content .title, .service.service__style--1 .content .title a, .service.service__style--1 .content p, .service.gallery-style .content .title, .service.gallery-style .content .title a, .service.gallery-style .content p, .service.service__style--2 .content .title, .service.service__style--2 .content .title a, .service.service__style--2 .content p, .card-box .inner .content .title a, .rwt-card, .rwt-card .inner .thumbnail .card-image img, .rwt-card .inner .content .title a, .filter-button-default button, .rn-slick-dot .slick-dots li button::after, .rn-address .inner p a, .rbt-single-widget.widget_recent_comments ul li a, .rbt-single-widget.widget_recent_entries ul li a, .rbt-single-widget.widget_archive ul li a, .rbt-single-widget.widget_categories ul li a, .rbt-single-widget.widget_meta ul li a, .rbt-single-widget.widget_pages ul li a, .rbt-single-widget.widget_nav_menu ul li a, .rbt-single-widget.widget_recent_comments ul li span, .rbt-single-widget.widget_recent_entries ul li span, .rbt-single-widget.widget_archive ul li span, .rbt-single-widget.widget_categories ul li span, .rbt-single-widget.widget_meta ul li span, .rbt-single-widget.widget_pages ul li span, .rbt-single-widget.widget_nav_menu ul li span, .tagcloud a,
 .wp-block-tag-cloud a {
-  transition: var(--transition); }
+    transition: var(--transition);
+}
 
 .bgImagePosition, .bg_image {
   background-repeat: no-repeat;
@@ -5435,8 +5436,10 @@ input[type="radio"] ~ label::after {
     height: 50px;
     font-size: 16px;
     padding: 0 15px; }
+
     .form-group input:focus {
       border-color: var(--color-primary); }
+
   .form-group textarea {
     min-height: 193px;
     border: var(--border-width) solid var(--color-border);
@@ -5444,8 +5447,21 @@ input[type="radio"] ~ label::after {
     resize: none;
     padding: 15px;
     font-size: 16px; }
+
     .form-group textarea:focus {
       border-color: var(--color-primary); }
+
+    .form-group select {
+        border: var(--border-width) solid var(--color-border);
+        border-radius: var(--radius);
+        height: 50px;
+        font-size: 16px;
+        padding: 0 15px;
+    }
+
+        .form-group select:focus {
+            border-color: var(--color-primary);
+        }
 
 input[type="submit"] {
   width: auto;
@@ -8696,7 +8712,17 @@ Timeline Area
 .contact-form-1 .form-group input {
   height: 70px;
   padding: 0 20px; }
-
+.contact-form-1 .form-group select {
+    height: 70px;
+    padding: 0 20px;
+    background-color: transparent!important;    
+}
+option{
+    background-color: black;
+}
+body.active-light-mode option {
+    background-color: white;
+}
 .contact-form-1 .form-group textarea {
   padding-top: 20px;
   padding-left: 20px; }
@@ -9337,10 +9363,23 @@ iframe {
       padding: 0 24px;
       min-width: 500px;
       background: var(--color-blackest);
-      border: 0 none; }
+      border: 0 none;
+    }
+    .rn-newsletter-default .rn-newsletter .form-group select {
+        height: 55px;
+        padding: 0 24px;
+        min-width: 500px;
+        background: var(--color-blackest);
+        border: 0 none;
+    }
       @media only screen and (min-width: 992px) and (max-width: 1199px) {
         .rn-newsletter-default .rn-newsletter .form-group input {
           min-width: 400px; } }
+@media only screen and (min-width: 992px) and (max-width: 1199px) {
+    .rn-newsletter-default .rn-newsletter .form-group select {
+        min-width: 400px;
+    }
+}
       @media only screen and (min-width: 768px) and (max-width: 991px) {
         .rn-newsletter-default .rn-newsletter .form-group input {
           min-width: 400px; } }
@@ -10760,6 +10799,7 @@ body.active-light-mode {
   body.active-light-mode .footer-style-default .footer-top .rn-footer-widget .text-big {
     color: #65676b; }
   body.active-light-mode .form-group input,
+  body.active-light-mode .form-group select,
   body.active-light-mode .form-group textarea,
   body.active-light-mode .rn-accordion-style.rn-accordion-02 .card .card-header,
   body.active-light-mode .mainmenu-nav .mainmenu li.with-megamenu .rn-megamenu .wrapper .mega-menu-item,
@@ -10788,6 +10828,7 @@ body.active-light-mode {
   body.active-light-mode .clltoaction-style-default.style-7 .content-wrapper,
   body.active-light-mode .copyright-style-one,
   body.active-light-mode .footer-style-default .newsletter-form .form-group input,
+  body.active-light-mode .footer-style-default .newsletter-form .form-group section,
   body.active-light-mode .newsletter-area .border-top-bottom {
     border-color: #00000024; }
   body.active-light-mode .service.service__style--1.with-working-process .line {
@@ -10830,6 +10871,9 @@ body.active-light-mode {
   body.active-light-mode .copyright-style-one .social-default.color-lessdark li a,
   body.active-light-mode .rn-newsletter-default .rn-newsletter .form-group input {
     background: #fff; }
+    body.active-light-mode .rn-newsletter-default .rn-newsletter .form-group select {
+        background: #fff;
+    }
   body.active-light-mode .copyright-style-one .ft-menu li + li::after {
     background: #c5c1c1; }
   body.active-light-mode .copyright-style-one .ft-menu li a:hover,

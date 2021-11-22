@@ -48,13 +48,20 @@ namespace CarPool.Services.Data.Services
         }
 
         public async Task<IEnumerable<CountryDTO>> GetAsync(int page)
-        {
-            
+        {            
             return await _db.Countries
                 .Include(c => c.Cities)
                 .Skip(page * GlobalConstants.PageSkip)
                 .Select(x => x.GetDTO())
                 .Take(10)
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<CountryDTO>> RenderCountryListAsync()
+        {
+            return await _db.Countries
+                .Include(c => c.Cities)
+                .Select(x => x.GetDTO())
                 .ToListAsync();
         }
 

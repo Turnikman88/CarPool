@@ -40,6 +40,8 @@
 
         public const string CITY_EXISTS = "City with this name already exists!";
 
+        public const string CITY_TOO_SHORT = "City cannot be that short!";
+
         public const string ADDRESS_EXISTS = "This address already exists!";
 
         public const string ADDRESS_NOT_FOUND = "Address not found!";

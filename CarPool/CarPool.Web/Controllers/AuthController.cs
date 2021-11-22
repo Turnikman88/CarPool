@@ -9,6 +9,8 @@ using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -23,18 +25,21 @@ namespace CarPool.Web.Controllers
         private readonly IAddressService _ads;
         private readonly IBanService _ban;
         private readonly IMailService _mail;
+        private readonly ICountryService _cs;
 
         public AuthController(IAuthService auth,
             IApplicationUserService us,
             IAddressService ads,
             IBanService ban,
-            IMailService mail)
+            IMailService mail,
+            ICountryService cs)
         {
             this._auth = auth;
             this._us = us;
             this._ads = ads;
             this._ban = ban;
-            _mail = mail;
+            this._mail = mail;
+            this._cs = cs;
         }
 
 
@@ -84,7 +89,7 @@ namespace CarPool.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> GoogleSignUp(GoogleRegisterDTO model)
         {
-            if (!this.ModelState.IsValid)
+            /*if (!this.ModelState.IsValid)
             {
                 return this.View(model);
             }
@@ -106,32 +111,12 @@ namespace CarPool.Web.Controllers
 
             await this._us.PostAsync(toUser);
 
-            await _mail.SendEmailAsync(new MailDTO { Reciever = userData.Email });
-            return this.RedirectToAction("index", "home");
+            await _mail.SendEmailAsync(new MailDTO { Reciever = userData.Email });*/
+
+            ViewData["MessageSent"] = true;
+            return this.View();
         }
 
-        //[HttpPost]
-        //public async Task<IActionResult> GoogleRegistration(RegisterDTO model)
-        //{
-        //    if (!this.ModelState.IsValid)
-        //    {
-        //        return this.View(model);
-        //    }
-        //
-        //    model.AddressId = await _ads.AddressToId(new AddressDTO
-        //    {
-        //        StreetName = model.Address,
-        //        CountryName = model.Country,
-        //        CityName = model.City
-        //    });
-        //
-        //
-        //    var toCustomer = model.GetDTO();
-        //    await this._us.PostAsync(toCustomer);
-        //
-        //    await _mail.SendEmailAsync(new MailDTO { Reciever = model.Email });
-        //    return this.Redirect(nameof(Login));
-        //}
 
         public IActionResult Login()
         {
@@ -185,7 +170,6 @@ namespace CarPool.Web.Controllers
         }
 
         [HttpGet]
-        //[Authorize(Roles = GlobalConstants.NotConfirmedRoleName)]
         public async Task<IActionResult> ConfirmEmail(string token)
         {
             var email = await _auth.ConfirmEmail(token);
@@ -200,9 +184,12 @@ namespace CarPool.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult Register()
+        public async Task<IActionResult> Register()
         {
-            return View(new ApplicationUserDTO());
+            var model = new RegisterDTO();
+            model.Countries = await this.RenderCountries();
+
+            return View(model);
         }
 
         [HttpPost]
@@ -232,6 +219,13 @@ namespace CarPool.Web.Controllers
             await _mail.SendEmailAsync(new MailDTO { Reciever = model.Email });
             return this.Redirect(nameof(Login));
         }
+
+/*        [HttpPost]
+        public async Task<IActionResult> ForgottenPassword(ForgottenPasswordDTO model)
+        {
+
+        }*/
+
         private RegisterDTO GetGoogleData(AuthenticateResult result)
         {
             var claims = result.Principal.Identities.FirstOrDefault()
@@ -276,6 +270,20 @@ namespace CarPool.Web.Controllers
             var principal = new ClaimsPrincipal(identity);
 
             await HttpContext.SignInAsync(CookieAuthenticationDefaults.AuthenticationScheme, principal);
+        }
+
+        private async Task<List<SelectListItem>> RenderCountries()
+        {
+            var countries = await _cs.RenderCountryListAsync();
+
+            var model = new List<SelectListItem>();
+
+            foreach (var country in countries)
+            {
+                model.Add(new SelectListItem() { Text = country.Name, Value = country.Name });
+            }
+
+            return model;
         }
     }
 }
