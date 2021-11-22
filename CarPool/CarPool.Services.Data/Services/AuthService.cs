@@ -86,12 +86,14 @@ namespace CarPool.Services.Data.Services
             var tokenToEmail = System.Text.Encoding.Unicode.GetString(tokenByte);
             var user = await _db.ApplicationUsers
                 .FirstOrDefaultAsync(x => x.Email == tokenToEmail);
-            if (user != null)
+            if (user != null && user.ApplicationRoleId == 4)
             {
                 user.ApplicationRoleId = 2;
+                user.EmailConfirmed = true;
+                await _db.SaveChangesAsync();
+                return user.Email;
             }
-            await _db.SaveChangesAsync();
-            return user.Email;
+            return null;
         }
 
         public async Task<bool> IsPasswordValidAsync(string email, string password)

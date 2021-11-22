@@ -32,6 +32,7 @@ namespace CarPool.Services
             }
             else
             {
+                mailRequest.Subject = "[Rideshare] Authenticate Your Email Address";
                 reciver = mailRequest.Reciever;
                 var token = Convert.ToBase64String(System.Text.Encoding.Unicode.GetBytes(mailRequest.Reciever));
                 builder.TextBody = $"Please click this link to confirm your email {GlobalConstants.Domain}/Auth/ConfirmEmail?token={token}";
@@ -42,7 +43,7 @@ namespace CarPool.Services
             email.To.Add(MailboxAddress.Parse(reciver));
             email.Subject = mailRequest.Subject ?? "";
 
-            
+
             email.Body = builder.ToMessageBody();
             using var smtp = new SmtpClient();
 
