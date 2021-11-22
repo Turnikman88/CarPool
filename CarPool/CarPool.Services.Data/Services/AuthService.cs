@@ -80,12 +80,26 @@ namespace CarPool.Services.Data.Services
             return model;
         }
 
+        public string ConfirmToken(string token)
+        {
+            var tokenByte = Convert.FromBase64String(token);
+            var tokenToString = System.Text.Encoding.Unicode.GetString(tokenByte).Split('/');
+            var email = tokenToString[0];
+            var validUntil = DateTime.Parse(tokenToString[1]);
+
+            if (DateTime.Now < validUntil)
+            {
+                return email;
+            }
+            return "Token Expired";
+        }
+
         public async Task<string> ConfirmEmail(string token)
         {
             var tokenByte = Convert.FromBase64String(token);
             var tokenToEmail = System.Text.Encoding.Unicode.GetString(tokenByte);
             var user = await _db.ApplicationUsers
-                .FirstOrDefaultAsync(x => x.Email == tokenToEmail);
+                                .FirstOrDefaultAsync(x => x.Email == tokenToEmail);
             if (user != null && user.ApplicationRoleId == 4)
             {
                 user.ApplicationRoleId = 2;
@@ -96,12 +110,23 @@ namespace CarPool.Services.Data.Services
             return null;
         }
 
+        public async Task<bool> IsEmailValidForPasswordReset(string email)
+        {
+            var user = await _db.ApplicationUsers
+                                .FirstOrDefaultAsync(x => x.Email == email);
+            if (user != null && user.ApplicationRoleId == 2 && user.EmailConfirmed == true)
+            {
+                return true;
+            }
+            return false;
+        }
+
         public async Task<bool> IsPasswordValidAsync(string email, string password)
         {
             var userPassword = await _db.ApplicationUsers
-                .Where(x => x.Email == email)
-                .Select(x => x.Password)
-                .FirstOrDefaultAsync();
+                                        .Where(x => x.Email == email)
+                                        .Select(x => x.Password)
+                                        .FirstOrDefaultAsync();
             if (userPassword != null)
             {
                 return BCrypt.Net.BCrypt.Verify(password, userPassword);

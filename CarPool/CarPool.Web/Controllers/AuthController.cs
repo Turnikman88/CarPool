@@ -221,11 +221,52 @@ namespace CarPool.Web.Controllers
             return this.Redirect(nameof(Login));
         }
 
-        /*        [HttpPost]
-                public async Task<IActionResult> ForgottenPassword(ForgottenPasswordDTO model)
-                {
+        [HttpGet]
+        public IActionResult ResetPassword(string token)
+        {
+            var confirmToken = _auth.ConfirmToken(token);
+            if (confirmToken.Contains('@'))
+            {
+                return this.View(new UpdatePasswordDTO() { Email = confirmToken });
+            }
+            return this.RedirectToAction("error", "home");
+        }
 
-                }*/
+        [HttpPost]
+        public async Task<IActionResult> ResetPassword(UpdatePasswordDTO obj)
+        {
+            await _us.UpdatePasswordAsync(obj.Email, obj.Password);
+
+            return this.RedirectToAction("index", "home");
+        }
+
+        [HttpGet]
+        public IActionResult ForgotPassword()
+        {
+            var model = new ForgotPasswordDTO();
+            return this.View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> ForgotPassword(ForgotPasswordDTO model)
+        {
+            if (await _auth.IsExistingAsync(model.Email))
+            {
+                this.ModelState.AddModelError("Email", GlobalConstants.USER_EXISTS);
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                return this.View(model);
+            }
+
+            if (await _auth.IsEmailValidForPasswordReset(model.Email))
+            {
+                await _mail.SendEmailAsync(new MailDTO { Reciever = model.Email, ResetPassword = true });
+                ViewData["MessageSent"] = true;
+            }
+            return this.View();
+        }
 
         private RegisterDTO GetGoogleData(AuthenticateResult result)
         {

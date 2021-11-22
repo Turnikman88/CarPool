@@ -5,6 +5,8 @@ namespace CarPool.Services.Data.Contracts
 {
     public interface IAuthService
     {
+        string ConfirmToken(string token);
+
         Task<bool> IsExistingAsync(string email);
 
         Task<ResponseAuthDTO> AuthenticateAsync(RequestAuthDTO model);
@@ -15,5 +17,6 @@ namespace CarPool.Services.Data.Contracts
 
         Task<string> ConfirmEmail(string token);
 
+        Task<bool> IsEmailValidForPasswordReset(string email)
     }
 }

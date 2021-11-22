@@ -157,6 +157,17 @@ namespace CarPool.Services.Data.Services
             return user.GetDTO();
         }
 
+        public async Task<ApplicationUserDTO> UpdatePasswordAsync(string email, string newPassword)
+        {
+            var user = await _db.ApplicationUsers.FirstOrDefaultAsync(x => x.Email == email);
+
+            user.Password = BCrypt.Net.BCrypt.HashPassword(newPassword);
+
+            await _db.SaveChangesAsync();
+
+            return user.GetDTO();
+        }
+
 
         public async Task<IEnumerable<ApplicationTopUserDTO>> TopUsers()
         {
