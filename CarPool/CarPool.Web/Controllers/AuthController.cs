@@ -113,10 +113,10 @@ namespace CarPool.Web.Controllers
             userData.PhoneNumber = model.PhoneNumber;
 
             var toUser = userData.GetDTO();
+            await _mail.SendEmailAsync(new MailDTO { Reciever = userData.Email });
 
             await this._us.PostAsync(toUser);
 
-            await _mail.SendEmailAsync(new MailDTO { Reciever = userData.Email });
 
             ViewData["MessageSent"] = true;
             return this.View(model);
@@ -280,7 +280,7 @@ namespace CarPool.Web.Controllers
             var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
 
 
-            if (!await _auth.IsPasswordValidAsync(model.Email, model.Password))
+            if (!await _auth.IsPasswordValidAsync(email, model.Password))
             {
                 this.ModelState.AddModelError("Password", GlobalConstants.OLD_PASSWORD);
             }
