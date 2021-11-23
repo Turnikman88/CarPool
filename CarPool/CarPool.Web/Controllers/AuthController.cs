@@ -222,7 +222,7 @@ namespace CarPool.Web.Controllers
         }
 
         [HttpGet]
-        public IActionResult ResetPassword(string token)
+        public IActionResult UpdatePassword(string token)
         {
             var confirmToken = _auth.ConfirmToken(token);
             if (confirmToken.Contains('@'))
@@ -233,11 +233,11 @@ namespace CarPool.Web.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> ResetPassword(UpdatePasswordDTO obj)
+        public async Task<IActionResult> UpdatePassword(UpdatePasswordDTO obj)
         {
             await _us.UpdatePasswordAsync(obj.Email, obj.Password);
-
-            return this.RedirectToAction("index", "home");
+            ViewData["PasswordUpdated"] = true;
+            return this.View();
         }
 
         [HttpGet]
@@ -250,9 +250,9 @@ namespace CarPool.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> ForgotPassword(ForgotPasswordDTO model)
         {
-            if (await _auth.IsExistingAsync(model.Email))
+            if (!await _auth.IsExistingAsync(model.Email))
             {
-                this.ModelState.AddModelError("Email", GlobalConstants.USER_EXISTS);
+                this.ModelState.AddModelError("Email", GlobalConstants.USER_NOT_FOUND);
             }
 
             if (!this.ModelState.IsValid)

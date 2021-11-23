@@ -30,6 +30,13 @@ namespace CarPool.Services
                 reciver = mailRequest.EmailFrom;
                 builder.TextBody = $"From: '{mailRequest.Name}' Phone: {mailRequest.Phone} Email: '{mailRequest.Reciever}':{Environment.NewLine}{mailRequest.Message}";
             }
+            else if (mailRequest.ResetPassword)
+            {
+                mailRequest.Subject = "[Rideshare] Reset your password";
+                reciver = mailRequest.Reciever;
+                var token = Convert.ToBase64String(System.Text.Encoding.Unicode.GetBytes($"{mailRequest.Reciever}***{DateTime.UtcNow.AddMinutes(10)}"));
+                builder.TextBody = $"Please click this link to reset your password {GlobalConstants.Domain}/Auth/UpdatePassword?token={token}";
+            }
             else if (!mailRequest.isFromContact)
             {
                 mailRequest.Subject = "[Rideshare] Authenticate Your Email Address";
@@ -37,13 +44,7 @@ namespace CarPool.Services
                 var token = Convert.ToBase64String(System.Text.Encoding.Unicode.GetBytes(mailRequest.Reciever));
                 builder.TextBody = $"Please click this link to confirm your email {GlobalConstants.Domain}/Auth/ConfirmEmail?token={token}";
             }
-            else if (mailRequest.ResetPassword)
-            {
-                mailRequest.Subject = "[Rideshare] Reset your password";
-                reciver = mailRequest.Reciever;
-                var token = Convert.ToBase64String(System.Text.Encoding.Unicode.GetBytes($"{mailRequest.Reciever}/{DateTime.UtcNow.AddMinutes(10)}"));
-                builder.TextBody = $"Please click this link to reset your password {GlobalConstants.Domain}/Auth/ResetPassword?token={token}";
-            }
+
 
             var email = new MimeMessage();
             email.Sender = MailboxAddress.Parse(mailRequest.EmailFrom);
