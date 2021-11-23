@@ -1,4 +1,6 @@
 ﻿using CarPool.Common;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
@@ -20,7 +22,9 @@ namespace CarPool.Web.ViewModels.DTOs
         public string City { get; set; }
 
         [Required]
-        [MinLength(5, ErrorMessage = GlobalConstants.ADDRESS_TOO_SHORT)]
         public string Country { get; set; }
+
+        public List<SelectListItem> Countries { get; set; } = new List<SelectListItem>();
+
     }
 }

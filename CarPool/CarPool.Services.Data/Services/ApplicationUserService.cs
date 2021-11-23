@@ -143,7 +143,8 @@ namespace CarPool.Services.Data.Services
                 return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_EXISTS };
             }
 
-            var user = await _db.ApplicationUsers.FirstOrDefaultAsync(x => x.Email == email);
+            var user = await _db.ApplicationUsers.Include(x => x.ApplicationRole)
+                .FirstOrDefaultAsync(x => x.Email == email);
 
             if (user is null)
             {
@@ -202,13 +203,15 @@ namespace CarPool.Services.Data.Services
 
             if (obj.Password != null && Regex.IsMatch(obj.Password ?? "", GlobalConstants.PassRegex))
             {
-                user.Password = obj.Password;
+                user.Password = BCrypt.Net.BCrypt.HashPassword(obj.Password);
             }
 
             if (obj.PhoneNumber != null && Regex.IsMatch(obj.PhoneNumber ?? "", GlobalConstants.PhoneRegex))
             {
                 user.PhoneNumber = obj.PhoneNumber;
             }
+
+            user.AddressId = obj.AddressId;
         }
 
         private bool IsValidUser(string username, string email, string password, string phoneNumber)
