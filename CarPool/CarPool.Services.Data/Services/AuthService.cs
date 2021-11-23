@@ -80,7 +80,7 @@ namespace CarPool.Services.Data.Services
             return model;
         }
 
-        public string ConfirmToken(string token)
+        public string CheckConfirmTokenAndExtractEmail(string token)
         {
             var tokenByte = Convert.FromBase64String(token);
             var tokenToString = System.Text.Encoding.Unicode.GetString(tokenByte).Split("***");

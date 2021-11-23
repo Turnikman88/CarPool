@@ -5,7 +5,7 @@ namespace CarPool.Services.Data.Contracts
 {
     public interface IAuthService
     {
-        string ConfirmToken(string token);
+        string CheckConfirmTokenAndExtractEmail(string token);
 
         Task<bool> IsExistingAsync(string email);
 

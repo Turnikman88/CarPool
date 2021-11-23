@@ -159,7 +159,7 @@ namespace CarPool.Services.Data.Services
 
         public async Task<ApplicationUserDTO> UpdatePasswordAsync(string email, string newPassword)
         {
-            var user = await _db.ApplicationUsers.FirstOrDefaultAsync(x => x.Email == email);
+            var user = await _db.ApplicationUsers.Include(x => x.ApplicationRole).FirstOrDefaultAsync(x => x.Email == email);
 
             user.Password = BCrypt.Net.BCrypt.HashPassword(newPassword);
 

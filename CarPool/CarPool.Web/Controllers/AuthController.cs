@@ -224,10 +224,11 @@ namespace CarPool.Web.Controllers
         [HttpGet]
         public IActionResult UpdatePassword(string token)
         {
-            var confirmToken = _auth.ConfirmToken(token);
-            if (confirmToken.Contains('@'))
+            var email = _auth.CheckConfirmTokenAndExtractEmail(token);
+            if (email.Contains('@'))
             {
-                return this.View(new UpdatePasswordDTO() { Email = confirmToken });
+                TempData["Email"] = email;
+                return this.View(new UpdatePasswordDTO());
             }
             return this.RedirectToAction("error", "home");
         }
@@ -235,9 +236,10 @@ namespace CarPool.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> UpdatePassword(UpdatePasswordDTO obj)
         {
-            await _us.UpdatePasswordAsync(obj.Email, obj.Password);
+            var email = TempData["Email"].ToString();
+            await _us.UpdatePasswordAsync(email, obj.Password);
             ViewData["PasswordUpdated"] = true;
-            return this.View();
+            return this.View(new UpdatePasswordDTO());
         }
 
         [HttpGet]
