@@ -83,11 +83,11 @@ namespace CarPool.Services.Data.Services
         public string ConfirmToken(string token)
         {
             var tokenByte = Convert.FromBase64String(token);
-            var tokenToString = System.Text.Encoding.Unicode.GetString(tokenByte).Split('/');
+            var tokenToString = System.Text.Encoding.Unicode.GetString(tokenByte).Split("***");
             var email = tokenToString[0];
             var validUntil = DateTime.Parse(tokenToString[1]);
 
-            if (DateTime.Now < validUntil)
+            if (DateTime.UtcNow < validUntil)
             {
                 return email;
             }
