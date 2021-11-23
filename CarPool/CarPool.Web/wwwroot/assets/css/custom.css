@@ -148,3 +148,45 @@ body.active-light-mode .modal-content {
 body.active-light-mode .modal-body .main-content {
     background-color: white;
 }
+
+.swal-wide {
+    width: 850px;
+    background-color: red;
+}
+
+
+.swal-wide{
+    height: 220px!important;
+    background-color: rgba(255, 255, 255, .15)!important;
+    backdrop-filter: blur(5px)!important;
+}
+.swal-contact {
+    background-color: rgba(255, 255, 255, .15) !important;
+    backdrop-filter: blur(5px) !important;
+}
+.swal-title {
+    color: white !important;
+}
+.active-light-mode .swal-title {
+    color:black!important;
+}
+
+.swal2-validation-message {
+    background-color: rgba(255, 255, 255, .15) !important;
+    backdrop-filter: blur(5px) !important;
+    font-size: 1.8em!important;
+    color: white!important;
+    padding: 5px;
+
+}
+
+.active-light-mode .swal2-validation-message {
+    
+    color: black !important;
+    
+}
+.swal2-confirm {
+    height: 40px !important;
+    width: 90px !important;
+    font-size: 1.4em !important;
+}

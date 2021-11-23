@@ -46,19 +46,28 @@
 <script>
     function ForgotPass() {
         Swal.fire({
-            title: 'Submit your Github username',
+            title: '<h4 class="swal-title"> Your email address </h4>',
+            
             input: 'text',
+            width: 400,            
+            backdrop: false,
+            customClass: 'swal-wide',
+            showCloseButton: true,
             inputAttributes: {
                 autocapitalize: 'off'
             },
-            showCancelButton: true,
             confirmButtonText: 'Look up',
             showLoaderOnConfirm: true,
             preConfirm: (login) => {
                 return fetch(`//localhost:5001/Auth/ForgotPassword?email=${login}`)
                     .then(response => {
 
-                        alert("here");
+                        if (!response.ok) {
+                            Swal.showValidationMessage(
+                                'Something went wrong!'
+                            )
+                        } 
+                        
                     })
                     .catch(error => {
                         Swal.showValidationMessage(

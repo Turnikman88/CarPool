@@ -100,10 +100,11 @@
         function JSalert() {
             Swal.fire({
                 position: 'center',
-                icon: 'success',
-                title: '<h5 class="modal-alert"> Your messsage was sent </h5>',
+                backdrop: false,
+                customClass: 'swal-contact',
+                title: '<h5 class="swal-title"> Your messsage was sent! </h5>',
                 showConfirmButton: false,              
-                timer: 2600
+                timer: 2500
             })
         }
         JSalert();

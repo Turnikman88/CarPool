@@ -199,6 +199,8 @@ namespace CarPool.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterDTO model)
         {
+            model.Countries = await this.RenderCountries();
+
             if (await _auth.IsExistingAsync(model.Email))
             {
                 this.ModelState.AddModelError("Email", GlobalConstants.USER_EXISTS);
@@ -222,7 +224,7 @@ namespace CarPool.Web.Controllers
 
             await _mail.SendEmailAsync(new MailDTO { Reciever = model.Email });
             ViewData["MessageSent"] = true;
-            return this.Redirect(nameof(Login));
+            return this.View(model);
         }
 
         [HttpGet]
@@ -244,32 +246,17 @@ namespace CarPool.Web.Controllers
             return this.View();
         }
 
+
         [HttpGet]
-        public IActionResult ForgotPassword()
-        {
-            var model = new ForgotPasswordDTO();
-            return this.View(model);
-        }
+        public async Task<IActionResult> ForgotPassword(string email)
+        {            
 
-        [HttpPost]
-        public async Task<IActionResult> ForgotPassword(ForgotPasswordDTO model)
-        {
-            if (!await _auth.IsExistingAsync(model.Email))
+            if (await _auth.IsEmailValidForPasswordReset(email))
             {
-                this.ModelState.AddModelError("Email", GlobalConstants.USER_NOT_FOUND);
+                await _mail.SendEmailAsync(new MailDTO { Reciever = email, ResetPassword = true });
+                return Ok();
             }
-
-            if (!this.ModelState.IsValid)
-            {
-                return this.View(model);
-            }
-
-            if (await _auth.IsEmailValidForPasswordReset(model.Email))
-            {
-                await _mail.SendEmailAsync(new MailDTO { Reciever = model.Email, ResetPassword = true });
-                ViewData["MessageSent"] = true;
-            }
-            return this.View();
+            return NotFound();
         }
 
         [HttpGet]
