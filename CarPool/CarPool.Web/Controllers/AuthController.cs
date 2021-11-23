@@ -81,14 +81,19 @@ namespace CarPool.Web.Controllers
 
 
         [HttpGet]
-        public IActionResult GoogleSignUp()
+        public async Task<IActionResult> GoogleSignUp()
         {
-            return this.View();
+            var model = new GoogleRegisterDTO();
+            model.Countries = await this.RenderCountries();
+
+            return this.View(model);
         }
 
         [HttpPost]
         public async Task<IActionResult> GoogleSignUp(GoogleRegisterDTO model)
         {
+            model.Countries = await RenderCountries();
+
             if (!this.ModelState.IsValid)
             {
                 return this.View(model);
@@ -114,7 +119,7 @@ namespace CarPool.Web.Controllers
             await _mail.SendEmailAsync(new MailDTO { Reciever = userData.Email });
 
             ViewData["MessageSent"] = true;
-            return this.View();
+            return this.View(model);
         }
 
 
@@ -131,15 +136,15 @@ namespace CarPool.Web.Controllers
                 this.ModelState.AddModelError("Password", GlobalConstants.WRONG_CREDENTIALS);
                 return this.View(model);
             }
-            var loggedUserResult = await _auth.GetByEmailAsync(model.Email);
+            var user = await _auth.GetByEmailAsync(model.Email);
 
-            if (loggedUserResult.Message != null)
+            if (user.Message != null)
             {
                 this.ModelState.AddModelError("Password", GlobalConstants.TRIP_USER_BLOCKED_JOIN);
                 return this.View(model);
             }
 
-            await SignInWithRoleAsync(model.Email, loggedUserResult.Role);
+            await SignInWithRoleAsync(model.Email, user.Role);
 
             return this.RedirectToAction("index", "home");
         }
@@ -175,7 +180,6 @@ namespace CarPool.Web.Controllers
             var email = await _auth.ConfirmEmail(token);
             if (email != null)
             {
-                //here must change cookie role claim to user
                 await this.SignInWithRoleAsync(email, GlobalConstants.UserRoleName);
                 return this.RedirectToAction("index", "home");
             }
@@ -213,8 +217,8 @@ namespace CarPool.Web.Controllers
             });
 
 
-            var toCustomer = model.GetDTO();
-            await this._us.PostAsync(toCustomer);
+            var toUser = model.GetDTO();
+            await this._us.PostAsync(toUser);
 
             await _mail.SendEmailAsync(new MailDTO { Reciever = model.Email });
             ViewData["MessageSent"] = true;
@@ -266,6 +270,50 @@ namespace CarPool.Web.Controllers
                 ViewData["MessageSent"] = true;
             }
             return this.View();
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Settings()
+        {
+            var email = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+
+            var user = await _us.GetUserByEmailAsync(email);
+            var model = user.GetDTO();
+            model.Countries = await this.RenderCountries();
+
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Settings(SettingsDTO model)
+        {
+            var email = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+            var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
+
+
+            if (!await _auth.IsPasswordValidAsync(model.Email, model.Password))
+            {
+                this.ModelState.AddModelError("Password", GlobalConstants.OLD_PASSWORD);
+            }
+
+            if (!this.ModelState.IsValid)
+            {
+                model.Countries = await RenderCountries();
+                return this.View(model);
+            }
+
+            model.AddressId = await _ads.AddressToId(new AddressDTO
+            {
+                StreetName = model.Address, 
+                CountryName = model.Country,
+                CityName = model.City
+            });
+
+            model.Role = role;
+            var toUser = model.GetDTO();
+            await this._us.UpdateAsync(email, toUser);
+
+            return RedirectToAction("index", "home");            
         }
 
         private RegisterDTO GetGoogleData(AuthenticateResult result)

@@ -30,7 +30,7 @@
                                         style="background-color: #FF3CAC; cursor: pointer;">
                                     <span>Log In</span>
                                 </button>
-                                <a style="margin-left:10px;" asp-controller="Auth" asp-action="ForgottenPassword">Forgot Password?</a>
+                                <a style="margin-left:10px;" href="javascript:ForgotPass();">Forgot Password?</a>
                                 <a style="margin-left:10px;" asp-controller="Auth" asp-action="Register">Register</a>
                                 <a style="margin-left:10px;" asp-controller="Auth" asp-action="GoogleLogin">Sign up with Google</a>
                             </div>
@@ -41,6 +41,36 @@
         </div>
     </div>
 </div>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+<script>
+    function ForgotPass() {
+        Swal.fire({
+            title: 'Submit your Github username',
+            input: 'text',
+            inputAttributes: {
+                autocapitalize: 'off'
+            },
+            showCancelButton: true,
+            confirmButtonText: 'Look up',
+            showLoaderOnConfirm: true,
+            preConfirm: (login) => {
+                return fetch(`//localhost:5001/Auth/ForgotPassword?email=${login}`)
+                    .then(response => {
+
+                        alert("here");
+                    })
+                    .catch(error => {
+                        Swal.showValidationMessage(
+                            'Something went wrong!'
+                        )
+                    })
+            },
+            allowOutsideClick: () => !Swal.isLoading()
+        })
+
+    }
+</script>
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
 }

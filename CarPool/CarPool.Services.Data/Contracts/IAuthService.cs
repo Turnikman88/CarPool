@@ -17,6 +17,6 @@ namespace CarPool.Services.Data.Contracts
 
         Task<string> ConfirmEmail(string token);
 
-        Task<bool> IsEmailValidForPasswordReset(string email)
+        Task<bool> IsEmailValidForPasswordReset(string email);
     }
 }
