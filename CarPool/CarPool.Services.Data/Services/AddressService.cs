@@ -157,7 +157,7 @@ namespace CarPool.Services.Data.Services
                     countryDetails.Id = newCountry.Id;
                 }
 
-                await _city.PostAsync(new CityDTO { CountryId = countryDetails.Id, Name = obj.CityName });
+                await _city.PostAsync(new CityDTO { CountryName = obj.CountryName, Name = obj.CityName });
                 await _db.SaveChangesAsync();
                 cityDetails = await _city.GetCityByNameAsync(obj.CityName);
             }

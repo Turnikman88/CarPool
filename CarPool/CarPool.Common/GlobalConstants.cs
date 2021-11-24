@@ -4,6 +4,14 @@
     {
         public const string Domain = "https://localhost:5001";
 
+        public const string ImageKitPublicKey = "public_2fV7UoL16UxkSqKTdkgtOM1M4k8=";
+
+        public const string ImageKitPrivateKey = "private_8tnH1DMGXWhUK5I5yeHuqBldZPs=";
+
+        public const string ImageKitUrlEndPoint = "https://ik.imagekit.io/hb0rsbgap4f2/";
+
+        public const string DefaultPicture = "https://ik.imagekit.io/hb0rsbgap4f2/profilepicture_qVGMALiir.png?updatedAt=1637784974343";
+
         public const string Secret = "CarPoolSecretTelerikAcademy"; //minimum 16 letters
 
         public const string SystemName = "CarPool";
@@ -91,5 +99,7 @@
         public const string NOT_AUTHORIZED = "You are not authorized!";
 
         public const string NOT_PROVIDED = "(Not provided)";
+
+
     }
 }

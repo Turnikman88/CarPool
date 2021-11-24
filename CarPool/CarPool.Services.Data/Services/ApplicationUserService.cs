@@ -95,27 +95,10 @@ namespace CarPool.Services.Data.Services
 
         public async Task<ApplicationUserDTO> PostAsync(ApplicationUserDTO obj)
         {
-            if (obj is null || obj.Username is null || obj.FirstName is null
-                || obj.LastName is null || obj.Email is null
-                || !Regex.IsMatch(obj.PhoneNumber ?? "", GlobalConstants.PhoneRegex)
-                || obj.Password is null)
+            var errorMessage = await CheckUserData(obj);
+            if (errorMessage != null)
             {
-                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
-            }
-
-            if (await _db.ApplicationUsers.AnyAsync(x => x.Email == obj.Email))
-            {
-                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_EXISTS };
-            }
-
-            if (await _db.ApplicationUsers.AnyAsync(x => x.PhoneNumber == obj.PhoneNumber))
-            {
-                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.USER_PHONE_EXISTS };
-            }
-
-            if (!await _db.Addresses.AnyAsync(x => x.Id == obj.AddressId))
-            {
-                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.ADDRESS_NOT_FOUND };
+                return new ApplicationUserDTO { ErrorMessage = errorMessage };
             }
 
             var newUser = obj.GetEntity();
@@ -130,10 +113,46 @@ namespace CarPool.Services.Data.Services
             await _db.ApplicationUsers.AddAsync(newUser);
             await _db.SaveChangesAsync();
 
+            await _db.ProfilePictures.AddAsync(new ProfilePicture
+            {
+                ImageLink = GlobalConstants.DefaultPicture,
+                ApplicationUserId = newUser.Id
+            });
+
+            await _db.SaveChangesAsync();
+
             return await _db.ApplicationUsers.Include(x => x.ApplicationRole)
                                              .Where(x => x.Id == newUser.Id)
                                              .Select(x => x.GetDTO())
                                              .FirstOrDefaultAsync();
+        }
+
+        private async Task<string> CheckUserData(ApplicationUserDTO obj)
+        {
+            if (obj is null || obj.Username is null || obj.FirstName is null
+                || obj.LastName is null || obj.Email is null
+                || !Regex.IsMatch(obj.PhoneNumber ?? "", GlobalConstants.PhoneRegex)
+                || obj.Password is null)
+            {
+                return GlobalConstants.INCORRECT_DATA;
+            }
+
+            if (await _db.ApplicationUsers.AnyAsync(x => x.Email == obj.Email))
+            {
+                return GlobalConstants.USER_EXISTS;
+            }
+
+            if (await _db.ApplicationUsers.AnyAsync(x => x.PhoneNumber == obj.PhoneNumber))
+            {
+                return GlobalConstants.USER_PHONE_EXISTS;
+            }
+
+            if (!await _db.Addresses.AnyAsync(x => x.Id == obj.AddressId))
+            {
+                return GlobalConstants.ADDRESS_NOT_FOUND;
+            }
+
+            return null;
         }
 
         public async Task<ApplicationUserDTO> UpdateAsync(string email, ApplicationUserDTO obj)

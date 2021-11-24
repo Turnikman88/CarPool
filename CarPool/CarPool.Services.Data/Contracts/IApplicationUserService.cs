@@ -21,6 +21,5 @@ namespace CarPool.Services.Data.Contracts
         Task<ApplicationUserDTO> DeleteAsync(string email);
 
         Task<ApplicationUserDTO> UpdatePasswordAsync(string email, string newPassword);
-
     }
 }

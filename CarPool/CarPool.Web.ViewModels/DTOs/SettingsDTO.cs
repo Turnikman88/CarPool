@@ -1,4 +1,5 @@
 ﻿using CarPool.Common;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using System;
 using System.Collections.Generic;
@@ -39,7 +40,6 @@ namespace CarPool.Web.ViewModels.DTOs
         [MinLength(8, ErrorMessage = GlobalConstants.PASSWORD_ERROR_MESSAGE)]
         public string Password { get; set; }
 
-        [Required]
         [DisplayName("New Password")]
         [DataType(DataType.Password)]
         [MinLength(8, ErrorMessage = GlobalConstants.PASSWORD_ERROR_MESSAGE)]
@@ -61,5 +61,7 @@ namespace CarPool.Web.ViewModels.DTOs
         public int AddressId { get; set; }
 
         public string Role { get; set; }
+
+        public IFormFile ProfilePicture { get; set; }
     }
 }

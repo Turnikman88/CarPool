@@ -1,4 +1,5 @@
-﻿using CarPool.Data.Models.DatabaseModels;
+﻿using CarPool.Common;
+using CarPool.Data.Models.DatabaseModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -384,7 +385,25 @@ namespace CarPool.Data.Models.DAL
                 {
                     Id = 1,
                     ApplicationUserId = userId0,
-                    //ImageData = 
+                    ImageLink = GlobalConstants.DefaultPicture
+                },
+                new ProfilePicture
+                {
+                    Id = 2,
+                    ApplicationUserId = userId1,
+                    ImageLink = GlobalConstants.DefaultPicture
+                },
+                new ProfilePicture
+                {
+                    Id = 3,
+                    ApplicationUserId = userId2,
+                    ImageLink = GlobalConstants.DefaultPicture
+                },
+                new ProfilePicture
+                {
+                    Id = 4,
+                    ApplicationUserId = userId3,
+                    ImageLink = GlobalConstants.DefaultPicture
                 }
             };
 

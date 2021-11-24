@@ -190,3 +190,18 @@ body.active-light-mode .modal-body .main-content {
     width: 90px !important;
     font-size: 1.4em !important;
 }
+
+::file-selector-button {
+    display: none;
+}
+.file-selector{
+    padding: 25px!important;
+    border-radius: 50%!important;
+    width:100px!important;
+    height: 100px!important;
+    
+}
+/*.settings {
+    border-radius: 50%;
+    height: 45px;
+}*/

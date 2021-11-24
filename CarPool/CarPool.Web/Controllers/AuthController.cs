@@ -4,15 +4,20 @@ using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using CarPool.Web.ViewModels.DTOs;
 using CarPool.Web.ViewModels.Mappers;
+using Imagekit;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
+using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Security.Claims;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CarPool.Web.Controllers
@@ -26,13 +31,15 @@ namespace CarPool.Web.Controllers
         private readonly IBanService _ban;
         private readonly IMailService _mail;
         private readonly ICountryService _cs;
+        private readonly IProfilePictureService _pps;
 
         public AuthController(IAuthService auth,
             IApplicationUserService us,
             IAddressService ads,
             IBanService ban,
             IMailService mail,
-            ICountryService cs)
+            ICountryService cs,
+            IProfilePictureService pps)
         {
             this._auth = auth;
             this._us = us;
@@ -40,6 +47,7 @@ namespace CarPool.Web.Controllers
             this._ban = ban;
             this._mail = mail;
             this._cs = cs;
+            this._pps = pps;
         }
 
 
@@ -220,10 +228,13 @@ namespace CarPool.Web.Controllers
 
 
             var toUser = model.GetDTO();
-            await this._us.PostAsync(toUser);
+
+            await this._us.PostAsync(toUser);                       
 
             await _mail.SendEmailAsync(new MailDTO { Reciever = model.Email });
+
             ViewData["MessageSent"] = true;
+
             return this.View(model);
         }
 
@@ -267,8 +278,16 @@ namespace CarPool.Web.Controllers
             var email = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
 
             var user = await _us.GetUserByEmailAsync(email);
+
             var model = user.GetDTO();
+
+            var address = await _ads.GetAddressByIdAsync(user.AddressId);
+
             model.Countries = await this.RenderCountries();
+
+            model.Country = address.CountryName;
+            model.City = address.CityName;
+            model.Address = address.StreetName;
 
             return View(model);
         }
@@ -279,10 +298,14 @@ namespace CarPool.Web.Controllers
             var email = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
             var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
 
-
             if (!await _auth.IsPasswordValidAsync(email, model.Password))
             {
                 this.ModelState.AddModelError("Password", GlobalConstants.OLD_PASSWORD);
+            }
+
+            if (model.NewPassword != null)
+            {
+                model.Password = model.NewPassword;
             }
 
             if (!this.ModelState.IsValid)
@@ -291,9 +314,14 @@ namespace CarPool.Web.Controllers
                 return this.View(model);
             }
 
+            if (model.ProfilePicture != null)
+            {
+                await _pps.UpdateAsync(email, model.ProfilePicture);
+            }
+
             model.AddressId = await _ads.AddressToId(new AddressDTO
             {
-                StreetName = model.Address, 
+                StreetName = model.Address,
                 CountryName = model.Country,
                 CityName = model.City
             });
@@ -302,8 +330,9 @@ namespace CarPool.Web.Controllers
             var toUser = model.GetDTO();
             await this._us.UpdateAsync(email, toUser);
 
-            return RedirectToAction("index", "home");            
+            return RedirectToAction("index", "home");
         }
+
 
         private RegisterDTO GetGoogleData(AuthenticateResult result)
         {

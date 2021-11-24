@@ -3,12 +3,11 @@
     using CarPool.Common;
     using CarPool.Data.Common.Models;
     using System;
+    using System.ComponentModel.DataAnnotations.Schema;
 
     public class ProfilePicture : BaseDeletableModel<int>
     {
-        public string ImageTitle { get; set; } = GlobalConstants.NO_TITLE;
-
-        public byte[] ImageData { get; set; }
+        public string ImageLink { get; set; }
 
         public Guid ApplicationUserId { get; set; }
 

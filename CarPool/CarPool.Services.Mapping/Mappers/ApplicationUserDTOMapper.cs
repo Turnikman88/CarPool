@@ -81,9 +81,9 @@ namespace CarPool.Services.Mapping.Mappers
                 Longitude = user.Address.Longitude,
                 Rating = user.AverageRating, 
                 Feedbacks = user.Ratings.Select(x => x.Feedback).ToList(),
-                Trips = user.Trips.Select(x => $"Start Location: {x.StartAddress.StreetName} " +
+                Trips = user.Trips.Count() != 0 ? user.Trips.Select(x => $"Start Location: {x.StartAddress.StreetName} " +
                 $", End Location: {x.DestinationAddress.StreetName}, Price: {x.Price} " +
-                $"Start: {x.DepartureTime.ToShortDateString()}").ToList(),
+                $"Start: {x.DepartureTime.ToShortDateString()}") : new List<string>(),
                 Vehicle = user.Vehicle?.Model ?? GlobalConstants.NO_CAR_AVAILABLE,
                 VehicleColor = user.Vehicle?.Color ?? GlobalConstants.NO_CAR_AVAILABLE,
                 IsBlocked = user.Ban?.BlockedOn == null ? false : true,               

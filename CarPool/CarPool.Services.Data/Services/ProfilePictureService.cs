@@ -1,13 +1,18 @@
 ﻿using CarPool.Common;
 using CarPool.Common.Exceptions;
 using CarPool.Data;
+using CarPool.Data.Models.DatabaseModels;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using CarPool.Services.Mapping.Mappers;
+using Imagekit;
+using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
+using System.Text;
 using System.Threading.Tasks;
 
 namespace CarPool.Services
@@ -21,81 +26,34 @@ namespace CarPool.Services
             this._db = db;
         }
 
-        public async Task<ProfilePictureDTO> DeleteAsync(int id)
+        public async Task<bool> UpdateAsync(string email, IFormFile image)
         {
-            var picture = await this._db.ProfilePictures
-                .FirstOrDefaultAsync(x => x.Id == id);
-                
-            if (picture is null)
+            ServerImagekit imagekit = new ServerImagekit(GlobalConstants.ImageKitPublicKey,
+                GlobalConstants.ImageKitPrivateKey,
+                GlobalConstants.ImageKitUrlEndPoint);
+
+            var imageName = Convert.ToBase64String(Encoding.ASCII.GetBytes(email)).Replace('=', '_');
+
+            using (var ms = new MemoryStream())
             {
-                return new ProfilePictureDTO { ErrorMessage = GlobalConstants.PROFILE_PICTURE_NOT_FOUND };
-            }
+                image.CopyTo(ms);
+                var fileBytes = ms.ToArray();
 
-            picture.DeletedOn = System.DateTime.Now;
-            this._db.ProfilePictures.Remove(picture);
-            await _db.SaveChangesAsync();
+                var uploadResp = await imagekit
+                .FileName(imageName)
+                .isPrivateFile(false)
+                .UseUniqueFileName(false)
+                .UploadAsync(fileBytes);
 
-            return picture.GetDTO();
-
-        }
-
-        public async Task<ProfilePictureDTO> PostAsync(ProfilePictureDTO obj)
-        {
-            if (obj is null || obj.ImageData is null || obj.Id <= 0 || obj.ApplicationUserId == default(Guid))
-            {
-                return new ProfilePictureDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
-            }
-
-            if (await _db.ProfilePictures.FirstOrDefaultAsync(x => x.ImageData == obj.ImageData) != null)
-            {
-                return new ProfilePictureDTO { ErrorMessage = GlobalConstants.PICTURE_EXISTS };
-            }
-
-            var newPicture = obj.GetEntity();
-            var deletedPicture = await _db.ProfilePictures
-                .IgnoreQueryFilters()
-                .FirstOrDefaultAsync(x => x.ImageData == obj.ImageData && x.IsDeleted == true);
-
-            if (deletedPicture == null)
-            {
-                await this._db.ProfilePictures.AddAsync(newPicture);
+                var id = await _db.ApplicationUsers
+                    .Where(x => x.Email == email)
+                    .Select(x => x.Id)
+                    .FirstOrDefaultAsync();
+                var pic = await _db.ProfilePictures.FirstOrDefaultAsync(x => x.ApplicationUserId == id);
+                pic.ImageLink = GlobalConstants.ImageKitUrlEndPoint + imageName;
                 await _db.SaveChangesAsync();
-                obj.Id = newPicture.Id;
             }
-            else
-            {
-                deletedPicture.DeletedOn = null;
-                deletedPicture.IsDeleted = false;
-                await _db.SaveChangesAsync();
-                obj.Id = deletedPicture.Id;
-            }
-
-            return obj;
-        }
-
-        public async Task<ProfilePictureDTO> UpdateAsync(int id, ProfilePictureDTO obj)
-        {
-            if(await _db.ProfilePictures.FirstOrDefaultAsync(x => x.ImageData == obj.ImageData) != null)
-            {
-                return new ProfilePictureDTO { ErrorMessage = GlobalConstants.PICTURE_EXISTS };
-            }
-
-            if (obj.ImageData.Length == 0)
-            {
-                return new ProfilePictureDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
-            }
-
-            var picture = await this._db.ProfilePictures
-                .FirstOrDefaultAsync(x => x.Id == id);
-            if (picture is null)
-            {
-                return new ProfilePictureDTO { ErrorMessage = GlobalConstants.PROFILE_PICTURE_NOT_FOUND };
-            }
-
-            picture.ImageData = obj.ImageData;
-            await _db.SaveChangesAsync();
-
-            return picture.GetDTO();
+            return true;
         }
     }
 }
