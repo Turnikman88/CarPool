@@ -373,7 +373,209 @@ namespace CarPool.Data.Models.DAL
                     Distance = 240,
                     PassengersCount = 1,
                     FreeSeats = 2,
-                    AdditionalComment = "NO SMOKEING"
+                    AdditionalComment = "NO SMOKING"
+                },
+                new Trip
+                {
+                    Id = 3,
+                    DriverId = userId2,
+                    StartAddressId = 4,
+                    DestinationAddressId = 2,
+                    DepartureTime = DateTime.Now,
+                    DurationInMinutes = 110,
+                    Distance = 210,
+                    PassengersCount = 2,
+                    FreeSeats = 2,
+                    AdditionalComment = "NO SMOKING"
+                },
+                new Trip
+                {
+                    Id = 4,
+                    DriverId = userId2,
+                    StartAddressId = 4,
+                    DestinationAddressId = 1,
+                    DepartureTime = DateTime.Now,
+                    DurationInMinutes = 120,
+                    Distance = 240,
+                    PassengersCount = 1,
+                    FreeSeats = 2,
+                    AdditionalComment = "Long comment here"
+                },
+                new Trip
+                {
+                    Id = 5,
+                    DriverId = userId2,
+                    StartAddressId = 1,
+                    DestinationAddressId = 4,
+                    DepartureTime = DateTime.Now,
+                    DurationInMinutes = 120,
+                    Distance = 240,
+                    PassengersCount = 1,
+                    FreeSeats = 2,
+                    AdditionalComment = "Additional comments below"
+                },
+                new Trip
+                {
+                    Id = 6,
+                    DriverId = userId3,
+                    StartAddressId = 2,
+                    DestinationAddressId = 4,
+                    DepartureTime = DateTime.Now,
+                    DurationInMinutes = 120,
+                    Distance = 240,
+                    PassengersCount = 1,
+                    FreeSeats = 2,
+                    AdditionalComment = "follow me on twitter"
+                },
+                new Trip
+                {
+                    Id = 7,
+                    DriverId = userId1,
+                    StartAddressId = 4,
+                    DestinationAddressId = 2,
+                    DepartureTime = DateTime.Now,
+                    DurationInMinutes = 120,
+                    Distance = 240,
+                    PassengersCount = 1,
+                    FreeSeats = 2,
+                    AdditionalComment = "NO EATING"
+                },
+                new Trip
+                {
+                    Id = 8,
+                    DriverId = userId0,
+                    StartAddressId = 1,
+                    DestinationAddressId = 2,
+                    DepartureTime = DateTime.Now,
+                    DurationInMinutes = 120,
+                    Distance = 240,
+                    PassengersCount = 1,
+                    FreeSeats = 2,
+                    AdditionalComment = "CHEAP AND FAST"
+                },
+                new Trip
+                {
+                    Id = 9,
+                    DriverId = userId0,
+                    StartAddressId = 2,
+                    DestinationAddressId = 3,
+                    DepartureTime = DateTime.Now,
+                    DurationInMinutes = 120,
+                    Distance = 240,
+                    PassengersCount = 1,
+                    FreeSeats = 2,
+                    AdditionalComment = "FAST FAST FAST"
+                },
+                new Trip
+                {
+                    Id = 10,
+                    DriverId = userId1,
+                    StartAddressId = 3,
+                    DestinationAddressId = 1,
+                    DepartureTime = DateTime.Now,
+                    DurationInMinutes = 120,
+                    Distance = 240,
+                    PassengersCount = 1,
+                    FreeSeats = 2,
+                    AdditionalComment = "No pets"
+                },
+                new Trip
+                {
+                    Id = 11,
+                    DriverId = userId2,
+                    StartAddressId = 1,
+                    DestinationAddressId = 3,
+                    DepartureTime = DateTime.Now,
+                    DurationInMinutes = 120,
+                    Distance = 240,
+                    Price = 19.11m,
+                    PassengersCount = 1,
+                    FreeSeats = 2,
+                    AdditionalComment = "NO SMOKING NO FOOD"
+                },
+                new Trip
+                {
+                    Id = 12,
+                    DriverId = userId3,
+                    StartAddressId = 4,
+                    DestinationAddressId = 3,
+                    DepartureTime = DateTime.Now,
+                    DurationInMinutes = 120,
+                    Distance = 240,
+                    Price = 15.55m,
+                    PassengersCount = 1,
+                    FreeSeats = 2,
+                    AdditionalComment = "NO STOPS"
+                },
+                new Trip
+                {
+                    Id = 13,
+                    DriverId = userId2,
+                    StartAddressId = 3,
+                    DestinationAddressId = 4,
+                    DepartureTime = DateTime.Now,
+                    DurationInMinutes = 120,
+                    Distance = 240,
+                    Price = 10.13m,
+                    PassengersCount = 1,
+                    FreeSeats = 2,
+                    AdditionalComment = "Good looking and friendly"
+                },
+                new Trip
+                {
+                    Id = 14,
+                    DriverId = userId1,
+                    StartAddressId = 1,
+                    DestinationAddressId = 3,
+                    DepartureTime = DateTime.Now,
+                    DurationInMinutes = 120,
+                    Distance = 240,
+                    Price = 10.11m,
+                    PassengersCount = 1,
+                    FreeSeats = 2,
+                    AdditionalComment = "Fast car"
+                },
+                new Trip
+                {
+                    Id = 15,
+                    DriverId = userId0,
+                    StartAddressId = 3,
+                    DestinationAddressId = 2,
+                    DepartureTime = DateTime.Now,
+                    DurationInMinutes = 120,
+                    Distance = 240,
+                    Price = 15.21m,
+                    PassengersCount = 1,
+                    FreeSeats = 2,
+                    AdditionalComment = "High price"
+                },
+                new Trip
+                {
+                    Id = 16,
+                    DriverId = userId1,
+                    StartAddressId = 2,
+                    DestinationAddressId = 1,
+                    DepartureTime = DateTime.Now,
+                    DurationInMinutes = 120,
+                    Distance = 240,
+                    Price = 21.21m,
+                    PassengersCount = 2,
+                    FreeSeats = 2,
+                    AdditionalComment = "Im not alone"
+                },
+                new Trip
+                {
+                    Id = 17,
+                    DriverId = userId2,
+                    StartAddressId = 1,
+                    DestinationAddressId = 3,
+                    DepartureTime = DateTime.Now,
+                    DurationInMinutes = 120,
+                    Distance = 240,
+                    Price = 12.23m,
+                    PassengersCount = 1,
+                    FreeSeats = 2,
+                    AdditionalComment = "No kids"
                 }
             };
 

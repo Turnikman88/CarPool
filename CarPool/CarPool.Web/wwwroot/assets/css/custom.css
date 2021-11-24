@@ -1,4 +1,50 @@
-﻿#preloader {
+﻿.table-custom {
+    border-collapse: collapse !important;
+    border-radius: 15px;
+    background-color: transparent;
+    border-radius: 15px;
+    box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    -moz-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    -webkit-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+    -o-box-shadow: 0 0 10px rgba(0,0,0,0.6);
+}
+
+    .table-custom td, .table-custom th {
+        padding: .75rem;
+        vertical-align: top;
+        border-top: 1px solid #dee2e6;
+    }
+
+.btn-get-custom {
+    color: #fff;
+    background-color: #00bcd4;
+    border-color: #00bcd4;
+    margin-bottom: 10px;
+}
+
+.btn-post-custom {
+    color: #fff;
+    background-color: #f09826;
+    border-color: #f09826;
+    margin-bottom: 10px;
+}
+
+.btn-update-custom {
+    color: #fff;
+    background-color: #555abd;
+    border-color: #555abd;
+    margin-bottom: 10px;
+}
+
+.btn-delete-custom {
+    color: #fff;
+    background-color: #dc3545;
+    border-color: #dc3545;
+    margin-bottom: 10px;
+}
+
+
+#preloader {
     overflow: hidden;
     background: linear-gradient(225deg, #ff3c60 0%, #FF3CAC 24%, #2B86C5 75%);
     left: 0;

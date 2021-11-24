@@ -748,7 +748,112 @@ namespace CarPool.Data.Migrations
                             FreeSeats = 2,
                             PassengersCount = 1,
                             Price = 0m,
+                            StartAddressId = 3
+                        },
+                        new
+                        {
+                            Id = 11,
+                            AdditionalComment = "NO SMOKING NO FOOD",
+                            CreatedOn = new DateTime(2021, 11, 24, 11, 27, 13, 607, DateTimeKind.Utc).AddTicks(4830),
+                            DepartureTime = new DateTime(2021, 11, 24, 13, 27, 13, 607, DateTimeKind.Local).AddTicks(4831),
+                            DestinationAddressId = 3,
+                            Distance = 240,
+                            DriverId = new Guid("bf0b1c0d-9727-452b-9f0c-32d89febd9d5"),
+                            DurationInMinutes = 120,
+                            FreeSeats = 2,
+                            PassengersCount = 1,
+                            Price = 19.11m,
+                            StartAddressId = 1
+                        },
+                        new
+                        {
+                            Id = 12,
+                            AdditionalComment = "NO STOPS",
+                            CreatedOn = new DateTime(2021, 11, 24, 11, 27, 13, 607, DateTimeKind.Utc).AddTicks(5072),
+                            DepartureTime = new DateTime(2021, 11, 24, 13, 27, 13, 607, DateTimeKind.Local).AddTicks(5077),
+                            DestinationAddressId = 3,
+                            Distance = 240,
+                            DriverId = new Guid("a3d60a17-4007-416b-bd94-2bc980efcfbe"),
+                            DurationInMinutes = 120,
+                            FreeSeats = 2,
+                            PassengersCount = 1,
+                            Price = 15.55m,
+                            StartAddressId = 4
+                        },
+                        new
+                        {
+                            Id = 13,
+                            AdditionalComment = "Good looking and friendly",
+                            CreatedOn = new DateTime(2021, 11, 24, 11, 27, 13, 607, DateTimeKind.Utc).AddTicks(5111),
+                            DepartureTime = new DateTime(2021, 11, 24, 13, 27, 13, 607, DateTimeKind.Local).AddTicks(5112),
+                            DestinationAddressId = 4,
+                            Distance = 240,
+                            DriverId = new Guid("bf0b1c0d-9727-452b-9f0c-32d89febd9d5"),
+                            DurationInMinutes = 120,
+                            FreeSeats = 2,
+                            PassengersCount = 1,
+                            Price = 10.13m,
+                            StartAddressId = 3
+                        },
+                        new
+                        {
+                            Id = 14,
+                            AdditionalComment = "Fast car",
+                            CreatedOn = new DateTime(2021, 11, 24, 11, 27, 13, 607, DateTimeKind.Utc).AddTicks(5115),
+                            DepartureTime = new DateTime(2021, 11, 24, 13, 27, 13, 607, DateTimeKind.Local).AddTicks(5116),
+                            DestinationAddressId = 3,
+                            Distance = 240,
+                            DriverId = new Guid("fc7aa9d3-9abe-4f51-97de-5623ddddb844"),
+                            DurationInMinutes = 120,
+                            FreeSeats = 2,
+                            PassengersCount = 1,
+                            Price = 10.11m,
+                            StartAddressId = 1
+                        },
+                        new
+                        {
+                            Id = 15,
+                            AdditionalComment = "High price",
+                            CreatedOn = new DateTime(2021, 11, 24, 11, 27, 13, 607, DateTimeKind.Utc).AddTicks(5118),
+                            DepartureTime = new DateTime(2021, 11, 24, 13, 27, 13, 607, DateTimeKind.Local).AddTicks(5119),
+                            DestinationAddressId = 2,
+                            Distance = 240,
+                            DriverId = new Guid("edead910-0112-4b2a-92af-79c6516d3382"),
+                            DurationInMinutes = 120,
+                            FreeSeats = 2,
+                            PassengersCount = 1,
+                            Price = 15.21m,
+                            StartAddressId = 3
+                        },
+                        new
+                        {
+                            Id = 16,
+                            AdditionalComment = "Im not alone",
+                            CreatedOn = new DateTime(2021, 11, 24, 11, 27, 13, 607, DateTimeKind.Utc).AddTicks(5122),
+                            DepartureTime = new DateTime(2021, 11, 24, 13, 27, 13, 607, DateTimeKind.Local).AddTicks(5123),
+                            DestinationAddressId = 1,
+                            Distance = 240,
+                            DriverId = new Guid("fc7aa9d3-9abe-4f51-97de-5623ddddb844"),
+                            DurationInMinutes = 120,
+                            FreeSeats = 2,
+                            PassengersCount = 2,
+                            Price = 21.21m,
                             StartAddressId = 2
+                        },
+                        new
+                        {
+                            Id = 17,
+                            AdditionalComment = "No kids",
+                            CreatedOn = new DateTime(2021, 11, 24, 11, 27, 13, 607, DateTimeKind.Utc).AddTicks(5125),
+                            DepartureTime = new DateTime(2021, 11, 24, 13, 27, 13, 607, DateTimeKind.Local).AddTicks(5126),
+                            DestinationAddressId = 3,
+                            Distance = 240,
+                            DriverId = new Guid("bf0b1c0d-9727-452b-9f0c-32d89febd9d5"),
+                            DurationInMinutes = 120,
+                            FreeSeats = 2,
+                            PassengersCount = 1,
+                            Price = 12.23m,
+                            StartAddressId = 1
                         });
                 });
 

@@ -1,0 +1,36 @@
+﻿@model TripViewModel
+
+<form asp-action="Create" class="contact-form-1 rwt-dynamic-form">
+    <div class="form-group">
+        <input asp-for="FromAddress" placeholder="FromAddress">
+        <span asp-validation-for="FromAddress" class="form-error"></span>
+
+    </div>
+
+    <div class="form-group">
+        <input asp-for="ToAddress" placeholder="ToAddress">
+        <span asp-validation-for="ToAddress" class="form-error"></span>
+    </div>
+
+    <div class="form-group">
+        <input asp-for="Date" type="datetime" placeholder="When">
+        <span asp-validation-for="Date" class="form-error"></span>
+    </div>
+
+    <div class="form-group">
+        <input asp-for="FreeSeats" placeholder="How many free seats do you have?">
+        <span asp-validation-for="FreeSeats" class="form-error"></span>
+    </div>
+
+    <div class="form-group">
+        <input asp-for="AdditionalComment" placeholder="Any additional comment?">
+        <span asp-validation-for="AdditionalComment" class="form-error"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn-default btn-large rn-btn"
+                style="background-color: #FF3CAC; cursor: pointer;">
+            <span>Create</span>
+        </button>
+    </div>
+</form>

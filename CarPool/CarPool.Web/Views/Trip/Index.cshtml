@@ -1,0 +1,16 @@
+﻿@model TripViewModel
+
+<div class="rwt-split-area rn-section-gap">
+    <div class="wrapper">
+        <div class="rn-splite-style">
+            <div class="split-wrapper">
+                <div class="row g-0 radius-10 align-items-center">
+
+
+                    @await Html.PartialAsync("_Table", Model.Trips)
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
