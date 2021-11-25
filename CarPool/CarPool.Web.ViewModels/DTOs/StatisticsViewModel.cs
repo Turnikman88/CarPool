@@ -14,12 +14,12 @@ namespace CarPool.Web.ViewModels.DTOs
             this.AchievementsCount = r.Next(10, 30);
         }
 
-        public IEnumerable<ApplicationUserDTO> TopUsers { get; set; }
+        public IEnumerable<TopUserDTO> TopUsers { get; set; }
 
         public int UsersCount { get; set; }
 
         public int TripsCount { get; set; }
 
-        public int AchievementsCount { get; set; }
+        public int AchievementsCount { get; private set; }
     }
 }

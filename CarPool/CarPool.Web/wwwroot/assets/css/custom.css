@@ -259,3 +259,11 @@ body.active-light-mode .modal-body .main-content {
     color: red !important;
     background: red !important;
 }*/
+
+.top-users{
+    display: flex;
+}
+
+.top-users-mobile{
+    display: inline-block;
+}

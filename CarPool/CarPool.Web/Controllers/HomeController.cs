@@ -37,10 +37,12 @@ namespace CarPool.Web.Controllers
         {
             var usersCount = await _us.UsersCountAsync();
             var tripsCount = await _ts.TripsCountAsync();
+            var topUsers = await _us.TopUsersAsync();
             var model = new StatisticsViewModel
             {
                 UsersCount = usersCount,
-                TripsCount = tripsCount
+                TripsCount = tripsCount,
+                TopUsers = topUsers
             };
             return this.View(model);
         }

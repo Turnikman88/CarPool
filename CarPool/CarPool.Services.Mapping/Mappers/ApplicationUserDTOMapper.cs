@@ -51,14 +51,14 @@ namespace CarPool.Services.Mapping.Mappers
             };
         }
 
-        public static ApplicationTopUserDTO GetTopUserDTO(this ApplicationUser user)
+        public static TopUserDTO GetTopUserDTO(this ApplicationUser user)
         {
-            return new ApplicationTopUserDTO
+            return new TopUserDTO
             {
                 Username = user.Username,
-                Email = user.Email,
-                PhoneNumber = user.PhoneNumber,
-                Rating = user.AverageRating
+                Rating = user.AverageRating,
+                ProfilePicture = user.ProfilePicture.ImageLink,
+                CompletedTripsCount = user.Trips.Count
             };
         }
 
