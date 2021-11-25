@@ -251,3 +251,11 @@ body.active-light-mode .modal-body .main-content {
     border-radius: 50%;
     height: 45px;
 }*/
+
+.active-light-mode .my_switcher ul li a {
+    background: #059DFF;
+}
+/*.settings-btn :active {
+    color: red !important;
+    background: red !important;
+}*/

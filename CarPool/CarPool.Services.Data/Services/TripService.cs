@@ -253,5 +253,10 @@ namespace CarPool.Services.Data.Services
 
             return trip.GetDTO();
         }
+
+        public async Task<int> TripsCountAsync()
+        {
+            return await _db.Trips.CountAsync();
+        }
     }
 }

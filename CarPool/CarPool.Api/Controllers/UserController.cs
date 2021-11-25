@@ -35,7 +35,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(401)]
         public async Task<ActionResult<IEnumerable<ApplicationTopUserDTO>>> GetTopUsers()
         {
-            return this.Ok(await _us.TopUsers());
+            return this.Ok(await _us.TopUsersAsync());
         }
 
         [HttpGet("filter")]

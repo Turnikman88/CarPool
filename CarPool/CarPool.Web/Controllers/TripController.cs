@@ -102,7 +102,7 @@ namespace CarPool.Web.Controllers
                 DepartureTime = obj.Date,
                 DestinationAddressCity = obj.ToAddress,
                 StartAddressCity = obj.FromAddress,
-                DriverId = driver.Id.ToString(),
+                //DriverId = driver.Id.ToString(),
                 FreeSeats = obj.FreeSeats
             });
 

@@ -1,6 +1,7 @@
 ﻿using CarPool.Common;
 using CarPool.Common.Exceptions;
 using CarPool.Services.Contracts;
+using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using CarPool.Web.ViewModels.DTOs;
 using Microsoft.AspNetCore.Authorization;
@@ -15,20 +16,33 @@ namespace CarPool.Web.Controllers
     public class HomeController : Controller
     {
         private readonly IMailService _ms;
-        public HomeController(IMailService ms)
+        private readonly IApplicationUserService _us;
+        private readonly ITripService _ts;
+
+        public HomeController(IMailService ms,
+            IApplicationUserService us,
+            ITripService ts)
         {
             _ms = ms;
+            this._us = us;
+            this._ts = ts;
         }
 
-        public IActionResult Index()
-        {
-            return this.View();
-        }
-
-        [Authorize(Roles = GlobalConstants.UserRoleName)]
         public IActionResult About()
         {
             return this.View();
+        }
+                
+        public async Task<IActionResult> Index()
+        {
+            var usersCount = await _us.UsersCountAsync();
+            var tripsCount = await _ts.TripsCountAsync();
+            var model = new StatisticsViewModel
+            {
+                UsersCount = usersCount,
+                TripsCount = tripsCount
+            };
+            return this.View(model);
         }
 
         public IActionResult Contact()
