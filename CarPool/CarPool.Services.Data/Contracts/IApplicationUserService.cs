@@ -8,7 +8,7 @@ namespace CarPool.Services.Data.Contracts
     {
         Task<IEnumerable<ApplicationUserDisplayDTO>> FilterUsersAsync(int page, string part);
 
-        Task<IEnumerable<ApplicationTopUserDTO>> TopUsers();
+        Task<IEnumerable<ApplicationTopUserDTO>> TopUsersAsync();
 
         Task<IEnumerable<ApplicationUserDisplayDTO>> GetAsync(int page);
 
@@ -21,5 +21,7 @@ namespace CarPool.Services.Data.Contracts
         Task<ApplicationUserDTO> DeleteAsync(string email);
 
         Task<ApplicationUserDTO> UpdatePasswordAsync(string email, string newPassword);
+
+        Task<int> UsersCountAsync();
     }
 }

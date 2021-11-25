@@ -189,7 +189,7 @@ namespace CarPool.Services.Data.Services
         }
 
 
-        public async Task<IEnumerable<ApplicationTopUserDTO>> TopUsers()
+        public async Task<IEnumerable<ApplicationTopUserDTO>> TopUsersAsync()
         {
             return await _db.ApplicationUsers.Include(x => x.Ratings)
                                              .OrderByDescending(x => x.Ratings.Select(x => x.Value).Average())
@@ -241,6 +241,11 @@ namespace CarPool.Services.Data.Services
             var validPhone = Regex.IsMatch(phoneNumber ?? "", GlobalConstants.PhoneRegex);
             return validUsername && validEmail && validPassword && validPhone;
 
+        }
+
+        public async Task<int> UsersCountAsync()
+        {
+            return await _db.ApplicationUsers.CountAsync();
         }
     }
 }
