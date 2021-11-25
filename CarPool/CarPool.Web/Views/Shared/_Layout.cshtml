@@ -45,23 +45,26 @@
                         </div>
                         <div class="col-lg-9 col-md-6 col-8 position-static">
                             <div class="header-right">
-                                <nav class="mainmenu-nav d-none d-lg-block">
-                                    <ul class="mainmenu">
-                                        <li class="has-droupdown has-menu-child-item">
-                                            <a asp-controller="Home" asp-action="Index">Home</a>
-                                        </li>
-                                        <li><a asp-controller="Home" asp-action="About">About</a></li>
+                                @if (role == null || role != null && role == GlobalConstants.NotConfirmedRoleName)
+                                {
+                                    <nav class="mainmenu-nav d-none d-lg-block">
+                                        <ul class="mainmenu">
+                                            <li class="has-droupdown has-menu-child-item">
+                                                <a asp-controller="Home" asp-action="Index">Home</a>
+                                            </li>
+                                            <li><a asp-controller="Home" asp-action="About">About</a></li>
 
-                                        <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-                                    </ul>
+                                            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                                        </ul>
 
 
-                                </nav>
+                                    </nav>
+                                }
                                 <!-- Start Header Btn  -->
                                 @if (role != null && role != GlobalConstants.NotConfirmedRoleName)
                                 {
                                     <div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Trip" asp-action="Index">Trips</a></div>
-                                    <div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Auth" asp-action="Logout">LOGOUT</a></div>
+                                    <div class="btn"><a class="fas fa-sign-out-alt fa-3x" asp-controller="Auth" asp-action="Logout"></a></div>
                                     <div class="btn"><a class="fas fa-cog fa-3x settings-btn" style="" asp-controller="Auth" asp-action="Settings"></a></div>
                                 }
                                 else

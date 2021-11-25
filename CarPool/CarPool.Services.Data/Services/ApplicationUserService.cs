@@ -189,12 +189,13 @@ namespace CarPool.Services.Data.Services
         }
 
 
-        public async Task<IEnumerable<TopUserDTO>> TopUsersAsync()
+        public async Task<List<TopUserDTO>> TopUsersAsync()
         {
             return await _db.ApplicationUsers.Include(x => x.Ratings)
                                              .Include(x => x.Trips)
                                              .Include(x => x.ProfilePicture)
-                                             .OrderByDescending(x => x.Trips.Count).ThenByDescending(x => x.Ratings.Select(x => x.Value).Average())
+                                             .OrderByDescending(x => x.Ratings.Select(x => x.Value).Average())
+                                                .ThenByDescending(x => x.Trips.Count)
                                              .Take(10)
                                              .Select(x => x.GetTopUserDTO())
                                              .ToListAsync();
