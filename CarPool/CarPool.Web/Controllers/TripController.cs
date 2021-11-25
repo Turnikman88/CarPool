@@ -100,9 +100,9 @@ namespace CarPool.Web.Controllers
             {
                 AdditionalComment = obj.AdditionalComment,
                 DepartureTime = obj.Date,
-                DestinationAddressCity = obj.ToAddress,
-                StartAddressCity = obj.FromAddress,
-                //DriverId = driver.Id.ToString(),
+                DestinationAddressCity = obj.DestinationCity,
+                StartAddressCity = obj.OriginCity,
+                DriverId = driver.Id.ToString(),
                 FreeSeats = obj.FreeSeats
             });
 

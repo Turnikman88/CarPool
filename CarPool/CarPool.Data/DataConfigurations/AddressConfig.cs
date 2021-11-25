@@ -10,7 +10,7 @@ namespace CarPool.Data.DataConfigurations
         {
             builder.HasIndex(x => x.CityId);
 
-            builder.Property(e => e.StreetName).IsRequired();
+            builder.Property(e => e.StreetName);
 
             builder.HasOne(d => d.City)
                 .WithMany(p => p.Addresses)

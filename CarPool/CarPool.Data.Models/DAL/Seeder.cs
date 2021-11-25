@@ -165,6 +165,38 @@ namespace CarPool.Data.Models.DAL
                     StreetName = "blv. Romunska Morava 1",
                     Latitude = 44.432558M,
                     Longitude = 26.111871M
+                },
+                new Address
+                {
+                    Id = 6,
+                    CityId = 1,
+                    StreetName = null,
+                    Latitude = 44.432558M,
+                    Longitude = 26.111871M
+                },
+                new Address
+                {
+                    Id = 7,
+                    CityId = 2,
+                    StreetName = null,
+                    Latitude = 44.432558M,
+                    Longitude = 26.111871M
+                },
+                new Address
+                {
+                    Id = 8,
+                    CityId = 3,
+                    StreetName = null,
+                    Latitude = 44.432558M,
+                    Longitude = 26.111871M
+                },
+                new Address
+                {
+                    Id = 9,
+                    CityId = 4,
+                    StreetName = null,
+                    Latitude = 44.432558M,
+                    Longitude = 26.111871M
                 }
             };
 

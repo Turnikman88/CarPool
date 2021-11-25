@@ -10,9 +10,8 @@ namespace CarPool.Services.Data.Contracts
         Task<IEnumerable<TripDTO>> GetTripsByUserAsync(int page, string email);
         Task<TripDTO> JoinTripAsync(int id, string userToJoinEmail);
         Task<TripDTO> LeaveTripAsync(int id, string userToLeaveEmail);
-        Task<int> GetPageCountAsync();      
-        Task<int> TripsCountAsync();
         Task<int> GetPageCountAsync();
+        Task<int> TripsCountAsync();
         Task<int> GetPageCountPerUserAsync(string email);
     }
 }
