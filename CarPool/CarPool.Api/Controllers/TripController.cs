@@ -88,7 +88,7 @@ namespace CarPool.API.Controllers
         [Authorize]
         public async Task<ActionResult<TripDTO>> JoinTripAsync(int id, string email)
         {
-            var response = await _ts.JoinTrip(id, email);
+            var response = await _ts.JoinTripAsync(id, email);
 
             if (response.ErrorMessage is null)
             {
@@ -105,7 +105,7 @@ namespace CarPool.API.Controllers
         [Authorize]
         public async Task<ActionResult<TripDTO>> LeaveTripAsync(int id, string email)
         {
-            var response = await _ts.LeaveTrip(id, email);
+            var response = await _ts.LeaveTripAsync(id, email);
 
             if (response.ErrorMessage is null)
             {

@@ -10,6 +10,10 @@ namespace CarPool.Web.ViewModels.DTOs
 
         public string ToAddress { get; set; }
 
+        public int MaxPages { get; set; }
+
+        public int CurrentPage { get; set; }
+
         public DateTime Date { get; set; }
 
         public int FreeSeats { get; set; }
