@@ -9,7 +9,7 @@ namespace CarPool.Data.Models.DatabaseModels
     {
         public Trip()
         {
-            Passengers = new HashSet<TripPassenger>();
+            this.Passengers = new HashSet<TripPassenger>();
             this.AdditionalComment = GlobalConstants.NO_COMMENT;
         }
 
@@ -33,7 +33,7 @@ namespace CarPool.Data.Models.DatabaseModels
 
         public virtual ICollection<TripPassenger> Passengers { get; set; }
 
-        public string AdditionalComment { get; set; } 
+        public string AdditionalComment { get; set; }
 
         public virtual ApplicationUser Driver { get; set; }
 

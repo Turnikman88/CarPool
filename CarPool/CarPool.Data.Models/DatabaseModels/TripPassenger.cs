@@ -11,8 +11,6 @@ namespace CarPool.Data.Models.DatabaseModels
 
         public Guid ApplicationUserId { get; set; }
 
-        public virtual ApplicationUser ApplicationUser { get; set; }
-
         public DateTime CreatedOn { get; set; }
 
         public DateTime? ModifiedOn { get; set; }
@@ -21,5 +19,6 @@ namespace CarPool.Data.Models.DatabaseModels
 
         public DateTime? DeletedOn { get; set; }
 
+        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }

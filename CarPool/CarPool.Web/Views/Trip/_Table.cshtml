@@ -1,4 +1,10 @@
-﻿@model IEnumerable<TripDTO>
+﻿@model TripViewModel
+@{
+    int page = Model.CurrentPage;
+    int maxPage = Model.MaxPages;
+}
+
+
 @section Styles{
     <link rel="stylesheet" href="~/css/custom.css">
 }
@@ -18,18 +24,18 @@
             <th scope="col">Additional comment</th>
             <th scope="col"><button class="btn btn-outline-success" onclick="showInPopup('@Url.Action("Create", "Trip")', 'Create')">Add New</button></th>
         </tr>
-        @if (Model.Count() == 0)
+        @if (Model.Trips.Count() == 0)
         {
             <th scope="col">No trips were found!</th>
         }
-        @foreach (var item in Model)
+        @foreach (var item in Model.Trips)
         {
             string streetUrl = $"https:////www.google.com/maps/search/?api=1&query={item.StartAddressStreet} {item.StartAddressCity} {item.StartAddressCountry}";
             string dir = $"https:////www.google.com/maps/dir/{item.StartAddressStreet} {item.StartAddressCity} {item.StartAddressCountry}/{item.DestinationAddressStreet} {item.DestinationAddressCity} {item.DestinationAddressCountry}/";
             string freeride = "FREE RIDE";
             <tr>
                 <td scope="col">@item.StartAddressCity</td>
-                <td scope=" col">@item.DestinationAddressCity</td>
+                <td scope="col">@item.DestinationAddressCity</td>
                 <td scope="col">@item.DepartureTime</td>
                 <td scope="col">@item.DurationInMinutes</td>
                 <td scope="col">@item.Distance</td>
@@ -64,13 +70,27 @@
             </tr>
         }
     </table>
-    <button style="text-align: center; margin: auto; display: flex; display: grid" class="btn btn-outline-primary btn-extra-large" onclick="">Previous Page</button>
-    <button style="text-align: center; margin: auto; display: flex; display: grid" class="btn btn-outline-primary btn-extra-large" onclick="">Next Page</button>
+    <button disabled id="prev-page" style="text-align: center; margin: auto; display: flex; display: grid" class="btn btn-outline-primary btn-extra-large" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page-1 })')">Previous Page</button>
+    <button id="next-page" style="text-align: center; margin: auto; display: flex; display: grid" class="btn btn-outline-primary btn-extra-large" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page+1 })')">Next Page</button>
+
 </div>
 
-
-<script>
+@section Scripts{ <script>
     openMaps = (url) => {
         window.open(url, '_blank').focus()
     }
+
+    $(document).ready(function () {
+    if(@Model.CurrentPage == 0)
+    $('#prev-page').prop('disabled', true);
+    if (@Model.CurrentPage == @Model.MaxPages)
+    $('#next-page').prop('disabled', true);
+    if (@Model.CurrentPage != 0)
+    $('#prev-page').prop('disabled', false);
+    if (@Model.CurrentPage != @Model.MaxPages)
+    $('#next-page').prop('disabled', false);
+    });
 </script>
+    
+}
+

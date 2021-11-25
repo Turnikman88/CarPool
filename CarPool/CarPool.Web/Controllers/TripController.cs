@@ -21,7 +21,38 @@ namespace CarPool.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> Index()
+        {
+            var trips = await _trip.GetAsync(0);
+            var maxpages = await _trip.GetPageCountAsync();
+
+            var model = new TripViewModel()
+            {
+                CurrentPage = 0,
+                MaxPages = maxpages,
+                Trips = trips
+            };
+            return View(model);
+        }
+
+        [HttpPost]
         public async Task<IActionResult> Index([FromQuery] int p)
+        {
+            var trips = await _trip.GetAsync(p);
+            var maxpages = await _trip.GetPageCountAsync();
+
+            var model = new TripViewModel()
+            {
+                Trips = trips,
+                MaxPages = maxpages,
+                CurrentPage = p
+            };
+
+            return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_Table", model, true) });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> MyTrips([FromQuery] int p)
         {
             var trips = await _trip.GetAsync(p);
             var model = new TripViewModel()
@@ -39,8 +70,8 @@ namespace CarPool.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(TripViewModel obj)
         {
-            var driver = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
-
+            var requestEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+            var driver = await _user.GetUserByEmailAsync(requestEmail);
 
             await _trip.PostAsync(new TripDTO()
             {
@@ -62,7 +93,7 @@ namespace CarPool.Web.Controllers
         {
             var getUserEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
 
-            await _trip.JoinTrip(id, getUserEmail);
+            await _trip.JoinTripAsync(id, getUserEmail);
 
             var trips = new TripViewModel { Trips = await _trip.GetAsync(0) };
             return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_Table", trips.Trips, true) });
