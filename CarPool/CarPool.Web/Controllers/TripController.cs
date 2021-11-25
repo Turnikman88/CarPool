@@ -43,28 +43,51 @@ namespace CarPool.Web.Controllers
 
             var model = new TripViewModel()
             {
+                CurrentPage = p,
+                MaxPages = maxpages,
+                Trips = trips
+            };
+
+            return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_TableTrips", model, true) });
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> MyTrips()
+        {
+            var userEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+            var trips = await _trip.GetTripsByUserAsync(0, userEmail);
+            var maxpages = await _trip.GetPageCountPerUserAsync(userEmail);
+
+            var model = new TripViewModel()
+            {
+                Trips = trips,
+                CurrentPage = 0,
+                MaxPages = maxpages
+
+            };
+            return View(model);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> MyTrips([FromQuery] int p)
+        {
+            var userEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+            var trips = await _trip.GetTripsByUserAsync(p, userEmail);
+            var maxpages = await _trip.GetPageCountPerUserAsync(userEmail);
+
+            var model = new TripViewModel()
+            {
                 Trips = trips,
                 MaxPages = maxpages,
                 CurrentPage = p
             };
 
-            return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_Table", model, true) });
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> MyTrips([FromQuery] int p)
-        {
-            var trips = await _trip.GetAsync(p);
-            var model = new TripViewModel()
-            {
-                Trips = trips
-            };
-            return View(model);
+            return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_TableMyTrips", model, true) });
         }
 
         public async Task<IActionResult> Create()
         {
-            return View(new TripViewModel());
+            return View(new TripViewModel() { Date = System.DateTime.Today });
         }
 
         [HttpPost]
@@ -85,18 +108,47 @@ namespace CarPool.Web.Controllers
 
             var trips = new TripViewModel { Trips = await _trip.GetAsync(0) };
 
-            return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_Table", trips.Trips, true) });
+            return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_TableTrips", trips.Trips, true) });
         }
 
         [HttpPost]
         public async Task<IActionResult> Join(int id)
         {
-            var getUserEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+            var userEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
 
-            await _trip.JoinTripAsync(id, getUserEmail);
+            await _trip.JoinTripAsync(id, userEmail);
 
-            var trips = new TripViewModel { Trips = await _trip.GetAsync(0) };
-            return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_Table", trips.Trips, true) });
+            var trips = await _trip.GetTripsByUserAsync(0, userEmail);
+            var maxpages = await _trip.GetPageCountPerUserAsync(userEmail);
+
+            var model = new TripViewModel()
+            {
+                Trips = trips,
+                CurrentPage = 0,
+                MaxPages = maxpages
+            };
+
+            return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_TableTrips", model, true) });
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Leave(int id)
+        {
+            var userEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+
+            var asd = await _trip.LeaveTripAsync(id, userEmail);
+
+            var trips = await _trip.GetTripsByUserAsync(0, userEmail);
+            var maxpages = await _trip.GetPageCountPerUserAsync(userEmail);
+
+            var model = new TripViewModel()
+            {
+                Trips = trips,
+                CurrentPage = 0,
+                MaxPages = maxpages
+            };
+
+            return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_TableTrips", model, true) });
         }
     }
 }

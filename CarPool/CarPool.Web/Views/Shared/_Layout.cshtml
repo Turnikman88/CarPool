@@ -60,9 +60,9 @@
                                 <!-- Start Header Btn  -->
                                 @if (role != null && role != GlobalConstants.NotConfirmedRoleName)
                                 {
-                                    <div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Auth" asp-action="Logout">LOGOUT</a></div>
-                                    <div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Auth" asp-action="Settings">Settings</a></div>
                                     <div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Trip" asp-action="Index">Trips</a></div>
+                                    <div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Auth" asp-action="Settings">Settings</a></div>
+                                    <div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Auth" asp-action="Logout">LOGOUT</a></div>
                                 }
                                 else
                                 {

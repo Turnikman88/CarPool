@@ -1,6 +1,7 @@
 ﻿using CarPool.Services.Mapping.DTOs;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace CarPool.Web.ViewModels.DTOs
 {
@@ -14,6 +15,7 @@ namespace CarPool.Web.ViewModels.DTOs
 
         public int CurrentPage { get; set; }
 
+        [DataType(DataType.Date)]
         public DateTime Date { get; set; }
 
         public int FreeSeats { get; set; }
