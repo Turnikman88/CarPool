@@ -48,7 +48,6 @@ namespace CarPool.Data.Migrations
                         .HasColumnType("datetime2");
 
                     b.Property<string>("StreetName")
-                        .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");

@@ -7,6 +7,8 @@ namespace CarPool.Services.Data.Contracts
     {
         Task<AddressDTO> GetAddressByIdAsync(int id);
 
+        Task<AddressDTO> GetAddressByCountryCityNameAsync(string city, string country);
+
         Task<int> AddressToId(AddressDTO obj);
     }
 }

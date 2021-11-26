@@ -49,6 +49,16 @@ namespace CarPool.Services.Data.Services
             return result != null ? result.GetDTO() : new AddressDTO() { ErrorMessage = GlobalConstants.ADDRESS_NOT_FOUND };
         }
 
+        public async Task<AddressDTO> GetAddressByCountryCityNameAsync(string city, string country)
+        {
+            var result = await _db.Addresses
+                                 .Include(c => c.City)
+                                 .ThenInclude(c => c.Country)
+                                 .FirstOrDefaultAsync(x => x.City.Name == city && x.City.Country.Name == country);
+
+            return result != null ? result.GetDTO() : new AddressDTO() { ErrorMessage = GlobalConstants.ADDRESS_NOT_FOUND };
+        }
+
         public async Task<int> AddressToId(AddressDTO obj)
         {
             var address = await _db.Addresses
