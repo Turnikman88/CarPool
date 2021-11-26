@@ -38,19 +38,19 @@ namespace CarPool.Services
             {
                 image.CopyTo(ms);
                 var fileBytes = ms.ToArray();
-
                 var uploadResp = await imagekit
                 .FileName(imageName)
                 .isPrivateFile(false)
                 .UseUniqueFileName(false)
                 .UploadAsync(fileBytes);
 
+
                 var id = await _db.ApplicationUsers
                     .Where(x => x.Email == email)
                     .Select(x => x.Id)
                     .FirstOrDefaultAsync();
                 var pic = await _db.ProfilePictures.FirstOrDefaultAsync(x => x.ApplicationUserId == id);
-                pic.ImageLink = GlobalConstants.ImageKitUrlEndPoint + imageName;
+                pic.ImageLink = GlobalConstants.ImageKitUrlEndPoint + imageName + "?updatedAt";
                 await _db.SaveChangesAsync();
             }
             return true;

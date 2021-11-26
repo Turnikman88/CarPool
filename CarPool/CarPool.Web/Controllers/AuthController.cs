@@ -87,7 +87,6 @@ namespace CarPool.Web.Controllers
             //return Json(claims);
         }
 
-
         [HttpGet]
         public async Task<IActionResult> GoogleSignUp()
         {
@@ -129,7 +128,6 @@ namespace CarPool.Web.Controllers
             ViewData["MessageSent"] = true;
             return this.View(model);
         }
-
 
         public IActionResult Login()
         {
@@ -273,6 +271,7 @@ namespace CarPool.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = GlobalConstants.UserRoleName + "," + GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Settings()
         {
             var email = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
@@ -293,6 +292,7 @@ namespace CarPool.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = GlobalConstants.UserRoleName + "," + GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Settings(SettingsDTO model)
         {
             var email = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;

@@ -9,49 +9,63 @@
                         <div class="thumbnail">
                             <div class="holder">
                                 <div class="bar"></div>
-                                <iframe class="frame" src='https://my.spline.design/noisedisplacecopy-11481c1cb7e92b46bddb6e8c6d0a0c04/' frameborder='0' style="width: 800px; height:400px;"></iframe>
+                                <iframe class="frame" src='https://my.spline.design/untitled-7c359f84df5b2d20cc208b1ae39954c5/' frameborder='0' style="width: 800px; height:400px;"></iframe>
                             </div>
                         </div>
                     </div>
                     <div class="col-lg-4" style="margin-right:30px;">
                         <form asp-action="Register" class="contact-form-1 rwt-dynamic-form">
-                            <div class="form-group">
+                            <div class="form-group first-form">
                                 <input asp-for="Username" placeholder="Username">
                                 <span asp-validation-for="Username" class="form-error"></span>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group first-form">
                                 <input asp-for="FirstName" placeholder="First Name">
                                 <span asp-validation-for="FirstName" class="form-error"></span>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group first-form">
                                 <input asp-for="LastName" placeholder="Last Name">
                                 <span asp-validation-for="LastName" class="form-error"></span>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group first-form">
                                 <input asp-for="Email" placeholder="Your Email">
                                 <span asp-validation-for="Email" class="form-error"></span>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group first-form">
+                                <a class="btn-default btn-large rn-btn"
+                                   style="background-color: #FF3CAC; cursor: pointer;" onclick="ChangeFields()">
+                                    <span>Next</span>
+                                </a>
+                            </div>
+
+                            <div class="form-group second-form">
                                 <input asp-for="Password" placeholder="Your Password">
                                 <span asp-validation-for="Password" class="form-error"></span>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group second-form">
                                 <input asp-for="ConfirmPassword" placeholder="Confirm Password">
                                 <span asp-validation-for="ConfirmPassword" class="form-error"></span>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group second-form">
                                 <input asp-for="PhoneNumber" placeholder="Your phone number">
                                 <span asp-validation-for="PhoneNumber" class="form-error"></span>
 
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group second-form">
+                                <a class="btn-default btn-large rn-btn"
+                                   style="background-color: #FF3CAC; cursor: pointer;" onclick="ChangeFieldsSecond()">
+                                    <span>Next</span>
+                                </a>
+                            </div>
+
+                            <div class="form-group third-form">
                                 <select asp-for="Country" asp-items="Model.Countries" placeholder="Country Name">
                                     <option value="">Select Country</option>
                                 </select>
@@ -59,17 +73,17 @@
 
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group third-form">
                                 <input asp-for="City" placeholder="City">
                                 <span asp-validation-for="City" class="form-error"></span>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group third-form">
                                 <input asp-for="Address" placeholder="Address">
                                 <span asp-validation-for="Address" class="form-error"></span>
                             </div>
 
-                            <div class="form-group">
+                            <div class="form-group third-form">
                                 <button type="submit" class="btn-default btn-large rn-btn"
                                         style="background-color: #FF3CAC; cursor: pointer;">
                                     <span>Register</span>
@@ -113,4 +127,16 @@
 
 @section Scripts{
     <partial name="_ValidationScriptsPartial" />
+    <script>
+        $('.second-form').hide();
+        $('.third-form').hide();
+        function ChangeFields() {
+            $('.first-form').hide();
+            $('.second-form').show();
+        }
+        function ChangeFieldsSecond() {
+            $('.second-form').hide();
+            $('.third-form').show();
+        }
+    </script>
 }
