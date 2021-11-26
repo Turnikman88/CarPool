@@ -1,5 +1,8 @@
 ﻿@model RequestAuthDTO
+@section Styles{
+    <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Open+Sans" />
 
+}
 <div class="rwt-split-area rn-section-gap">
     <div class="wrapper">
         <div class="rn-splite-style">
@@ -14,6 +17,17 @@
                         </div>
                     </div>
                     <div class="col-lg-4" style="margin-right:30px;">
+
+                        <a asp-controller="Auth" asp-action="GoogleLogin">
+                            <div style="display:flex; justify-content:center;">
+                                <div>
+                                    <img style="display:inline;" src="~/assets/images/google.png" />
+                                    <p style="display:inline; margin-left: 10px;" class="btn-text"><b>Sign in with google</b></p>
+                                </div>
+                            </div>
+                        </a>
+
+                        <hr />
                         <form asp-action="Login" class="contact-form-1 rwt-dynamic-form">
                             <div class="form-group">
                                 <input asp-for="Email" placeholder="Your Email">
@@ -32,9 +46,6 @@
                                 </button>
                                 <a style="margin-left:10px;" href="javascript:ForgotPass();">Forgot Password?</a>
                                 <a style="margin-left:10px;" asp-controller="Auth" asp-action="Register">Register</a>
-                                <br />
-
-                                <a style="margin-left:10px;" asp-controller="Auth" asp-action="GoogleLogin">Google Sign up</a>
                             </div>
                         </form>
                     </div>
@@ -49,9 +60,9 @@
     function ForgotPass() {
         Swal.fire({
             title: '<h4 class="swal-title"> Your email address </h4>',
-            
+
             input: 'text',
-            width: 400,            
+            width: 400,
             backdrop: false,
             customClass: 'swal-wide',
             showCloseButton: true,
@@ -66,10 +77,10 @@
 
                         if (!response.ok) {
                             Swal.showValidationMessage(
-                                'Something went wrong!'
+                                'Wrong Email'
                             )
-                        } 
-                        
+                        }
+
                     })
                     .catch(error => {
                         Swal.showValidationMessage(
