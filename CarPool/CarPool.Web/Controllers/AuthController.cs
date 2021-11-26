@@ -277,8 +277,8 @@ namespace CarPool.Web.Controllers
         }
 
         [HttpGet]
-/*        [Authorize(Roles = GlobalConstants.UserRoleName + "," + GlobalConstants.AdministratorRoleName)]
-*/        public async Task<IActionResult> Settings()
+        [Authorize(Roles = GlobalConstants.UserRoleName + "," + GlobalConstants.AdministratorRoleName)]
+        public async Task<IActionResult> Settings()
         {
             var email = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
 
@@ -343,6 +343,23 @@ namespace CarPool.Web.Controllers
             return RedirectToAction("index", "home");
         }
 
+        [HttpDelete]
+        [Authorize(Roles = GlobalConstants.UserRoleName + "," + GlobalConstants.AdministratorRoleName)]
+        public async Task<IActionResult> DeleteGoogleAccount()
+        {
+            var email = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+
+            if (await _gs.IsGoogleAccount(email))
+            {
+                await _gs.DeleteGoogleAccount(email);
+            }
+
+            await _us.DeleteAsync(email);
+
+            await HttpContext.SignOutAsync();
+
+            return this.Ok();
+        }
 
         private RegisterDTO GetGoogleData(AuthenticateResult result)
         {

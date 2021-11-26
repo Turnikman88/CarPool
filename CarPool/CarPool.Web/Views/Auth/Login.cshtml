@@ -69,7 +69,7 @@
             inputAttributes: {
                 autocapitalize: 'off'
             },
-            confirmButtonText: 'Look up',
+            confirmButtonText: 'Send',
             showLoaderOnConfirm: true,
             preConfirm: (login) => {
                 return fetch(`//localhost:5001/Auth/ForgotPassword?email=${login}`)

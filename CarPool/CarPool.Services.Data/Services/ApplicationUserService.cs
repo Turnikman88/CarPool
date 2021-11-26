@@ -43,6 +43,8 @@ namespace CarPool.Services.Data.Services
         public async Task<ApplicationUserDTO> DeleteAsync(string email)
         {
             var user = await _db.ApplicationUsers
+                                .Include(x => x.Ban)
+                                .Include(x => x.ApplicationRole)
                                 .FirstOrDefaultAsync(x => x.Email == email);
 
             if (user is null)
