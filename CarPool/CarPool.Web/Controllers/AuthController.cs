@@ -32,6 +32,7 @@ namespace CarPool.Web.Controllers
         private readonly IMailService _mail;
         private readonly ICountryService _cs;
         private readonly IProfilePictureService _pps;
+        private readonly IGoogleAccountService _gs;
 
         public AuthController(IAuthService auth,
             IApplicationUserService us,
@@ -39,7 +40,8 @@ namespace CarPool.Web.Controllers
             IBanService ban,
             IMailService mail,
             ICountryService cs,
-            IProfilePictureService pps)
+            IProfilePictureService pps,
+            IGoogleAccountService gs)
         {
             this._auth = auth;
             this._us = us;
@@ -48,6 +50,7 @@ namespace CarPool.Web.Controllers
             this._mail = mail;
             this._cs = cs;
             this._pps = pps;
+            this._gs = gs;
         }
 
 
@@ -122,6 +125,8 @@ namespace CarPool.Web.Controllers
             var toUser = userData.GetDTO();
             await _mail.SendEmailAsync(new MailDTO { Reciever = userData.Email });
 
+            await this._gs.AddGoogleAccount(userData.Email);
+
             await this._us.PostAsync(toUser);
 
 
@@ -187,6 +192,7 @@ namespace CarPool.Web.Controllers
             if (email != null)
             {
                 await this.SignInWithRoleAsync(email, GlobalConstants.UserRoleName);
+
                 return this.RedirectToAction("index", "home");
             }
 
@@ -271,8 +277,8 @@ namespace CarPool.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = GlobalConstants.UserRoleName + "," + GlobalConstants.AdministratorRoleName)]
-        public async Task<IActionResult> Settings()
+/*        [Authorize(Roles = GlobalConstants.UserRoleName + "," + GlobalConstants.AdministratorRoleName)]
+*/        public async Task<IActionResult> Settings()
         {
             var email = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
 
@@ -281,6 +287,9 @@ namespace CarPool.Web.Controllers
             var model = user.GetDTO();
 
             var address = await _ads.GetAddressByIdAsync(user.AddressId);
+
+            model.IsGoogleAccount = await _gs.IsGoogleAccount(email);
+            TempData["IsGoogleAccount"] = model.IsGoogleAccount;
 
             model.Countries = await this.RenderCountries();
 
@@ -298,7 +307,8 @@ namespace CarPool.Web.Controllers
             var email = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
             var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
 
-            if (!await _auth.IsPasswordValidAsync(email, model.Password))
+            if (TempData["IsGoogleAccount"].ToString() == "False" 
+                && !await _auth.IsPasswordValidAsync(email, model.Password))
             {
                 this.ModelState.AddModelError("Password", GlobalConstants.OLD_PASSWORD);
             }

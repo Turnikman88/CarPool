@@ -36,6 +36,8 @@
 
         public const string PASSWORDS_MUST_MATCH = "Password and Confirmation Password must match.";
 
+        public const string PLEASE_CONFIRM_PASS = "Please confirm your password (Inside security tab).";
+
         public const string OLD_PASSWORD = "Old password is wrong.";
 
         public const string INVALID_EMAIL = "Invalid Email Address!";

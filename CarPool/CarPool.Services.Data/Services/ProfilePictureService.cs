@@ -50,7 +50,7 @@ namespace CarPool.Services
                     .Select(x => x.Id)
                     .FirstOrDefaultAsync();
                 var pic = await _db.ProfilePictures.FirstOrDefaultAsync(x => x.ApplicationUserId == id);
-                pic.ImageLink = GlobalConstants.ImageKitUrlEndPoint + imageName + "?updatedAt";
+                pic.ImageLink = GlobalConstants.ImageKitUrlEndPoint + imageName + "?tr=w-180,h-180&updatedAt=" + Guid.NewGuid();
                 await _db.SaveChangesAsync();
             }
             return true;

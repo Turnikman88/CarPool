@@ -29,6 +29,8 @@
 
         public virtual DbSet<Country> Countries { get; set; }
 
+        public virtual DbSet<GoogleAccount> GoogleAccount { get; set; }
+
         public virtual DbSet<ProfilePicture> ProfilePictures { get; set; }
 
         public virtual DbSet<Rating> Ratings { get; set; }

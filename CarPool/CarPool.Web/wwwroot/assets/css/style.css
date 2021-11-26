@@ -6652,7 +6652,7 @@ div.btn-default {
     font-weight: 400;
     text-align: center;
     text-decoration: none;
-    text-shadow: var(--shadow-light);
+    /*text-shadow: var(--shadow-light);*/
     display: inline-block;
     height: 50px;
     line-height: 47px;
@@ -6674,9 +6674,9 @@ div.btn-default {
   a.btn-default:hover,
   button.btn-default:hover,
   div.btn-default:hover {
-    box-shadow: var(--shadow-primary);
+/*    box-shadow: var(--shadow-primary);
     -webkit-filter: brightness(125%);
-    filter: brightness(125%);
+    filter: brightness(125%);*/
     color: var(--color-white);
     text-decoration: none; }
   a.btn-default.btn-small,
@@ -6745,7 +6745,9 @@ div.btn-default {
     div.btn-default.text-underline:hover {
       box-shadow: none;
       background-color: var(--color-secondary);
-      border-color: var(--color-secondary); }
+      border-color: var(--color-secondary); 
+      color: var(--color-white)!important;
+    }
   a.btn-default.round,
   button.btn-default.round,
   div.btn-default.round {
@@ -6816,19 +6818,23 @@ div.btn-default {
     content: "";
     left: auto;
     bottom: 2px;
-    background: var(--color-primary);
+    background: var(--color-secondary);
     width: 0;
     height: 2px;
     transition: 0.3s;
     right: 0; }
 
 .btn-read-more:hover span {
-  color: var(--color-primary); }
+  color: var(--color-secondary); }
   .btn-read-more:hover span::before {
     width: 100%;
     left: 0;
     right: auto; }
-
+.active-light-mode .btn-read-more span::before {
+    
+    background: var(--color-primary);
+    
+}
 .rn-badge {
   display: inline-block;
   background-color: var(--color-primary);
@@ -7847,7 +7853,8 @@ div.btn-default {
     opacity: 1;
     position: relative; }
     .rn-slick-dot .slick-dots li button::before {
-      display: none; }
+      display: none;
+    }
     .rn-slick-dot .slick-dots li button::after {
       background: var(--color-lessdark);
       width: 100%;
@@ -7861,18 +7868,25 @@ div.btn-default {
       margin-left: 11px;
       background-color: transparent;
       box-shadow: inset 0 0 0 5px var(--color-lessdark); }
+
     .rn-slick-dot .slick-dots li.slick-active {
-      opacity: 1; }
+        opacity: 1;
+        color: transparent!important;
+        background-color: transparent !important;
+    }
       .rn-slick-dot .slick-dots li.slick-active button::after {
         -webkit-transform: scale(2);
         transform: scale(2);
-        box-shadow: inset 0 0 0 1px var(--color-primary);
-        background-color: transparent;
+        box-shadow: inset 0 0 0 1px var(--color-secondary)!important;
         background-color: transparent !important; }
+.active-light-mode .rn-slick-dot .slick-dots li.slick-active button::after {
+    
+    box-shadow: inset 0 0 0 1px var(--color-primary) !important;
+}
 
 .rn-slick-dot.dot-light .slick-dots li button::after {
   background: #ffffff;
-  box-shadow: inset 0 0 0 5px #ffffff; }
+  box-shadow: inset 0 0 0 5px #ffffff!important; }
 
 .rn-slick-dot.dot-light .slick-dots li.slick-active {
   opacity: 1; }
@@ -7888,19 +7902,20 @@ div.btn-default {
 ------------------------*/
 .rn-slick-arrow {
   position: relative; }
-  .rn-slick-arrow button.slick-arrow {
-    position: absolute;
-    top: 50%;
-    transform: translateY(-50%);
-    z-index: 2;
-    transition: 0.5s;
-    opacity: 0;
-    width: 68px;
-    height: 68px;
-    border: 2px solid var(--color-border);
-    border-radius: 100%;
-    color: var(--color-border);
-    background-color: transparent; }
+    .rn-slick-arrow button.slick-arrow {
+        position: absolute;
+        top: 50%;
+        transform: translateY(-50%) !important;
+        z-index: 2;
+        transition: 0.5s;
+        opacity: 0;
+        width: 68px;
+        height: 68px;
+        border: 2px solid var(--color-border) !important;
+        border-radius: 100%;
+        color: var(--color-border) !important;
+        background-color: transparent !important;
+    }
     @media only screen and (min-width: 768px) and (max-width: 991px) {
       .rn-slick-arrow button.slick-arrow {
         display: none !important; } }
@@ -7910,9 +7925,14 @@ div.btn-default {
     @media only screen and (max-width: 767px) {
       .rn-slick-arrow button.slick-arrow {
         display: none !important; } }
-    .rn-slick-arrow button.slick-arrow:hover {
-      background: var(--color-primary);
-      border-color: var(--color-primary); }
+.rn-slick-arrow button.slick-arrow:hover {
+    background: var(--color-secondary) !important;
+    border-color: var(--color-secondary) !important;
+}
+.active-light-mode .rn-slick-arrow button.slick-arrow:hover {
+    background: var(--color-primary) !important;
+    border-color: var(--color-primary) !important;
+}
     .rn-slick-arrow button.slick-arrow::before {
       line-height: 1;
       opacity: 0.4;
@@ -10736,9 +10756,10 @@ body.active-light-mode {
   body.active-light-mode .slider-style-8 .inner button.btn-default.btn-border {
     /*border-color: #d8d8d8;
     color: #65676b; */}
-  body.active-light-mode .rn-slick-arrow button.slick-arrow {
-    border: 2px solid #d8d8d8;
-    color: #65676b; }
+    body.active-light-mode .rn-slick-arrow button.slick-arrow {
+        border: 2px solid #d8d8d8 !important;
+        color: #65676b !important;
+    }
   body.active-light-mode .rn-slick-arrow.testimonial-activation button.slick-arrow.prev-arrow::before,
   body.active-light-mode .rn-slick-arrow.testimonial-activation button.slick-arrow.next-arrow::before {
     filter: brightness(0); }
@@ -11129,3 +11150,7 @@ hr {
 .active-dark-mode hr {
     background-image: linear-gradient(to right, rgba(250, 250, 250, 0), rgba(250, 250, 250, 0.75), rgba(250, 250, 250, 0)) !important;
 }
+.active-light-mode button.btn-default {
+    background-color: var(--color-primary)!important;
+}
+

@@ -35,7 +35,6 @@ namespace CarPool.Web.ViewModels.DTOs
         [EmailAddress(ErrorMessage = GlobalConstants.INVALID_EMAIL)]
         public string Email { get; set; }
 
-        [Required]
         [DataType(DataType.Password)]
         [MinLength(8, ErrorMessage = GlobalConstants.PASSWORD_ERROR_MESSAGE)]
         public string Password { get; set; }
@@ -63,5 +62,7 @@ namespace CarPool.Web.ViewModels.DTOs
         public string Role { get; set; }
 
         public IFormFile ProfilePicture { get; set; }
+
+        public bool IsGoogleAccount { get; set; }
     }
 }

@@ -123,6 +123,11 @@ namespace CarPool.Services.Data.Services
 
         public async Task<bool> IsPasswordValidAsync(string email, string password)
         {
+            if (password == null)
+            {
+                return false;
+            }
+
             var userPassword = await _db.ApplicationUsers
                                         .Where(x => x.Email == email)
                                         .Select(x => x.Password)

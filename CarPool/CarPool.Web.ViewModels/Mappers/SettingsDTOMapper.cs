@@ -17,7 +17,7 @@ namespace CarPool.Web.ViewModels.Mappers
                 FirstName = user.FirstName,
                 LastName = user.LastName,
                 PhoneNumber = user.PhoneNumber,
-                Email = user.Email // i skiped the pass because user must not be able to update without typing pass
+                Email = user.Email
             };
         }
 

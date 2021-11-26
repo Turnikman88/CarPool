@@ -135,11 +135,15 @@
 .form-error {
     color: #ff2e2e;
 }
-
+.form-error li{
+    color: #ff2e2e;
+}
 body.active-light-mode .form-error {
     color: red;
 }
-
+body.active-light-mode .form-error li {
+    color: red;
+}
 .modal-alert{
     color: #3b3b3b;
 }
@@ -282,3 +286,18 @@ body.active-light-mode .modal-body .main-content {
     margin-top:40px;
 }
 
+.custom-btn {
+    background-color: #FF3CAC!important;
+    color: #fff;
+    cursor: pointer;
+}
+.active-light-mode .custom-btn {
+    background-color: #059DFF !important;
+}
+.custom-btn:hover{
+    color: white!important;
+}
+
+.active-light-mode .custom-btn:hover {
+    color: white !important;
+}
