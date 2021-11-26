@@ -106,36 +106,15 @@ namespace CarPool.Services.Data.Services
 
         public async Task<TripDTO> PostAsync(TripDTO obj)
         {
-            var cityOrigin = await _city.GetCityByNameAsync(obj.StartAddressCity);
-            var cityDest = await _city.GetCityByNameAsync(obj.DestinationAddressCity);
+            var originAddressID = await _ads.AddressToId(new AddressDTO { CityName = obj.StartAddressCity, CountryName = obj.StartAddressCountry, StreetName = obj.StartAddressStreet });
+            var destinationAddressID = await _ads.AddressToId(new AddressDTO { CityName = obj.DestinationAddressCity, CountryName = obj.DestinationAddressCountry, StreetName = obj.DestinationAddressStreet });
 
-            if (cityOrigin.ErrorMessage != null)
-            {
-                cityOrigin = await _city.PostAsync(new CityDTO { Name = obj.StartAddressCity, CountryName = obj.StartAddressCountry });
-            }
+            obj.StartAddressId = originAddressID;
+            obj.DestinationAddressId = destinationAddressID;
 
-            if (cityDest.ErrorMessage != null)
-            {
-                cityDest = await _city.PostAsync(new CityDTO { Name = obj.DestinationAddressCity, CountryName = obj.DestinationAddressCountry });
-            }
-
-            obj.StartAddressCountry = cityOrigin.CountryName;
-            obj.DestinationAddressCountry = cityDest.CountryName;
-
-
-            (int, int) travelData = (0, 0);
-            if (obj.StartAddressStreet == null && obj.DestinationAddressStreet == null)
-            {
-                var addressIdOrigin = await _ads.GetAddressByCountryCityNameAsync(obj.StartAddressCity, obj.StartAddressCountry);
-                var addressIdDestination = await _ads.GetAddressByCountryCityNameAsync(obj.DestinationAddressCity, obj.DestinationAddressCountry);
-                travelData = await _bing.GetTripDataCoordinatesAsync($"{addressIdOrigin.Latitude},{addressIdOrigin.Longitude}", $"{addressIdDestination.Latitude},{addressIdDestination.Longitude} ");
-            }
-            else
-            {
-                var addressOrigin = await _ads.GetAddressByIdAsync(obj.StartAddressId);
-                var addressDestination = await _ads.GetAddressByIdAsync(obj.DestinationAddressId);
-                travelData = await _bing.GetTripDataCoordinatesAsync($"{addressOrigin.Latitude},{addressOrigin.Longitude}", $"{addressDestination.Latitude},{addressDestination.Longitude} ");
-            }
+            var addressOriginData = await _ads.GetAddressByIdAsync(obj.StartAddressId);
+            var addressDestinationData = await _ads.GetAddressByIdAsync(obj.DestinationAddressId);
+            var travelData = await _bing.GetTripDataCoordinatesAsync($"{addressOriginData.Latitude},{addressOriginData.Longitude}", $"{addressDestinationData.Latitude},{addressDestinationData.Longitude} ");
 
             var vehicle = await _db.UserVehicles.FirstOrDefaultAsync(x => x.ApplicationUserId == Guid.Parse(obj.DriverId));
 

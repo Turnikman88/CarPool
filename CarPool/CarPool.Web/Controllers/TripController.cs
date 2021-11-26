@@ -100,15 +100,17 @@ namespace CarPool.Web.Controllers
             {
                 AdditionalComment = obj.AdditionalComment,
                 DepartureTime = obj.Date,
+                DestinationAddressCountry = obj.DestinationCountry,
                 DestinationAddressCity = obj.DestinationCity,
                 StartAddressCity = obj.OriginCity,
+                StartAddressCountry = obj.OriginCountry,
                 DriverId = driver.Id.ToString(),
                 FreeSeats = obj.FreeSeats
             });
 
-            var trips = new TripViewModel { Trips = await _trip.GetAsync(0) };
+            var trips = new TripViewModel { Trips = await _trip.GetTripsByUserAsync(0, requestEmail) };
 
-            return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_TableTrips", trips.Trips, true) });
+            return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_TableTrips", trips, true) });
         }
 
         [HttpPost]

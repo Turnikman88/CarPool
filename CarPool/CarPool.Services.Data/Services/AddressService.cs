@@ -72,7 +72,7 @@ namespace CarPool.Services.Data.Services
             {
                 return address.Id;
             }
-
+            await AddressAssignData(obj);
             var postNewAddress = await PostAsync(obj);
             return postNewAddress.AddressId;
         }
