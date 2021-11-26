@@ -1,0 +1,92 @@
+﻿@model TripViewModel
+@{
+    int page = Model.CurrentPage;
+    int maxPage = Model.MaxPages;
+}
+
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/custom.css">
+}
+<div class="col" style="width:auto; height:auto; overflow:auto; padding: 15px;">
+    <table class="table-custom">
+        <tr>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+            <th scope="col">Departure Date</th>
+            <th scope="col">Trip duration</th>
+            <th scope="col">Distance</th>
+            <th scope="col">Driver</th>
+            <th scope="col">Passengers</th>
+            <th scope="col">Free seats</th>
+            <th scope="col">Car</th>
+            <th scope="col">Price</th>
+            <th scope="col">Additional comment</th>
+            <th scope="col"><button class="btn btn-outline-success" onclick="showInPopup('@Url.Action("Create", "Trip")', 'Create')">Add New</button></th>
+        </tr>
+        @if (Model.Trips.Count() == 0)
+        {
+            <tr> <th scope="col">No trips were found!</th> </tr>
+        }
+        @foreach (var item in Model.Trips)
+        {
+            string streetUrl = $"https:////www.google.com/maps/search/?api=1&query={item.StartAddressStreet} {item.StartAddressCity} {item.StartAddressCountry}";
+            string dir = $"https:////www.google.com/maps/dir/{item.StartAddressStreet} {item.StartAddressCity} {item.StartAddressCountry}/{item.DestinationAddressStreet} {item.DestinationAddressCity} {item.DestinationAddressCountry}/";
+            string freeride = "FREE RIDE";
+            <tr>
+                <td scope="col">@item.StartAddressCity</td>
+                <td scope="col">@item.DestinationAddressCity</td>
+                <td scope="col">@item.DepartureTime.ToString("MMMM dd, yyyy")</td>
+                <td scope="col">@item.DurationInMinutes</td>
+                <td scope="col">@item.Distance</td>
+                <td scope="col">@item.DriverName</td>
+                <td scope="col">@item.PassengersCount</td>
+                <td scope="col">@item.FreeSeats</td>
+                <td scope="col">@item.DriverVehicle @item.DriverVehicleColor</td>
+                <td scope="col">
+                    @if (item.Price > 0.00m)
+                    {@item.Price}
+                else
+                {
+                    @freeride
+                }
+                </td>
+                <td scope="col">
+                    @if (item.AdditionalComment.Length > 30)
+                    {
+                        @item.AdditionalComment.Substring(0, 30);
+                    }
+                    else
+                    {
+                        @item.AdditionalComment
+                    }
+                </td>
+                <td scope="col"><button class="btn btn-outline-primary btn-sm" onclick="openMaps('@dir')">Show trip</button></td>
+                <td scope="col"><button class="btn btn-outline-danger btn-sm" onclick="ExecuteEmptyAjax('@Url.Action("Leave", "Trip", new { id = item.Id })', 'LEAVE')">Leave</button></td>
+</tr>
+}
+    </table>
+    <button id="prev-page" style="text-align: center; margin: auto; display: flex; display: grid" class="btn btn-outline-primary btn-extra-large" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page-1 })')">Previous Page</button>
+    <button id="next-page" style="text-align: center; margin: auto; display: flex; display: grid" class="btn btn-outline-primary btn-extra-large" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page+1 })')">Next Page</button>
+
+</div>
+
+<script src="~/assets/js/vendor/jquery.min.js"></script>
+<script>
+    openMaps = (url) => {
+        window.open(url, '_blank').focus()
+    }
+        $(document).ready(function () {
+    if(@Model.CurrentPage == 0)
+    $('#prev-page').prop('disabled', true);
+    if (@Model.CurrentPage == @Model.MaxPages)
+    $('#next-page').prop('disabled', true);
+    if (@Model.CurrentPage != 0)
+    $('#prev-page').prop('disabled', false);
+    if (@Model.CurrentPage != @Model.MaxPages)
+    $('#next-page').prop('disabled', false);
+    });
+
+</script>
+
+

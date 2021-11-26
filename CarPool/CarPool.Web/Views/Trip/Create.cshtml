@@ -3,18 +3,28 @@
 
 <form asp-action="Create" class="contact-form-1 rwt-dynamic-form">
     <div class="form-group">
-        <input asp-for="FromAddress" placeholder="FromAddress">
-        <span asp-validation-for="FromAddress" class="form-error"></span>
+        <input asp-for="OriginCountry" placeholder="Origin Country">
+        <span asp-validation-for="OriginCountry" class="form-error"></span>
 
     </div>
 
     <div class="form-group">
-        <input asp-for="ToAddress" placeholder="ToAddress">
-        <span asp-validation-for="ToAddress" class="form-error"></span>
+        <input asp-for="OriginCity" placeholder="Origin City">
+        <span asp-validation-for="OriginCity" class="form-error"></span>
+
     </div>
 
     <div class="form-group">
-        <input asp-for="Date" type="datetime" placeholder="When">
+        <input asp-for="DestinationCity" placeholder="Destination City">
+        <span asp-validation-for="DestinationCity" class="form-error"></span>
+    </div>
+    <div class="form-group">
+        <input asp-for="DestinationCountry" placeholder="Destination Country">
+        <span asp-validation-for="DestinationCountry" class="form-error"></span>
+    </div>
+    <div class="form-group">
+
+        <input asp-for="Date" type="date" placeholder="When">
         <span asp-validation-for="Date" class="form-error"></span>
     </div>
 

@@ -13,7 +13,7 @@
         <tr>
             <th scope="col">From</th>
             <th scope="col">To</th>
-            <th scope="col">Date</th>
+            <th scope="col">Departure Date</th>
             <th scope="col">Trip duration</th>
             <th scope="col">Distance</th>
             <th scope="col">Driver</th>
@@ -27,9 +27,13 @@
         </tr>
         @if (Model.Trips.Count() == 0)
         {
+<<<<<<< HEAD:CarPool/CarPool.Web/Views/Trip/_Table.cshtml
     <tr>
         <th> scope="col">No trips were found!</th>
     </tr>
+=======
+            <tr> <th scope="col">No trips were found!</th> </tr>
+>>>>>>> 6ed5f27a28daa01ac759354da0ca97ce9521c210:CarPool/CarPool.Web/Views/Trip/_TableTrips.cshtml
         }
         @foreach (var item in Model.Trips)
         {
@@ -39,7 +43,7 @@
             <tr>
                 <td scope="col">@item.StartAddressCity</td>
                 <td scope="col">@item.DestinationAddressCity</td>
-                <td scope="col">@item.DepartureTime</td>
+                <td scope="col">@item.DepartureTime.ToString("MMMM dd, yyyy")</td>
                 <td scope="col">@item.DurationInMinutes</td>
                 <td scope="col">@item.Distance</td>
                 <td scope="col">@item.DriverName</td>
@@ -64,7 +68,6 @@
                         @item.AdditionalComment
                     }
                 </td>
-                @*<td scope="col"><button class="btn btn-outline-primary btn-sm" onclick="openMaps('@streetUrl')">Show on map</button></td>*@
                 <td scope="col"><button class="btn btn-outline-primary btn-sm" onclick="openMaps('@dir')">Show trip</button></td>
                 <td scope="col"><button class="btn btn-outline-primary btn-sm" onclick="ExecuteEmptyAjax('@Url.Action("Join", "Trip", new { id = item.Id })', 'JOIN')">Join</button></td>
                 @*<td scope="col"><button class="btn btn-outline-danger btn-sm" onclick="ExecuteEmptyAjax('@Url.Action("Leave", "Trip", new { id = item.Id })')">Leave</button></td>*@
@@ -73,17 +76,17 @@
             </tr>
         }
     </table>
-    <button disabled id="prev-page" style="text-align: center; margin: auto; display: flex; display: grid" class="btn btn-outline-primary btn-extra-large" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page-1 })')">Previous Page</button>
+    <button id="prev-page" style="text-align: center; margin: auto; display: flex; display: grid" class="btn btn-outline-primary btn-extra-large" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page-1 })')">Previous Page</button>
     <button id="next-page" style="text-align: center; margin: auto; display: flex; display: grid" class="btn btn-outline-primary btn-extra-large" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page+1 })')">Next Page</button>
 
 </div>
 
-@section Scripts{ <script>
+<script src="~/assets/js/vendor/jquery.min.js"></script>
+<script>
     openMaps = (url) => {
         window.open(url, '_blank').focus()
     }
-
-    $(document).ready(function () {
+        $(document).ready(function () {
     if(@Model.CurrentPage == 0)
     $('#prev-page').prop('disabled', true);
     if (@Model.CurrentPage == @Model.MaxPages)
@@ -93,7 +96,7 @@
     if (@Model.CurrentPage != @Model.MaxPages)
     $('#next-page').prop('disabled', false);
     });
+
 </script>
-    
-}
+
 

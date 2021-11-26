@@ -1,14 +1,12 @@
-﻿using CarPool.Common;
-using CarPool.Services.Mapping.Contracts;
+﻿using CarPool.Services.Mapping.Contracts;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CarPool.Services.Mapping.DTOs
 {
     public class ApplicationUserDTO : IErrorMessage
     {
         public Guid Id { get; set; }
+
         public string Username { get; set; }
 
         public string FirstName { get; set; }
@@ -20,7 +18,7 @@ namespace CarPool.Services.Mapping.DTOs
         public bool IsBlocked { get; set; }
 
         public string PhoneNumber { get; set; }
-             
+
         public string Password { get; set; }
 
         public int AddressId { get; set; }
