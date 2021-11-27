@@ -74,6 +74,12 @@
 
         public const string COUNTRY_EXISTS = "Country with this name already exists!";
 
+        public const string VEHICLE_EXISTS = "Vehicle already exists!";
+
+        public const string VEHICLE_NOT_FOUND = "Vehicle doesn't exists!";
+
+        public const string NO_VEHICLES = "You don't have any vehicles!";
+
         public const string PICTURE_EXISTS = "This picture is already on your profile!";
 
         public const string NO_CAR_AVAILABLE = "No car available!";

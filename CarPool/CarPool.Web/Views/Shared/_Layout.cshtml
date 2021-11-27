@@ -63,7 +63,15 @@
                                 <!-- Start Header Btn  -->
                                 @if (role != null && role != GlobalConstants.NotConfirmedRoleName)
                                 {
-                                    <div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Trip" asp-action="Index">Trips</a></div>
+                                    if (role == GlobalConstants.UserRoleName)
+                                    {
+                                        <div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Trip" asp-action="Index">Trips</a></div>
+                                    }
+                                    else if (role == GlobalConstants.AdministratorRoleName)
+                                    {
+                                        <div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Trip" asp-action="AddCar">Users</a></div>
+                                    }
+
                                     <div class="btn"><a class="fas fa-cog fa-3x settings-btn" style="" asp-controller="Auth" asp-action="Settings"></a></div>
                                     <div class="btn"><a class="fas fa-sign-out-alt fa-3x" asp-controller="Auth" asp-action="Logout"></a></div>
                                 }

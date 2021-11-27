@@ -1,12 +1,13 @@
-﻿using CarPool.Data.Common.Models;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Text;
 
-namespace CarPool.Data.Models.DatabaseModels
+namespace CarPool.Services.Mapping.DTOs
 {
-    public class UserVehicle : BaseDeletableModel<int>
+    public class UserVehicleDTO
     {
+        public int Id { get; set; }
+
         public Guid ApplicationUserId { get; set; }
 
         public string Model { get; set; }
@@ -15,7 +16,6 @@ namespace CarPool.Data.Models.DatabaseModels
 
         public double FuelConsumptionPerHundredKilometers { get; set; }
 
-        public virtual ApplicationUser ApplicationUser { get; set; }
-
+        public string ErrorMessage { get; set; }
     }
 }
