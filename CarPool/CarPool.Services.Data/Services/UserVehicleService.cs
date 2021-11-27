@@ -15,10 +15,11 @@ namespace CarPool.Services.Data.Services
     public class UserVehicleService : IUserVehicleService
     {
         private readonly CarPoolDBContext _db;
+        private readonly IAuthService _auth;
 
         public UserVehicleService(CarPoolDBContext db)
         {
-            _db = db;
+            this._db = db;
         }
 
         public async Task<UserVehicleDTO> PostAsync(UserVehicleDTO obj)
@@ -61,12 +62,12 @@ namespace CarPool.Services.Data.Services
                 return new UserVehicleDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
             }
 
-            var model = await this._db.UserVehicles.FirstOrDefaultAsync(x => x.Id == id);
-
-            if (model is null)
+            if (!await _db.UserVehicles.AnyAsync(x => x.Id == id))
             {
-                return new UserVehicleDTO { ErrorMessage = GlobalConstants.VEHICLE_NOT_FOUND };
+               return await PostAsync(obj);
             }
+
+            var model = await this._db.UserVehicles.FirstOrDefaultAsync(x => x.Id == id);
 
             MapVehicle(obj, model);
 

@@ -1,6 +1,8 @@
 ﻿@model UserVehicleViewModel
+
 @{ Layout = "/Views/Shared/_LayoutEmpty.cshtml"; }
-<form asp-action="Index" class="contact-form-1 rwt-dynamic-form" onsubmit="return jQueryAjaxPost2(this);">
+
+<form asp-action="Index" asp-route-id="@Model.Id" class="contact-form-1 rwt-dynamic-form" onsubmit="return jQueryAjaxPost(this);">
 
     <table class="table-custom">
         <tr>
@@ -11,26 +13,26 @@
         <tr>
             <td>
                 <div class="form-group pic">
-                    <input asp-for="CarModel" placeholder="Username" accept="image/*">
-                    <span asp-validation-for="CarModel" class="form-error"></span>
+                    <input asp-for="CarModel" placeholder="Model" accept="image/*">
                 </div>
             </td>
 
             <td>
                 <div class="form-group personal">
-                    <input asp-for="Color" placeholder="Username">
-                    <span asp-validation-for="Color" class="form-error"></span>
+                    <input asp-for="Color" placeholder="Color">
                 </div>
             </td>
 
             <td>
                 <div class="form-group personal">
-                    <input asp-for="FuelConsumptionPerHundredKilometers" placeholder="First Name">
-                    <span asp-validation-for="FuelConsumptionPerHundredKilometers" class="form-error"></span>
+                    <input asp-for="FuelConsumptionPerHundredKilometers" placeholder="L/100km">
                 </div>
             </td>
         </tr>
     </table>
+
+    <div asp-validation-summary="All" class="form-error"></div>
+
     <div style="display:flex; justify-content:center;">
         <div class="form-group">
             <button type="submit" class="btn-default btn-large rn-btn"
@@ -41,48 +43,8 @@
     </div>
 </form>
 
-@*@section Scripts{
+@section Scripts{
     <partial name="_ValidationScriptsPartial" />
+}
 
-}*@
-
-    <script src="~/assets/js/vendor/jquery.min.js"></script>
-
-<script>
-    jQueryAjaxPost2 = form => {
-        try {
-            $.ajax({
-                type: 'POST',
-                url: form.action,
-                data: new FormData(form),
-                contentType: false,
-                processData: false,
-                success: function (res) {
-                    alert("suc");
-
-                    if (res.isValid) {
-                        alert("if");
-
-                        if (res.html != "") {
-                            $('#view-all').html(res.html)
-                        }
-                        $('#form-modal .modal-body').html('');
-                        $('#form-modal .modal-title').html('');
-                        $('#form-modal .show').remove();
-                        $('#form-modal').css('display', 'none');
-                        $('.modal-backdrop').remove();
-                    }
-                    else
-                        alert("else");
-                        $('#form-modal .modal-body').html(res.html);
-                }
-
-            })
-            //to prevent default form submit event
-            return false;
-        } catch (ex) {
-@*            console.log(ex);
-*@            alert(er);
-        }
-    }
-</script>
+ 

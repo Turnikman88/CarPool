@@ -35,6 +35,7 @@
                             <div class="form-group pic">
                                 <input asp-for="ProfilePicture" placeholder="Username" accept="image/*">
                                 <span asp-validation-for="ProfilePicture" class="form-error"></span>
+                                <img src='@Model.ProfilePicture'  style="border-radius: 50%;"/>
                             </div>
 
                             <div class="form-group personal">

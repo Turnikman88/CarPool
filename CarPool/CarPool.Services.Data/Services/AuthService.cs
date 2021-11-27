@@ -139,6 +139,13 @@ namespace CarPool.Services.Data.Services
             return false;
         }
 
+        public async Task<Guid> GetUserId(string email)
+        {
+            return await _db.ApplicationUsers
+                .Where(x => x.Email == email)
+                .Select(x => x.Id)
+                .FirstOrDefaultAsync();
+        }
 
         private string generateJwtToken(ApplicationUserDTO user)
         {
