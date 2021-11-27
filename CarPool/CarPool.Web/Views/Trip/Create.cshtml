@@ -1,29 +1,32 @@
 ﻿@model TripViewModel
 @{ Layout = "/Views/Shared/_LayoutEmpty.cshtml"; }
 
-<form asp-action="Create" class="contact-form-1 rwt-dynamic-form" >
+<form asp-action="Create" class="contact-form-1 rwt-dynamic-form">
+
+    <label>Origin Country</label>
     <div class="form-group">
         <input asp-for="OriginCountry" placeholder="Origin Country">
         <span asp-validation-for="OriginCountry" class="form-error"></span>
-
     </div>
 
+    <label>Origin City</label>
     <div class="form-group">
         <input asp-for="OriginCity" placeholder="Origin City">
         <span asp-validation-for="OriginCity" class="form-error"></span>
-
     </div>
 
-    <div class="form-group">
-        <input asp-for="DestinationCity" placeholder="Destination City">
-        <span asp-validation-for="DestinationCity" class="form-error"></span>
-    </div>
+    <label>Destination Country</label>
     <div class="form-group">
         <input asp-for="DestinationCountry" placeholder="Destination Country">
         <span asp-validation-for="DestinationCountry" class="form-error"></span>
     </div>
+    <label>Destination City</label>
     <div class="form-group">
+        <input asp-for="DestinationCity" placeholder="Destination City">
+        <span asp-validation-for="DestinationCity" class="form-error"></span>
+    </div>
 
+    <div class="form-group">
         <input asp-for="Date" type="date" placeholder="When">
         <span asp-validation-for="Date" class="form-error"></span>
     </div>
