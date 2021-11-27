@@ -1,1 +1,48 @@
-﻿@model UserVehicleDTO
+﻿@model UserVehicleViewModel
+@{ Layout = "/Views/Shared/_LayoutEmpty.cshtml"; }
+<form asp-action="Index" class="contact-form-1 rwt-dynamic-form" encType="multipart/form-data">
+
+    <table class="table-custom">
+        <tr>
+            <th>Model</th>
+            <th>Color</th>
+            <th>L/100km</th>
+        </tr>
+        <tr>
+            <td>
+                <div class="form-group pic">
+                    <input asp-for="CarModel" placeholder="Username" accept="image/*">
+                    <span asp-validation-for="CarModel" class="form-error"></span>
+                </div>
+            </td>
+
+            <td>
+                <div class="form-group personal">
+                    <input asp-for="Color" placeholder="Username">
+                    <span asp-validation-for="Color" class="form-error"></span>
+                </div>
+            </td>
+
+            <td>
+                <div class="form-group personal">
+                    <input asp-for="FuelConsumptionPerHundredKilometers" placeholder="First Name">
+                    <span asp-validation-for="FuelConsumptionPerHundredKilometers" class="form-error"></span>
+                </div>
+            </td>
+        </tr>
+    </table>
+    <div style="display:flex; justify-content:center;">
+        <div class="form-group">
+            <button onclick="jQueryAjaxPost('@Url.Action("Index", "Vehicle", new { id = Model.Id })', 'My Car')"
+                    type="submit" class="btn-default btn-large rn-btn"
+                    style="background-color: #FF3CAC; cursor: pointer;">
+                <span>Save</span>
+            </button>
+        </div>
+    </div>
+</form>
+
+@*@section Scripts{
+    <partial name="_ValidationScriptsPartial" />
+
+}*@

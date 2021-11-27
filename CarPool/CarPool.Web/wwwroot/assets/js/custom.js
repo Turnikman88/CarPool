@@ -38,7 +38,9 @@ jQueryAjaxPost = form => {
             processData: false,
             success: function (res) {
                 if (res.isValid) {
-                    $('#view-all').html(res.html)
+                    if (res.html != "") {
+                        $('#view-all').html(res.html)
+                    }
                     $('#form-modal .modal-body').html('');
                     $('#form-modal .modal-title').html('');
                     $('#form-modal .show').remove();

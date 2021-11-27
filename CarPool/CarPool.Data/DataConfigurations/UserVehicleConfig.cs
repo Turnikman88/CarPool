@@ -11,6 +11,10 @@ namespace CarPool.Data.DataConfigurations
     {
         public void Configure(EntityTypeBuilder<UserVehicle> builder)
         {
+            builder.Property(x => x.Model).IsRequired();
+            builder.Property(x => x.Color).IsRequired();
+            builder.Property(x => x.FuelConsumptionPerHundredKilometers).IsRequired();
+
             builder.HasIndex(e => e.ApplicationUserId)
                     .IsUnique();
 

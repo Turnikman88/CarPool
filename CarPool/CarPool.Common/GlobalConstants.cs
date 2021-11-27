@@ -108,6 +108,12 @@
 
         public const string NOT_PROVIDED = "(Not provided)";
 
+        public const string MODEL_TOO_SHORT = "Model can't be that short!";
+
+        public const string COLOR_TOO_SHORT = "Color can't be that short!";
+
+        public const string FUEL_CONSUMPTION_BELOW_0 = "Fuel consumption can't be below 0 or above 25!";
+
 
     }
 }

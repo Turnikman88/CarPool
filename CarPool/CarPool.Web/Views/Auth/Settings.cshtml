@@ -14,7 +14,7 @@
                         </div>
                     </div>
                     <div class="col-lg-4" style="margin-right:30px;">
-                        <a asp-controller="Vehicle" asp-action="Index">
+                        <a href="javascript:showInPopup('@Url.Action("Index", "Vehicle")', 'My Car')">
                             <div style="display:flex; justify-content:center;">
                                 <div>
                                     <i class="fas fa-car fa-2x"></i>
@@ -42,7 +42,7 @@
                                 <span asp-validation-for="Username" class="form-error"></span>
                             </div>
 
-                            <div class="form-group" personal>
+                            <div class="form-group personal">
                                 <input asp-for="FirstName" placeholder="First Name">
                                 <span asp-validation-for="FirstName" class="form-error"></span>
                             </div>
