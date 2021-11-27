@@ -1,6 +1,6 @@
 ﻿@model UserVehicleViewModel
 @{ Layout = "/Views/Shared/_LayoutEmpty.cshtml"; }
-<form asp-action="Index" class="contact-form-1 rwt-dynamic-form" encType="multipart/form-data">
+<form asp-action="Index" class="contact-form-1 rwt-dynamic-form" onsubmit="return jQueryAjaxPost2(this);">
 
     <table class="table-custom">
         <tr>
@@ -33,8 +33,7 @@
     </table>
     <div style="display:flex; justify-content:center;">
         <div class="form-group">
-            <button onclick="jQueryAjaxPost('@Url.Action("Index", "Vehicle", new { id = Model.Id })', 'My Car')"
-                    type="submit" class="btn-default btn-large rn-btn"
+            <button type="submit" class="btn-default btn-large rn-btn"
                     style="background-color: #FF3CAC; cursor: pointer;">
                 <span>Save</span>
             </button>
@@ -46,3 +45,44 @@
     <partial name="_ValidationScriptsPartial" />
 
 }*@
+
+    <script src="~/assets/js/vendor/jquery.min.js"></script>
+
+<script>
+    jQueryAjaxPost2 = form => {
+        try {
+            $.ajax({
+                type: 'POST',
+                url: form.action,
+                data: new FormData(form),
+                contentType: false,
+                processData: false,
+                success: function (res) {
+                    alert("suc");
+
+                    if (res.isValid) {
+                        alert("if");
+
+                        if (res.html != "") {
+                            $('#view-all').html(res.html)
+                        }
+                        $('#form-modal .modal-body').html('');
+                        $('#form-modal .modal-title').html('');
+                        $('#form-modal .show').remove();
+                        $('#form-modal').css('display', 'none');
+                        $('.modal-backdrop').remove();
+                    }
+                    else
+                        alert("else");
+                        $('#form-modal .modal-body').html(res.html);
+                }
+
+            })
+            //to prevent default form submit event
+            return false;
+        } catch (ex) {
+@*            console.log(ex);
+*@            alert(er);
+        }
+    }
+</script>

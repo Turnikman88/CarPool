@@ -38,7 +38,7 @@ namespace CarPool.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "Index", model, false) });
+                return Json(new { isValid = false, html = await Helper.RenderViewAsync(this, "Index", model, false) });
             }
             return Json(new { isValid = true, html = "" });
         }
