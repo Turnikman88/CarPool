@@ -27,6 +27,7 @@ namespace CarPool.Web.ViewModels.DTOs
 
         public string AdditionalComment { get; set; }
 
-        public IEnumerable<TripDTO> Trips { get; set; }
+        public IEnumerable<TripDTO> UpcomingTrips { get; set; }
+        public IEnumerable<TripDTO> PastTrips { get; set; }
     }
 }

@@ -100,6 +100,8 @@
 
         public const string TRIP_FULL = "This trip is full. No empty seats left.";
 
+        public const string TRIP_DELETED = "Trip was deleted";
+
         public const string WRONG_CREDENTIALS = "Wrong credentials!";
 
         public const string LOGGED = "You logged successfully!";
@@ -114,6 +116,8 @@
 
         public const string FUEL_CONSUMPTION_BELOW_0 = "Fuel consumption can't be below 0 or above 25!";
 
+        public const string TRIP_ALREADY_REVIEWED = "You've already reviewed this trip";
 
+        public const string TRIP_YOU_CANNOT_REVEIW_YOURSELF = "You cannot review yourself";
     }
 }

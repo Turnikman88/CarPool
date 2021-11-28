@@ -9,6 +9,8 @@ namespace CarPool.Services.Mapping.DTOs
 
         public string Username { get; set; }
 
+        public bool HasVehicle { get; set; }
+
         public string FirstName { get; set; }
 
         public string LastName { get; set; }

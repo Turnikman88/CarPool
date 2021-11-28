@@ -4,12 +4,35 @@
     <div class="wrapper">
         <div class="rn-splite-style">
             <div class="split-wrapper">
-                <div class="row g-0 radius-10 align-items-center">
 
+                <a class="btn-read-more" href="javascript:ChangeMenu('upcoming-trips')"><span>Upcoming trips</span></a>
+                <a class="btn-read-more" href="javascript:ChangeMenu('past-trips')"><span>Past trips</span></a>
+
+                <div class="row g-0 radius-10 align-items-center" id="upcoming-trips">
                     @await Html.PartialAsync("_TableMyTrips", Model)
+
+                </div>
+                <div class="row g-0 radius-10 align-items-center" id="past-trips">
+
+                    @await Html.PartialAsync("_TableMyTripsPast", Model)
 
                 </div>
             </div>
         </div>
     </div>
 </div>
+
+@section Scripts{
+    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    <script>
+        $('#past-trips').hide();
+        $('#supcoming-trips').show();
+        function ChangeMenu(tag) {
+            $('#upcoming-trips').hide();
+            $('#past-trips').show();
+        }
+    </script>
+
+    <partial name="_ValidationScriptsPartial" />
+}
