@@ -74,6 +74,7 @@ namespace CarPool.Services.Data.Services
                                              .ToListAsync();
         }
 
+
         public async Task<ApplicationUserDTO> GetUserByEmailAsync(string email)
         {
             var user = await _db.ApplicationUsers.Include(x => x.Address)
@@ -202,7 +203,7 @@ namespace CarPool.Services.Data.Services
                                              .Select(x => x.GetTopUserDTO())
                                              .ToListAsync();
         }
-       
+
         private static void MapUser(ApplicationUserDTO obj, ApplicationUser user)
         {
             if (obj.Username != null && obj.Username.Length >= 2 && obj.Username.Length <= 20)

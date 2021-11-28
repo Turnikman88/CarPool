@@ -228,38 +228,6 @@ namespace CarPool.Data.Models.DAL
 
             db.Entity<ApplicationRole>().HasData(roles);
 
-            var ratings = new List<Rating>()
-            {
-                new Rating
-                {
-                    Id = 1,
-                    AddedByUserId = userId0,
-                    ApplicationUserId = userId1,
-                    Value = 4,
-                    Feedback = "Nice car"
-                },
-                new Rating
-                {
-                    Id = 2,
-                    AddedByUserId = userId1,
-                    ApplicationUserId = userId0,
-                    Value = 1,
-                    Feedback = "Bad person"
-                },
-                new Rating
-                {
-                    Id = 3,
-                    AddedByUserId = userId2,
-                    ApplicationUserId = userId3,
-                    Value = 5
-                }
-            };
-
-
-            db.Entity<Rating>().HasData(ratings);
-
-
-
             var users = new List<ApplicationUser>()
             {
                new ApplicationUser
@@ -403,7 +371,7 @@ namespace CarPool.Data.Models.DAL
                     DepartureTime = DateTime.Now,
                     DurationInMinutes = 120,
                     Distance = 240,
-                    PassengersCount = 1,
+                    PassengersCount = 2,
                     FreeSeats = 2,
                     AdditionalComment = "NO SMOKING"
                 },
@@ -613,6 +581,45 @@ namespace CarPool.Data.Models.DAL
 
             db.Entity<Trip>().HasData(trips);
 
+            var tripPassengeer = new List<TripPassenger>()
+            {
+                new TripPassenger
+                {
+                     ApplicationUserId = userId0,
+                     TripId = 1
+                },
+                new TripPassenger
+                {
+                     ApplicationUserId = userId1,
+                     TripId = 2
+                },
+                new TripPassenger
+                {
+                     ApplicationUserId = userId2,
+                     TripId = 3
+                },
+                new TripPassenger
+                {
+                     ApplicationUserId = userId3,
+                     TripId = 1
+                },
+
+                new TripPassenger
+                {
+                     ApplicationUserId = userId3,
+                     TripId = 2
+                },
+
+                new TripPassenger
+                {
+                     ApplicationUserId = userId3,
+                     TripId = 3
+                },
+            };
+
+            db.Entity<TripPassenger>().HasData(tripPassengeer);
+
+
             var pictures = new List<ProfilePicture>()
             {
                 new ProfilePicture
@@ -642,6 +649,38 @@ namespace CarPool.Data.Models.DAL
             };
 
             db.Entity<ProfilePicture>().HasData(pictures);
+
+            var ratings = new List<Rating>()
+            {
+                new Rating
+                {
+                    Id = 1,
+                    TripId = 1,
+                    AddedByUserId = userId0,
+                    ApplicationUserId = userId3,
+                    Feedback = "Nice car",
+                    Value = 4
+                },
+                new Rating
+                {
+                    Id = 2,
+                    TripId = 1,
+                    AddedByUserId = userId3,
+                    ApplicationUserId = userId0,
+                    Feedback = "Bad person",
+                    Value = 1
+                },
+                new Rating
+                {
+                    Id = 3,
+                    TripId = 5,
+                    AddedByUserId = userId1,
+                    ApplicationUserId = userId3,
+                    Value = 5
+                }
+            };
+
+            db.Entity<Rating>().HasData(ratings);
         }
     }
 }

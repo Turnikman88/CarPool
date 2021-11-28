@@ -22,13 +22,12 @@
             <th scope="col">Car</th>
             <th scope="col">Price</th>
             <th scope="col">Additional comment</th>
-            <th scope="col"><button class="btn btn-outline-success" onclick="showInPopup('@Url.Action("Create", "Trip")', 'Create')">Add New</button></th>
         </tr>
-        @if (Model.UpcomingTrips.Count() == 0)
+        @if (Model.PastTrips.Count() == 0)
         {
             <tr> <th scope="col">No trips were found!</th> </tr>
         }
-        @foreach (var item in Model.UpcomingTrips)
+        @foreach (var item in Model.PastTrips)
         {
             string streetUrl = $"https:////www.google.com/maps/search/?api=1&query={item.StartAddressStreet} {item.StartAddressCity} {item.StartAddressCountry}";
             string dir = $"https:////www.google.com/maps/dir/{item.StartAddressStreet} {item.StartAddressCity} {item.StartAddressCountry}/{item.DestinationAddressStreet} {item.DestinationAddressCity} {item.DestinationAddressCountry}/";
@@ -62,7 +61,7 @@
                     }
                 </td>
                 <td scope="col"><button class="btn btn-outline-primary btn-sm" onclick="openMaps('@dir')">Show trip</button></td>
-                <td scope="col"><button class="btn btn-outline-danger btn-sm" onclick="ExecuteEmptyAjax('@Url.Action("Leave", "Trip", new { id = item.Id })', 'LEAVE')">Leave</button></td>
+                <td scope="col"><button class="btn btn-outline-danger btn-sm" onclick="ExecuteEmptyAjax('@Url.Action("Rating", "Trip", new { id = item.Id })', 'Rating')">Rating</button></td>
 </tr>
 }
     </table>

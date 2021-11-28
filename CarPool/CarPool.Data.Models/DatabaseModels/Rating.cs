@@ -10,6 +10,8 @@
 
         public Guid ApplicationUserId { get; set; }
 
+        public int TripId { get; set; }
+
         public int Value { get; set; }
 
         public string Feedback { get; set; } = GlobalConstants.NO_FEEDBACK;

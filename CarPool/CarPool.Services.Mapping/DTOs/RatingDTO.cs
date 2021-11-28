@@ -1,6 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CarPool.Services.Mapping.DTOs
 {
@@ -13,6 +11,10 @@ namespace CarPool.Services.Mapping.DTOs
         public Guid ApplicationUserId { get; set; }
 
         public int Value { get; set; }
+
+        public int TripId { get; set; }
+
+        public string ErrorMessage { get; set; }
 
         public string Feedback { get; set; }
     }

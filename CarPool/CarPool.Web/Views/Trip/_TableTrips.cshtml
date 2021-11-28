@@ -25,14 +25,14 @@
             <th scope="col"><button class="btn btn-outline-success" onclick="showInPopup('@Url.Action("Create", "Trip")', 'Create')">Add New</button></th>
             <th></th>
         </tr>
-        @if (Model.Trips.Count() == 0)
+        @if (Model.UpcomingTrips.Count() == 0)
         {
             <tr>
                 <th> scope="col">No trips were found!</th>
             </tr>
             <tr> <th scope="col">No trips were found!</th> </tr>
         }
-        @foreach (var item in Model.Trips)
+        @foreach (var item in Model.UpcomingTrips)
         {
             string streetUrl = $"https:////www.google.com/maps/search/?api=1&query={item.StartAddressStreet} {item.StartAddressCity} {item.StartAddressCountry}";
             string dir = $"https:////www.google.com/maps/dir/{item.StartAddressStreet} {item.StartAddressCity} {item.StartAddressCountry}/{item.DestinationAddressStreet} {item.DestinationAddressCity} {item.DestinationAddressCountry}/";

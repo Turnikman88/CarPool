@@ -1,7 +1,9 @@
-﻿using CarPool.Services.Data.Contracts;
+﻿using CarPool.Common;
+using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using CarPool.Web.Infrastructure.Extensions;
 using CarPool.Web.ViewModels.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
@@ -9,6 +11,7 @@ using System.Threading.Tasks;
 
 namespace CarPool.Web.Controllers
 {
+    [Authorize(Roles = GlobalConstants.UserRoleName + "," + GlobalConstants.AdministratorRoleName)]
     public class TripController : Controller
     {
         private readonly ITripService _trip;
@@ -30,7 +33,7 @@ namespace CarPool.Web.Controllers
             {
                 CurrentPage = 0,
                 MaxPages = maxpages,
-                Trips = trips
+                UpcomingTrips = trips
             };
             return View(model);
         }
@@ -45,7 +48,7 @@ namespace CarPool.Web.Controllers
             {
                 CurrentPage = p,
                 MaxPages = maxpages,
-                Trips = trips
+                UpcomingTrips = trips
             };
 
             return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_TableTrips", model, true) });
@@ -56,11 +59,13 @@ namespace CarPool.Web.Controllers
         {
             var userEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
             var trips = await _trip.GetTripsByUserAsync(0, userEmail);
+            var pasttrips = await _trip.GetPastTrips(0, userEmail);
             var maxpages = await _trip.GetPageCountPerUserAsync(userEmail);
 
             var model = new TripViewModel()
             {
-                Trips = trips,
+                UpcomingTrips = trips,
+                PastTrips = pasttrips,
                 CurrentPage = 0,
                 MaxPages = maxpages
 
@@ -73,11 +78,13 @@ namespace CarPool.Web.Controllers
         {
             var userEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
             var trips = await _trip.GetTripsByUserAsync(p, userEmail);
+            var pasttrips = await _trip.GetPastTrips(p, userEmail);
             var maxpages = await _trip.GetPageCountPerUserAsync(userEmail);
 
             var model = new TripViewModel()
             {
-                Trips = trips,
+                UpcomingTrips = trips,
+                PastTrips = pasttrips,
                 MaxPages = maxpages,
                 CurrentPage = p
             };
@@ -87,6 +94,13 @@ namespace CarPool.Web.Controllers
 
         public async Task<IActionResult> Create()
         {
+            var requestEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+            var driver = await _user.GetUserByEmailAsync(requestEmail);
+
+            if (driver.HasVehicle) //TODO: redirect? 
+            {
+                return RedirectToAction("Index", "Vehicle");
+            }
             return View(new TripViewModel() { Date = System.DateTime.Today });
         }
 
@@ -100,15 +114,17 @@ namespace CarPool.Web.Controllers
             {
                 AdditionalComment = obj.AdditionalComment,
                 DepartureTime = obj.Date,
+                DestinationAddressCountry = obj.DestinationCountry,
                 DestinationAddressCity = obj.DestinationCity,
                 StartAddressCity = obj.OriginCity,
+                StartAddressCountry = obj.OriginCountry,
                 DriverId = driver.Id.ToString(),
                 FreeSeats = obj.FreeSeats
             });
 
-            var trips = new TripViewModel { Trips = await _trip.GetAsync(0) };
+            var trips = new TripViewModel { UpcomingTrips = await _trip.GetTripsByUserAsync(0, requestEmail) };
 
-            return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_TableTrips", trips.Trips, true) });
+            return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_TableTrips", trips, true) });
         }
 
         [HttpPost]
@@ -123,7 +139,7 @@ namespace CarPool.Web.Controllers
 
             var model = new TripViewModel()
             {
-                Trips = trips,
+                UpcomingTrips = trips,
                 CurrentPage = 0,
                 MaxPages = maxpages
             };
@@ -136,19 +152,28 @@ namespace CarPool.Web.Controllers
         {
             var userEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
 
-            var asd = await _trip.LeaveTripAsync(id, userEmail);
+            await _trip.LeaveTripAsync(id, userEmail);
 
             var trips = await _trip.GetTripsByUserAsync(0, userEmail);
             var maxpages = await _trip.GetPageCountPerUserAsync(userEmail);
 
             var model = new TripViewModel()
             {
-                Trips = trips,
+                UpcomingTrips = trips,
                 CurrentPage = 0,
                 MaxPages = maxpages
             };
 
             return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_TableTrips", model, true) });
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Rating()
+        {
+            return View(new RatingViewModel());
+        }
+
+
+
     }
 }

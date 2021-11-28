@@ -13,6 +13,9 @@ namespace CarPool.Data.DataConfigurations
             builder.HasOne(d => d.ApplicationUser)
                 .WithMany(p => p.Ratings)
                 .HasForeignKey(d => d.ApplicationUserId);
+
+            builder.Property(t => t.TripId).IsRequired();
+
         }
     }
 }
