@@ -164,13 +164,13 @@ namespace CarPool.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync();
+            await HttpContext.SignOutAsync();  
 
             return this.RedirectToAction("index", "home");
         }
 
         // TODO: Move in admin panel
-        [HttpGet]
+/*        [HttpGet]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public IActionResult Ban()
         {
@@ -183,7 +183,7 @@ namespace CarPool.Web.Controllers
         {
             await _ban.BanUserAsync(email, reason, days);
             return this.View(); // return json with model 
-        }
+        }*/
 
         [HttpGet]
         public async Task<IActionResult> ConfirmEmail(string token)
