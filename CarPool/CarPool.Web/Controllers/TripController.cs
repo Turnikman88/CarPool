@@ -5,6 +5,7 @@ using CarPool.Web.Infrastructure.Extensions;
 using CarPool.Web.ViewModels.DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -16,17 +17,19 @@ namespace CarPool.Web.Controllers
     {
         private readonly ITripService _trip;
         private readonly IApplicationUserService _user;
+        private readonly IRatingService _rating;
 
-        public TripController(ITripService trip, IApplicationUserService user)
+        public TripController(ITripService trip, IApplicationUserService user, IRatingService rating)
         {
             _trip = trip;
             _user = user;
+            _rating = rating;
         }
 
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var trips = await _trip.GetAsync(0);
+            var trips = await _trip.GetAllUpcomingTripsAsync(0);
             var maxpages = await _trip.GetPageCountAsync();
 
             var model = new TripViewModel()
@@ -41,7 +44,7 @@ namespace CarPool.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Index([FromQuery] int p)
         {
-            var trips = await _trip.GetAsync(p);
+            var trips = await _trip.GetAllUpcomingTripsAsync(p);
             var maxpages = await _trip.GetPageCountAsync();
 
             var model = new TripViewModel()
@@ -173,7 +176,24 @@ namespace CarPool.Web.Controllers
             return View(new RatingViewModel());
         }
 
+        [HttpPost]
+        public async Task<IActionResult> Rating(RatingViewModel obj, int id)
+        {
+            var userEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+            var feedbackFromUser = await _user.GetUserByEmailAsync(userEmail);
+            var trip = await _trip.GetTripByIDAsync(id);
 
+            var response = await _rating.PostFeedbackAsync(
+                new RatingDTO
+                {
+                    AddedByUserId = feedbackFromUser.Id,
+                    ApplicationUserId = Guid.Parse(trip.DriverId),
+                    Feedback = obj.Comment,
+                    TripId = id,
+                    Value = obj.Value
+                });
 
+            return await MyTrips(0);
+        }
     }
 }

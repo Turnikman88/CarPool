@@ -23,47 +23,52 @@
             <th scope="col">Price</th>
             <th scope="col">Additional comment</th>
         </tr>
-        @if (Model.PastTrips.Count() == 0)
+        @if (Model.PastTrips is null || Model.PastTrips.Count() == 0)
         {
-            <tr> <th scope="col">No trips were found!</th> </tr>
+            <tr>    No trips were found! </tr>
         }
-        @foreach (var item in Model.PastTrips)
+        else
         {
-            string streetUrl = $"https:////www.google.com/maps/search/?api=1&query={item.StartAddressStreet} {item.StartAddressCity} {item.StartAddressCountry}";
-            string dir = $"https:////www.google.com/maps/dir/{item.StartAddressStreet} {item.StartAddressCity} {item.StartAddressCountry}/{item.DestinationAddressStreet} {item.DestinationAddressCity} {item.DestinationAddressCountry}/";
-            string freeride = "FREE RIDE";
-            <tr>
-                <td scope="col">@item.StartAddressCity</td>
-                <td scope="col">@item.DestinationAddressCity</td>
-                <td scope="col">@item.DepartureTime.ToString("MMMM dd, yyyy")</td>
-                <td scope="col">@item.DurationInMinutes</td>
-                <td scope="col">@item.Distance</td>
-                <td scope="col">@item.DriverName</td>
-                <td scope="col">@item.PassengersCount</td>
-                <td scope="col">@item.FreeSeats</td>
-                <td scope="col">@item.DriverVehicle @item.DriverVehicleColor</td>
-                <td scope="col">
-                    @if (item.Price > 0.00m)
-                    {@item.Price}
-                else
-                {
-                    @freeride
-                }
-                </td>
-                <td scope="col">
-                    @if (item.AdditionalComment.Length > 30)
-                    {
-                        @item.AdditionalComment.Substring(0, 30);
-                    }
+
+            @foreach (var item in Model.PastTrips)
+            {
+                string streetUrl = $"https:////www.google.com/maps/search/?api=1&query={item.StartAddressStreet} {item.StartAddressCity} {item.StartAddressCountry}";
+                string dir = $"https:////www.google.com/maps/dir/{item.StartAddressStreet} {item.StartAddressCity} {item.StartAddressCountry}/{item.DestinationAddressStreet} {item.DestinationAddressCity} {item.DestinationAddressCountry}/";
+                string freeride = "FREE RIDE";
+                <tr>
+                    <td scope="col">@item.StartAddressCity</td>
+                    <td scope="col">@item.DestinationAddressCity</td>
+                    <td scope="col">@item.DepartureTime.ToString("MMMM dd, yyyy")</td>
+                    <td scope="col">@item.DurationInMinutes</td>
+                    <td scope="col">@item.Distance</td>
+                    <td scope="col">@item.DriverName</td>
+                    <td scope="col">@item.PassengersCount</td>
+                    <td scope="col">@item.FreeSeats</td>
+                    <td scope="col">@item.DriverVehicle @item.DriverVehicleColor</td>
+                    <td scope="col">
+                        @if (item.Price > 0.00m)
+                        {@item.Price}
                     else
                     {
-                        @item.AdditionalComment
+                        @freeride
                     }
-                </td>
-                <td scope="col"><button class="btn btn-outline-primary btn-sm" onclick="openMaps('@dir')">Show trip</button></td>
-                <td scope="col"><button class="btn btn-outline-danger btn-sm" onclick="ExecuteEmptyAjax('@Url.Action("Rating", "Trip", new { id = item.Id })', 'Rating')">Rating</button></td>
-</tr>
-}
+                    </td>
+                    <td scope="col">
+                        @if (item.AdditionalComment.Length > 30)
+                        {
+                            @item.AdditionalComment.Substring(0, 30);
+                        }
+                        else
+                        {
+                            @item.AdditionalComment
+                        }
+                    </td>
+                    <td scope="col"><button class="btn btn-outline-primary btn-sm" onclick="openMaps('@dir')">Show trip</button></td>
+                    <td scope="col"><button class="btn btn-outline-danger btn-sm" onclick="showInPopup('@Url.Action("Rating", "Trip", new { id = item.Id })', 'Rating')">Rating</button></td>
+                </tr>
+            }
+        }
+
     </table>
     <button id="prev-page" style="text-align: center; margin: auto; display: flex; display: grid" class="btn btn-outline-primary btn-extra-large" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page-1 })')">Previous Page</button>
     <button id="next-page" style="text-align: center; margin: auto; display: flex; display: grid" class="btn btn-outline-primary btn-extra-large" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page+1 })')">Next Page</button>

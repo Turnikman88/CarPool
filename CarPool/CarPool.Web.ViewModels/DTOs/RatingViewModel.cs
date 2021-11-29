@@ -8,6 +8,10 @@ namespace CarPool.Web.ViewModels.DTOs
         [Range(1, 5)]
         public int Value { get; set; }
 
+        public string UserID { get; set; }
+
         public string Comment { get; set; }
+
+        public int TripId { get; set; }
     }
 }

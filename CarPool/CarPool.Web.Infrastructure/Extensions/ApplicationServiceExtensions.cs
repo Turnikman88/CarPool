@@ -32,6 +32,7 @@ namespace CarPool.Web.Infrastructure.Extensions
             services.AddScoped<IFuelService, FuelService>();
             services.AddScoped<IGoogleAccountService, GoogleAccountService>();
             services.AddScoped<IUserVehicleService, UserVehicleService>();
+            services.AddScoped<IRatingService, RatingService>();
 
             services.AddHostedService<BanHostedService>();
             // services.AddScoped<I, >();

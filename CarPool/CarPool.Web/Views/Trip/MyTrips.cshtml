@@ -7,6 +7,7 @@
 
                 <a class="btn-read-more" href="javascript:ChangeMenu('upcoming-trips')"><span>Upcoming trips</span></a>
                 <a class="btn-read-more" href="javascript:ChangeMenu('past-trips')"><span>Past trips</span></a>
+                <div style="float: right !important; padding-left: 120px" class="btn"><a class="btn-default text-underline btn-small" asp-controller="Trip" asp-action="Index">Back</a></div>
 
                 <div class="row g-0 radius-10 align-items-center" id="upcoming-trips">
                     @await Html.PartialAsync("_TableMyTrips", Model)
@@ -27,7 +28,7 @@
 
     <script>
         $('#past-trips').hide();
-        $('#supcoming-trips').show();
+        $('#upcoming-trips').show();
         function ChangeMenu(tag) {
             $('#upcoming-trips').hide();
             $('#past-trips').show();

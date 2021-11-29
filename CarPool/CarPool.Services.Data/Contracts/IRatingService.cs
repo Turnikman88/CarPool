@@ -7,6 +7,6 @@ namespace CarPool.Services.Data.Contracts
     {
         Task<bool> IsAlreadyRatedAsync(string driverID, string userID, int tripID);
 
-        Task<RatingDTO> PostFeedbackAsync(string driverID, string userID, int tripID, string comment);
+        Task<RatingDTO> PostFeedbackAsync(RatingDTO obj);
     }
 }

@@ -1,0 +1,24 @@
+﻿@model RatingViewModel
+@{ Layout = "/Views/Shared/_LayoutEmpty.cshtml"; }
+
+<form asp-action="Rating" class="contact-form-1 rwt-dynamic-form" onsubmit="return jQueryAjaxPost(this);">
+
+    <label>Any Comments?</label>
+    <div class="form-group">
+        <input asp-for="Comment" placeholder="Insert your comment here">
+        <span asp-validation-for="Comment" class="form-error"></span>
+    </div>
+
+    <label>Rating</label>
+    <div class="form-group">
+        <input asp-for="Value" placeholder="Rate this user">
+        <span asp-validation-for="Value" class="form-error"></span>
+    </div>
+
+    <div class="form-group">
+        <button type="submit" class="btn-default btn-large rn-btn"
+                style="background-color: #FF3CAC; cursor: pointer;">
+            <span>Create</span>
+        </button>
+    </div>
+</form>

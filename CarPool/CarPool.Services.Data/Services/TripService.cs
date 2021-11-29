@@ -54,6 +54,19 @@ namespace CarPool.Services.Data.Services
                                         .Select(x => x.GetDTO()).ToListAsync();
         }
 
+        public async Task<IEnumerable<TripDTO>> GetAllUpcomingTripsAsync(int page)
+        {
+            return await this._db.Trips.Include(x => x.Driver).ThenInclude(x => x.Vehicle)
+                                        .Include(x => x.StartAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
+                                        .Include(x => x.DestinationAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
+                                        .Include(x => x.Passengers).ThenInclude(x => x.Trip)
+                                        .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser)
+                                        .Where(x => x.DepartureTime.Date > DateTime.Today.Date)
+                                        .Skip(page * GlobalConstants.PageSkip)
+                                        .Take(10)
+                                        .Select(x => x.GetDTO()).ToListAsync();
+        }
+
         public async Task<int> GetPageCountAsync()
         {
             var count = await this._db.Trips.CountAsync();
@@ -84,7 +97,7 @@ namespace CarPool.Services.Data.Services
                                                  .Include(x => x.ApplicationUser).ThenInclude(x => x.Trips).ThenInclude(x => x.Driver).ThenInclude(x => x.Vehicle)
                                                  .Include(x => x.ApplicationUser).ThenInclude(x => x.Vehicle)
                                                  .Where(x => x.ApplicationUser.Email == email
-                                                             && x.Trip.DepartureTime.Date < DateTime.Today.Date.AddDays(-1))
+                                                             && x.Trip.DepartureTime.Date < DateTime.Today.Date)
                                                  .Skip(page * GlobalConstants.PageSkip)
                                                  .Take(10)
                                                  .Select(x => x.ApplicationUser.Trips.Select(x => x.GetDTO())).FirstOrDefaultAsync();

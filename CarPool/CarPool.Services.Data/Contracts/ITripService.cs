@@ -7,6 +7,7 @@ namespace CarPool.Services.Data.Contracts
     public interface ITripService : ICRUDshared<TripDTO>
     {
         Task<TripDTO> GetTripByIDAsync(int id);
+        Task<IEnumerable<TripDTO>> GetAllUpcomingTripsAsync(int page);
         Task<IEnumerable<TripDTO>> GetTripsByUserAsync(int page, string email);
         Task<IEnumerable<TripDTO>> GetPastTrips(int page, string email);
         Task<TripDTO> JoinTripAsync(int id, string userToJoinEmail);

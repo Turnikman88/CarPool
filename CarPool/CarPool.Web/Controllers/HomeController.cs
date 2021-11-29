@@ -4,7 +4,6 @@ using CarPool.Services.Contracts;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using CarPool.Web.ViewModels.DTOs;
-using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -32,7 +31,7 @@ namespace CarPool.Web.Controllers
         {
             return this.View();
         }
-                
+
         public async Task<IActionResult> Index()
         {
             var usersCount = await _us.UsersCountAsync();
@@ -102,7 +101,7 @@ namespace CarPool.Web.Controllers
             }
             else
             {
-                imageLink += "404.png";                
+                imageLink += "404.png";
             }
 
             var statuscode = HttpContext.Response.StatusCode;

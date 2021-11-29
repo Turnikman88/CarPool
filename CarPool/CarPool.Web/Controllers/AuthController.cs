@@ -4,7 +4,6 @@ using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using CarPool.Web.ViewModels.DTOs;
 using CarPool.Web.ViewModels.Mappers;
-using Imagekit;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Authentication.Google;
@@ -12,12 +11,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
-using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Security.Claims;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CarPool.Web.Controllers
@@ -233,7 +229,7 @@ namespace CarPool.Web.Controllers
 
             var toUser = model.GetDTO();
 
-            await this._us.PostAsync(toUser);                       
+            await this._us.PostAsync(toUser);
 
             await _mail.SendEmailAsync(new MailDTO { Reciever = model.Email });
 
@@ -266,7 +262,7 @@ namespace CarPool.Web.Controllers
 
         [HttpGet]
         public async Task<IActionResult> ForgotPassword(string email)
-        {            
+        {
 
             if (await _auth.IsEmailValidForPasswordReset(email))
             {
@@ -307,7 +303,7 @@ namespace CarPool.Web.Controllers
             var email = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
             var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
 
-            if (TempData["IsGoogleAccount"].ToString() == "False" 
+            if (TempData["IsGoogleAccount"].ToString() == "False"
                 && !await _auth.IsPasswordValidAsync(email, model.Password))
             {
                 this.ModelState.AddModelError("Password", GlobalConstants.OLD_PASSWORD);

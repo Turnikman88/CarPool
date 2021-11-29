@@ -48,7 +48,13 @@
     margin-bottom: 10px;
 }
 
-
+#footer-main {
+    position: fixed;
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    text-align: center;
+}
 #preloader {
     overflow: hidden;
     background: linear-gradient(225deg, #ff3c60 0%, #FF3CAC 24%, #2B86C5 75%);
