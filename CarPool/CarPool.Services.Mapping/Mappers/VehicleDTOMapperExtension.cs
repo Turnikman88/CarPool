@@ -23,7 +23,8 @@ namespace CarPool.Services.Mapping.Mappers
                 Id = vehicle.Id,
                 Color = vehicle.Color,
                 Model = vehicle.Model,
-                FuelConsumptionPerHundredKilometers = vehicle.FuelConsumptionPerHundredKilometers
+                FuelConsumptionPerHundredKilometers = vehicle.FuelConsumptionPerHundredKilometers,
+                ApplicationUserId = vehicle.ApplicationUserId
             };
         }
         public static UserVehicle GetEntity(this UserVehicleDTO vehicle)
@@ -34,7 +35,8 @@ namespace CarPool.Services.Mapping.Mappers
                 Id = vehicle.Id,
                 Color = vehicle.Color,
                 Model = vehicle.Model,
-                FuelConsumptionPerHundredKilometers = vehicle.FuelConsumptionPerHundredKilometers
+                FuelConsumptionPerHundredKilometers = vehicle.FuelConsumptionPerHundredKilometers,
+                ApplicationUserId = vehicle.ApplicationUserId
             };
         }
     }

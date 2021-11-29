@@ -1,4 +1,5 @@
 ﻿using CarPool.Services.Mapping.DTOs;
+using System;
 using System.Threading.Tasks;
 
 namespace CarPool.Services.Data.Contracts
@@ -18,5 +19,7 @@ namespace CarPool.Services.Data.Contracts
         Task<string> ConfirmEmail(string token);
 
         Task<bool> IsEmailValidForPasswordReset(string email);
+
+        Task<Guid> GetUserId(string email);
     }
 }

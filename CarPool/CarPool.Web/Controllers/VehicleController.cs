@@ -1,6 +1,7 @@
 ﻿using CarPool.Services.Data.Contracts;
 using CarPool.Web.Infrastructure.Extensions;
 using CarPool.Web.ViewModels.DTOs;
+using CarPool.Web.ViewModels.Mappers;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Collections.Generic;
@@ -13,24 +14,21 @@ namespace CarPool.Web.Controllers
     public class VehicleController : Controller
     {
         private readonly IUserVehicleService _vs;
+        private readonly IAuthService _auth;
 
-        public VehicleController(IUserVehicleService vs)
+        public VehicleController(IUserVehicleService vs, IAuthService auth)
         {
             this._vs = vs;
+            this._auth = auth;
         }
 
         public async Task<IActionResult> Index()
         {
             var email = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+
             var vehicle = await _vs.GetUserVehicle(email);
-            var model = new UserVehicleViewModel
-            {
-                Id = vehicle.Id,
-                CarModel = vehicle.Model,
-                Color = vehicle.Color,
-                FuelConsumptionPerHundredKilometers = vehicle.FuelConsumptionPerHundredKilometers
-            };
-            return View(model);
+
+            return View(vehicle.GetViewModel());
         }
 
         [HttpPost]
@@ -40,6 +38,15 @@ namespace CarPool.Web.Controllers
             {
                 return Json(new { isValid = false, html = await Helper.RenderViewAsync(this, "Index", model, false) });
             }
+
+            var email = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
+
+            var modelDTO = model.GetDto();
+
+            modelDTO.ApplicationUserId = await _auth.GetUserId(email);
+
+            await _vs.UpdateAsync(id, modelDTO);
+
             return Json(new { isValid = true, html = "" });
         }
     }
