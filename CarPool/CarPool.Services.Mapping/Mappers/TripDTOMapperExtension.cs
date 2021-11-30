@@ -1,9 +1,7 @@
 ﻿using CarPool.Data.Models.DatabaseModels;
 using CarPool.Services.Mapping.DTOs;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 
 namespace CarPool.Services.Mapping.Mappers
 {
@@ -15,6 +13,7 @@ namespace CarPool.Services.Mapping.Mappers
             {
                 Id = trip.Id,
                 DriverId = trip.DriverId.ToString(),
+                DriverEmail = trip.Driver.Email,
                 DriverName = $"{trip.Driver.FirstName} {trip.Driver.LastName}",
                 DriverPhonenumber = trip.Driver.PhoneNumber,
                 DriverVehicle = trip.Driver.Vehicle.Model,
@@ -36,7 +35,7 @@ namespace CarPool.Services.Mapping.Mappers
                 AdditionalComment = trip.AdditionalComment,
                 PassengersNameAndPhone = trip.Passengers
                                        .Where(p => p.TripId == trip.Id)
-                                       .Select(x=>x.ApplicationUser.FirstName + " " + x.ApplicationUser.LastName + " " + x.ApplicationUser.PhoneNumber)
+                                       .Select(x => x.ApplicationUser.FirstName + " " + x.ApplicationUser.LastName + " " + x.ApplicationUser.PhoneNumber)
                                        .ToList()
             };
         }

@@ -2,6 +2,7 @@
 @{
     int page = Model.CurrentPage;
     int maxPage = Model.MaxPages;
+    string email = Context.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
 }
 
 
@@ -27,51 +28,49 @@
         </tr>
         @if (Model.UpcomingTrips.Count() == 0)
         {
-            <tr>
-                <th> scope="col">No trips were found!</th>
-            </tr>
-            <tr> <th scope="col">No trips were found!</th> </tr>
+
+            <tr> <th scope="col" style="position: center">No trips were found!</th> </tr>
         }
         else
         {
-            @foreach (var item in Model.UpcomingTrips)
+            @foreach (var tr in Model.UpcomingTrips)
             {
-                string streetUrl = $"https:////www.google.com/maps/search/?api=1&query={item.StartAddressStreet} {item.StartAddressCity} {item.StartAddressCountry}";
-                string dir = $"https:////www.google.com/maps/dir/{item.StartAddressStreet} {item.StartAddressCity} {item.StartAddressCountry}/{item.DestinationAddressStreet} {item.DestinationAddressCity} {item.DestinationAddressCountry}/";
+                string streetUrl = $"https:////www.google.com/maps/search/?api=1&query={tr.StartAddressStreet} {tr.StartAddressCity} {tr.StartAddressCountry}";
+                string dir = $"https:////www.google.com/maps/dir/{tr.StartAddressStreet} {tr.StartAddressCity} {tr.StartAddressCountry}/{tr.DestinationAddressStreet} {tr.DestinationAddressCity} {tr.DestinationAddressCountry}/";
                 string freeride = "FREE RIDE";
                 <tr>
-                    <td scope="col">@item.StartAddressCity</td>
-                    <td scope="col">@item.DestinationAddressCity</td>
-                    <td scope="col">@item.DepartureTime.ToString("MMMM dd, yyyy")</td>
-                    <td scope="col">@item.DurationInMinutes</td>
-                    <td scope="col">@item.Distance</td>
-                    <td scope="col">@item.DriverName</td>
-                    <td scope="col">@item.PassengersCount</td>
-                    <td scope="col">@item.FreeSeats</td>
-                    <td scope="col">@item.DriverVehicle @item.DriverVehicleColor</td>
+                    <td scope="col">@tr.StartAddressCity</td>
+                    <td scope="col">@tr.DestinationAddressCity</td>
+                    <td scope="col">@tr.DepartureTime.ToString("MMMM dd, yyyy")</td>
+                    <td scope="col">@tr.DurationInMinutes</td>
+                    <td scope="col">@tr.Distance</td>
+                    <td scope="col">@tr.DriverName</td>
+                    <td scope="col">@tr.PassengersCount</td>
+                    <td scope="col">@tr.FreeSeats</td>
+                    <td scope="col">@tr.DriverVehicle @tr.DriverVehicleColor</td>
                     <td scope="col">
-                        @if (item.Price > 0.00m)
-                        {@item.Price}
+                        @if (tr.Price > 0.00m)
+                        {@tr.Price}
                     else
                     {
                         @freeride
                     }
                     </td>
                     <td scope="col">
-                        @if (item.AdditionalComment.Length > 30)
+                        @if (tr.AdditionalComment.Length > 25)
                         {
-                            @item.AdditionalComment.Substring(0, 30);
+                            @tr.AdditionalComment.Substring(0, 25);
                         }
                         else
                         {
-                            @item.AdditionalComment
+                            @tr.AdditionalComment
                         }
                     </td>
                     <td scope="col"><button class="btn btn-outline-primary btn-sm" onclick="openMaps('@dir')">Show trip</button></td>
-                    <td scope="col"><button class="btn btn-outline-primary btn-sm" onclick="ExecuteEmptyAjax('@Url.Action("Join", "Trip", new { id = item.Id })', 'JOIN')">Join</button></td>
-                    @*<td scope="col"><button class="btn btn-outline-danger btn-sm" onclick="ExecuteEmptyAjax('@Url.Action("Leave", "Trip", new { id = item.Id })')">Leave</button></td>*@
-
-
+                    @if (email != tr.DriverEmail)
+                    {
+                        <td scope="col"><button class="btn btn-outline-primary btn-sm" onclick="ExecuteEmptyAjax('@Url.Action("Join", "Trip", new { id = tr.Id })', 'JOIN')">Join</button></td>
+                    }
                 </tr>
             }
         }

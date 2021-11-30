@@ -11,13 +11,13 @@ namespace CarPool.Data.DataConfigurations
             builder.HasKey(k => new { k.ApplicationUserId, k.TripId });
 
             builder.HasOne(d => d.ApplicationUser)
-                .WithMany(x=>x.TripsAsPassenger)
+                .WithMany(x => x.TripsAsPassenger)
                 .HasForeignKey(d => d.ApplicationUserId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TripPassengerRelation_ApplicationUsers");
 
             builder.HasOne(d => d.Trip)
-                .WithMany(x=>x.Passengers)
+                .WithMany(x => x.Passengers)
                 .HasForeignKey(d => d.TripId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
                 .HasConstraintName("FK_TripPassengerRelation_Trips");

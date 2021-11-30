@@ -11,6 +11,8 @@ namespace CarPool.Services.Mapping.DTOs
 
         public string DriverId { get; set; }
 
+        public string DriverEmail { get; set; }
+
         public string DriverName { get; set; }
 
         public string DriverVehicle { get; set; }

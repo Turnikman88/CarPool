@@ -29,5 +29,6 @@ namespace CarPool.Web.ViewModels.DTOs
 
         public IEnumerable<TripDTO> UpcomingTrips { get; set; }
         public IEnumerable<TripDTO> PastTrips { get; set; }
+
     }
 }

@@ -24,7 +24,7 @@ namespace CarPool.Services.Data.Services
 
         public async Task<RatingDTO> PostFeedbackAsync(RatingDTO obj)
         {
-            if (!await IsAlreadyRatedAsync(obj.ApplicationUserId.ToString(), obj.AddedByUserId.ToString(), obj.TripId))
+            if (await IsAlreadyRatedAsync(obj.ApplicationUserId.ToString(), obj.AddedByUserId.ToString(), obj.TripId))
             {
                 return new RatingDTO { ErrorMessage = GlobalConstants.TRIP_ALREADY_REVIEWED };
             }
