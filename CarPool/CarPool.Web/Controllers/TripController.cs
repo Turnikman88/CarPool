@@ -178,7 +178,7 @@ namespace CarPool.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> Report()
+        public IActionResult Report()
         {
             return View(new RatingViewModel());
         }

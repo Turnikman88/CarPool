@@ -23,7 +23,7 @@ else
     </div>
 
     <div class="col" style="width:auto; height:auto; overflow:auto; padding: 15px; display:flex; justify-content:center;">
-        <table class="table-custom">
+        <table class="table-custom" style="width:60%;">
             <tr>
                 <th scope="col">From</th>
                 <th scope="col">To</th>
@@ -34,6 +34,8 @@ else
                         Add
                     </button>
                 </th>
+                <th></th>
+                <th></th>
                 <th></th>
             </tr>
             @if (Model.UpcomingTrips.Count() == 0)
