@@ -697,8 +697,8 @@ p {
 table {
   border-collapse: collapse;
   border-spacing: 0;
-  margin: 0 0 40px;
-  width: 100%; }
+  
+  width: 60%; }
 
 table a,
 table a:link,
@@ -5191,6 +5191,7 @@ textarea {
   color: var(--color-body);
   /* -- Placeholder -- */ }
   input[type="text"]::placeholder,
+  input[type="date"]::placeholder,
   input[type="password"]::placeholder,
   input[type="email"]::placeholder,
   input[type="number"]::placeholder,
@@ -5200,6 +5201,7 @@ textarea {
     /* Firefox */
     opacity: 1; }
   input[type="text"]:-ms-input-placeholder,
+  input[type="date"]:-ms-input-placeholder,
   input[type="password"]:-ms-input-placeholder,
   input[type="email"]:-ms-input-placeholder,
   input[type="number"]:-ms-input-placeholder,
@@ -5234,7 +5236,7 @@ textarea {
   textarea.input-active {
     border-color: var(--color-primary);
     /* -- Placeholder -- */ }
-    input[type="text"].p-holder__active::placeholder, input.input-active[type="text"]::placeholder, .input-active input[type="text"]::placeholder,
+    input[type="text"].p-holder__active::placeholder, input.input-active[type="text"]::placeholder, .input-active input[type="date"], .input-active input[type="text"]::placeholder,
     input[type="password"].p-holder__active::placeholder,
     input.input-active[type="password"]::placeholder,
     .input-active input[type="password"]::placeholder,
@@ -5249,9 +5251,10 @@ textarea {
     .input-active input[type="tel"]::placeholder,
     textarea.p-holder__active::placeholder,
     textarea.input-active::placeholder {
-      color: var(--color-primary);
-      /* Firefox */
-      opacity: 1; }
+        color: var(--color-primary);
+        /* Firefox */
+        opacity: 1;
+    }
     input[type="text"].p-holder__active:-ms-input-placeholder, input.input-active[type="text"]:-ms-input-placeholder, .input-active input[type="text"]:-ms-input-placeholder,
     input[type="password"].p-holder__active:-ms-input-placeholder,
     input.input-active[type="password"]:-ms-input-placeholder,

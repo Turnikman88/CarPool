@@ -9,93 +9,101 @@
 @section Styles{
     <link rel="stylesheet" href="~/css/custom.css">
 }
+<div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Trip" asp-action="Index">All Trips</a></div>
+<div style="display: flex; justify-content:center;">
+    <a class="btn-read-more" href="javascript:ChangeMenu('upcoming-trips')"><span>Upcoming trips</span></a>
+    <a class="btn-read-more" style="margin-left:20px;" href="javascript:ChangeMenu('past-trips')"><span>Past trips</span></a>
+</div>
 
-@if (Model.UpcomingTrips is null || Model.UpcomingTrips.Count() == 0)
-{
-    <tr> No trips were found!</tr>
-}
-else
-{
-    <div class="col" style="width:auto; height:auto; overflow:auto; padding: 15px;">
-        <table class="table-custom">
-            <tr>
-                <th scope="col">From</th>
-                <th scope="col">To</th>
-                <th scope="col">Departure Date</th>
-                <th scope="col">Trip duration</th>
-                <th scope="col">Distance</th>
-                <th scope="col">Driver</th>
-                <th scope="col">Passengers</th>
-                <th scope="col">Free seats</th>
-                <th scope="col">Car</th>
-                <th scope="col">Price</th>
-                <th scope="col">Additional comment</th>
-                <th scope="col"><button class="btn btn-outline-success" onclick="showInPopup('@Url.Action("Create", "Trip")', 'Create')">Add New</button></th>
-            </tr>
+<div class="col" style="width:auto; height:auto; overflow:auto; padding: 15px; display:flex; justify-content:center;">
+    <table class="table-custom">
+        <tr>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+            <th scope="col">Departure Date</th>
+            <th scope="col">
+                <button class="btn-default btn-details"
+                        onclick="showInPopup('@Url.Action("Create", "Trip")', 'Create')">
+                    Add
+                </button>
+            </th>
+            <th></th>
+        </tr>
+        @if (Model.UpcomingTrips.Count() == 0)
+        {
 
-
+            <tr> <th scope="col" style="position: center">No trips were found!</th> </tr>
+        }
+        else
+        {
             @foreach (var tr in Model.UpcomingTrips)
             {
                 string streetUrl = $"https:////www.google.com/maps/search/?api=1&query={tr.StartAddressStreet} {tr.StartAddressCity} {tr.StartAddressCountry}";
                 string dir = $"https:////www.google.com/maps/dir/{tr.StartAddressStreet} {tr.StartAddressCity} {tr.StartAddressCountry}/{tr.DestinationAddressStreet} {tr.DestinationAddressCity} {tr.DestinationAddressCountry}/";
-                string freeride = "FREE RIDE";
+                string price = tr.Price > 0.00M ? tr.Price.ToString() : "FREE RIDE";
                 <tr>
                     <td scope="col">@tr.StartAddressCity</td>
                     <td scope="col">@tr.DestinationAddressCity</td>
                     <td scope="col">@tr.DepartureTime.ToString("MMMM dd, yyyy")</td>
-                    <td scope="col">@tr.DurationInMinutes</td>
-                    <td scope="col">@tr.Distance</td>
-                    <td scope="col">@tr.DriverName</td>
-                    <td scope="col">@tr.PassengersCount</td>
-                    <td scope="col">@tr.FreeSeats</td>
-                    <td scope="col">@tr.DriverVehicle @tr.DriverVehicleColor</td>
+
                     <td scope="col">
-                        @if (tr.Price > 0.00m)
-                        {@tr.Price}
-                    else
-                    {
-                        @freeride
-                    }
+                        <button class="btn-default btn-details" style="background-color: #7066e0!important"
+                                onclick="showDetails('@tr.DurationInMinutes', '@tr.Distance', '@tr.DriverName',
+                                                    '@tr.PassengersCount', '@tr.FreeSeats', '@tr.DriverVehicle',
+                                                        '@tr.DriverVehicleColor', '@price', '@tr.AdditionalComment')">
+                            Details
+                        </button>
                     </td>
+
                     <td scope="col">
-                        @if (tr.AdditionalComment.Length > 25)
-                        {
-                            @tr.AdditionalComment.Substring(0, 25);
-                        }
-                        else
-                        {
-                            @tr.AdditionalComment
-                        }
+                        <button class="btn-default btn-details" style="background-color: #7066e0!important"
+                                onclick="openMaps('@dir')">
+                            Map
+                        </button>
                     </td>
-                    <td scope="col"><button class="btn btn-outline-primary btn-sm" onclick="openMaps('@dir')">Show trip</button></td>
                     @if (email == tr.DriverEmail)
                     {
-                        <td scope="col"><button class="btn btn-outline-danger btn-sm" onclick="ExecuteEmptyAjax('@Url.Action("Leave", "Trip", new { id = tr.Id })', 'LEAVE')">Delete</button></td>
+                        <td scope="col">
+                            <button style="background-color: red!important"
+                                    class="btn-default btn-details" id="join-id" onclick="ajaxId('@Url.Action("Leave", "Trip", new { id = tr.Id })', 'upcoming-trips')">
+                                Delete
+                            </button>
+                        </td>
 
                     }
                     else
                     {
-                        <td scope="col"><button class="btn btn-outline-danger btn-sm" onclick="ExecuteEmptyAjax('@Url.Action("Leave", "Trip", new { id = tr.Id })', 'LEAVE')">Leave</button></td>
+                        <td scope="col">
+                            <button style="background-color: red!important"
+                                    class="btn-default btn-details" id="join-id" onclick="ajaxId('@Url.Action("Leave", "Trip", new { id = tr.Id })', 'upcoming-trips')">
+                                Leave
+                            </button>
+                        </td>
 
                     }
 
                 </tr>
-             }
+            }
+        }
 
-        </table>
-        <button id="prev-page" style="text-align: center; margin: auto; display: flex; display: grid" class="btn btn-outline-primary btn-extra-large" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page-1 })')">Previous Page</button>
-        <button id="next-page" style="text-align: center; margin: auto; display: flex; display: grid" class="btn btn-outline-primary btn-extra-large" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page+1 })')">Next Page</button>
+    </table>
 
-    </div>
-}
+</div>
+<div style="display:flex; justify-content:center;">
+    <button id="prev-page" style="text-align: center; background-color: #FF3CAC;" class="btn-default btn-details dark-theme" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page - 1 })')"><span class="fas fa-arrow-left"></span></button>
+    <button id="next-page" style="text-align: center; background-color: #FF3CAC; margin-left: 20px; " class="btn-default btn-details dark-theme" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page + 1 })')"><span class="fas fa-arrow-right"></span></button>
 
-
+</div>
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="~/assets/js/vendor/jquery.min.js"></script>
+
 <script>
     openMaps = (url) => {
         window.open(url, '_blank').focus()
     }
-        $(document).ready(function () {
+    $(document).ready(function () {
+        $('#past-trips').hide();
+        $('#upcoming-trips').show();
     if(@Model.CurrentPage == 0)
     $('#prev-page').prop('disabled', true);
     if (@Model.CurrentPage == @Model.MaxPages)
@@ -104,8 +112,60 @@ else
     $('#prev-page').prop('disabled', false);
     if (@Model.CurrentPage != @Model.MaxPages)
     $('#next-page').prop('disabled', false);
-    });
+        });
 
+    function ChangeMenu(tag) {
+        if (tag == 'upcoming-trips') {
+            $('#past-trips').hide();
+            $('#upcoming-trips').show();
+        } else {
+            $('#past-trips').show();
+            $('#upcoming-trips').hide();
+        }
+    }
+    function JoinTrip() {
+        Swal.fire({
+            position: 'center',
+            backdrop: false,
+            customClass: 'swal-contact',
+            title: '<h5 class="swal-title"> You joined a new trip! </h5>',
+            showConfirmButton: true,
+            //timer: 5000
+        })
+    }
+    function showDetails(duration, distance, driver, passengers, seats, vehicalModel, vehicleColor, price, comment) {
+        Swal.fire({
+            position: 'center',
+            backdrop: false,
+            customClass: 'swal-trip',
+            title: '<h4 class="swal-title"> Details </h4>',
+            showConfirmButton: true,
+            html:
+            `<div class='row' style='height: 400px;'>` +
+                `<div class='col'>` +
+                    `<h5>Trip duration</h5>` +
+                    `<h6>${duration}</h6>` +
+                    `<h5>Trip Distance</h5>` +
+                    `<h6>${distance}</h6>` +
+                    `<h5>Driver Name</h5>` +
+                    `<h6>${driver}</h6>` +
+                    `<h5>Passengers Count</h5>` +
+                    `<h6>${passengers}</h6>` +
+                `</div>` +
+                `<div class='col'>` +
+                    `<h5>Free Seats</h5>` +
+                    `<h6>${seats}</h6>` +
+                    `<h5>Vehicle</h5>` +
+                    `<h6>${vehicalModel} ${vehicleColor}</h6>` +
+                    `<h5>Trip Price</h5>` +
+                    `<h6>${price}</h6>` +
+                    `<h5>Comment</h5>` +
+                    `<h6>${comment}</h6>` +
+                `</div>` +
+            `</div>`
+        })
+    }
 </script>
+
 
 

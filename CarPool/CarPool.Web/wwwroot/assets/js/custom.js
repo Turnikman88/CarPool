@@ -69,6 +69,7 @@ ExecuteEmptyAjax = (url) => {
     })
 }
 
+
 $(".form-search").change(function () {
     $(this).attr('action', $('#sel').val());
 });
@@ -91,4 +92,14 @@ SearchBarAjax = form => {
         return false;
     } catch (ex) {
     }
+}
+
+ajaxId = (url, id) => {
+    $.ajax({
+        type: "POST",
+        url: url,
+        success: function (res) {
+            $(`#${id}`).html(res.html)
+        }
+    })
 }

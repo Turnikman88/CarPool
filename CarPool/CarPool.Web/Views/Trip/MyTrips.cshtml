@@ -5,10 +5,7 @@
         <div class="rn-splite-style">
             <div class="split-wrapper">
 
-                <a class="btn-read-more" href="javascript:ChangeMenu('upcoming-trips')"><span>Upcoming trips</span></a>
-                <a class="btn-read-more" href="javascript:ChangeMenu('past-trips')"><span>Past trips</span></a>
-                <div style="float: right !important;" class="btn"><a class="btn-default text-underline btn-small" asp-controller="Trip" asp-action="Index">Back</a></div>
-
+               
                 <div class="row g-0 radius-10 align-items-center" id="upcoming-trips">
                     @await Html.PartialAsync("_TableMyTrips", Model)
 
@@ -24,21 +21,6 @@
 </div>
 
 @section Scripts{
-    <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
-
-    <script>
-        $('#past-trips').hide();
-        $('#upcoming-trips').show();
-        function ChangeMenu(tag) {
-            if (tag == 'upcoming-trips') {
-                $('#past-trips').hide();
-                $('#upcoming-trips').show();
-            } else {
-                $('#past-trips').show();
-                $('#upcoming-trips').hide();
-            }
-        }
-    </script>
 
     <partial name="_ValidationScriptsPartial" />
 }
