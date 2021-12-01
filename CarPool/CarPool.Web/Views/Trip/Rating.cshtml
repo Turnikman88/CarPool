@@ -1,7 +1,14 @@
 ﻿@model RatingViewModel
-@{ Layout = "/Views/Shared/_LayoutEmpty.cshtml"; }
+@{ 
+    Layout = "/Views/Shared/_LayoutEmpty.cshtml";
+    int one = 1;
+    int two = 2;
+    int three = 3;
+    int four = 4;
+    int five = 5;
+}
 
-<form asp-action="Rating" class="contact-form-1 rwt-dynamic-form" onsubmit="return jQueryAjaxPost(this);">
+<form asp-action="Rating" class="contact-form-1 rwt-dynamic-form" onsubmit="return jQueryAjaxPost(this);" method="post">
 
     <label>Any Comments?</label>
     <div class="form-group">
@@ -10,9 +17,20 @@
     </div>
 
     <label>Rating</label>
-    <div class="form-group">
-        <input asp-for="Value" placeholder="Rate this user">
-        <span asp-validation-for="Value" class="form-error"></span>
+    <div id="full-stars-example-two">
+        <div class="rating-group">
+            <input asp-for="Value" disabled class="rating__input rating__input--none" name="rating3" id="rating3-none" value=0 type="radio">
+            <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+            <input asp-for="Value" class="rating__input" name="rating3" id="rating3-1"  value=@one type="radio">
+            <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+            <input asp-for="Value" class="rating__input" name="rating3" id="rating3-2"  value=@two type="radio">
+            <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+            <input asp-for="Value" class="rating__input" name="rating3" id="rating3-3" value=@three type="radio">
+            <label aria-label="4 stars" class="rating__label" for="rating3-4"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+            <input asp-for="Value" class="rating__input" name="rating3" id="rating3-4" value=@four type="radio">
+            <label aria-label="5 stars" class="rating__label" for="rating3-5"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
+            <input asp-for="Value" class="rating__input" name="rating3" id="rating3-5" value=@five type="radio">
+        </div>
     </div>
 
     <div class="form-group">
@@ -22,3 +40,8 @@
         </button>
     </div>
 </form>
+
+@section Scripts{
+
+
+}

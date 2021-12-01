@@ -69,18 +69,23 @@
                     <td scope="col"><button class="btn btn-outline-primary btn-sm" onclick="openMaps('@dir')">Show trip</button></td>
                     @if (email != tr.DriverEmail)
                     {
-                        <td scope="col"><button class="btn btn-outline-primary btn-sm" onclick="ExecuteEmptyAjax('@Url.Action("Join", "Trip", new { id = tr.Id })', 'JOIN')">Join</button></td>
+                        <td scope="col">
+                            <button class="btn btn-outline-primary btn-sm" id="join-id" onclick="ExecuteEmptyAjax('@Url.Action("Join", "Trip" , new { id=tr.Id })'); JoinTrip();">
+                                Join
+                            </button>
+                        </td>
                     }
                 </tr>
             }
         }
 
     </table>
-    <button id="prev-page" style="text-align: center; margin: auto; display: flex; display: grid" class="btn btn-outline-primary btn-extra-large" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page-1 })')">Previous Page</button>
-    <button id="next-page" style="text-align: center; margin: auto; display: flex; display: grid" class="btn btn-outline-primary btn-extra-large" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page+1 })')">Next Page</button>
+    <button id="prev-page" style="text-align: center; margin: auto; display: flex; display: grid" class="btn btn-outline-primary btn-extra-large" onclick="ExecuteEmptyAjax('@Url.Action(" Index", "Trip" , new { p=page-1 })')">Previous Page</button>
+    <button id="next-page" style="text-align: center; margin: auto; display: flex; display: grid" class="btn btn-outline-primary btn-extra-large" onclick="ExecuteEmptyAjax('@Url.Action(" Index", "Trip" , new { p=page+1 })')">Next Page</button>
 
 </div>
 
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="~/assets/js/vendor/jquery.min.js"></script>
 <script>
     openMaps = (url) => {
@@ -95,8 +100,21 @@
     $('#prev-page').prop('disabled', false);
     if (@Model.CurrentPage != @Model.MaxPages)
     $('#next-page').prop('disabled', false);
-    });
+        });
+
+
+    function JoinTrip() {
+        Swal.fire({
+            position: 'center',
+            backdrop: false,
+            customClass: 'swal-contact',
+            title: '<h5 class="swal-title"> You joined a new trip! </h5>',
+            showConfirmButton: true,
+            //timer: 5000
+        })
+    }
 
 </script>
+
 
 

@@ -26,6 +26,7 @@ namespace CarPool.Services.Mapping.Mappers
                 AddedByUserId = rating.AddedByUserId,
                 ApplicationUserId = rating.ApplicationUserId,
                 Feedback = rating.Feedback,
+                IsReport = rating.IsReport,
                 Value = rating.Value,
                 CreatedOn = System.DateTime.UtcNow,
                 TripId = rating.TripId

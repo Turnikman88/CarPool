@@ -176,5 +176,31 @@ namespace CarPool.Web.Controllers
 
             return await MyTrips(0);
         }
+
+        [HttpGet]
+        public async Task<IActionResult> Report()
+        {
+            return View(new RatingViewModel());
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Report(RatingViewModel obj, int id)
+        {
+            var userEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+            var feedbackFromUser = await _user.GetUserByEmailAsync(userEmail);
+            var trip = await _trip.GetTripByIDAsync(id);
+
+            var response = await _rating.PostFeedbackAsync(
+                new RatingDTO
+                {
+                    AddedByUserId = feedbackFromUser.Id,
+                    ApplicationUserId = Guid.Parse(trip.DriverId),
+                    Feedback = obj.Comment,
+                    TripId = id,
+                    IsReport = true
+                });
+
+            return await MyTrips(0);
+        }
     }
 }

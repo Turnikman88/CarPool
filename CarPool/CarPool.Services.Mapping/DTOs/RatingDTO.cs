@@ -12,6 +12,8 @@ namespace CarPool.Services.Mapping.DTOs
 
         public int Value { get; set; }
 
+        public bool IsReport { get; set; }
+
         public int TripId { get; set; }
 
         public string ErrorMessage { get; set; }

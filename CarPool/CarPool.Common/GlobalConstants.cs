@@ -118,6 +118,8 @@
 
         public const string TRIP_ALREADY_REVIEWED = "You've already reviewed this trip";
 
+        public const string TRIP_ALREADY_REPORTED = "You've already reported this trip";
+
         public const string TRIP_YOU_CANNOT_REVEIW_YOURSELF = "You cannot review yourself";
     }
 }

@@ -12,6 +12,8 @@
 
         public int TripId { get; set; }
 
+        public bool IsReport { get; set; }
+
         public int Value { get; set; }
 
         public string Feedback { get; set; } = GlobalConstants.NO_FEEDBACK;

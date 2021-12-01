@@ -70,6 +70,7 @@ else
                     @if (tr.DriverEmail != email)
                     {
                         <td scope="col"><button class="btn btn-outline-danger btn-sm" onclick="showInPopup('@Url.Action("Rating", "Trip", new { id = tr.Id })', 'Rating')">Rating</button></td>
+                        <td scope="col"><button class="btn btn-outline-danger btn-sm" onclick="showInPopup('@Url.Action("Report", "Trip", new { id = tr.Id })', 'Report')">Report</button></td>
                     }
                 </tr>
             }

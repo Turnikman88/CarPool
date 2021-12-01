@@ -17,9 +17,24 @@ namespace CarPool.Services.Data.Services
             this._db = db;
         }
 
-        public async Task<bool> IsAlreadyRatedAsync(string driverID, string userID, int tripID)
+        public async Task<RatingDTO> PostReportAsync(RatingDTO obj)
         {
-            return await this._db.Ratings.AnyAsync(x => x.AddedByUserId.ToString() == userID && x.ApplicationUserId.ToString() == driverID && x.TripId == tripID);
+            if (await IsAlreadyReportedAsync(obj.ApplicationUserId.ToString(), obj.AddedByUserId.ToString(), obj.TripId))
+            {
+                return new RatingDTO { ErrorMessage = GlobalConstants.TRIP_ALREADY_REPORTED };
+            }
+
+            if (obj.ApplicationUserId == obj.AddedByUserId)
+            {
+                return new RatingDTO { ErrorMessage = GlobalConstants.TRIP_YOU_CANNOT_REVEIW_YOURSELF };
+            }
+
+            var model = obj.GetModel();
+
+            await _db.Ratings.AddAsync(model);
+            await _db.SaveChangesAsync();
+
+            return model.GetDTO();
         }
 
         public async Task<RatingDTO> PostFeedbackAsync(RatingDTO obj)
@@ -41,5 +56,16 @@ namespace CarPool.Services.Data.Services
 
             return model.GetDTO();
         }
+
+        private async Task<bool> IsAlreadyRatedAsync(string driverID, string userID, int tripID)
+        {
+            return await this._db.Ratings.AnyAsync(x => x.AddedByUserId.ToString() == userID && x.ApplicationUserId.ToString() == driverID && x.TripId == tripID && x.IsReport == false);
+        }
+
+        private async Task<bool> IsAlreadyReportedAsync(string driverID, string userID, int tripID)
+        {
+            return await this._db.Ratings.AnyAsync(x => x.AddedByUserId.ToString() == userID && x.ApplicationUserId.ToString() == driverID && x.TripId == tripID && x.IsReport == true);
+        }
+
     }
 }
