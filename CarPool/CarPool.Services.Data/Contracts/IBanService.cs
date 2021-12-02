@@ -7,8 +7,12 @@ namespace CarPool.Services.Data.Contracts
 {
     public interface IBanService
     {
-        Task<IEnumerable<ApplicationUserDisplayDTO>> GetAllBannedUsersAsync(int page);
+        Task<IEnumerable<BanDTO>> GetAllBannedUsersAsync(int page);
+
         Task<BanDTO> BanUserAsync(string email, string reason, DateTime? days);
+
         Task<BanDTO> UnbanUserAsync(string email);
+
+        Task<IEnumerable<ReportedDTO>> GetAllReportedUsersAsync(int page);
     }
 }

@@ -56,19 +56,24 @@ namespace CarPool.Services.Data.Services
             };
         }
 
-        public async Task<IEnumerable<ApplicationUserDisplayDTO>> GetAllBannedUsersAsync(int page)
+        public async Task<IEnumerable<BanDTO>> GetAllBannedUsersAsync(int page)
         {
             return await _db.ApplicationUsers
-                .Include(x => x.Address)
-                .Include(x => x.Ratings)
-                .Include(x => x.Trips)
-                    .ThenInclude(x => x.DestinationAddress)
-                .Include(x => x.Vehicle)
                 .Include(x => x.Ban)
+                .Include(x => x.ProfilePicture)
                 .Where(x => x.ApplicationRoleId == 3)
                 .Skip(page * GlobalConstants.PageSkip)
                 .Take(10)
-                .Select(x => x.GetDisplayDTO())
+                .Select(x => x.GetBanDTO())
+                .ToListAsync();
+        }
+
+        public async Task<IEnumerable<ReportedDTO>> GetAllReportedUsersAsync(int page)
+        {
+            return await _db.Ratings
+                .Include(x => x.ApplicationUser).ThenInclude(x => x.ProfilePicture)
+                .Where(x => x.IsReport == true)
+                .Select(x => x.GetReportedDTO())
                 .ToListAsync();
         }
 

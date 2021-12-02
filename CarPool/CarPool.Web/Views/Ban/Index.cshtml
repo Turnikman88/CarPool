@@ -1,0 +1,28 @@
+﻿@model IEnumerable<ReportedDTO>
+
+<div class="rwt-split-area rn-section-gap">
+    <div class="wrapper">
+        <div class="rn-splite-style">
+            <div class="split-wrapper">
+                <div class="row g-0 radius-10 align-items-center">
+                    <div class="col-sm">
+                        <div class="thumbnail">
+                            <div class="holder">
+                                <div class="bar"></div>
+                                <iframe class="frame" src='https://my.spline.design/untitled-96aa61e740d405a50f7980c1c9445fe8/' frameborder='0' style="width: 800px; height:400px;"></iframe>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg" style="margin-right:30px;" id="view-all">
+                        <div style="margin: 10px;">
+                            <a class="btn-read-more" href="javascript:ExecuteEmptyAjax(@Url.Action("Reported", "Ban"))"><span>Reported</span></a>
+                            <a class="btn-read-more" style="margin-left: 20px;" href="javascript:ExecuteEmptyAjax(@Url.Action("Banned", "Ban"))"><span>Banned</span></a>
+                        </div>
+                        @await Html.PartialAsync("_Reported", Model)
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>  
