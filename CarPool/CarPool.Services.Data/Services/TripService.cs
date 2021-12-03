@@ -91,7 +91,7 @@ namespace CarPool.Services.Data.Services
                                            .Include(x => x.DestinationAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
                                            .Include(x => x.Passengers).ThenInclude(x => x.Trip)
                                            .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser)
-                                           .Where(x => x.DepartureTime.Date < DateTime.Today.Date && x.Passengers.Any(x => x.ApplicationUser.Email == email))
+                                           .Where(x => x.DepartureTime.Date < DateTime.Today.Date && (x.Passengers.Any(x => x.ApplicationUser.Email == email) || x.Driver.Email == email))
                                            .Skip(page * GlobalConstants.PageSkip)
                                            .Take(10)
                                            .Select(x => x.GetDTO()).ToListAsync();
