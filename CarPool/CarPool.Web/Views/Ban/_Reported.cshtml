@@ -24,7 +24,7 @@
             </td>
             <td>
                 <button style="background-color: red!important"
-                        class="btn-default btn-details" onclick="showInPopup('@Url.Action("Ban", "Ban")', 'Ban')">
+                        class="btn-default btn-details" onclick="showInPopup('@Url.Action("Ban", "Ban", new {email = rep.Email })', 'Ban')">
                     Ban
                 </button>
             </td>

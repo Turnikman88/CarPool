@@ -14,5 +14,7 @@ namespace CarPool.Services.Data.Contracts
         Task<BanDTO> UnbanUserAsync(string email);
 
         Task<IEnumerable<ReportedDTO>> GetAllReportedUsersAsync(int page);
+
+        Task<ReportedDTO> GetReportedUserByEmail(string email);
     }
 }

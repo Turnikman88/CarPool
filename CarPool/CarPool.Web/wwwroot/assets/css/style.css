@@ -5174,6 +5174,7 @@ select {
 input[type="text"],
 input[type="password"],
 input[type="email"],
+input[type="date"],
 input[type="number"],
 input[type="tel"],
 textarea {
@@ -5188,7 +5189,7 @@ textarea {
   outline: none;
   border: var(--border-width) solid var(--color-border);
   border-radius: var(--radius);
-  color: var(--color-body);
+  color: var(--color-body)!important;
   /* -- Placeholder -- */ }
   input[type="text"]::placeholder,
   input[type="date"]::placeholder,
@@ -5211,6 +5212,7 @@ textarea {
     color: var(--body-color);
     opacity: 1; }
   input[type="text"]::-ms-input-placeholder,
+  input[type="date"]::-ms-input-placeholder,
   input[type="password"]::-ms-input-placeholder,
   input[type="email"]::-ms-input-placeholder,
   input[type="number"]::-ms-input-placeholder,
@@ -5222,6 +5224,7 @@ textarea {
   input[type="text"].p-holder__active, input.input-active[type="text"], .input-active input[type="text"],
   input[type="password"].p-holder__active,
   input.input-active[type="password"],
+  input.input-active[type="date"],
   .input-active input[type="password"],
   input[type="email"].p-holder__active,
   input.input-active[type="email"],
@@ -5236,7 +5239,7 @@ textarea {
   textarea.input-active {
     border-color: var(--color-primary);
     /* -- Placeholder -- */ }
-    input[type="text"].p-holder__active::placeholder, input.input-active[type="text"]::placeholder, .input-active input[type="date"], .input-active input[type="text"]::placeholder,
+    input[type="text"].p-holder__active::placeholder, input.input-active[type="text"]::placeholder, .input-active input[type="date"]::placeholder, .input-active input[type="text"]::placeholder,
     input[type="password"].p-holder__active::placeholder,
     input.input-active[type="password"]::placeholder,
     .input-active input[type="password"]::placeholder,

@@ -1,4 +1,5 @@
 ﻿using CarPool.Services.Data.Contracts;
+using CarPool.Services.Mapping.DTOs;
 using CarPool.Web.Infrastructure.Extensions;
 using CarPool.Web.ViewModels.DTOs;
 using Microsoft.AspNetCore.Mvc;
@@ -43,10 +44,21 @@ namespace CarPool.Web.Controllers
             return Json(new {html = await Helper.RenderViewAsync(this, "_Banned", banned, true) });
         }
 
-        [HttpPost]
-        public async Task<IActionResult> BanUser()
+        public async Task<IActionResult> Ban(string email)
         {
-            var reported = await _ban.BanUserAsync(email, days);
+            var model = await _ban.GetReportedUserByEmail(email);
+            TempData.Put("ReportedUser", model);
+            /*            return Json(new { html = await Helper.RenderViewAsync(this, "Ban", new ReportedDTO(), false) }); */
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Ban(ReportedDTO model)
+        {
+            var temp = TempData.Get<ReportedDTO>("ReportedUser");
+            var reported = await _ban.GetReportedUserByEmail(temp.Email);
+
+            await _ban.BanUserAsync(temp.Email, temp.Reason, model.Days);
 
             return Json(new { html = await Helper.RenderViewAsync(this, "_Reported", reported, true) });
         }

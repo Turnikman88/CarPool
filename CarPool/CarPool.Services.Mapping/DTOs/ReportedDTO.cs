@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Text;
 
 namespace CarPool.Services.Mapping.DTOs
@@ -12,6 +13,9 @@ namespace CarPool.Services.Mapping.DTOs
 
         public string Reason { get; set; }
 
-        public int? Days { get; set; }
+        [DataType(DataType.Date)]
+        public DateTime? Days { get; set; }
+
+        public string Message { get; set; }
     }
 }

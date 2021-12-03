@@ -1,5 +1,6 @@
 ﻿using CarPool.Common;
 using CarPool.Data;
+using CarPool.Data.Models.DatabaseModels;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using CarPool.Services.Mapping.Mappers;
@@ -31,7 +32,8 @@ namespace CarPool.Services.Data.Services
 
             if (user is null)
                 return new BanDTO() { ErrorMessage = GlobalConstants.USER_NOT_FOUND };
-            user.Ban = new CarPool.Data.Models.DatabaseModels.Ban();
+
+            user.Ban = new Ban();
             user.Ban.BlockedOn = DateTime.UtcNow.Date;
             user.Ban.Reason = reason;
             user.ApplicationRoleId = 3;
@@ -92,6 +94,22 @@ namespace CarPool.Services.Data.Services
             await _db.SaveChangesAsync();
 
             return new BanDTO() { ApplicationUserId = user.Id, BanRemovedMessage = string.Format(GlobalConstants.USER_UNBLOCKED, $"{user.Email}") };
+        }
+
+        public async Task<ReportedDTO> GetReportedUserByEmail(string email)
+        {
+            var reported = await _db.Ratings
+                .Include(x => x.ApplicationUser).ThenInclude(x => x.ProfilePicture)
+                .Where(x => x.IsReport == true && x.ApplicationUser.Email == email)
+                .Select(x => x.GetReportedDTO())
+                .FirstOrDefaultAsync();
+
+            if (reported is null)
+            {
+                return new ReportedDTO { Message = GlobalConstants.USER_NOT_FOUND };
+            }
+
+            return reported;
         }
     }
 }
