@@ -75,6 +75,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarPool.Web", "CarPool.Web\
 		{BDC78DFA-C630-48C1-9076-206F14066B48} = {BDC78DFA-C630-48C1-9076-206F14066B48}
 	EndProjectSection
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7ACD2F05-F128-4355-ABC3-CC28633751E9}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

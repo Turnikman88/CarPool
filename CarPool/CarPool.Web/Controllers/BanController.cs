@@ -1,9 +1,5 @@
 ﻿using CarPool.Services.Data.Contracts;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
 
 namespace CarPool.Web.Controllers
 {
@@ -14,13 +10,13 @@ namespace CarPool.Web.Controllers
 
         public BanController(IBanService ban, IApplicationUserService us)
         {
-            this._ban = ban;
-            this._us = us;
+            _ban = ban;
+            _us = us;
         }
 
         public IActionResult Index()
         {
-            return this.View(); 
+            return View(); 
         }
 
 /*        [HttpPost]

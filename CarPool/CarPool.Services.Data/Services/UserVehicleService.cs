@@ -4,10 +4,7 @@ using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using CarPool.Services.Mapping.Mappers;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CarPool.Services.Data.Services
@@ -19,7 +16,7 @@ namespace CarPool.Services.Data.Services
 
         public UserVehicleService(CarPoolDBContext db)
         {
-            this._db = db;
+            _db = db;
         }
 
         public async Task<UserVehicleDTO> PostAsync(UserVehicleDTO obj)
@@ -40,7 +37,7 @@ namespace CarPool.Services.Data.Services
 
             if (deletedVehicle == null)
             {
-                await this._db.UserVehicles.AddAsync(newVehicle);
+                await _db.UserVehicles.AddAsync(newVehicle);
                 await _db.SaveChangesAsync();
                 obj.Id = newVehicle.Id;
             }
@@ -64,10 +61,10 @@ namespace CarPool.Services.Data.Services
 
             if (!await _db.UserVehicles.AnyAsync(x => x.Id == id))
             {
-               return await PostAsync(obj);
+                return await PostAsync(obj);
             }
 
-            var model = await this._db.UserVehicles.FirstOrDefaultAsync(x => x.Id == id);
+            var model = await _db.UserVehicles.FirstOrDefaultAsync(x => x.Id == id);
 
             MapVehicle(obj, model);
 
@@ -103,7 +100,7 @@ namespace CarPool.Services.Data.Services
             }
 
             model.DeletedOn = System.DateTime.Now;
-            this._db.UserVehicles.Remove(model);
+            _db.UserVehicles.Remove(model);
             await _db.SaveChangesAsync();
 
             return model.GetDTO();
@@ -127,7 +124,7 @@ namespace CarPool.Services.Data.Services
             {
                 return new UserVehicleDTO { ErrorMessage = GlobalConstants.NO_VEHICLES };
             }
-           
+
             return model.GetDTO();
         }
     }

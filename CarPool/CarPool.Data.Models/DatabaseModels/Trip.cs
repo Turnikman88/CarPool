@@ -9,8 +9,8 @@ namespace CarPool.Data.Models.DatabaseModels
     {
         public Trip()
         {
-            this.Passengers = new HashSet<TripPassenger>();
-            this.AdditionalComment = GlobalConstants.NO_COMMENT;
+            Passengers = new HashSet<TripPassenger>();
+            AdditionalComment = GlobalConstants.NO_COMMENT;
         }
 
         public Guid DriverId { get; set; }

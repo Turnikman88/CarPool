@@ -62,25 +62,28 @@ namespace CarPool.Web.Controllers
         {
             var userEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
             var trips = await _trip.GetUpcomingTripsByUserAsync(0, userEmail);
-            var pasttrips = await _trip.GetPastByUserTrips(0, userEmail);
+            var manageableTrips = await _trip.GetUpcomingTripsByUserAsDriverAsync(0, userEmail);
+            var pastTrips = await _trip.GetPastByUserTrips(0, userEmail);
             var maxpages = await _trip.GetPageCountPerUserAsync(userEmail);
 
             var model = new TripViewModel()
             {
                 UpcomingTrips = trips,
-                PastTrips = pasttrips,
+                PastTrips = pastTrips,
                 CurrentPage = 0,
-                MaxPages = maxpages
-
+                MaxPages = maxpages,
+                ManageableTrips = manageableTrips
             };
             return View(model);
         }
+
 
         [HttpPost]
         public async Task<IActionResult> MyTrips([FromQuery] int p)
         {
             var userEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
             var trips = await _trip.GetUpcomingTripsByUserAsync(p, userEmail);
+            var manageableTrips = await _trip.GetUpcomingTripsByUserAsDriverAsync(0, userEmail);
             var pasttrips = await _trip.GetPastByUserTrips(p, userEmail);
             var maxpages = await _trip.GetPageCountPerUserAsync(userEmail);
 
@@ -89,7 +92,8 @@ namespace CarPool.Web.Controllers
                 UpcomingTrips = trips,
                 PastTrips = pasttrips,
                 MaxPages = maxpages,
-                CurrentPage = p
+                CurrentPage = p,
+                ManageableTrips = manageableTrips
             };
 
             return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_TableMyTrips", model, true) });
@@ -98,7 +102,7 @@ namespace CarPool.Web.Controllers
         public async Task<IActionResult> Create()
         {
             var requestEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
-            var driver = await _user.GetUserByEmailAsync(requestEmail);
+            var driver = await _user.GetUserByEmailOrIdAsync(requestEmail);
 
             if (driver.HasVehicle) //TODO: redirect? 
             {
@@ -111,7 +115,7 @@ namespace CarPool.Web.Controllers
         public async Task<IActionResult> Create(TripViewModel obj)
         {
             var requestEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
-            var driver = await _user.GetUserByEmailAsync(requestEmail);
+            var driver = await _user.GetUserByEmailOrIdAsync(requestEmail);
 
             await _trip.PostAsync(new TripDTO()
             {
@@ -161,7 +165,7 @@ namespace CarPool.Web.Controllers
         public async Task<IActionResult> Rating(RatingViewModel obj, int id)
         {
             var userEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
-            var feedbackFromUser = await _user.GetUserByEmailAsync(userEmail);
+            var feedbackFromUser = await _user.GetUserByEmailOrIdAsync(userEmail);
             var trip = await _trip.GetTripByIDAsync(id);
 
             var response = await _rating.PostFeedbackAsync(
@@ -187,7 +191,7 @@ namespace CarPool.Web.Controllers
         public async Task<IActionResult> Report(RatingViewModel obj, int id)
         {
             var userEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
-            var feedbackFromUser = await _user.GetUserByEmailAsync(userEmail);
+            var feedbackFromUser = await _user.GetUserByEmailOrIdAsync(userEmail);
             var trip = await _trip.GetTripByIDAsync(id);
 
             var response = await _rating.PostFeedbackAsync(
@@ -199,6 +203,16 @@ namespace CarPool.Web.Controllers
                     TripId = id,
                     IsReport = true
                 });
+
+            return await MyTrips(0);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> KickUser(string id, int tripid)
+        {
+            var userEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+
+            var action = await _trip.KickUserAsync(id, tripid, userEmail);
 
             return await MyTrips(0);
         }

@@ -1,5 +1,4 @@
 ﻿using CarPool.Common;
-using CarPool.Common.Exceptions;
 using CarPool.Data.Models.DatabaseModels;
 using CarPool.Services.Mapping.DTOs;
 using System.Linq;

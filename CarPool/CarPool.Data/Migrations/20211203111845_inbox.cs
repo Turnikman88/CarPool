@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace CarPool.Data.Migrations
 {
-    public partial class Initial : Migration
+    public partial class inbox : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
@@ -165,6 +165,30 @@ namespace CarPool.Data.Migrations
                 });
 
             migrationBuilder.CreateTable(
+                name: "Inboxes",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    CreatedOn = table.Column<DateTime>(nullable: false),
+                    ModifiedOn = table.Column<DateTime>(nullable: true),
+                    FromUserId = table.Column<Guid>(nullable: false),
+                    ApplicationUserId = table.Column<Guid>(nullable: false),
+                    Message = table.Column<string>(nullable: true),
+                    Seen = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Inboxes", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_Inboxes_ApplicationUsers_ApplicationUserId",
+                        column: x => x.ApplicationUserId,
+                        principalTable: "ApplicationUsers",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
                 name: "ProfilePictures",
                 columns: table => new
                 {
@@ -312,10 +336,10 @@ namespace CarPool.Data.Migrations
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "IsDeleted", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(5899), null, false, null, "Admin" },
-                    { 2, new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(6312), null, false, null, "User" },
-                    { 3, new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(6326), null, false, null, "Banned" },
-                    { 4, new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(6328), null, false, null, "NotConfirmed" }
+                    { 1, new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(1375), null, false, null, "Admin" },
+                    { 2, new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(1591), null, false, null, "User" },
+                    { 3, new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(1601), null, false, null, "Banned" },
+                    { 4, new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(1602), null, false, null, "NotConfirmed" }
                 });
 
             migrationBuilder.InsertData(
@@ -323,10 +347,10 @@ namespace CarPool.Data.Migrations
                 columns: new[] { "Id", "CreatedOn", "DeletedOn", "IsDeleted", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2021, 12, 1, 11, 58, 18, 819, DateTimeKind.Utc).AddTicks(8035), null, false, null, "Bulgaria" },
-                    { 2, new DateTime(2021, 12, 1, 11, 58, 18, 819, DateTimeKind.Utc).AddTicks(9958), null, false, null, "Turkey" },
-                    { 3, new DateTime(2021, 12, 1, 11, 58, 18, 819, DateTimeKind.Utc).AddTicks(9986), null, false, null, "Greece" },
-                    { 4, new DateTime(2021, 12, 1, 11, 58, 18, 819, DateTimeKind.Utc).AddTicks(9988), null, false, null, "Romania" }
+                    { 1, new DateTime(2021, 12, 3, 11, 18, 45, 100, DateTimeKind.Utc).AddTicks(5700), null, false, null, "Bulgaria" },
+                    { 2, new DateTime(2021, 12, 3, 11, 18, 45, 100, DateTimeKind.Utc).AddTicks(6825), null, false, null, "Turkey" },
+                    { 3, new DateTime(2021, 12, 3, 11, 18, 45, 100, DateTimeKind.Utc).AddTicks(6844), null, false, null, "Greece" },
+                    { 4, new DateTime(2021, 12, 3, 11, 18, 45, 100, DateTimeKind.Utc).AddTicks(6845), null, false, null, "Romania" }
                 });
 
             migrationBuilder.InsertData(
@@ -334,18 +358,18 @@ namespace CarPool.Data.Migrations
                 columns: new[] { "Id", "CountryId", "CreatedOn", "DeletedOn", "IsDeleted", "ModifiedOn", "Name" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(7371), null, false, null, "Sofia" },
-                    { 2, 1, new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8924), null, false, null, "Plovdiv" },
-                    { 3, 1, new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8970), null, false, null, "Varna" },
-                    { 4, 2, new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8973), null, false, null, "Istanbul" },
-                    { 9, 2, new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8988), null, false, null, "Odrin" },
-                    { 10, 2, new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8991), null, false, null, "Ankara" },
-                    { 5, 3, new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8975), null, false, null, "Athens" },
-                    { 6, 3, new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8982), null, false, null, "Thessaloniki" },
-                    { 7, 3, new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8985), null, false, null, "Patras" },
-                    { 8, 4, new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8986), null, false, null, "Yash" },
-                    { 11, 4, new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8993), null, false, null, "Bucharest" },
-                    { 12, 4, new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8995), null, false, null, "Craiova" }
+                    { 1, 1, new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(6664), null, false, null, "Sofia" },
+                    { 2, 1, new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7516), null, false, null, "Plovdiv" },
+                    { 3, 1, new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7542), null, false, null, "Varna" },
+                    { 4, 2, new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7544), null, false, null, "Istanbul" },
+                    { 9, 2, new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7554), null, false, null, "Odrin" },
+                    { 10, 2, new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7556), null, false, null, "Ankara" },
+                    { 5, 3, new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7546), null, false, null, "Athens" },
+                    { 6, 3, new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7550), null, false, null, "Thessaloniki" },
+                    { 7, 3, new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7552), null, false, null, "Patras" },
+                    { 8, 4, new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7553), null, false, null, "Yash" },
+                    { 11, 4, new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7557), null, false, null, "Bucharest" },
+                    { 12, 4, new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7558), null, false, null, "Craiova" }
                 });
 
             migrationBuilder.InsertData(
@@ -353,15 +377,15 @@ namespace CarPool.Data.Migrations
                 columns: new[] { "Id", "CityId", "CreatedOn", "DeletedOn", "IsDeleted", "Latitude", "Longitude", "ModifiedOn", "StreetName" },
                 values: new object[,]
                 {
-                    { 1, 1, new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(1104), null, false, 42.6860436m, 23.320311m, null, "Vasil Levski 14" },
-                    { 6, 1, new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(4865), null, false, 44.432558m, 26.111871m, null, null },
-                    { 2, 2, new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(4734), null, false, 42.1382775m, 24.7604295m, null, "blv. Iztochen 23" },
-                    { 7, 2, new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(4868), null, false, 44.432558m, 26.111871m, null, null },
-                    { 3, 3, new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(4790), null, false, 41.022079m, 28.9483964m, null, "blv. Halic 12" },
-                    { 8, 3, new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(4871), null, false, 44.432558m, 26.111871m, null, null },
-                    { 4, 4, new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(4795), null, false, 37.9916167m, 23.7363294m, null, "blv. Zeus 12" },
-                    { 9, 4, new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(4875), null, false, 44.432558m, 26.111871m, null, null },
-                    { 5, 5, new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(4857), null, false, 44.432558m, 26.111871m, null, "blv. Romunska Morava 1" }
+                    { 1, 1, new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(8886), null, false, 42.6860436m, 23.320311m, null, "Vasil Levski 14" },
+                    { 6, 1, new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(738), null, false, 44.432558m, 26.111871m, null, null },
+                    { 2, 2, new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(693), null, false, 42.1382775m, 24.7604295m, null, "blv. Iztochen 23" },
+                    { 7, 2, new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(740), null, false, 44.432558m, 26.111871m, null, null },
+                    { 3, 3, new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(729), null, false, 41.022079m, 28.9483964m, null, "blv. Halic 12" },
+                    { 8, 3, new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(742), null, false, 44.432558m, 26.111871m, null, null },
+                    { 4, 4, new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(732), null, false, 37.9916167m, 23.7363294m, null, "blv. Zeus 12" },
+                    { 9, 4, new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(782), null, false, 44.432558m, 26.111871m, null, null },
+                    { 5, 5, new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(734), null, false, 44.432558m, 26.111871m, null, "blv. Romunska Morava 1" }
                 });
 
             migrationBuilder.InsertData(
@@ -369,26 +393,26 @@ namespace CarPool.Data.Migrations
                 columns: new[] { "Id", "AddressId", "ApplicationRoleId", "CreatedOn", "Email", "EmailConfirmed", "FirstName", "LastName", "ModifiedOn", "Password", "PhoneNumber", "Username" },
                 values: new object[,]
                 {
-                    { new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"), 1, 2, new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(9440), "mishkov@misho.com", true, "Misho", "Mishkov", null, "$2a$11$414SjUNQgHASPwloWblZjOvEDCCM913EU3hkY7iEv.xTjfUUGKkBu", "+35920768005", "misha_m" },
-                    { new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"), 1, 1, new DateTime(2021, 12, 1, 11, 58, 19, 445, DateTimeKind.Utc).AddTicks(2774), "indebt@greece.gov", true, "Nikolaos", "Tsitsibaris", null, "$2a$11$1KuvXARVarDrHgtApqKspuO10f6Vx/ljG7UV/Az0LRk9CGSWiJ7eu", "+35924775508", "cicibar" },
-                    { new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"), 2, 2, new DateTime(2021, 12, 1, 11, 58, 19, 43, DateTimeKind.Utc).AddTicks(9959), "petio@mvc.net", true, "Peter", "Petrov", null, "$2a$11$ODdt2dtTaSOOaPDrBt7B/OjlK1DJBa6L7zZui32Yt38B9TZs17uYe", "+35924492877", "petio_p" },
-                    { new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"), 3, 2, new DateTime(2021, 12, 1, 11, 58, 19, 248, DateTimeKind.Utc).AddTicks(5459), "koksal@asd.tr", true, "Koksal", "Baba", null, "$2a$11$RR6YyXslhNzOZF14zxFpX.e.pAjVqwaZ.OLrNBbwdmkzqnsGhzWSK", "+35922649764", "koksal" }
+                    { new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"), 1, 2, new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(3650), "mishkov@misho.com", true, "Misho", "Mishkov", null, "$2a$11$j1.OhcqE366Gxa4xMunzXulWTf4BXZ5zywlhz/DLncECN6mxfoLi2", "+35920768005", "misha_m" },
+                    { new Guid("24be505d-c19f-4633-9342-bc262aed26f9"), 1, 1, new DateTime(2021, 12, 3, 11, 18, 45, 454, DateTimeKind.Utc).AddTicks(198), "indebt@greece.gov", true, "Nikolaos", "Tsitsibaris", null, "$2a$11$ebXYzzjiZhJZ2LhmOra.euJ8xkmC7EPTUoMx6aX.k1M4/GnkD8Vly", "+35924775508", "cicibar" },
+                    { new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"), 2, 2, new DateTime(2021, 12, 3, 11, 18, 45, 222, DateTimeKind.Utc).AddTicks(7067), "petio@mvc.net", true, "Peter", "Petrov", null, "$2a$11$cEpdCt4dAyrM4s9J8h67DOJlIlNI2IIQiWHYsaF1vXypSQVnpZ6sa", "+35924492877", "petio_p" },
+                    { new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"), 3, 2, new DateTime(2021, 12, 3, 11, 18, 45, 338, DateTimeKind.Utc).AddTicks(3846), "koksal@asd.tr", true, "Koksal", "Baba", null, "$2a$11$pQ.jItAh7ESFjQjn92JK/u/9Z8ngsDXNs1HCHfzdFQuLH2lKTUJGO", "+35922649764", "koksal" }
                 });
 
             migrationBuilder.InsertData(
                 table: "Ban",
                 columns: new[] { "Id", "ApplicationUserId", "BlockedDue", "BlockedOn", "CreatedOn", "ModifiedOn", "Reason" },
-                values: new object[] { 2, new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"), null, new DateTime(2021, 12, 1, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 12, 1, 11, 58, 19, 654, DateTimeKind.Utc).AddTicks(9755), null, null });
+                values: new object[] { 2, new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"), null, new DateTime(2021, 12, 3, 0, 0, 0, 0, DateTimeKind.Local), new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(4945), null, null });
 
             migrationBuilder.InsertData(
                 table: "ProfilePictures",
                 columns: new[] { "Id", "ApplicationUserId", "CreatedOn", "DeletedOn", "ImageLink", "IsDeleted", "ModifiedOn" },
                 values: new object[,]
                 {
-                    { 1, new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"), new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(7172), null, "https://ik.imagekit.io/hb0rsbgap4f2/profilepicture_qVGMALiir.png?updatedAt=1637784974343", false, null },
-                    { 3, new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"), new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(8613), null, "https://ik.imagekit.io/hb0rsbgap4f2/profilepicture_qVGMALiir.png?updatedAt=1637784974343", false, null },
-                    { 4, new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"), new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(8616), null, "https://ik.imagekit.io/hb0rsbgap4f2/profilepicture_qVGMALiir.png?updatedAt=1637784974343", false, null },
-                    { 2, new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"), new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(8577), null, "https://ik.imagekit.io/hb0rsbgap4f2/profilepicture_qVGMALiir.png?updatedAt=1637784974343", false, null }
+                    { 1, new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"), new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(874), null, "https://ik.imagekit.io/hb0rsbgap4f2/profilepicture_qVGMALiir.png?updatedAt=1637784974343", false, null },
+                    { 3, new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"), new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(1357), null, "https://ik.imagekit.io/hb0rsbgap4f2/profilepicture_qVGMALiir.png?updatedAt=1637784974343", false, null },
+                    { 4, new Guid("24be505d-c19f-4633-9342-bc262aed26f9"), new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(1358), null, "https://ik.imagekit.io/hb0rsbgap4f2/profilepicture_qVGMALiir.png?updatedAt=1637784974343", false, null },
+                    { 2, new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"), new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(1328), null, "https://ik.imagekit.io/hb0rsbgap4f2/profilepicture_qVGMALiir.png?updatedAt=1637784974343", false, null }
                 });
 
             migrationBuilder.InsertData(
@@ -396,9 +420,9 @@ namespace CarPool.Data.Migrations
                 columns: new[] { "Id", "AddedByUserId", "ApplicationUserId", "CreatedOn", "Feedback", "IsReport", "ModifiedOn", "TripId", "Value" },
                 values: new object[,]
                 {
-                    { 1, new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"), new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"), new DateTime(2021, 12, 1, 11, 58, 19, 657, DateTimeKind.Utc).AddTicks(406), "Nice car", false, null, 1, 4 },
-                    { 3, new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"), new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"), new DateTime(2021, 12, 1, 11, 58, 19, 657, DateTimeKind.Utc).AddTicks(2917), "(No feedback)", false, null, 5, 5 },
-                    { 2, new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"), new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"), new DateTime(2021, 12, 1, 11, 58, 19, 657, DateTimeKind.Utc).AddTicks(2807), "Bad person", false, null, 1, 1 }
+                    { 1, new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"), new Guid("24be505d-c19f-4633-9342-bc262aed26f9"), new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(2006), "Nice car", false, null, 1, 4 },
+                    { 3, new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"), new Guid("24be505d-c19f-4633-9342-bc262aed26f9"), new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(3021), "(No feedback)", false, null, 5, 5 },
+                    { 2, new Guid("24be505d-c19f-4633-9342-bc262aed26f9"), new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"), new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(2983), "Bad person", false, null, 1, 1 }
                 });
 
             migrationBuilder.InsertData(
@@ -406,23 +430,23 @@ namespace CarPool.Data.Migrations
                 columns: new[] { "Id", "AdditionalComment", "CreatedOn", "DepartureTime", "DestinationAddressId", "Distance", "DriverId", "DurationInMinutes", "FreeSeats", "ModifiedOn", "PassengersCount", "Price", "StartAddressId" },
                 values: new object[,]
                 {
-                    { 15, "High price", new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(2000), new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(2004), 2, 240, new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"), 120, 2, null, 1, 15.21m, 3 },
-                    { 13, "Good looking and friendly", new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1963), new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1969), 4, 240, new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"), 120, 2, null, 1, 10.13m, 3 },
-                    { 11, "NO SMOKING NO FOOD", new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1172), new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1176), 3, 240, new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"), 120, 2, null, 1, 19.11m, 1 },
-                    { 5, "Additional comments below", new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1080), new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1085), 4, 240, new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"), 120, 2, null, 1, 0m, 1 },
-                    { 4, "Long comment here", new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1066), new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1071), 1, 240, new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"), 120, 2, null, 1, 0m, 4 },
-                    { 3, "NO SMOKING", new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1016), new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1050), 2, 210, new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"), 110, 2, null, 2, 0m, 4 },
-                    { 16, "Im not alone", new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(2013), new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(2016), 1, 240, new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"), 120, 2, null, 2, 21.21m, 2 },
-                    { 14, "Fast car", new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1984), new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1989), 3, 240, new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"), 120, 2, null, 1, 10.11m, 1 },
-                    { 10, "No pets", new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1157), new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1162), 1, 240, new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"), 120, 2, null, 1, 0m, 3 },
-                    { 7, "NO EATING", new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1120), new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1123), 2, 240, new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"), 120, 2, null, 1, 0m, 4 },
-                    { 2, "NO SMOKING", new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(827), new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(898), 3, 240, new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"), 120, 2, null, 2, 0m, 2 },
-                    { 17, "No kids", new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(2022), new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(2025), 3, 240, new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"), 120, 2, null, 1, 12.23m, 1 },
-                    { 1, "(No comment)", new DateTime(2021, 12, 1, 11, 58, 19, 655, DateTimeKind.Utc).AddTicks(4825), new DateTime(2021, 12, 1, 13, 58, 19, 655, DateTimeKind.Local).AddTicks(8028), 2, 340, new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"), 90, 2, null, 2, 0m, 1 },
-                    { 12, "NO STOPS", new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1898), new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1915), 3, 240, new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"), 120, 2, null, 1, 15.55m, 4 },
-                    { 6, "follow me on twitter", new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1105), new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1111), 4, 240, new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"), 120, 2, null, 1, 0m, 2 },
-                    { 8, "CHEAP AND FAST", new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1132), new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1136), 2, 240, new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"), 120, 2, null, 1, 0m, 1 },
-                    { 9, "FAST FAST FAST", new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1143), new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1146), 3, 240, new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"), 120, 2, null, 1, 0m, 2 }
+                    { 15, "High price", new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8989), new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8990), 2, 240, new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"), 120, 2, null, 1, 15.21m, 3 },
+                    { 13, "Good looking and friendly", new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8982), new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8983), 4, 240, new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"), 120, 2, null, 1, 10.13m, 3 },
+                    { 11, "NO SMOKING NO FOOD", new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8716), new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8717), 3, 240, new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"), 120, 2, null, 1, 19.11m, 1 },
+                    { 5, "Additional comments below", new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8691), new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8692), 4, 240, new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"), 120, 2, null, 1, 0m, 1 },
+                    { 4, "Long comment here", new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8687), new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8688), 1, 240, new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"), 120, 2, null, 1, 0m, 4 },
+                    { 3, "NO SMOKING", new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8682), new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8684), 2, 210, new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"), 110, 2, null, 2, 0m, 4 },
+                    { 16, "Im not alone", new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8993), new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8994), 1, 240, new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"), 120, 2, null, 2, 21.21m, 2 },
+                    { 14, "Fast car", new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8986), new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8987), 3, 240, new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"), 120, 2, null, 1, 10.11m, 1 },
+                    { 10, "No pets", new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8712), new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8714), 1, 240, new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"), 120, 2, null, 1, 0m, 3 },
+                    { 7, "NO EATING", new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8701), new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8702), 2, 240, new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"), 120, 2, null, 1, 0m, 4 },
+                    { 2, "NO SMOKING", new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8621), new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8650), 3, 240, new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"), 120, 2, null, 2, 0m, 2 },
+                    { 17, "No kids", new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8996), new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8997), 3, 240, new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"), 120, 2, null, 1, 12.23m, 1 },
+                    { 1, "(No comment)", new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(6692), new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(7811), 2, 340, new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"), 90, 2, null, 2, 0m, 1 },
+                    { 12, "NO STOPS", new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8961), new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8965), 3, 240, new Guid("24be505d-c19f-4633-9342-bc262aed26f9"), 120, 2, null, 1, 15.55m, 4 },
+                    { 6, "follow me on twitter", new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8698), new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8699), 4, 240, new Guid("24be505d-c19f-4633-9342-bc262aed26f9"), 120, 2, null, 1, 0m, 2 },
+                    { 8, "CHEAP AND FAST", new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8705), new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8706), 2, 240, new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"), 120, 2, null, 1, 0m, 1 },
+                    { 9, "FAST FAST FAST", new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8708), new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8710), 3, 240, new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"), 120, 2, null, 1, 0m, 2 }
                 });
 
             migrationBuilder.InsertData(
@@ -430,10 +454,10 @@ namespace CarPool.Data.Migrations
                 columns: new[] { "Id", "ApplicationUserId", "Color", "CreatedOn", "DeletedOn", "FuelConsumptionPerHundredKilometers", "IsDeleted", "Model", "ModifiedOn" },
                 values: new object[,]
                 {
-                    { 2, new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"), "Blue", new DateTime(2021, 12, 1, 11, 58, 19, 649, DateTimeKind.Utc).AddTicks(9181), null, 8.0, false, "Alfa Romeo", null },
-                    { 4, new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"), "Silver", new DateTime(2021, 12, 1, 11, 58, 19, 649, DateTimeKind.Utc).AddTicks(9342), null, 15.0, false, "BMW M5", null },
-                    { 1, new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"), "Red", new DateTime(2021, 12, 1, 11, 58, 19, 649, DateTimeKind.Utc).AddTicks(6247), null, 12.0, false, "Ferrari", null },
-                    { 3, new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"), "Black", new DateTime(2021, 12, 1, 11, 58, 19, 649, DateTimeKind.Utc).AddTicks(9292), null, 10.0, false, "Mercedes S Class", null }
+                    { 2, new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"), "Blue", new DateTime(2021, 12, 3, 11, 18, 45, 570, DateTimeKind.Utc).AddTicks(5493), null, 8.0, false, "Alfa Romeo", null },
+                    { 4, new Guid("24be505d-c19f-4633-9342-bc262aed26f9"), "Silver", new DateTime(2021, 12, 3, 11, 18, 45, 570, DateTimeKind.Utc).AddTicks(5561), null, 15.0, false, "BMW M5", null },
+                    { 1, new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"), "Red", new DateTime(2021, 12, 3, 11, 18, 45, 570, DateTimeKind.Utc).AddTicks(4363), null, 12.0, false, "Ferrari", null },
+                    { 3, new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"), "Black", new DateTime(2021, 12, 3, 11, 18, 45, 570, DateTimeKind.Utc).AddTicks(5541), null, 10.0, false, "Mercedes S Class", null }
                 });
 
             migrationBuilder.InsertData(
@@ -441,12 +465,12 @@ namespace CarPool.Data.Migrations
                 columns: new[] { "ApplicationUserId", "TripId", "CreatedOn" },
                 values: new object[,]
                 {
-                    { new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"), 1, new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(4133) },
-                    { new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"), 1, new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(5438) },
-                    { new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"), 2, new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(5401) },
-                    { new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"), 2, new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(5440) },
-                    { new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"), 3, new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(5434) },
-                    { new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"), 3, new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(5449) }
+                    { new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"), 1, new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(9791) },
+                    { new Guid("24be505d-c19f-4633-9342-bc262aed26f9"), 1, new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(245) },
+                    { new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"), 2, new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(231) },
+                    { new Guid("24be505d-c19f-4633-9342-bc262aed26f9"), 2, new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(246) },
+                    { new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"), 3, new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(244) },
+                    { new Guid("24be505d-c19f-4633-9342-bc262aed26f9"), 3, new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(249) }
                 });
 
             migrationBuilder.CreateIndex(
@@ -506,6 +530,11 @@ namespace CarPool.Data.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
+                name: "IX_Inboxes_ApplicationUserId",
+                table: "Inboxes",
+                column: "ApplicationUserId");
+
+            migrationBuilder.CreateIndex(
                 name: "IX_ProfilePictures_ApplicationUserId",
                 table: "ProfilePictures",
                 column: "ApplicationUserId",
@@ -550,6 +579,9 @@ namespace CarPool.Data.Migrations
 
             migrationBuilder.DropTable(
                 name: "GoogleAccount");
+
+            migrationBuilder.DropTable(
+                name: "Inboxes");
 
             migrationBuilder.DropTable(
                 name: "ProfilePictures");

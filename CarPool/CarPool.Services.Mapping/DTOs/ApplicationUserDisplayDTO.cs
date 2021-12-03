@@ -1,9 +1,6 @@
 ﻿using CarPool.Common;
 using CarPool.Services.Mapping.Contracts;
-using System;
 using System.Collections.Generic;
-using System.Runtime.Serialization;
-using System.Text;
 
 namespace CarPool.Services.Mapping.DTOs
 {
@@ -11,8 +8,8 @@ namespace CarPool.Services.Mapping.DTOs
     {
         public ApplicationUserDisplayDTO()
         {
-            this.Vehicle = GlobalConstants.NO_CAR_AVAILABLE;
-            this.VehicleColor = GlobalConstants.NO_CAR_AVAILABLE;
+            Vehicle = GlobalConstants.NO_CAR_AVAILABLE;
+            VehicleColor = GlobalConstants.NO_CAR_AVAILABLE;
         }
         public string Username { get; set; }
 

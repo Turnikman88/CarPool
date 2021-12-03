@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CarPool.Services.Mapping.DTOs
+﻿namespace CarPool.Services.Mapping.DTOs
 {
     public class ResponseAuthDTO
     {

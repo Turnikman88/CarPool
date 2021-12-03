@@ -13,6 +13,7 @@
 <div style="display: flex; justify-content:center;">
     <a class="btn-read-more" href="javascript:ChangeMenu('upcoming-trips')"><span>Upcoming trips</span></a>
     <a class="btn-read-more" style="margin-left:20px;" href="javascript:ChangeMenu('past-trips')"><span>Past trips</span></a>
+    <a class="btn-read-more" style="margin-left:20px;" href="javascript:ChangeMenu('manage-trips')"><span>Manage trips</span></a>
 </div>
 
 <div class="col" style="width:auto; height:auto; overflow:auto; padding: 15px; display:flex; justify-content:center;">
@@ -33,7 +34,7 @@
         @if (Model.UpcomingTrips.Count() == 0)
         {
 
-            <tr> <th scope="col" style="position: center">No trips were found!</th> </tr>
+            <tr> <th scope="col" style="position: center"> You currently have no upcoming trips!</th> </tr>
         }
         else
         {
@@ -104,6 +105,7 @@
     }
     $(document).ready(function () {
         $('#past-trips').hide();
+        $('#manage-trips').hide();
         $('#upcoming-trips').show();
     if(@Model.CurrentPage == 0)
     $('#prev-page').prop('disabled', true);
@@ -118,10 +120,16 @@
     function ChangeMenu(tag) {
         if (tag == 'upcoming-trips') {
             $('#past-trips').hide();
+            $('#manage-trips').hide();
             $('#upcoming-trips').show();
-        } else {
+        } else if (tag == 'past-trips') {
             $('#past-trips').show();
             $('#upcoming-trips').hide();
+            $('#manage-trips').hide();
+        } else {
+            $('#past-trips').hide();
+            $('#upcoming-trips').hide();
+            $('#manage-trips').show();
         }
     }
     function JoinTrip() {
@@ -167,6 +175,3 @@
         })
     }
 </script>
-
-
-

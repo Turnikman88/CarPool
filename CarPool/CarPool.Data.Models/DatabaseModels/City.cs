@@ -7,7 +7,7 @@ namespace CarPool.Data.Models.DatabaseModels
     {
         public City()
         {
-            this.Addresses = new HashSet<Address>();
+            Addresses = new HashSet<Address>();
         }
 
         public string Name { get; set; }

@@ -3,9 +3,7 @@ using CarPool.Common;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarPool.API.Controllers
@@ -27,7 +25,7 @@ namespace CarPool.API.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<CountryDTO>>> GetCountriesAsync(int page)
         {
-            return this.Ok(await _cs.GetAsync(page));
+            return Ok(await _cs.GetAsync(page));
         }
 
         
@@ -42,9 +40,9 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Ok(response);
+                return Ok(response);
             }
-            return this.NotFound(new { ErrorMessage = response.ErrorMessage });
+            return NotFound(new { ErrorMessage = response.ErrorMessage });
         }
 
         [HttpGet("name/{name}")]
@@ -58,9 +56,9 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Ok(response);
+                return Ok(response);
             }
-            return this.NotFound(new { ErrorMessage = response.ErrorMessage});
+            return NotFound(new { ErrorMessage = response.ErrorMessage});
         }
 
         [HttpGet("partname/{part}")]
@@ -70,7 +68,7 @@ namespace CarPool.API.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<CountryDTO>>> GetCountryByNamePartAsync(int page, string part)
         {
-            return this.Ok(await _cs.GetCountriesByPartNameAsync(page, part));
+            return Ok(await _cs.GetCountriesByPartNameAsync(page, part));
         }
 
         [HttpPost]
@@ -80,14 +78,14 @@ namespace CarPool.API.Controllers
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult<CountryDTO>> CreateCountryAsync(CountryDTO obj)
         {
-            var response = await this._cs.PostAsync(obj);
+            var response = await _cs.PostAsync(obj);
 
             if (response.ErrorMessage is null)
             {
-                return this.Created("Get", response);
+                return Created("Get", response);
             }
 
-            return this.BadRequest(new { ErrorMessage = response.ErrorMessage });
+            return BadRequest(new { ErrorMessage = response.ErrorMessage });
         }
 
         [HttpPut("{id}")]
@@ -97,14 +95,14 @@ namespace CarPool.API.Controllers
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult<CountryDTO>> UpdateCountryAsync(int id, CountryDTO obj)
         {            
-            var response = await this._cs.UpdateAsync(id, obj);
+            var response = await _cs.UpdateAsync(id, obj);
 
             if (response.ErrorMessage is null)
             {
-                return this.Ok(response);
+                return Ok(response);
             }
 
-            return this.BadRequest(new { ErrorMessage = response.ErrorMessage });
+            return BadRequest(new { ErrorMessage = response.ErrorMessage });
         }
 
         [HttpDelete("{id}")]
@@ -118,10 +116,10 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Ok(response);
+                return Ok(response);
             }
 
-            return this.BadRequest(new { ErrorMessage = response.ErrorMessage });
+            return BadRequest(new { ErrorMessage = response.ErrorMessage });
         }
     }
 }

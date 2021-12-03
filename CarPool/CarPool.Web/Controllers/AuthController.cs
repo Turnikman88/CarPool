@@ -39,14 +39,14 @@ namespace CarPool.Web.Controllers
             IProfilePictureService pps,
             IGoogleAccountService gs)
         {
-            this._auth = auth;
-            this._us = us;
-            this._ads = ads;
-            this._ban = ban;
-            this._mail = mail;
-            this._cs = cs;
-            this._pps = pps;
-            this._gs = gs;
+            _auth = auth;
+            _us = us;
+            _ads = ads;
+            _ban = ban;
+            _mail = mail;
+            _cs = cs;
+            _pps = pps;
+            _gs = gs;
         }
 
 
@@ -79,10 +79,10 @@ namespace CarPool.Web.Controllers
             if (await _auth.IsExistingAsync(email))
             {
                 await SignInWithRoleAsync(email, GlobalConstants.UserRoleName);
-                return this.RedirectToAction("index", "home");
+                return RedirectToAction("index", "home");
             }
 
-            return this.RedirectToAction("GoogleSignUp", "Auth");
+            return RedirectToAction("GoogleSignUp", "Auth");
             //return Json(claims);
         }
 
@@ -90,9 +90,9 @@ namespace CarPool.Web.Controllers
         public async Task<IActionResult> GoogleSignUp()
         {
             var model = new GoogleRegisterDTO();
-            model.Countries = await this.RenderCountries();
+            model.Countries = await RenderCountries();
 
-            return this.View(model);
+            return View(model);
         }
 
         [HttpPost]
@@ -100,9 +100,9 @@ namespace CarPool.Web.Controllers
         {
             model.Countries = await RenderCountries();
 
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return this.View(model);
+                return View(model);
             }
 
             var result = await HttpContext.AuthenticateAsync(CookieAuthenticationDefaults.AuthenticationScheme);
@@ -121,18 +121,18 @@ namespace CarPool.Web.Controllers
             var toUser = userData.GetDTO();
             await _mail.SendEmailAsync(new MailDTO { Reciever = userData.Email });
 
-            await this._gs.AddGoogleAccount(userData.Email);
+            await _gs.AddGoogleAccount(userData.Email);
 
-            await this._us.PostAsync(toUser);
+            await _us.PostAsync(toUser);
 
 
             ViewData["MessageSent"] = true;
-            return this.View(model);
+            return View(model);
         }
 
         public IActionResult Login()
         {
-            return this.View(new RequestAuthDTO());
+            return View(new RequestAuthDTO());
         }
 
         [HttpPost]
@@ -140,20 +140,20 @@ namespace CarPool.Web.Controllers
         {
             if (!await _auth.IsPasswordValidAsync(model.Email, model.Password))
             {
-                this.ModelState.AddModelError("Password", GlobalConstants.WRONG_CREDENTIALS);
-                return this.View(model);
+                ModelState.AddModelError("Password", GlobalConstants.WRONG_CREDENTIALS);
+                return View(model);
             }
             var user = await _auth.GetByEmailAsync(model.Email);
 
             if (user.Message != null)
             {
-                this.ModelState.AddModelError("Password", GlobalConstants.TRIP_USER_BLOCKED_JOIN);
-                return this.View(model);
+                ModelState.AddModelError("Password", GlobalConstants.TRIP_USER_BLOCKED_JOIN);
+                return View(model);
             }
 
             await SignInWithRoleAsync(model.Email, user.Role);
 
-            return this.RedirectToAction("index", "home");
+            return RedirectToAction("index", "home");
         }
 
         [HttpGet]
@@ -162,7 +162,7 @@ namespace CarPool.Web.Controllers
         {
             await HttpContext.SignOutAsync();  
 
-            return this.RedirectToAction("index", "home");
+            return RedirectToAction("index", "home");
         }
 
         // TODO: Move in admin panel
@@ -187,19 +187,19 @@ namespace CarPool.Web.Controllers
             var email = await _auth.ConfirmEmail(token);
             if (email != null)
             {
-                await this.SignInWithRoleAsync(email, GlobalConstants.UserRoleName);
+                await SignInWithRoleAsync(email, GlobalConstants.UserRoleName);
 
-                return this.RedirectToAction("index", "home");
+                return RedirectToAction("index", "home");
             }
 
-            return this.RedirectToAction("error", "home");
+            return RedirectToAction("error", "home");
         }
 
         [HttpGet]
         public async Task<IActionResult> Register()
         {
             var model = new RegisterDTO();
-            model.Countries = await this.RenderCountries();
+            model.Countries = await RenderCountries();
 
             return View(model);
         }
@@ -207,16 +207,16 @@ namespace CarPool.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Register(RegisterDTO model)
         {
-            model.Countries = await this.RenderCountries();
+            model.Countries = await RenderCountries();
 
             if (await _auth.IsExistingAsync(model.Email))
             {
-                this.ModelState.AddModelError("Email", GlobalConstants.USER_EXISTS);
+                ModelState.AddModelError("Email", GlobalConstants.USER_EXISTS);
             }
 
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
-                return this.View(model);
+                return View(model);
             }
 
             model.AddressId = await _ads.AddressToId(new AddressDTO
@@ -229,13 +229,13 @@ namespace CarPool.Web.Controllers
 
             var toUser = model.GetDTO();
 
-            await this._us.PostAsync(toUser);
+            await _us.PostAsync(toUser);
 
             await _mail.SendEmailAsync(new MailDTO { Reciever = model.Email });
 
             ViewData["MessageSent"] = true;
 
-            return this.View(model);
+            return View(model);
         }
 
         [HttpGet]
@@ -245,9 +245,9 @@ namespace CarPool.Web.Controllers
             if (email.Contains('@'))
             {
                 TempData["Email"] = email;
-                return this.View(new UpdatePasswordDTO());
+                return View(new UpdatePasswordDTO());
             }
-            return this.RedirectToAction("error", "home");
+            return RedirectToAction("error", "home");
         }
 
         [HttpPost]
@@ -256,7 +256,7 @@ namespace CarPool.Web.Controllers
             var email = TempData["Email"].ToString();
             await _us.UpdatePasswordAsync(email, obj.Password);
             ViewData["PasswordUpdated"] = true;
-            return this.View(new UpdatePasswordDTO());
+            return View(new UpdatePasswordDTO());
         }
 
 
@@ -278,7 +278,7 @@ namespace CarPool.Web.Controllers
         {
             var email = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
 
-            var user = await _us.GetUserByEmailAsync(email);
+            var user = await _us.GetUserByEmailOrIdAsync(email);
 
             var model = user.GetDTO();
 
@@ -287,7 +287,7 @@ namespace CarPool.Web.Controllers
             model.IsGoogleAccount = await _gs.IsGoogleAccount(email);
             TempData["IsGoogleAccount"] = model.IsGoogleAccount;
 
-            model.Countries = await this.RenderCountries();
+            model.Countries = await RenderCountries();
 
             model.Country = address.CountryName;
             model.City = address.CityName;
@@ -306,7 +306,7 @@ namespace CarPool.Web.Controllers
             if (TempData["IsGoogleAccount"].ToString() == "False"
                 && !await _auth.IsPasswordValidAsync(email, model.Password))
             {
-                this.ModelState.AddModelError("Password", GlobalConstants.OLD_PASSWORD);
+                ModelState.AddModelError("Password", GlobalConstants.OLD_PASSWORD);
             }
 
             if (model.NewPassword != null)
@@ -314,10 +314,10 @@ namespace CarPool.Web.Controllers
                 model.Password = model.NewPassword;
             }
 
-            if (!this.ModelState.IsValid)
+            if (!ModelState.IsValid)
             {
                 model.Countries = await RenderCountries();
-                return this.View(model);
+                return View(model);
             }
 
             if (model.ProfilePicture != null)
@@ -334,7 +334,7 @@ namespace CarPool.Web.Controllers
 
             model.Role = role;
             var toUser = model.GetDTO();
-            await this._us.UpdateAsync(email, toUser);
+            await _us.UpdateAsync(email, toUser);
 
             return RedirectToAction("index", "home");
         }
@@ -354,7 +354,7 @@ namespace CarPool.Web.Controllers
 
             await HttpContext.SignOutAsync();
 
-            return this.Ok();
+            return Ok();
         }
 
         private RegisterDTO GetGoogleData(AuthenticateResult result)

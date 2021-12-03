@@ -1,8 +1,4 @@
-﻿using CarPool.Services.Mapping.DTOs;
-using Microsoft.AspNetCore.Http;
-using System;
-using System.Collections.Generic;
-using System.Text;
+﻿using Microsoft.AspNetCore.Http;
 using System.Threading.Tasks;
 
 namespace CarPool.Services.Data.Contracts

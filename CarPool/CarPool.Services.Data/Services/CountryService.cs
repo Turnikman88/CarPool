@@ -1,5 +1,4 @@
 ﻿using CarPool.Common;
-using CarPool.Common.Exceptions;
 using CarPool.Data;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
@@ -16,7 +15,7 @@ namespace CarPool.Services.Data.Services
 
         public CountryService(CarPoolDBContext db)
         {
-            this._db = db;
+            _db = db;
         }
         public async Task<CountryDTO> GetCountryByIdAsync(int id)
         {
@@ -82,7 +81,7 @@ namespace CarPool.Services.Data.Services
 
             if (deletedCountry == null)
             {
-                await this._db.Countries.AddAsync(newCountry);
+                await _db.Countries.AddAsync(newCountry);
                 await _db.SaveChangesAsync();
                 obj.Id = newCountry.Id;
             }
@@ -110,7 +109,7 @@ namespace CarPool.Services.Data.Services
 
             }
 
-            var model = await this._db.Countries.Include(c => c.Cities).FirstOrDefaultAsync(x => x.Id == id);
+            var model = await _db.Countries.Include(c => c.Cities).FirstOrDefaultAsync(x => x.Id == id);
 
             if (model is null)
             {
@@ -126,14 +125,14 @@ namespace CarPool.Services.Data.Services
 
         public async Task<CountryDTO> DeleteAsync(int id)
         {
-            var model = await this._db.Countries.Include(c => c.Cities).FirstOrDefaultAsync(x => x.Id == id);
+            var model = await _db.Countries.Include(c => c.Cities).FirstOrDefaultAsync(x => x.Id == id);
             if (model is null)
             {
                 return new CountryDTO { ErrorMessage = GlobalConstants.COUNTRY_NOT_FOUND };
             }
 
             model.DeletedOn = System.DateTime.Now;
-            this._db.Countries.Remove(model);
+            _db.Countries.Remove(model);
             await _db.SaveChangesAsync();
 
             return model.GetDTO();

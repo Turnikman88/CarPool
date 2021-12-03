@@ -1,6 +1,4 @@
-﻿using System;
-
-namespace CarPool.Web.ViewModels.DTOs
+﻿namespace CarPool.Web.ViewModels.DTOs
 {
     public class ReportedUserDTO
     {

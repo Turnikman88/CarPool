@@ -12,7 +12,7 @@ namespace CarPool.Services.Data.Contracts
 
         public CheckExistenceService(CarPoolDBContext db)
         {
-            this._db = db;
+            _db = db;
         }
 
         public async Task<bool> CountryExistsAsync(string name)

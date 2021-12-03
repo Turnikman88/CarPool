@@ -1,0 +1,15 @@
+﻿@model IEnumerable<InboxDTO>
+
+<div class="rwt-split-area rn-section-gap">
+    <div class="wrapper">
+        <div class="rn-splite-style">
+            <div class="split-wrapper">
+                <div id="view-all" class="row g-0 radius-10 align-items-center">
+
+                    @await Html.PartialAsync("_TableMyInbox", Model)
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

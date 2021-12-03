@@ -2,9 +2,7 @@
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarPool.API.Controllers
@@ -26,7 +24,7 @@ namespace CarPool.API.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<CityDTO>>> GetCitiesAsync(int page)
         {
-            return this.Ok(await _cs.GetAsync(page));
+            return Ok(await _cs.GetAsync(page));
         }
 
         [HttpGet("{id}")]
@@ -40,9 +38,9 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Ok(response);
+                return Ok(response);
             }
-            return this.NotFound(response);
+            return NotFound(response);
         }
 
         [HttpGet("byname/{name}")]
@@ -56,9 +54,9 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Ok(response);
+                return Ok(response);
             }
-            return this.NotFound(response);
+            return NotFound(response);
         }
 
         [HttpGet("bypart/{part}")]
@@ -68,14 +66,14 @@ namespace CarPool.API.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<CityDTO>>> GetCitiesByPartNameAsync(int page, string part)
         {
-            return this.Ok(await _cs.GetCitiesByPartNameAsync(page, part));
+            return Ok(await _cs.GetCitiesByPartNameAsync(page, part));
         }
 
         [HttpGet("bycountry/{countryname}")]
         [ProducesResponseType(200)]
         public async Task<ActionResult<IEnumerable<CityDTO>>> GetCitiesByCountryNameAsync(int page, string countryname)
         {
-            return this.Ok(await _cs.GetCitiesByCountryNameAsync(page, countryname));
+            return Ok(await _cs.GetCitiesByCountryNameAsync(page, countryname));
         }
 
         [HttpPost]
@@ -89,9 +87,9 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Created("Get", response);
+                return Created("Get", response);
             }
-            return this.NotFound(response);
+            return NotFound(response);
         }
 
         [HttpPut("{id}")]
@@ -105,10 +103,10 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Ok(response);
+                return Ok(response);
             }
 
-            return this.NotFound(response);
+            return NotFound(response);
         }
 
         [HttpDelete("{id}")]
@@ -122,10 +120,10 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Ok(response);
+                return Ok(response);
             }
 
-            return this.NotFound(response);
+            return NotFound(response);
         }
     }
 }

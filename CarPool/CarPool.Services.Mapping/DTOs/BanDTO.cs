@@ -1,7 +1,5 @@
 ﻿using CarPool.Services.Mapping.Contracts;
 using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CarPool.Services.Mapping.DTOs
 {

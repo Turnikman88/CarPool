@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace CarPool.Web.ViewModels.DTOs
+﻿namespace CarPool.Web.ViewModels.DTOs
 {
     public class ErrorDTO
     {

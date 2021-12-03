@@ -31,6 +31,8 @@
 
         public virtual DbSet<GoogleAccount> GoogleAccount { get; set; }
 
+        public virtual DbSet<Inbox> Inboxes { get; set; }
+
         public virtual DbSet<ProfilePicture> ProfilePictures { get; set; }
 
         public virtual DbSet<Rating> Ratings { get; set; }
@@ -40,6 +42,8 @@
         public virtual DbSet<Trip> Trips { get; set; }
 
         public virtual DbSet<UserVehicle> UserVehicles { get; set; }
+
+
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -63,7 +67,7 @@
 
         private void UpdateSoftDeleteStatuses()
         {
-            foreach (var entry in this.ChangeTracker.Entries())
+            foreach (var entry in ChangeTracker.Entries())
             {
                 if (entry.OriginalValues.Properties.Any(x => x.Name == "IsDeleted"))
                 {

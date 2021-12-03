@@ -5,8 +5,9 @@
         <div class="rn-splite-style">
             <div class="split-wrapper">
 
-               
+
                 <div class="row g-0 radius-10 align-items-center" id="upcoming-trips">
+
                     @await Html.PartialAsync("_TableMyTrips", Model)
 
                 </div>
@@ -15,6 +16,13 @@
                     @await Html.PartialAsync("_TableMyTripsPast", Model)
 
                 </div>
+
+                <div class="row g-0 radius-10 align-items-center" id="manage-trips">
+
+                    @await Html.PartialAsync("_TableManageMyTrips", Model)
+
+                </div>
+
             </div>
         </div>
     </div>

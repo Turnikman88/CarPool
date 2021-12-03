@@ -3,8 +3,6 @@ using CarPool.Web.Infrastructure.Extensions;
 using CarPool.Web.ViewModels.DTOs;
 using CarPool.Web.ViewModels.Mappers;
 using Microsoft.AspNetCore.Mvc;
-using System;
-using System.Collections.Generic;
 using System.Linq;
 using System.Security.Claims;
 using System.Threading.Tasks;
@@ -18,8 +16,8 @@ namespace CarPool.Web.Controllers
 
         public VehicleController(IUserVehicleService vs, IAuthService auth)
         {
-            this._vs = vs;
-            this._auth = auth;
+            _vs = vs;
+            _auth = auth;
         }
 
         public async Task<IActionResult> Index()

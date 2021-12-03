@@ -26,7 +26,7 @@ namespace CarPool.API.Controllers
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult<IEnumerable<ApplicationUserDisplayDTO>>> GetAllBannedUsersAsync(int page)
         {
-            return this.Ok(await _bs.GetAllBannedUsersAsync(page));
+            return Ok(await _bs.GetAllBannedUsersAsync(page));
         }
 
 

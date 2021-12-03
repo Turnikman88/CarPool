@@ -1,11 +1,8 @@
 ﻿using CarPool.API.Infrastructure.Attributes;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarPool.API.Controllers
@@ -27,7 +24,7 @@ namespace CarPool.API.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<AddressDTO>>> GetAddressAsync(int page)
         {
-            return this.Ok(await _ads.GetAsync(page));
+            return Ok(await _ads.GetAsync(page));
         }
 
         [HttpGet("{id}")]
@@ -41,10 +38,10 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Ok(response);
+                return Ok(response);
             }
 
-            return this.NotFound(response);
+            return NotFound(response);
         }
 
         [HttpPost]
@@ -58,9 +55,9 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Created("Get", response);
+                return Created("Get", response);
             }
-            return this.NotFound(response.ErrorMessage);
+            return NotFound(response.ErrorMessage);
         }
 
         [HttpPut("{id}")]
@@ -74,10 +71,10 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Ok(response);
+                return Ok(response);
             }
 
-            return this.NotFound(response.ErrorMessage);
+            return NotFound(response.ErrorMessage);
         }
 
         [HttpDelete("{id}")]
@@ -91,10 +88,10 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Ok(response);
+                return Ok(response);
             }
 
-            return this.NotFound(response.ErrorMessage);
+            return NotFound(response.ErrorMessage);
         }
     }
 }

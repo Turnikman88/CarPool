@@ -2,9 +2,6 @@
 using CarPool.Data.Models.DatabaseModels;
 using CarPool.Services.Data.Contracts;
 using Microsoft.EntityFrameworkCore;
-using System;
-using System.Collections.Generic;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CarPool.Services.Data.Services
@@ -15,7 +12,7 @@ namespace CarPool.Services.Data.Services
 
         public GoogleAccountService(CarPoolDBContext db)
         {
-            this._db = db;
+            _db = db;
         }
 
         public async Task AddGoogleAccount(string email)

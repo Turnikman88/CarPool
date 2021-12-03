@@ -1,11 +1,8 @@
 ﻿using CarPool.API.Infrastructure.Attributes;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarPool.API.Controllers
@@ -27,7 +24,7 @@ namespace CarPool.API.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<TripDTO>>> GetTripsAsync(int page)
         {
-            return this.Ok(await _ts.GetAsync(page));
+            return Ok(await _ts.GetAsync(page));
         }
 
         [HttpGet("{id}")]
@@ -41,10 +38,10 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Ok(response);
+                return Ok(response);
             }
 
-            return this.NotFound(response.ErrorMessage);
+            return NotFound(response.ErrorMessage);
         }
 
 
@@ -59,9 +56,9 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Created("Get", response);
+                return Created("Get", response);
             }
-            return this.NotFound(response.ErrorMessage);
+            return NotFound(response.ErrorMessage);
         }
 
         [HttpPut("{id}")]
@@ -75,10 +72,10 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Ok(response);
+                return Ok(response);
             }
 
-            return this.NotFound(response.ErrorMessage);
+            return NotFound(response.ErrorMessage);
         }
 
         [HttpPut("{email}/join/{id}")]
@@ -92,10 +89,10 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Accepted(response);
+                return Accepted(response);
             }
 
-            return this.BadRequest(response.ErrorMessage);
+            return BadRequest(response.ErrorMessage);
         }
 
         [HttpPut("{email}/leave/{id}")]
@@ -109,10 +106,10 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Accepted(response);
+                return Accepted(response);
             }
 
-            return this.BadRequest(response.ErrorMessage);
+            return BadRequest(response.ErrorMessage);
         }
 
         [HttpDelete("{id}")]
@@ -126,10 +123,10 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Ok(response);
+                return Ok(response);
             }
 
-            return this.NotFound(response.ErrorMessage);
+            return NotFound(response.ErrorMessage);
         }
 
     }

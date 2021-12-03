@@ -1,7 +1,6 @@
 ﻿using CarPool.Services.Mapping.DTOs;
 using System;
 using System.Collections.Generic;
-using System.Text;
 
 namespace CarPool.Web.ViewModels.DTOs
 {
@@ -11,7 +10,7 @@ namespace CarPool.Web.ViewModels.DTOs
         {
             var r = new Random();
 
-            this.AchievementsCount = r.Next(10, 30);
+            AchievementsCount = r.Next(10, 30);
         }
 
         public List<TopUserDTO> TopUsers { get; set; }

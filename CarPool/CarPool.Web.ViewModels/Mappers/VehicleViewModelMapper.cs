@@ -1,8 +1,5 @@
 ﻿using CarPool.Services.Mapping.DTOs;
 using CarPool.Web.ViewModels.DTOs;
-using System;
-using System.Collections.Generic;
-using System.Text;
 
 namespace CarPool.Web.ViewModels.Mappers
 {

@@ -3,9 +3,7 @@ using CarPool.Common;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarPool.API.Controllers
@@ -27,7 +25,7 @@ namespace CarPool.API.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<ApplicationUserDisplayDTO>>> GetAsync(int page)
         {
-            return this.Ok(await _us.GetAsync(page));
+            return Ok(await _us.GetAsync(page));
         }
 
         [HttpGet("/topusers")]
@@ -35,7 +33,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(401)]
         public async Task<ActionResult<IEnumerable<ApplicationTopUserDTO>>> GetTopUsers()
         {
-            return this.Ok(await _us.TopUsersAsync());
+            return Ok(await _us.TopUsersAsync());
         }
 
         [HttpGet("filter")]
@@ -44,7 +42,7 @@ namespace CarPool.API.Controllers
         [Authorize]
         public async Task<ActionResult<IEnumerable<ApplicationUserDisplayDTO>>> FilterUsersAsync(int page, string part)
         {
-            return this.Ok(await _us.FilterUsersAsync(page, part));
+            return Ok(await _us.FilterUsersAsync(page, part));
         }
 
         [HttpGet("{email}")]
@@ -53,14 +51,14 @@ namespace CarPool.API.Controllers
         [Authorize]
         public async Task<ActionResult<ApplicationUserDisplayDTO>> GetUserByEmailAsync(string email)
         {
-            var response = await _us.GetUserByEmailAsync(email);
+            var response = await _us.GetUserByEmailOrIdAsync(email);
 
             if (response.ErrorMessage is null)
             {
-                return this.Ok(response);
+                return Ok(response);
             }
 
-            return this.NotFound(new { ErrorMessage = response.ErrorMessage });
+            return NotFound(new { ErrorMessage = response.ErrorMessage });
         }
 
         [HttpPost]
@@ -72,10 +70,10 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Created("Get", response);
+                return Created("Get", response);
             }
 
-            return this.BadRequest(new { ErrorMessage = response.ErrorMessage });
+            return BadRequest(new { ErrorMessage = response.ErrorMessage });
         }
         
         [HttpPut]
@@ -90,10 +88,10 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Created("Get", response);
+                return Created("Get", response);
             }
 
-            return this.BadRequest(new { ErrorMessage = response.ErrorMessage });
+            return BadRequest(new { ErrorMessage = response.ErrorMessage });
         }
 
         [HttpDelete]
@@ -108,10 +106,10 @@ namespace CarPool.API.Controllers
 
             if (response.ErrorMessage is null)
             {
-                return this.Ok(response);
+                return Ok(response);
             }
 
-            return this.NotFound(new { ErrorMessage = response.ErrorMessage });
+            return NotFound(new { ErrorMessage = response.ErrorMessage });
         }
     }
 }

@@ -12,11 +12,12 @@
     {
         public ApplicationUser()
         {
-            this.Trips = new HashSet<Trip>();
-            this.Ratings = new HashSet<Rating>();
-            this.Id = Guid.NewGuid();
-            this.TripsAsPassenger = new HashSet<TripPassenger>();
-            this.ApplicationRoleId = 4;
+            Trips = new HashSet<Trip>();
+            Ratings = new HashSet<Rating>();
+            InboxMessages = new HashSet<Inbox>();
+            Id = Guid.NewGuid();
+            TripsAsPassenger = new HashSet<TripPassenger>();
+            ApplicationRoleId = 4;
         }
 
         [MinLength(2)]
@@ -62,6 +63,8 @@
         public virtual ApplicationRole ApplicationRole { get; set; }
 
         public virtual ICollection<Rating> Ratings { get; set; }
+
+        public virtual ICollection<Inbox> InboxMessages { get; set; }
 
         // public virtual ICollection<Rating> RatingsGiven { get; set; }
 

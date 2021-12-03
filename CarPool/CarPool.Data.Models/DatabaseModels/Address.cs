@@ -8,9 +8,9 @@ namespace CarPool.Data.Models.DatabaseModels
     {
         public Address()
         {
-            this.ApplicationUsers = new HashSet<ApplicationUser>();
-            this.TripsDestinationAddress = new HashSet<Trip>();
-            this.TripsStartAddress = new HashSet<Trip>();
+            ApplicationUsers = new HashSet<ApplicationUser>();
+            TripsDestinationAddress = new HashSet<Trip>();
+            TripsStartAddress = new HashSet<Trip>();
         }
 
         public int CityId { get; set; }

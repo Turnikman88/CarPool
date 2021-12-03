@@ -23,13 +23,13 @@ namespace CarPool.Web.Controllers
             ITripService ts)
         {
             _ms = ms;
-            this._us = us;
-            this._ts = ts;
+            _us = us;
+            _ts = ts;
         }
 
         public IActionResult About()
         {
-            return this.View();
+            return View();
         }
 
         public async Task<IActionResult> Index()
@@ -43,12 +43,12 @@ namespace CarPool.Web.Controllers
                 TripsCount = tripsCount,
                 TopUsers = topUsers
             };
-            return this.View(model);
+            return View(model);
         }
 
         public IActionResult Contact()
         {
-            return this.View(new MailDTO());
+            return View(new MailDTO());
         }
 
         [HttpPost]
@@ -56,7 +56,7 @@ namespace CarPool.Web.Controllers
         {
             if (!ModelState.IsValid)
             {
-                return this.View(model);
+                return View(model);
             }
 
             if (model.Phone is null)
@@ -67,7 +67,7 @@ namespace CarPool.Web.Controllers
             await _ms.SendEmailAsync(model);
 
             model.isSent = true;
-            return this.View(model);
+            return View(model);
         }
         public IActionResult Error()
         {

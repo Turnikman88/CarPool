@@ -1,11 +1,8 @@
 ﻿using CarPool.Services.Data.Contracts;
 using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
-using System;
-using System.Collections.Generic;
 using System.Dynamic;
 using System.Net.Http;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CarPool.Services.Data.Services
@@ -22,7 +19,7 @@ namespace CarPool.Services.Data.Services
         public BingApiService(IHttpClientFactory httpClientFactory)
         {
             this.httpClientFactory = httpClientFactory;
-            this.client = this.httpClientFactory.CreateClient();
+            client = this.httpClientFactory.CreateClient();
         }
 
         public async Task<(decimal, decimal)> GetLatitudeAndLongitude(string city, string country, string street)

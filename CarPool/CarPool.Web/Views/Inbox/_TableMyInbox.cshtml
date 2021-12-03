@@ -1,0 +1,89 @@
+﻿@model IEnumerable<InboxDTO>
+@{
+    //int page = Model.CurrentPage;
+    //int maxPage = Model.MaxPages;
+    string email = Context.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+}
+
+
+@section Styles{
+    <link rel="stylesheet" href="~/css/custom.css">
+}
+<h1 class="title theme-gradient" style="display:flex; justify-content: center;">Your Messages</h1>
+@if (Model.Count() == 0)
+{
+    <h3 style="display:flex; justify-content: center;">You have no messages!</h3>
+}
+else
+{
+    <div class="col" style="width:auto; height:auto; overflow:auto; padding: 15px; display:flex; justify-content:center;">
+        <table class="table-custom" style="width:60%;">
+            <tr>
+                <th scope="col">Date</th>
+                <th scope="col">From</th>
+                <th scope="col">Topic</th>
+
+                <th></th>
+                <th></th>
+            </tr>
+
+
+            @foreach (var tr in Model)
+            {
+                <tr>
+                    <td scope="col">@tr.SendOnDate.ToString("MMMM dd, yyyy")</td>
+                    <td scope="col">@tr.Author</td>
+                    <td scope="col">@tr.Message</td>
+                </tr>
+            }
+
+        </table>
+
+    </div>
+
+}
+@*<div style="display:flex; justify-content:center;">
+        <button id="prev-page" style="text-align: center; background-color: #FF3CAC;" class="btn-default btn-details dark-theme" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = //page - 1 })')"><span class="fas fa-arrow-left"></span></button>
+        <button id="next-page" style="text-align: center; background-color: #FF3CAC; margin-left: 20px; " class="btn-default btn-details dark-theme" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = //page + 1 })')"><span class="fas fa-arrow-right"></span></button>
+
+    </div>*@
+<script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+<script src="~/assets/js/vendor/jquery.min.js"></script>
+
+<script>
+    function showDetails(duration, distance, driver, passengers, seats, vehicalModel, vehicleColor, price, comment) {
+        Swal.fire({
+            position: 'center',
+            backdrop: false,
+            customClass: 'swal-trip',
+            title: '<h4 class="swal-title"> Details </h4>',
+            showConfirmButton: true,
+            html:
+                `<div class='row' style='height: 400px;'>` +
+                `<div class='col'>` +
+                `<h5>Trip duration</h5>` +
+                `<h6>${duration}</h6>` +
+                `<h5>Trip Distance</h5>` +
+                `<h6>${distance}</h6>` +
+                `<h5>Driver Name</h5>` +
+                `<h6>${driver}</h6>` +
+                `<h5>Passengers Count</h5>` +
+                `<h6>${passengers}</h6>` +
+                `</div>` +
+                `<div class='col'>` +
+                `<h5>Free Seats</h5>` +
+                `<h6>${seats}</h6>` +
+                `<h5>Vehicle</h5>` +
+                `<h6>${vehicalModel} ${vehicleColor}</h6>` +
+                `<h5>Trip Price</h5>` +
+                `<h6>${price}</h6>` +
+                `<h5>Comment</h5>` +
+                `<h6>${comment}</h6>` +
+                `</div>` +
+                `</div>`
+        })
+    }
+</script>
+
+
+

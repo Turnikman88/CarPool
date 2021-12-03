@@ -56,5 +56,23 @@ namespace CarPool.Services.Mapping.Mappers
                 AdditionalComment = tripDTO.AdditionalComment
             };
         }
+
+        public static TripDriverDTO GetTripDriverDTO(this Trip trip)
+        {
+            return new TripDriverDTO
+            {
+                Id = trip.Id,
+                DepartureTime = trip.DepartureTime,
+                AdditionalComment = trip.AdditionalComment,
+                Distance = trip.Distance,
+                DestinationAddressCity = trip.DestinationAddress.City.Name,
+                DestinationAddressCountry = trip.DestinationAddress.City.Country.Name,
+                StartAddressCity = trip.StartAddress.City.Name,
+                StartAddressCountry = trip.StartAddress.City.Country.Name,
+                FreeSeats = trip.FreeSeats,
+                PassengersCount = trip.PassengersCount,
+                DurationInMinutes = trip.DurationInMinutes
+            };
+        }
     }
 }

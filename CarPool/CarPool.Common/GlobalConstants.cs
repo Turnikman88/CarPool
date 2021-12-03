@@ -110,6 +110,8 @@
 
         public const string NOT_PROVIDED = "(Not provided)";
 
+        public const string KICK_USER_MESSAGE = "Hi, I've decieded to remove you from my trip on {0}, from {1} to {2}";
+
         public const string MODEL_TOO_SHORT = "Model can't be that short!";
 
         public const string COLOR_TOO_SHORT = "Color can't be that short!";

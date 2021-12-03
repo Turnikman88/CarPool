@@ -1,10 +1,7 @@
-﻿using CarPool.API.Infrastructure.Attributes;
-using CarPool.Services.Data.Contracts;
+﻿using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using Microsoft.AspNetCore.Mvc;
-using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace CarPool.API.Controllers
@@ -25,7 +22,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(401)]
         public async Task<ActionResult<IEnumerable<ResponseAuthDTO>>> Login(RequestAuthDTO model)
         {
-            return this.Ok(await _auth.AuthenticateAsync(model));
+            return Ok(await _auth.AuthenticateAsync(model));
         }
 
        // [HttpPost]

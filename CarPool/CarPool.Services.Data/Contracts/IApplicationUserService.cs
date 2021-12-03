@@ -12,7 +12,7 @@ namespace CarPool.Services.Data.Contracts
 
         Task<IEnumerable<ApplicationUserDisplayDTO>> GetAsync(int page);
 
-        Task<ApplicationUserDTO> GetUserByEmailAsync(string email);
+        Task<ApplicationUserDTO> GetUserByEmailOrIdAsync(string emailOrId);
 
         Task<ApplicationUserDTO> PostAsync(ApplicationUserDTO obj);
 

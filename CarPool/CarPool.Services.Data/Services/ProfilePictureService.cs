@@ -1,15 +1,10 @@
 ﻿using CarPool.Common;
-using CarPool.Common.Exceptions;
 using CarPool.Data;
-using CarPool.Data.Models.DatabaseModels;
 using CarPool.Services.Data.Contracts;
-using CarPool.Services.Mapping.DTOs;
-using CarPool.Services.Mapping.Mappers;
 using Imagekit;
 using Microsoft.AspNetCore.Http;
 using Microsoft.EntityFrameworkCore;
 using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Text;
@@ -23,7 +18,7 @@ namespace CarPool.Services
 
         public ProfilePictureService(CarPoolDBContext db)
         {
-            this._db = db;
+            _db = db;
         }
 
         public async Task<bool> UpdateAsync(string email, IFormFile image)

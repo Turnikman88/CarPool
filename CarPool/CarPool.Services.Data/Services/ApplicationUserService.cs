@@ -18,7 +18,7 @@ namespace CarPool.Services.Data.Services
 
         public ApplicationUserService(CarPoolDBContext db)
         {
-            this._db = db;
+            _db = db;
         }
 
 
@@ -75,7 +75,7 @@ namespace CarPool.Services.Data.Services
         }
 
 
-        public async Task<ApplicationUserDTO> GetUserByEmailAsync(string email)
+        public async Task<ApplicationUserDTO> GetUserByEmailOrIdAsync(string emailOrId)
         {
             var user = await _db.ApplicationUsers.Include(x => x.Address)
                                                  .Include(x => x.Ratings)
@@ -83,7 +83,7 @@ namespace CarPool.Services.Data.Services
                                                  .Include(x => x.Vehicle)
                                                  .Include(x => x.ApplicationRole)
                                                  .Include(x => x.Ban)
-                                                 .Where(x => x.Email == email)
+                                                 .Where(x => x.Email == emailOrId || x.Id.ToString() == emailOrId)
                                                  .Select(x => x.GetDTO())
                                                  .FirstOrDefaultAsync();
 

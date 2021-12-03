@@ -97,7 +97,7 @@ namespace CarPool.Services.Data.Services
 
             if (deletedAddress == null)
             {
-                await this._db.Addresses.AddAsync(newAddress);
+                await _db.Addresses.AddAsync(newAddress);
                 await _db.SaveChangesAsync();
                 newAddress = await _db.Addresses.Include(x => x.City).ThenInclude(x => x.Country)
                                                 .FirstOrDefaultAsync(x => x.Id == newAddress.Id);
@@ -139,7 +139,7 @@ namespace CarPool.Services.Data.Services
         {
             _check.CheckId(id);
 
-            var address = await this._db.Addresses
+            var address = await _db.Addresses
                                         .Include(c => c.City)
                                         .ThenInclude(c => c.Country)
                                         .FirstOrDefaultAsync(x => x.Id == id);

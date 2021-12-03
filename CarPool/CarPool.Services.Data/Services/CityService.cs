@@ -1,5 +1,4 @@
 ﻿using CarPool.Common;
-using CarPool.Common.Exceptions;
 using CarPool.Data;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
@@ -19,14 +18,14 @@ namespace CarPool.Services.Data.Services
 
         public CityService(CarPoolDBContext db, ICheckExistenceService check, ICountryService cs)
         {
-            this._db = db;
-            this._check = check;
-            this._cs = cs;
+            _db = db;
+            _check = check;
+            _cs = cs;
         }
 
         public async Task<IEnumerable<CityDTO>> GetAsync(int page)
         {
-            return await this._db.Cities
+            return await _db.Cities
                 .Include(x => x.Addresses)
                 .Include(x => x.Country)
                 .Skip(page * GlobalConstants.PageSkip)
@@ -65,7 +64,7 @@ namespace CarPool.Services.Data.Services
 
         public async Task<IEnumerable<CityDTO>> GetCitiesByPartNameAsync(int page, string name)
         {
-            return await this._db.Cities
+            return await _db.Cities
                 .Include(x => x.Addresses)
                 .Include(x => x.Country)
                 .Where(x => x.Name.ToLower().Contains(name.ToLower()))
@@ -77,7 +76,7 @@ namespace CarPool.Services.Data.Services
 
         public async Task<IEnumerable<CityDTO>> GetCitiesByCountryNameAsync(int page, string name)
         {
-            return await this._db.Cities
+            return await _db.Cities
                 .Include(x => x.Addresses)
                 .Include(x => x.Country)
                 .Where(x => x.Country.Name.ToLower().Contains(name.ToLower()))
@@ -110,7 +109,7 @@ namespace CarPool.Services.Data.Services
             var newCity = obj.GetEntity();
             if (deletedCity == null)
             {
-                await this._db.Cities.AddAsync(newCity);
+                await _db.Cities.AddAsync(newCity);
                 await _db.SaveChangesAsync();
                 result = await GetCityByIdAsync(newCity.Id);
             }
@@ -135,7 +134,7 @@ namespace CarPool.Services.Data.Services
             if (await _check.CityExistsAsync(obj.Name, obj.CountryId))
                 return new CityDTO() { ErrorMessage = GlobalConstants.CITY_EXISTS };
 
-            var city = await this._db.Cities
+            var city = await _db.Cities
                 .Include(x => x.Addresses)
                 .Include(x => x.Country)
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -158,7 +157,7 @@ namespace CarPool.Services.Data.Services
         {
             _check.CheckId(id);
 
-            var city = await this._db.Cities
+            var city = await _db.Cities
                 .Include(x => x.Addresses)
                 .Include(x => x.Country)
                 .FirstOrDefaultAsync(x => x.Id == id);
@@ -167,7 +166,7 @@ namespace CarPool.Services.Data.Services
                 return new CityDTO() { ErrorMessage = GlobalConstants.CITY_NOT_FOUND };
 
             city.DeletedOn = System.DateTime.Now;
-            this._db.Cities.Remove(city);
+            _db.Cities.Remove(city);
             await _db.SaveChangesAsync();
 
             return city.GetDTO();

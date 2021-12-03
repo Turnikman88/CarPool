@@ -14,7 +14,7 @@ namespace CarPool.Services.Data.Services
 
         public RatingService(CarPoolDBContext db)
         {
-            this._db = db;
+            _db = db;
         }
 
         public async Task<RatingDTO> PostReportAsync(RatingDTO obj)
@@ -59,12 +59,12 @@ namespace CarPool.Services.Data.Services
 
         private async Task<bool> IsAlreadyRatedAsync(string driverID, string userID, int tripID)
         {
-            return await this._db.Ratings.AnyAsync(x => x.AddedByUserId.ToString() == userID && x.ApplicationUserId.ToString() == driverID && x.TripId == tripID && x.IsReport == false);
+            return await _db.Ratings.AnyAsync(x => x.AddedByUserId.ToString() == userID && x.ApplicationUserId.ToString() == driverID && x.TripId == tripID && x.IsReport == false);
         }
 
         private async Task<bool> IsAlreadyReportedAsync(string driverID, string userID, int tripID)
         {
-            return await this._db.Ratings.AnyAsync(x => x.AddedByUserId.ToString() == userID && x.ApplicationUserId.ToString() == driverID && x.TripId == tripID && x.IsReport == true);
+            return await _db.Ratings.AnyAsync(x => x.AddedByUserId.ToString() == userID && x.ApplicationUserId.ToString() == driverID && x.TripId == tripID && x.IsReport == true);
         }
 
     }
