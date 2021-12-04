@@ -1,3 +1,4 @@
+using CarPool.Web.Hubs;
 using CarPool.Web.Infrastructure.Extensions;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
@@ -27,6 +28,7 @@ namespace CarPool.Web
             services.AddControllersWithViews();
             services.AddHttpClient();
 
+            services.AddSignalR();
             services.AddSingleton<IConfiguration>(Configuration);
             services.AddApplicationServices(Configuration);
 
@@ -76,6 +78,7 @@ namespace CarPool.Web
                 endpoints.MapControllerRoute(
                     name: "default",
                     pattern: "{controller=Home}/{action=Index}/{id?}");
+                endpoints.MapHub<ChatHub>("/chat");
             });
         }
     }

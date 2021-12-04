@@ -53,12 +53,14 @@
                     @if (email != tr.DriverEmail)
                     {
                         <td scope="col">
-                            <button class="btn-default btn-details" id="join-id" onclick="ExecuteEmptyAjax('@Url.Action("Join", "Trip", new { id = tr.Id })'); JoinTrip();">
+                            <button class="btn-default btn-details" id="join-id#@tr.Id" onclick="ExecuteEmptyAjax('@Url.Action("Join", "Trip", new { id = tr.Id })'); JoinTrip();">
                                 Join
                             </button>
                         </td>
                     }
                 </tr>
+
+
             }
         }
 
@@ -95,7 +97,7 @@
             customClass: 'swal-contact',
             title: '<h5 class="swal-title"> You joined a new trip! </h5>',
             showConfirmButton: true,
-            //timer: 5000
+            timer: 3500
         })
     }
     function showDetails(duration, distance, driver, passengers, seats, vehicalModel, vehicleColor, price, comment) {
@@ -130,7 +132,5 @@
             `</div>`
         })
     }
-</script>
-
-
+</script> 
 

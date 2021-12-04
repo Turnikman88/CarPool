@@ -43,48 +43,55 @@
                 string streetUrl = $"https:////www.google.com/maps/search/?api=1&query={tr.StartAddressStreet} {tr.StartAddressCity} {tr.StartAddressCountry}";
                 string dir = $"https:////www.google.com/maps/dir/{tr.StartAddressStreet} {tr.StartAddressCity} {tr.StartAddressCountry}/{tr.DestinationAddressStreet} {tr.DestinationAddressCity} {tr.DestinationAddressCountry}/";
                 string price = tr.Price > 0.00M ? tr.Price.ToString() : "FREE RIDE";
-                <tr>
-                    <td scope="col">@tr.StartAddressCity</td>
-                    <td scope="col">@tr.DestinationAddressCity</td>
-                    <td scope="col">@tr.DepartureTime.ToString("MMMM dd, yyyy")</td>
+    <tr>
+        <td scope="col">@tr.StartAddressCity</td>
+        <td scope="col">@tr.DestinationAddressCity</td>
+        <td scope="col">@tr.DepartureTime.ToString("MMMM dd, yyyy")</td>
 
-                    <td scope="col">
-                        <button class="btn-default btn-details" style="background-color: #7066e0!important"
-                                onclick="showDetails('@tr.DurationInMinutes', '@tr.Distance', '@tr.DriverName',
+        <td scope="col">
+            <button class="btn-default btn-details" style="background-color: #7066e0!important"
+                    onclick="showDetails('@tr.DurationInMinutes', '@tr.Distance', '@tr.DriverName',
                                                     '@tr.PassengersCount', '@tr.FreeSeats', '@tr.DriverVehicle',
                                                         '@tr.DriverVehicleColor', '@price', '@tr.AdditionalComment')">
-                            Details
-                        </button>
-                    </td>
+                Details
+            </button>
+        </td>
 
-                    <td scope="col">
-                        <button class="btn-default btn-details" style="background-color: #7066e0!important"
-                                onclick="openMaps('@dir')">
-                            Map
-                        </button>
-                    </td>
-                    @if (email == tr.DriverEmail)
-                    {
-                        <td scope="col">
-                            <button style="background-color: red!important"
-                                    class="btn-default btn-details" id="join-id" onclick="ajaxId('@Url.Action("Leave", "Trip", new { id = tr.Id })', 'upcoming-trips')">
-                                Delete
-                            </button>
-                        </td>
+        <td scope="col">
+            <button class="btn-default btn-details" id="chat-id#@tr.Id" style="background-color: #7066e0!important"
+                    onclick="showInPopup('@Url.Action("Chat", "Home", new { id = tr.Id})')">
+                Chat
+            </button>
+        </td>
 
-                    }
-                    else
-                    {
-                        <td scope="col">
-                            <button style="background-color: red!important"
-                                    class="btn-default btn-details" id="join-id" onclick="ajaxId('@Url.Action("Leave", "Trip", new { id = tr.Id })', 'upcoming-trips')">
-                                Leave
-                            </button>
-                        </td>
+        <td scope="col">
+            <button class="btn-default btn-details" style="background-color: #7066e0!important"
+                    onclick="openMaps('@dir')">
+                Map
+            </button>
+        </td>
+        @if (email == tr.DriverEmail)
+        {
+            <td scope="col">
+                <button style="background-color: red!important"
+                        class="btn-default btn-details" id="join-id" onclick="ajaxId('@Url.Action("Leave", "Trip", new { id = tr.Id })', 'upcoming-trips')">
+                    Delete
+                </button>
+            </td>
 
-                    }
+        }
+        else
+        {
+            <td scope="col">
+                <button style="background-color: red!important"
+                        class="btn-default btn-details" id="join-id" onclick="ajaxId('@Url.Action("Leave", "Trip", new { id = tr.Id })', 'upcoming-trips')">
+                    Leave
+                </button>
+            </td>
 
-                </tr>
+        }
+
+    </tr>
             }
         }
 
@@ -115,7 +122,21 @@
     $('#prev-page').prop('disabled', false);
     if (@Model.CurrentPage != @Model.MaxPages)
     $('#next-page').prop('disabled', false);
+    });
+
+    var connection =
+            new signalR.HubConnectionBuilder()
+                .withUrl("/chat")
+                .build();
+
+    let idtrip = document.querySelector('[id^="chat-id#"]').id.split('#')[1];
+    document.querySelector('[id^="chat-id#"]').addEventListener("click", function (event) {
+        connection.invoke("AddToGroup", `PrivateGroup#${idtrip}`).catch(function (err) {
+            return console.error(err.tostring());
         });
+        event.preventDefault();
+    });
+
 
     function ChangeMenu(tag) {
         if (tag == 'upcoming-trips') {

@@ -104,11 +104,12 @@ namespace CarPool.Web.Controllers
             var requestEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
             var driver = await _user.GetUserByEmailOrIdAsync(requestEmail);
 
-            if (driver.HasVehicle) //TODO: redirect? 
+            if (driver.HasVehicle)
             {
                 return RedirectToAction("Index", "Vehicle");
             }
-            return View(new TripViewModel() { Date = System.DateTime.Today });
+
+            return View(new TripViewModel() { Date = DateTime.Today });
         }
 
         [HttpPost]

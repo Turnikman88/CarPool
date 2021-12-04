@@ -4,6 +4,7 @@ using CarPool.Services.Contracts;
 using CarPool.Services.Data.Contracts;
 using CarPool.Services.Mapping.DTOs;
 using CarPool.Web.ViewModels.DTOs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
@@ -44,6 +45,13 @@ namespace CarPool.Web.Controllers
                 TopUsers = topUsers
             };
             return View(model);
+        }
+
+        [Authorize]
+        public IActionResult Chat(int id)
+        {
+            TempData["Room"] = $"PrivateGroup#{id}";
+            return this.View();
         }
 
         public IActionResult Contact()
