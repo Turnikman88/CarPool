@@ -59,7 +59,7 @@
 
         <td scope="col">
             <button class="btn-default btn-details" id="chat-id#@tr.Id" style="background-color: #7066e0!important"
-                    onclick="showInPopup('@Url.Action("Chat", "Home", new { id = tr.Id})')">
+                    onclick="showInPopup('@Url.Action("Chat", "Home")')">
                 Chat
             </button>
         </td>
@@ -124,19 +124,6 @@
     $('#next-page').prop('disabled', false);
     });
 
-    var connection =
-            new signalR.HubConnectionBuilder()
-                .withUrl("/chat")
-                .build();
-
-    let idtrip = document.querySelector('[id^="chat-id#"]').id.split('#')[1];
-    document.querySelector('[id^="chat-id#"]').addEventListener("click", function (event) {
-        connection.invoke("AddToGroup", `PrivateGroup#${idtrip}`).catch(function (err) {
-            return console.error(err.tostring());
-        });
-        event.preventDefault();
-    });
-
 
     function ChangeMenu(tag) {
         if (tag == 'upcoming-trips') {
@@ -153,16 +140,7 @@
             $('#manage-trips').show();
         }
     }
-    function JoinTrip() {
-        Swal.fire({
-            position: 'center',
-            backdrop: false,
-            customClass: 'swal-contact',
-            title: '<h5 class="swal-title"> You joined a new trip! </h5>',
-            showConfirmButton: true,
-            //timer: 5000
-        })
-    }
+
     function showDetails(duration, distance, driver, passengers, seats, vehicalModel, vehicleColor, price, comment) {
         Swal.fire({
             position: 'center',

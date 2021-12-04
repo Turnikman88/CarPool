@@ -8,7 +8,9 @@ using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
+using System.Linq;
 using System.Net;
+using System.Security.Claims;
 using System.Threading.Tasks;
 
 namespace CarPool.Web.Controllers
@@ -48,10 +50,24 @@ namespace CarPool.Web.Controllers
         }
 
         [Authorize]
-        public IActionResult Chat(int id)
+        public async Task<IActionResult> Chat()
         {
-            TempData["Room"] = $"PrivateGroup#{id}";
-            return this.View();
+            var requestEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+
+            var trips = await _ts.GetUpcomingTripsByUserAsync(0, requestEmail);
+            List<string> tripsids = new List<string>();
+
+            foreach (var item in trips)
+            {
+                tripsids.Add($"{item.DepartureTime.Date.ToString("MMMM dd, yyyy")}/{item.StartAddressCity}/{item.DestinationAddressCity}");
+            }
+            var model = new ChatViewModel()
+            {
+                TripsIds = tripsids
+            };
+
+
+            return this.View(model);
         }
 
         public IActionResult Contact()
