@@ -61,7 +61,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 1,
                             CityId = 1,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(8886),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(1104),
                             IsDeleted = false,
                             Latitude = 42.6860436m,
                             Longitude = 23.320311m,
@@ -71,7 +71,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 2,
                             CityId = 2,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(693),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(4734),
                             IsDeleted = false,
                             Latitude = 42.1382775m,
                             Longitude = 24.7604295m,
@@ -81,7 +81,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 3,
                             CityId = 3,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(729),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(4790),
                             IsDeleted = false,
                             Latitude = 41.022079m,
                             Longitude = 28.9483964m,
@@ -91,7 +91,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 4,
                             CityId = 4,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(732),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(4795),
                             IsDeleted = false,
                             Latitude = 37.9916167m,
                             Longitude = 23.7363294m,
@@ -101,7 +101,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 5,
                             CityId = 5,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(734),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(4857),
                             IsDeleted = false,
                             Latitude = 44.432558m,
                             Longitude = 26.111871m,
@@ -111,7 +111,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 6,
                             CityId = 1,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(738),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(4865),
                             IsDeleted = false,
                             Latitude = 44.432558m,
                             Longitude = 26.111871m
@@ -120,7 +120,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 7,
                             CityId = 2,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(740),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(4868),
                             IsDeleted = false,
                             Latitude = 44.432558m,
                             Longitude = 26.111871m
@@ -129,7 +129,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 8,
                             CityId = 3,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(742),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(4871),
                             IsDeleted = false,
                             Latitude = 44.432558m,
                             Longitude = 26.111871m
@@ -138,7 +138,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 9,
                             CityId = 4,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(782),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(4875),
                             IsDeleted = false,
                             Latitude = 44.432558m,
                             Longitude = 26.111871m
@@ -175,28 +175,28 @@ namespace CarPool.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(1375),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(5899),
                             IsDeleted = false,
                             Name = "Admin"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(1591),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(6312),
                             IsDeleted = false,
                             Name = "User"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(1601),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(6326),
                             IsDeleted = false,
                             Name = "Banned"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(1602),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(6328),
                             IsDeleted = false,
                             Name = "NotConfirmed"
                         });
@@ -272,57 +272,57 @@ namespace CarPool.Data.Migrations
                     b.HasData(
                         new
                         {
-                            Id = new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"),
+                            Id = new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"),
                             AddressId = 1,
                             ApplicationRoleId = 2,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 102, DateTimeKind.Utc).AddTicks(3650),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 822, DateTimeKind.Utc).AddTicks(9440),
                             Email = "mishkov@misho.com",
                             EmailConfirmed = true,
                             FirstName = "Misho",
                             LastName = "Mishkov",
-                            Password = "$2a$11$j1.OhcqE366Gxa4xMunzXulWTf4BXZ5zywlhz/DLncECN6mxfoLi2",
+                            Password = "$2a$11$414SjUNQgHASPwloWblZjOvEDCCM913EU3hkY7iEv.xTjfUUGKkBu",
                             PhoneNumber = "+35920768005",
                             Username = "misha_m"
                         },
                         new
                         {
-                            Id = new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"),
+                            Id = new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"),
                             AddressId = 2,
                             ApplicationRoleId = 2,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 222, DateTimeKind.Utc).AddTicks(7067),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 43, DateTimeKind.Utc).AddTicks(9959),
                             Email = "petio@mvc.net",
                             EmailConfirmed = true,
                             FirstName = "Peter",
                             LastName = "Petrov",
-                            Password = "$2a$11$cEpdCt4dAyrM4s9J8h67DOJlIlNI2IIQiWHYsaF1vXypSQVnpZ6sa",
+                            Password = "$2a$11$ODdt2dtTaSOOaPDrBt7B/OjlK1DJBa6L7zZui32Yt38B9TZs17uYe",
                             PhoneNumber = "+35924492877",
                             Username = "petio_p"
                         },
                         new
                         {
-                            Id = new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"),
+                            Id = new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"),
                             AddressId = 3,
                             ApplicationRoleId = 2,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 338, DateTimeKind.Utc).AddTicks(3846),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 248, DateTimeKind.Utc).AddTicks(5459),
                             Email = "koksal@asd.tr",
                             EmailConfirmed = true,
                             FirstName = "Koksal",
                             LastName = "Baba",
-                            Password = "$2a$11$pQ.jItAh7ESFjQjn92JK/u/9Z8ngsDXNs1HCHfzdFQuLH2lKTUJGO",
+                            Password = "$2a$11$RR6YyXslhNzOZF14zxFpX.e.pAjVqwaZ.OLrNBbwdmkzqnsGhzWSK",
                             PhoneNumber = "+35922649764",
                             Username = "koksal"
                         },
                         new
                         {
-                            Id = new Guid("24be505d-c19f-4633-9342-bc262aed26f9"),
+                            Id = new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"),
                             AddressId = 1,
                             ApplicationRoleId = 1,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 454, DateTimeKind.Utc).AddTicks(198),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 445, DateTimeKind.Utc).AddTicks(2774),
                             Email = "indebt@greece.gov",
                             EmailConfirmed = true,
                             FirstName = "Nikolaos",
                             LastName = "Tsitsibaris",
-                            Password = "$2a$11$ebXYzzjiZhJZ2LhmOra.euJ8xkmC7EPTUoMx6aX.k1M4/GnkD8Vly",
+                            Password = "$2a$11$1KuvXARVarDrHgtApqKspuO10f6Vx/ljG7UV/Az0LRk9CGSWiJ7eu",
                             PhoneNumber = "+35924775508",
                             Username = "cicibar"
                         });
@@ -358,23 +358,23 @@ namespace CarPool.Data.Migrations
                     b.HasIndex("ApplicationUserId")
                         .IsUnique();
 
-                    b.ToTable("Ban");
+                    b.ToTable("Bans");
 
                     b.HasData(
                         new
                         {
                             Id = 1,
-                            ApplicationUserId = new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"),
-                            BlockedDue = new DateTime(2021, 12, 8, 0, 0, 0, 0, DateTimeKind.Local),
-                            BlockedOn = new DateTime(2021, 12, 3, 0, 0, 0, 0, DateTimeKind.Local),
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 570, DateTimeKind.Utc).AddTicks(6847)
+                            ApplicationUserId = new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"),
+                            BlockedDue = new DateTime(2021, 12, 6, 0, 0, 0, 0, DateTimeKind.Local),
+                            BlockedOn = new DateTime(2021, 12, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 650, DateTimeKind.Utc).AddTicks(2406)
                         },
                         new
                         {
                             Id = 2,
-                            ApplicationUserId = new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"),
-                            BlockedOn = new DateTime(2021, 12, 3, 0, 0, 0, 0, DateTimeKind.Local),
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(4945)
+                            ApplicationUserId = new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"),
+                            BlockedOn = new DateTime(2021, 12, 1, 0, 0, 0, 0, DateTimeKind.Local),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 654, DateTimeKind.Utc).AddTicks(9755)
                         });
                 });
 
@@ -418,7 +418,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 1,
                             CountryId = 1,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(6664),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(7371),
                             IsDeleted = false,
                             Name = "Sofia"
                         },
@@ -426,7 +426,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 2,
                             CountryId = 1,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7516),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8924),
                             IsDeleted = false,
                             Name = "Plovdiv"
                         },
@@ -434,7 +434,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 3,
                             CountryId = 1,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7542),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8970),
                             IsDeleted = false,
                             Name = "Varna"
                         },
@@ -442,7 +442,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 4,
                             CountryId = 2,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7544),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8973),
                             IsDeleted = false,
                             Name = "Istanbul"
                         },
@@ -450,7 +450,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 5,
                             CountryId = 3,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7546),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8975),
                             IsDeleted = false,
                             Name = "Athens"
                         },
@@ -458,7 +458,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 6,
                             CountryId = 3,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7550),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8982),
                             IsDeleted = false,
                             Name = "Thessaloniki"
                         },
@@ -466,7 +466,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 7,
                             CountryId = 3,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7552),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8985),
                             IsDeleted = false,
                             Name = "Patras"
                         },
@@ -474,7 +474,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 8,
                             CountryId = 4,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7553),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8986),
                             IsDeleted = false,
                             Name = "Yash"
                         },
@@ -482,7 +482,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 9,
                             CountryId = 2,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7554),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8988),
                             IsDeleted = false,
                             Name = "Odrin"
                         },
@@ -490,7 +490,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 10,
                             CountryId = 2,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7556),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8991),
                             IsDeleted = false,
                             Name = "Ankara"
                         },
@@ -498,7 +498,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 11,
                             CountryId = 4,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7557),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8993),
                             IsDeleted = false,
                             Name = "Bucharest"
                         },
@@ -506,7 +506,7 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 12,
                             CountryId = 4,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 101, DateTimeKind.Utc).AddTicks(7558),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 821, DateTimeKind.Utc).AddTicks(8995),
                             IsDeleted = false,
                             Name = "Craiova"
                         });
@@ -546,28 +546,28 @@ namespace CarPool.Data.Migrations
                         new
                         {
                             Id = 1,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 100, DateTimeKind.Utc).AddTicks(5700),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 819, DateTimeKind.Utc).AddTicks(8035),
                             IsDeleted = false,
                             Name = "Bulgaria"
                         },
                         new
                         {
                             Id = 2,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 100, DateTimeKind.Utc).AddTicks(6825),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 819, DateTimeKind.Utc).AddTicks(9958),
                             IsDeleted = false,
                             Name = "Turkey"
                         },
                         new
                         {
                             Id = 3,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 100, DateTimeKind.Utc).AddTicks(6844),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 819, DateTimeKind.Utc).AddTicks(9986),
                             IsDeleted = false,
                             Name = "Greece"
                         },
                         new
                         {
                             Id = 4,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 100, DateTimeKind.Utc).AddTicks(6845),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 18, 819, DateTimeKind.Utc).AddTicks(9988),
                             IsDeleted = false,
                             Name = "Romania"
                         });
@@ -661,32 +661,32 @@ namespace CarPool.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ApplicationUserId = new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"),
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(874),
+                            ApplicationUserId = new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(7172),
                             ImageLink = "https://ik.imagekit.io/hb0rsbgap4f2/profilepicture_qVGMALiir.png?updatedAt=1637784974343",
                             IsDeleted = false
                         },
                         new
                         {
                             Id = 2,
-                            ApplicationUserId = new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"),
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(1328),
+                            ApplicationUserId = new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(8577),
                             ImageLink = "https://ik.imagekit.io/hb0rsbgap4f2/profilepicture_qVGMALiir.png?updatedAt=1637784974343",
                             IsDeleted = false
                         },
                         new
                         {
                             Id = 3,
-                            ApplicationUserId = new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"),
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(1357),
+                            ApplicationUserId = new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(8613),
                             ImageLink = "https://ik.imagekit.io/hb0rsbgap4f2/profilepicture_qVGMALiir.png?updatedAt=1637784974343",
                             IsDeleted = false
                         },
                         new
                         {
                             Id = 4,
-                            ApplicationUserId = new Guid("24be505d-c19f-4633-9342-bc262aed26f9"),
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(1358),
+                            ApplicationUserId = new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(8616),
                             ImageLink = "https://ik.imagekit.io/hb0rsbgap4f2/profilepicture_qVGMALiir.png?updatedAt=1637784974343",
                             IsDeleted = false
                         });
@@ -733,9 +733,9 @@ namespace CarPool.Data.Migrations
                         new
                         {
                             Id = 1,
-                            AddedByUserId = new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"),
-                            ApplicationUserId = new Guid("24be505d-c19f-4633-9342-bc262aed26f9"),
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(2006),
+                            AddedByUserId = new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"),
+                            ApplicationUserId = new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 657, DateTimeKind.Utc).AddTicks(406),
                             Feedback = "Nice car",
                             IsReport = false,
                             TripId = 1,
@@ -744,9 +744,9 @@ namespace CarPool.Data.Migrations
                         new
                         {
                             Id = 2,
-                            AddedByUserId = new Guid("24be505d-c19f-4633-9342-bc262aed26f9"),
-                            ApplicationUserId = new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"),
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(2983),
+                            AddedByUserId = new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"),
+                            ApplicationUserId = new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 657, DateTimeKind.Utc).AddTicks(2807),
                             Feedback = "Bad person",
                             IsReport = false,
                             TripId = 1,
@@ -755,9 +755,9 @@ namespace CarPool.Data.Migrations
                         new
                         {
                             Id = 3,
-                            AddedByUserId = new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"),
-                            ApplicationUserId = new Guid("24be505d-c19f-4633-9342-bc262aed26f9"),
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(3021),
+                            AddedByUserId = new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"),
+                            ApplicationUserId = new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 657, DateTimeKind.Utc).AddTicks(2917),
                             Feedback = "(No feedback)",
                             IsReport = false,
                             TripId = 5,
@@ -823,11 +823,11 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 1,
                             AdditionalComment = "(No comment)",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(6692),
-                            DepartureTime = new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(7811),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 655, DateTimeKind.Utc).AddTicks(4825),
+                            DepartureTime = new DateTime(2021, 12, 1, 13, 58, 19, 655, DateTimeKind.Local).AddTicks(8028),
                             DestinationAddressId = 2,
                             Distance = 340,
-                            DriverId = new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"),
+                            DriverId = new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"),
                             DurationInMinutes = 90,
                             FreeSeats = 2,
                             PassengersCount = 2,
@@ -838,11 +838,11 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 2,
                             AdditionalComment = "NO SMOKING",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8621),
-                            DepartureTime = new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8650),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(827),
+                            DepartureTime = new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(898),
                             DestinationAddressId = 3,
                             Distance = 240,
-                            DriverId = new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"),
+                            DriverId = new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"),
                             DurationInMinutes = 120,
                             FreeSeats = 2,
                             PassengersCount = 2,
@@ -853,11 +853,11 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 3,
                             AdditionalComment = "NO SMOKING",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8682),
-                            DepartureTime = new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8684),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1016),
+                            DepartureTime = new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1050),
                             DestinationAddressId = 2,
                             Distance = 210,
-                            DriverId = new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"),
+                            DriverId = new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"),
                             DurationInMinutes = 110,
                             FreeSeats = 2,
                             PassengersCount = 2,
@@ -868,11 +868,11 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 4,
                             AdditionalComment = "Long comment here",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8687),
-                            DepartureTime = new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8688),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1066),
+                            DepartureTime = new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1071),
                             DestinationAddressId = 1,
                             Distance = 240,
-                            DriverId = new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"),
+                            DriverId = new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"),
                             DurationInMinutes = 120,
                             FreeSeats = 2,
                             PassengersCount = 1,
@@ -883,11 +883,11 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 5,
                             AdditionalComment = "Additional comments below",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8691),
-                            DepartureTime = new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8692),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1080),
+                            DepartureTime = new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1085),
                             DestinationAddressId = 4,
                             Distance = 240,
-                            DriverId = new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"),
+                            DriverId = new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"),
                             DurationInMinutes = 120,
                             FreeSeats = 2,
                             PassengersCount = 1,
@@ -898,11 +898,11 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 6,
                             AdditionalComment = "follow me on twitter",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8698),
-                            DepartureTime = new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8699),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1105),
+                            DepartureTime = new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1111),
                             DestinationAddressId = 4,
                             Distance = 240,
-                            DriverId = new Guid("24be505d-c19f-4633-9342-bc262aed26f9"),
+                            DriverId = new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"),
                             DurationInMinutes = 120,
                             FreeSeats = 2,
                             PassengersCount = 1,
@@ -913,11 +913,11 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 7,
                             AdditionalComment = "NO EATING",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8701),
-                            DepartureTime = new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8702),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1120),
+                            DepartureTime = new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1123),
                             DestinationAddressId = 2,
                             Distance = 240,
-                            DriverId = new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"),
+                            DriverId = new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"),
                             DurationInMinutes = 120,
                             FreeSeats = 2,
                             PassengersCount = 1,
@@ -928,11 +928,11 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 8,
                             AdditionalComment = "CHEAP AND FAST",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8705),
-                            DepartureTime = new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8706),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1132),
+                            DepartureTime = new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1136),
                             DestinationAddressId = 2,
                             Distance = 240,
-                            DriverId = new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"),
+                            DriverId = new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"),
                             DurationInMinutes = 120,
                             FreeSeats = 2,
                             PassengersCount = 1,
@@ -943,11 +943,11 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 9,
                             AdditionalComment = "FAST FAST FAST",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8708),
-                            DepartureTime = new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8710),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1143),
+                            DepartureTime = new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1146),
                             DestinationAddressId = 3,
                             Distance = 240,
-                            DriverId = new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"),
+                            DriverId = new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"),
                             DurationInMinutes = 120,
                             FreeSeats = 2,
                             PassengersCount = 1,
@@ -958,11 +958,11 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 10,
                             AdditionalComment = "No pets",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8712),
-                            DepartureTime = new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8714),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1157),
+                            DepartureTime = new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1162),
                             DestinationAddressId = 1,
                             Distance = 240,
-                            DriverId = new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"),
+                            DriverId = new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"),
                             DurationInMinutes = 120,
                             FreeSeats = 2,
                             PassengersCount = 1,
@@ -973,11 +973,11 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 11,
                             AdditionalComment = "NO SMOKING NO FOOD",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8716),
-                            DepartureTime = new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8717),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1172),
+                            DepartureTime = new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1176),
                             DestinationAddressId = 3,
                             Distance = 240,
-                            DriverId = new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"),
+                            DriverId = new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"),
                             DurationInMinutes = 120,
                             FreeSeats = 2,
                             PassengersCount = 1,
@@ -988,11 +988,11 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 12,
                             AdditionalComment = "NO STOPS",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8961),
-                            DepartureTime = new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8965),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1898),
+                            DepartureTime = new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1915),
                             DestinationAddressId = 3,
                             Distance = 240,
-                            DriverId = new Guid("24be505d-c19f-4633-9342-bc262aed26f9"),
+                            DriverId = new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"),
                             DurationInMinutes = 120,
                             FreeSeats = 2,
                             PassengersCount = 1,
@@ -1003,11 +1003,11 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 13,
                             AdditionalComment = "Good looking and friendly",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8982),
-                            DepartureTime = new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8983),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1963),
+                            DepartureTime = new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1969),
                             DestinationAddressId = 4,
                             Distance = 240,
-                            DriverId = new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"),
+                            DriverId = new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"),
                             DurationInMinutes = 120,
                             FreeSeats = 2,
                             PassengersCount = 1,
@@ -1018,11 +1018,11 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 14,
                             AdditionalComment = "Fast car",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8986),
-                            DepartureTime = new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8987),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(1984),
+                            DepartureTime = new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(1989),
                             DestinationAddressId = 3,
                             Distance = 240,
-                            DriverId = new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"),
+                            DriverId = new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"),
                             DurationInMinutes = 120,
                             FreeSeats = 2,
                             PassengersCount = 1,
@@ -1033,11 +1033,11 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 15,
                             AdditionalComment = "High price",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8989),
-                            DepartureTime = new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8990),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(2000),
+                            DepartureTime = new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(2004),
                             DestinationAddressId = 2,
                             Distance = 240,
-                            DriverId = new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"),
+                            DriverId = new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"),
                             DurationInMinutes = 120,
                             FreeSeats = 2,
                             PassengersCount = 1,
@@ -1048,11 +1048,11 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 16,
                             AdditionalComment = "Im not alone",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8993),
-                            DepartureTime = new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8994),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(2013),
+                            DepartureTime = new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(2016),
                             DestinationAddressId = 1,
                             Distance = 240,
-                            DriverId = new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"),
+                            DriverId = new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"),
                             DurationInMinutes = 120,
                             FreeSeats = 2,
                             PassengersCount = 2,
@@ -1063,11 +1063,11 @@ namespace CarPool.Data.Migrations
                         {
                             Id = 17,
                             AdditionalComment = "No kids",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(8996),
-                            DepartureTime = new DateTime(2021, 12, 3, 13, 18, 45, 572, DateTimeKind.Local).AddTicks(8997),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(2022),
+                            DepartureTime = new DateTime(2021, 12, 1, 13, 58, 19, 656, DateTimeKind.Local).AddTicks(2025),
                             DestinationAddressId = 3,
                             Distance = 240,
-                            DriverId = new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"),
+                            DriverId = new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"),
                             DurationInMinutes = 120,
                             FreeSeats = 2,
                             PassengersCount = 1,
@@ -1096,39 +1096,39 @@ namespace CarPool.Data.Migrations
                     b.HasData(
                         new
                         {
-                            ApplicationUserId = new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"),
+                            ApplicationUserId = new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"),
                             TripId = 1,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 572, DateTimeKind.Utc).AddTicks(9791)
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(4133)
                         },
                         new
                         {
-                            ApplicationUserId = new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"),
+                            ApplicationUserId = new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"),
                             TripId = 2,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(231)
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(5401)
                         },
                         new
                         {
-                            ApplicationUserId = new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"),
+                            ApplicationUserId = new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"),
                             TripId = 3,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(244)
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(5434)
                         },
                         new
                         {
-                            ApplicationUserId = new Guid("24be505d-c19f-4633-9342-bc262aed26f9"),
+                            ApplicationUserId = new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"),
                             TripId = 1,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(245)
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(5438)
                         },
                         new
                         {
-                            ApplicationUserId = new Guid("24be505d-c19f-4633-9342-bc262aed26f9"),
+                            ApplicationUserId = new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"),
                             TripId = 2,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(246)
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(5440)
                         },
                         new
                         {
-                            ApplicationUserId = new Guid("24be505d-c19f-4633-9342-bc262aed26f9"),
+                            ApplicationUserId = new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"),
                             TripId = 3,
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 573, DateTimeKind.Utc).AddTicks(249)
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 656, DateTimeKind.Utc).AddTicks(5449)
                         });
                 });
 
@@ -1176,9 +1176,9 @@ namespace CarPool.Data.Migrations
                         new
                         {
                             Id = 1,
-                            ApplicationUserId = new Guid("1c47e38d-48e4-42aa-87da-6395c1aab7ff"),
+                            ApplicationUserId = new Guid("2ea9a080-2505-44c8-b947-b7cfdbdfc8c9"),
                             Color = "Red",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 570, DateTimeKind.Utc).AddTicks(4363),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 649, DateTimeKind.Utc).AddTicks(6247),
                             FuelConsumptionPerHundredKilometers = 12.0,
                             IsDeleted = false,
                             Model = "Ferrari"
@@ -1186,9 +1186,9 @@ namespace CarPool.Data.Migrations
                         new
                         {
                             Id = 2,
-                            ApplicationUserId = new Guid("afa89eb2-9e75-4635-b353-1e9d3b34988c"),
+                            ApplicationUserId = new Guid("0858a9a0-b031-44bf-bec9-9d5ce348eebf"),
                             Color = "Blue",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 570, DateTimeKind.Utc).AddTicks(5493),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 649, DateTimeKind.Utc).AddTicks(9181),
                             FuelConsumptionPerHundredKilometers = 8.0,
                             IsDeleted = false,
                             Model = "Alfa Romeo"
@@ -1196,9 +1196,9 @@ namespace CarPool.Data.Migrations
                         new
                         {
                             Id = 3,
-                            ApplicationUserId = new Guid("6beb6f37-347b-44b6-88bc-0721fd391c49"),
+                            ApplicationUserId = new Guid("bf51d535-2d13-45ab-a466-d862228a3b7f"),
                             Color = "Black",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 570, DateTimeKind.Utc).AddTicks(5541),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 649, DateTimeKind.Utc).AddTicks(9292),
                             FuelConsumptionPerHundredKilometers = 10.0,
                             IsDeleted = false,
                             Model = "Mercedes S Class"
@@ -1206,9 +1206,9 @@ namespace CarPool.Data.Migrations
                         new
                         {
                             Id = 4,
-                            ApplicationUserId = new Guid("24be505d-c19f-4633-9342-bc262aed26f9"),
+                            ApplicationUserId = new Guid("5fad43a2-73d7-484b-8f45-f4323025e2a5"),
                             Color = "Silver",
-                            CreatedOn = new DateTime(2021, 12, 3, 11, 18, 45, 570, DateTimeKind.Utc).AddTicks(5561),
+                            CreatedOn = new DateTime(2021, 12, 1, 11, 58, 19, 649, DateTimeKind.Utc).AddTicks(9342),
                             FuelConsumptionPerHundredKilometers = 15.0,
                             IsDeleted = false,
                             Model = "BMW M5"

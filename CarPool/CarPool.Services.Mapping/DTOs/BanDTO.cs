@@ -19,6 +19,8 @@ namespace CarPool.Services.Mapping.DTOs
 
         public string ErrorMessage { get; set; }
 
+        public string Picture { get; set; }
+
         public string BanRemovedMessage { get; set; }
     }
 }

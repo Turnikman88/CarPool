@@ -1,0 +1,17 @@
+﻿@model ReportedDTO
+@{ Layout = "/Views/Shared/_LayoutEmpty.cshtml"; }
+<form asp-action="Ban" asp-controller="Ban" method="post" class="contact-form-1 rwt-dynamic-form" onsubmit="return jQueryAjaxPost(this);">
+
+    <label>Days to Ban</label>
+    <div class="form-group">
+        <input asp-for="Days" placeholder="Date" type="date" min="@DateTime.Now.Date">
+    </div>
+
+    
+    <div class="form-group">
+        <button type="submit" class="btn-default btn-large rn-btn"
+                style="background-color: #FF3CAC; cursor: pointer;">
+            <span>Ban</span>
+        </button>
+    </div>
+</form>

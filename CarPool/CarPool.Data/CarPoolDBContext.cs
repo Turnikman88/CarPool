@@ -37,6 +37,8 @@
 
         public virtual DbSet<Rating> Ratings { get; set; }
 
+        public virtual DbSet<Ban> Bans { get; set; }
+
         public virtual DbSet<TripPassenger> TripPassengers { get; set; }
 
         public virtual DbSet<Trip> Trips { get; set; }

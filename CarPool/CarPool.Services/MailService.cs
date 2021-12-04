@@ -24,8 +24,13 @@ namespace CarPool.Services
 
             var builder = new BodyBuilder();
             string reciver = null;
-
-            if (mailRequest.isFromContact)
+            if (mailRequest.IsBan)
+            {
+                mailRequest.Subject = "[Rideshare] You have been banned!";
+                reciver = mailRequest.Reciever;
+                builder.TextBody = mailRequest.Message;
+            }
+            else if (mailRequest.isFromContact)
             {
                 reciver = mailRequest.EmailFrom;
                 builder.TextBody = $"From: '{mailRequest.Name}' Phone: {mailRequest.Phone} Email: '{mailRequest.Reciever}':{Environment.NewLine}{mailRequest.Message}";

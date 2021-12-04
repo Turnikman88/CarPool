@@ -24,8 +24,4 @@
     <ProjectReference Include="..\CarPool.Web.ViewModels\CarPool.Web.ViewModels.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="Views\Ban\" />
-  </ItemGroup>
-
 </Project>
