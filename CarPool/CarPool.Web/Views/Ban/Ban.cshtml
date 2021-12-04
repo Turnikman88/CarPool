@@ -1,10 +1,10 @@
 ﻿@model ReportedDTO
 @{ Layout = "/Views/Shared/_LayoutEmpty.cshtml"; }
-<form asp-action="Ban" class="contact-form-1 rwt-dynamic-form" onsubmit="return jQueryAjaxPost(this);">
+<form asp-action="Ban" asp-controller="Ban" method="post" class="contact-form-1 rwt-dynamic-form" onsubmit="return jQueryAjaxPost(this);">
 
-    <label>Origin Country</label>
+    <label>Days to Ban</label>
     <div class="form-group">
-        <input asp-for="Days" placeholder="Origin Country">
+        <input asp-for="Days" placeholder="Date" type="date" min="@DateTime.Now.Date">
     </div>
 
     

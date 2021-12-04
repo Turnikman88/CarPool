@@ -1,5 +1,67 @@
-﻿@*
-    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
-*@
-@{
+﻿@model BanViewModel
+@{ 
+    int page = Model.CurrentPage;
+    int maxPage = Model.MaxPages;
 }
+<table class="table-custom">
+    <tr>
+        <th>Picture</th>
+        <th>Email</th>
+        <th>Reason</th>
+        <th>Due</th>
+        <th></th>
+    </tr>
+
+    @if (Model.Banned.Count() == 0)
+    {
+        <tr>
+            <td>
+                No banned users
+            </td>
+        </tr>
+    }
+    @foreach (var rep in Model.Banned)
+    {
+
+        <tr>
+            <td>
+                <img src="@rep.Picture" style="border-radius: 50%; height:40px;" />
+            </td>
+
+            <td>
+                @rep.UserEmail
+            </td>
+
+            <td>
+                @rep.Reason
+            </td>
+
+            <td>
+                @rep.BlockedDue
+            </td>
+            <td>
+                <button style="background-color: red!important"
+                        class="btn-default btn-details" onclick="ExecuteEmptyAjax('@Url.Action("Unban", "Ban", new {email = rep.UserEmail })')">
+                    Unban
+                </button>
+            </td>
+        </tr>
+    }
+</table>
+<div style="display:flex; justify-content:center;">
+    <button id="prev-page" style="text-align: center; background-color: #FF3CAC;" class="btn-default btn-details dark-theme" onclick="ExecuteEmptyAjax('@Url.Action("Banned", "Ban", new { p = page - 1 })')"><span class="fas fa-arrow-left"></span></button>
+    <button id="next-page" style="text-align: center; background-color: #FF3CAC; margin-left: 20px; " class="btn-default btn-details dark-theme" onclick="ExecuteEmptyAjax('@Url.Action("Banned", "Bane", new { p = page + 1 })')"><span class="fas fa-arrow-right"></span></button>
+
+</div>
+<script>
+     $(document).ready(function () {
+    if(@Model.CurrentPage == 0)
+    $('#prev-page').prop('disabled', true);
+    if (@Model.CurrentPage == @Model.MaxPages)
+    $('#next-page').prop('disabled', true);
+    if (@Model.CurrentPage != 0)
+    $('#prev-page').prop('disabled', false);
+    if (@Model.CurrentPage != @Model.MaxPages)
+    $('#next-page').prop('disabled', false);
+        });
+</script>

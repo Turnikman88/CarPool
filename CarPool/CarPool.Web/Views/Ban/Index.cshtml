@@ -13,13 +13,16 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg" style="margin-right:30px;" id="view-all">
+                    <div class="col-lg" style="margin-right:30px;">
                         <div style="margin: 10px;">
-                            <a class="btn-read-more" href="javascript:ExecuteEmptyAjax(@Url.Action("Reported", "Ban"))"><span>Reported</span></a>
-                            <a class="btn-read-more" style="margin-left: 20px;" href="javascript:ExecuteEmptyAjax(@Url.Action("Banned", "Ban"))"><span>Banned</span></a>
+                            <a class="btn-read-more" href="javascript:ExecuteEmptyAjax('@Url.Action("Reported", "Ban")')"><span>Reported</span></a>
+                            <a class="btn-read-more" style="margin-left: 20px;" href="javascript:ExecuteEmptyAjax('@Url.Action("Banned", "Ban")')"><span>Banned</span></a>
                         </div>
-                        @await Html.PartialAsync("_Reported", Model)
+                        <div id="view-all">
 
+                            @await Html.PartialAsync("_Reported", Model)
+
+                        </div>
                     </div>
                 </div>
             </div>

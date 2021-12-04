@@ -38,11 +38,16 @@ namespace CarPool.Services.Data.Services
             user.Ban.Reason = reason;
             user.ApplicationRoleId = 3;
 
+            var report = await _db.Ratings
+                .Include(x => x.ApplicationUser)
+                .Where(x => x.ApplicationUser.Email == email)
+                .FirstOrDefaultAsync();
+
+            report.IsReport = false;
 
             if (days != null)
             {
-                var dayscount = DateTime.UtcNow.Subtract(days.Value).TotalDays;
-                user.Ban.BlockedDue = DateTime.UtcNow.AddDays(dayscount);
+                user.Ban.BlockedDue = days;
             }
             //if days are empty, null or whitespace ban will be permanent
 
@@ -70,13 +75,54 @@ namespace CarPool.Services.Data.Services
                 .ToListAsync();
         }
 
-        public async Task<IEnumerable<ReportedDTO>> GetAllReportedUsersAsync(int page)
+        public async Task<IEnumerable<ReportedDTO>> GetTopReportedUsersAsync()
         {
-            return await _db.Ratings
-                .Include(x => x.ApplicationUser).ThenInclude(x => x.ProfilePicture)
-                .Where(x => x.IsReport == true)
-                .Select(x => x.GetReportedDTO())
+
+            return await _db.ApplicationUsers
+                .Include(x => x.ProfilePicture)
+                .Include(x => x.Ratings)
+                .Where(x => x.Ratings.Any(x => x.IsReport == true))
+                .Select(x => new ReportedDTO
+                {
+                    Email = x.Email,
+                    Picture = x.ProfilePicture.ImageLink,
+                    Reason = string.Join(", ", x.Ratings
+                        .Where(x => x.IsReport == true && x.Feedback != GlobalConstants.NO_FEEDBACK)
+                        .Select(x => x.Feedback))
+                })
                 .ToListAsync();
+        }
+
+        public async Task<ReportedDTO> GetReportedUserByEmailAsync(string email)
+        {
+            var reported = await _db.ApplicationUsers
+                .Include(x => x.ProfilePicture)
+                .Include(x => x.Ratings)
+                .Where(x => x.Ratings.Any(x => x.IsReport == true) && x.Email == email)
+                .Select(x => new ReportedDTO
+                {
+                    Email = x.Email,
+                    Picture = x.ProfilePicture.ImageLink,
+                    Reason = string.Join(", ", x.Ratings
+                        .Where(x => x.IsReport == true && x.Feedback != GlobalConstants.NO_FEEDBACK)
+                        .Select(x => x.Feedback))
+                })
+                .FirstOrDefaultAsync();
+
+            if (reported is null)
+            {
+                return new ReportedDTO { Message = GlobalConstants.USER_NOT_FOUND };
+            }
+
+            return reported;
+        }
+
+        public async Task IgnoreReportAsync(string email)
+        {
+            await _db.Ratings
+                .Where(x => x.ApplicationUser.Email == email)
+                .ForEachAsync(x => x.IsReport = false);
+            await _db.SaveChangesAsync();
         }
 
         public async Task<BanDTO> UnbanUserAsync(string email)
@@ -95,21 +141,11 @@ namespace CarPool.Services.Data.Services
 
             return new BanDTO() { ApplicationUserId = user.Id, BanRemovedMessage = string.Format(GlobalConstants.USER_UNBLOCKED, $"{user.Email}") };
         }
-
-        public async Task<ReportedDTO> GetReportedUserByEmail(string email)
+        public async Task<int> GetPageCountAsync()
         {
-            var reported = await _db.Ratings
-                .Include(x => x.ApplicationUser).ThenInclude(x => x.ProfilePicture)
-                .Where(x => x.IsReport == true && x.ApplicationUser.Email == email)
-                .Select(x => x.GetReportedDTO())
-                .FirstOrDefaultAsync();
-
-            if (reported is null)
-            {
-                return new ReportedDTO { Message = GlobalConstants.USER_NOT_FOUND };
-            }
-
-            return reported;
+            var count = await this._db.Bans.CountAsync();
+            var page = count / GlobalConstants.PageSkip;
+            return page;
         }
     }
 }

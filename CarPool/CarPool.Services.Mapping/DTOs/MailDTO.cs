@@ -26,5 +26,6 @@ namespace CarPool.Services.Mapping.DTOs
         public bool isFromContact { get; set; }
 
         public bool ResetPassword { get; set; }
+        public bool IsBan { get; set; }
     }
 }
