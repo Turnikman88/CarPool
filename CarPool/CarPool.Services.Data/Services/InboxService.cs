@@ -37,13 +37,21 @@ namespace CarPool.Services.Data.Services
         {
             var user = await _db.ApplicationUsers.FirstOrDefaultAsync(x => x.Email == userIdOrEmail || x.Id.ToString() == userIdOrEmail);
             var messages = await _db.Inboxes.Where(x => x.ApplicationUserId == user.Id).Select(x => x.GetDTO()).ToListAsync();
+            await _db.Inboxes.Where(x => x.ApplicationUserId == user.Id).ForEachAsync(x => x.Seen = true);
+            await _db.SaveChangesAsync();
 
             for (int i = 0; i < messages.Count; i++)
             {
                 var author = await _ap.GetUserByEmailOrIdAsync(messages[0].Author);
                 messages[i].Author = $"{author.FirstName} {author.LastName}";
             }
-            return messages;
+            return messages.OrderByDescending(x => x.SendOnDate);
+        }
+
+        public async Task<bool> HasUnreadMessages(string userIdOrEmail)
+        {
+            var user = await _db.ApplicationUsers.FirstOrDefaultAsync(x => x.Email == userIdOrEmail || x.Id.ToString() == userIdOrEmail);
+            return await _db.Inboxes.AnyAsync(x => x.ApplicationUserId == user.Id && x.Seen == false);
         }
     }
 }

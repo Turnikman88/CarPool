@@ -286,6 +286,7 @@ namespace CarPool.Services.Data.Services
             trip.FreeSeats--;
 
             await _db.TripPassengers.AddAsync(new TripPassenger() { ApplicationUserId = user.Id, TripId = trip.Id, CreatedOn = DateTime.UtcNow });
+            await _inbs.SendMessageAsync(user.Id.ToString(), trip.DriverId.ToString(), string.Format(GlobalConstants.JOIN_USER_TRIP_MESSAGE, trip.DepartureTime.ToString("d/MM/yy"), trip.StartAddress.City.Name, trip.DestinationAddress.City.Name));
             await _db.SaveChangesAsync();
 
             return trip.GetDTO();
