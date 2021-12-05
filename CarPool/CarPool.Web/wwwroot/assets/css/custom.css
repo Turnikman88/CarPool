@@ -410,3 +410,19 @@ body.active-light-mode .modal-body .main-content {
     display: none!important;
 }
 
+.float {
+    position: fixed;
+    width: 60px;
+    height: 60px;
+    bottom: 100px;
+    right: 30px;
+    background-color: #0C9;
+    color: #FFF;
+    border-radius: 50px;
+    text-align: center;
+    box-shadow: 2px 2px 3px #999;
+}
+
+.my-float {
+    margin-top: 80px;
+}

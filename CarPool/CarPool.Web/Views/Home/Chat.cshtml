@@ -5,13 +5,13 @@
 }
 @section Styles{
     <link rel="stylesheet" href="~/assets/css/chat.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 }
 
 <div class="chat">
 
     <h1>@this.ViewBag.Title</h1>
 
-<textarea name="message" id="message"></textarea>
     <select id="group">
 
         @foreach (var item in Model.TripsIds)
@@ -22,36 +22,40 @@
         }
 
     </select>
-    <div>
-        <input type="button" id="joinGroup" value="Join Private Group" />
-    </div>
-    <div>
-        <input type="button" id="leaveGroup" value="Leave this chat" />
-    </div>
+    @*    <div>
+            <input type="button" id="joinGroup" value="Join Private Group" />
+        </div>*@
+    @*    <div>
+            <input type="button" id="leaveGroup" value="Leave this chat" />
+        </div>*@
+    <textarea name="message" id="message"></textarea>
+
     <input type="button" id="sendButton" value="Send Message" />
 
     <div id="messages"></div>
-@*    <div class="yours messages">
-        <div class="message last">
-            Dude
-        </div>
-    </div>
-
-        <div class="mine messages">
+    @*    <div class="yours messages">
             <div class="message last">
                 Dude
             </div>
         </div>
-        <div class="yours messages">
-            <div class="message">
-                Hey!
+
+            <div class="mine messages">
+                <div class="message last">
+                    Dude
+                </div>
             </div>
-        </div>
-    </div>*@
+            <div class="yours messages">
+                <div class="message">
+                    Hey!
+                </div>
+            </div>
+        </div>*@
+</div>
 
 @section Scripts {
     <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
     <script>
+                 
         var connection = new signalR.HubConnectionBuilder()
             .withUrl("/chat", {
                 accessTokenFactory: () => "testing"
@@ -60,9 +64,9 @@
 
         connection.on("ReceiveMessage", function (message) {
             if (message.sender == '@Model.Sender') {
-                var chatInfo = `<div class="mine messages"><i>[${message.date}][${message.user}]</i><div class="message">${escapeHtml(message.text)}</div></div>`;
+                var chatInfo = `<div class="mine messages animate__animated  animate__backInLeft"><i>[${message.date}][${message.user}]</i><div class="message">${escapeHtml(message.text)}</div></div>`;
             } else {
-                var chatInfo = `<div class="yours messages"><i>[${message.date}][${message.user}]</i><div class="message">${escapeHtml(message.text)}</div></div>`;
+                var chatInfo = `<div class="yours messages animate__animated  animate__backInRight"><i>[${message.date}][${message.user}]</i><div class="message">${escapeHtml(message.text)}</div></div>`;
             }
             $("#messages").append(chatInfo);
         });
@@ -75,30 +79,33 @@
             //var idtrip = document.getElementById("group").value;
             var idtrip = document.getElementById("group").value;
             var message = document.getElementById("message").value;
-            if (true) {
+
+                connection.invoke("JoinGroup", idtrip).catch(function (err) {
+                    return console.error(err.toString());
+                });
                 connection.invoke("SendMessageToGroup", idtrip, message, '@Model.Sender').catch(function (err) {
                     return console.error(err.toString());
                 });
-            }
+
 
             event.preventDefault();
         });
 
-        document.getElementById("joinGroup").addEventListener("click", function (event) {
+        @*document.getElementById("joinGroup").addEventListener("click", function (event) {
             var idtrip = document.getElementById("group").value;
             connection.invoke("JoinGroup", idtrip).catch(function (err) {
                 return console.error(err.toString());
             });
             event.preventDefault();
-        });
+        });*@
 
-        document.getElementById("leaveGroup").addEventListener("click", function (event) {
+       @* document.getElementById("leaveGroup").addEventListener("click", function (event) {
             var idtrip = document.getElementById("group").value;
             connection.invoke("LeaveGroup", idtrip).catch(function (err) {
                 return console.error(err.toString());
             });
             event.preventDefault();
-        });
+        });*@
 
         function escapeHtml(unsafe) {
             return unsafe
@@ -108,5 +115,19 @@
                 .replace(/"/g, "&quot;")
                 .replace(/'/g, "&#039;");
         }
+
+        window.onload = function () {
+            var idtrip = document.getElementById("group").value;
+            connection.invoke("JoinGroup", idtrip).catch(function (err) {
+                return console.error(err.toString());
+            })
+        };
+
+        @*window.onload
+            var idtrip = document.getElementById("group").value;
+            connection.invoke("JoinGroup", idtrip).catch(function (err) {
+                return console.error(err.toString());
+            }
+        };*@
     </script>
 }

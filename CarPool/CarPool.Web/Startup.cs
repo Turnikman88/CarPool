@@ -38,7 +38,7 @@ namespace CarPool.Web
                 o.LoginPath = "/account/google-login";
                 o.Cookie.Name = "auth_cookie";
                 o.SlidingExpiration = true;
-                o.ExpireTimeSpan = TimeSpan.FromMinutes(5);
+                o.ExpireTimeSpan = TimeSpan.FromMinutes(10);
             }).AddGoogle(o =>
             {
                 o.ClientId = Configuration["Authentication:Google:ClientId"];
