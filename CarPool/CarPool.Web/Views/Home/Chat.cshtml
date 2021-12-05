@@ -41,23 +41,6 @@
             $("#messages").append(chatInfo);
         });
 
-        connection.on("UserConnected", function (connectionId) {
-            var groupElement = document.getElementById("group");
-            var option = document.createElement("option");
-            option.text = connectionId;
-            option.value = connectionId;
-            groupElement.add(option);
-        });
-
-        connection.on("UserDisconnected", function (connectionId) {
-            var groupElement = document.getElementById("group");
-            for (var i = 0; i < groupElement.length; i++) {
-                if (groupElement.options[i].value == connectionId) {
-                    groupElement.remove(i);
-                }
-            }
-        });
-
         connection.start().catch(function (err) {
             return console.error(err.toString());
         });

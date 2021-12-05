@@ -66,7 +66,7 @@ namespace CarPool.Services.Data.Services
 
         public async Task<int> GetPageCountAsync()
         {
-            var count = await _db.Trips.CountAsync();
+            var count = await _db.Trips.Where(x => x.DepartureTime.Date >= DateTime.Today.Date).CountAsync();
             var page = count / GlobalConstants.PageSkip;
             return page;
         }
@@ -78,7 +78,7 @@ namespace CarPool.Services.Data.Services
                                                   .Include(x => x.Trips).ThenInclude(x => x.DestinationAddress)
                                                   .Include(x => x.Vehicle)
                                                   .FirstOrDefaultAsync(x => x.Email == email);
-            var count = user.Trips.Count();
+            var count = user.Trips.Where(x => x.DepartureTime.Date >= DateTime.Today.Date).Count();
 
             var page = count / GlobalConstants.PageSkip;
             return page;

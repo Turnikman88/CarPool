@@ -11,11 +11,14 @@
 #full-stars-example-two .rating__input {
     position: absolute !important;
     left: -9999px !important;
+    visibility: hidden !important;
+    display: none !important;
 }
 
 /* hide 'none' input from screenreaders */
 #full-stars-example-two .rating__input--none {
-    display: none
+    display: none!important;
+    visibility: hidden!important;
 }
 
 /* set icon padding and size */

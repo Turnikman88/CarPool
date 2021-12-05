@@ -9,32 +9,32 @@
 @section Styles{
     <link rel="stylesheet" href="~/css/custom.css">
 }
-@if (Model.ManageableTrips is null || Model.ManageableTrips.Count() == 0)
-{
-    <tr>    You currently have no upcoming trips as a driver! </tr>
-}
-else
-{
 
-    <div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Trip" asp-action="Index">All Trips</a></div>
-    <div style="display: flex; justify-content:center;">
-        <a class="btn-read-more" href="javascript:ChangeMenu('upcoming-trips')"><span>Upcoming trips</span></a>
-        <a class="btn-read-more" style="margin-left:20px;" href="javascript:ChangeMenu('past-trips')"><span>Past trips</span></a>
-        <a class="btn-read-more" style="margin-left:20px;" href="javascript:ChangeMenu('manage-trips')"><span>Manage trips</span></a>
-    </div>
+<div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Trip" asp-action="Index">All Trips</a></div>
+<div style="display: flex; justify-content:center;">
+    <a class="btn-read-more" href="javascript:ChangeMenu('upcoming-trips')"><span>Upcoming trips</span></a>
+    <a class="btn-read-more" style="margin-left:20px;" href="javascript:ChangeMenu('past-trips')"><span>Past trips</span></a>
+    <a class="btn-read-more" style="margin-left:20px;" href="javascript:ChangeMenu('manage-trips')"><span>Manage trips</span></a>
+</div>
 
-    <div class="col" style="width:auto; height:auto; overflow:auto; padding: 15px; display:flex; justify-content:center;">
-        <table class="table-custom" style="width:60%;">
-            <tr>
-                <th scope="col">From</th>
-                <th scope="col">To</th>
-                <th scope="col">Departure Date</th>
-                <th scope="col">
-                </th>
-                <th></th>
-                <th></th>
-            </tr>
+<div class="col" style="width:auto; height:auto; overflow:auto; padding: 15px; display:flex; justify-content:center;">
+    <table class="table-custom" style="width:60%;">
+        <tr>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+            <th scope="col">Departure Date</th>
+            <th scope="col">
+            </th>
+            <th></th>
+            <th></th>
+        </tr>
+        @if (Model.ManageableTrips.Count() == 0)
+        {
 
+            <tr> <th scope="col" style="position: center"> You currently have no upcoming trips!</th> </tr>
+        }
+        else
+        {
             @foreach (var tr in Model.ManageableTrips)
             {
                 <tr>
@@ -82,15 +82,15 @@ else
                 </tr>
             }
 
-        </table>
+        }
+    </table>
+</div>
+<div style="display:flex; justify-content:center;">
+    <button id="prev-page" style="text-align: center; background-color: #FF3CAC;" class="btn-default btn-details dark-theme" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page - 1 })')"><span class="fas fa-arrow-left"></span></button>
+    <button id="next-page" style="text-align: center; background-color: #FF3CAC; margin-left: 20px; " class="btn-default btn-details dark-theme" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page + 1 })')"><span class="fas fa-arrow-right"></span></button>
 
-    </div>
-    <div style="display:flex; justify-content:center;">
-        <button id="prev-page" style="text-align: center; background-color: #FF3CAC;" class="btn-default btn-details dark-theme" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page - 1 })')"><span class="fas fa-arrow-left"></span></button>
-        <button id="next-page" style="text-align: center; background-color: #FF3CAC; margin-left: 20px; " class="btn-default btn-details dark-theme" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page + 1 })')"><span class="fas fa-arrow-right"></span></button>
+</div>
 
-    </div>
-}
 
 <script src="~/assets/js/vendor/jquery.min.js"></script>
 <script>

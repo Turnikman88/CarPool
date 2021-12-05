@@ -9,90 +9,92 @@
 @section Styles{
     <link rel="stylesheet" href="~/css/custom.css">
 }
-@if (Model.PastTrips is null || Model.PastTrips.Count() == 0)
-{
-    <tr>    No trips were found! </tr>
-}
-else
-{
 
-    <div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Trip" asp-action="Index">All Trips</a></div>
-    <div style="display: flex; justify-content:center;">
-        <a class="btn-read-more" href="javascript:ChangeMenu('upcoming-trips')"><span>Upcoming trips</span></a>
-        <a class="btn-read-more" style="margin-left:20px;" href="javascript:ChangeMenu('past-trips')"><span>Past trips</span></a>
-        <a class="btn-read-more" style="margin-left:20px;" href="javascript:ChangeMenu('manage-trips')"><span>Manage trips</span></a>
-    </div>
 
-    <div class="col" style="width:auto; height:auto; overflow:auto; padding: 15px; display:flex; justify-content:center;">
-        <table class="table-custom" style="width:60%;">
-            <tr>
-                <th scope="col">From</th>
-                <th scope="col">To</th>
-                <th scope="col">Departure Date</th>
-                <th scope="col">
-                    <button class="btn-default btn-details"
-                            onclick="showInPopup('@Url.Action("Create", "Trip")', 'Create')">
-                        Add
-                    </button>
-                </th>
-                <th></th>
-                <th></th>
-                <th></th>
-            </tr>
-            @if (Model.UpcomingTrips.Count() == 0)
+<div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Trip" asp-action="Index">All Trips</a></div>
+<div style="display: flex; justify-content:center;">
+    <a class="btn-read-more" href="javascript:ChangeMenu('upcoming-trips')"><span>Upcoming trips</span></a>
+    <a class="btn-read-more" style="margin-left:20px;" href="javascript:ChangeMenu('past-trips')"><span>Past trips</span></a>
+    <a class="btn-read-more" style="margin-left:20px;" href="javascript:ChangeMenu('manage-trips')"><span>Manage trips</span></a>
+</div>
+
+<div class="col" style="width:auto; height:auto; overflow:auto; padding: 15px; display:flex; justify-content:center;">
+    <table class="table-custom" style="width:60%;">
+        <tr>
+            <th scope="col">From</th>
+            <th scope="col">To</th>
+            <th scope="col">Departure Date</th>
+            <th scope="col">
+                <button class="btn-default btn-details"
+                        onclick="showInPopup('@Url.Action("Create", "Trip")', 'Create')">
+                    Add
+                </button>
+            </th>
+            <th></th>
+            <th></th>
+            <th></th>
+        </tr>
+        @if (Model.UpcomingTrips.Count() == 0)
+        {
+
+            <tr> <th scope="col" style="position: center">You have any past trips yet!</th> </tr>
+        }
+        else
+        {
+            @foreach (var tr in Model.PastTrips)
             {
+                string streetUrl = $"https:////www.google.com/maps/search/?api=1&query={tr.StartAddressStreet} {tr.StartAddressCity} {tr.StartAddressCountry}";
+                string dir = $"https:////www.google.com/maps/dir/{tr.StartAddressStreet} {tr.StartAddressCity} {tr.StartAddressCountry}/{tr.DestinationAddressStreet} {tr.DestinationAddressCity} {tr.DestinationAddressCountry}/";
+                string price = tr.Price > 0.00M ? tr.Price.ToString() : "FREE RIDE";
+                <tr>
+                    <td scope="col">@tr.StartAddressCity</td>
+                    <td scope="col">@tr.DestinationAddressCity</td>
+                    <td scope="col">@tr.DepartureTime.ToString("MMMM dd, yyyy")</td>
 
-                <tr> <th scope="col" style="position: center">You have any past trips yet!</th> </tr>
-            }
-            else
-            {
-                @foreach (var tr in Model.PastTrips)
-                {
-                    string streetUrl = $"https:////www.google.com/maps/search/?api=1&query={tr.StartAddressStreet} {tr.StartAddressCity} {tr.StartAddressCountry}";
-                    string dir = $"https:////www.google.com/maps/dir/{tr.StartAddressStreet} {tr.StartAddressCity} {tr.StartAddressCountry}/{tr.DestinationAddressStreet} {tr.DestinationAddressCity} {tr.DestinationAddressCountry}/";
-                    string price = tr.Price > 0.00M ? tr.Price.ToString() : "FREE RIDE";
-                    <tr>
-                        <td scope="col">@tr.StartAddressCity</td>
-                        <td scope="col">@tr.DestinationAddressCity</td>
-                        <td scope="col">@tr.DepartureTime.ToString("MMMM dd, yyyy")</td>
-
-                        <td scope="col">
-                            <button class="btn-default btn-details" style="background-color: #7066e0!important"
-                                    onclick="showDetails('@tr.DurationInMinutes', '@tr.Distance', '@tr.DriverName',
+                    <td scope="col">
+                        <button class="btn-default btn-details" style="background-color: #7066e0!important"
+                                onclick="showDetails('@tr.DurationInMinutes', '@tr.Distance', '@tr.DriverName',
                                                     '@tr.PassengersCount', '@tr.FreeSeats', '@tr.DriverVehicle',
                                                         '@tr.DriverVehicleColor', '@price', '@tr.AdditionalComment')">
-                                Details
-                            </button>
-                        </td>
+                            Details
+                        </button>
+                    </td>
 
+                    <td scope="col">
+                        <button class="btn-default btn-details" style="background-color: #7066e0!important"
+                                onclick="openMaps('@dir')">
+                            Map
+                        </button>
+                    </td>
+                    @if (tr.DriverEmail != email)
+                    {
                         <td scope="col">
-                            <button class="btn-default btn-details" style="background-color: #7066e0!important"
-                                    onclick="openMaps('@dir')">
-                                Map
+                            <button style="background-color: red!important"
+                                    class="btn-default btn-details" onclick="showInPopup('@Url.Action("Rating", "Trip", new { id = tr.Id })', 'Rating')">
+                                Rating
                             </button>
                         </td>
-                        @if (tr.DriverEmail != email)
-                        {
-                            <td scope="col"><button style="background-color: red!important"
-                                    class="btn-default btn-details" onclick="showInPopup('@Url.Action("Rating", "Trip", new { id = tr.Id })', 'Rating')">Rating</button></td>
-                            <td scope="col"><button style="background-color: red!important"
-                                    class="btn-default btn-details" onclick="showInPopup('@Url.Action("Report", "Trip", new { id = tr.Id })', 'Report')">Report</button></td>
-                        }
+                        <td scope="col">
+                            <button style="background-color: red!important"
+                                    class="btn-default btn-details" onclick="showInPopup('@Url.Action("Report", "Trip", new { id = tr.Id })', 'Report')">
+                                Report
+                            </button>
+                        </td>
+                    }
 
 
-                    </tr>
-                }
+                </tr>
             }
+        }
 
-        </table>
+    </table>
 
-    </div>
-    <div style="display:flex; justify-content:center;">
-        <button id="prev-page" style="text-align: center; background-color: #FF3CAC;" class="btn-default btn-details dark-theme" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page - 1 })')"><span class="fas fa-arrow-left"></span></button>
-        <button id="next-page" style="text-align: center; background-color: #FF3CAC; margin-left: 20px; " class="btn-default btn-details dark-theme" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page + 1 })')"><span class="fas fa-arrow-right"></span></button>
+</div>
+<div style="display:flex; justify-content:center;">
+    <button id="prev-page" style="text-align: center; background-color: #FF3CAC;" class="btn-default btn-details dark-theme" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page - 1 })')"><span class="fas fa-arrow-left"></span></button>
+    <button id="next-page" style="text-align: center; background-color: #FF3CAC; margin-left: 20px; " class="btn-default btn-details dark-theme" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page + 1 })')"><span class="fas fa-arrow-right"></span></button>
 
-    </div>
-}
+</div>
 
 <script src="~/assets/js/vendor/jquery.min.js"></script>
 <script>
