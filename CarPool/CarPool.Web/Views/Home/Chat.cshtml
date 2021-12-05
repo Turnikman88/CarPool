@@ -3,29 +3,51 @@
     this.ViewBag.Title = "Chat";
     Layout = "/Views/Shared/_LayoutEmpty.cshtml";
 }
+@section Styles{
+    <link rel="stylesheet" href="~/assets/css/chat.css">
+}
 
-<h1>@this.ViewBag.Title</h1>
+<div class="chat">
+
+    <h1>@this.ViewBag.Title</h1>
 
 <textarea name="message" id="message"></textarea>
-<select id="group">
+    <select id="group">
 
-    @foreach (var item in Model.TripsIds)
-    {
-        var id = $"PrivateGroup#{item}";
+        @foreach (var item in Model.TripsIds)
+        {
+            var id = $"PrivateGroup#{item}";
 
-        <option value=@item>@id</option>
-    }
+            <option value=@item>@id</option>
+        }
 
-</select>
-<div>
-    <input type="button" id="joinGroup" value="Join Private Group" />
-</div>
-<div>
-    <input type="button" id="leaveGroup" value="Leave this chat" />
-</div>
-<input type="button" id="sendButton" value="Send Message" />
+    </select>
+    <div>
+        <input type="button" id="joinGroup" value="Join Private Group" />
+    </div>
+    <div>
+        <input type="button" id="leaveGroup" value="Leave this chat" />
+    </div>
+    <input type="button" id="sendButton" value="Send Message" />
 
-<div id="messages"></div>
+    <div id="messages"></div>
+@*    <div class="yours messages">
+        <div class="message last">
+            Dude
+        </div>
+    </div>
+
+        <div class="mine messages">
+            <div class="message last">
+                Dude
+            </div>
+        </div>
+        <div class="yours messages">
+            <div class="message">
+                Hey!
+            </div>
+        </div>
+    </div>*@
 
 @section Scripts {
     <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
@@ -37,21 +59,24 @@
             .build();
 
         connection.on("ReceiveMessage", function (message) {
-            var chatInfo = `<div>[${message.date}][${message.user}] said: ${escapeHtml(message.text)}</div>`;
+            if (message.sender == '@Model.Sender') {
+                var chatInfo = `<div class="mine messages"><i>[${message.date}][${message.user}]</i><div class="message">${escapeHtml(message.text)}</div></div>`;
+            } else {
+                var chatInfo = `<div class="yours messages"><i>[${message.date}][${message.user}]</i><div class="message">${escapeHtml(message.text)}</div></div>`;
+            }
             $("#messages").append(chatInfo);
         });
 
         connection.start().catch(function (err) {
             return console.error(err.toString());
         });
-
         document.getElementById("sendButton").addEventListener("click", function (event) {
             //let idtrip = document.querySelector('[id^="PrivateGroup#"]').value;
             //var idtrip = document.getElementById("group").value;
             var idtrip = document.getElementById("group").value;
             var message = document.getElementById("message").value;
             if (true) {
-                connection.invoke("SendMessageToGroup", idtrip, message).catch(function (err) {
+                connection.invoke("SendMessageToGroup", idtrip, message, '@Model.Sender').catch(function (err) {
                     return console.error(err.toString());
                 });
             }

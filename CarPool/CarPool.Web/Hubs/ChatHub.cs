@@ -44,7 +44,7 @@ namespace CarPool.Web.Hubs
             return Groups.RemoveFromGroupAsync(Context.ConnectionId, group);
         }
 
-        public Task SendMessageToGroup(string group, string message)
+        public Task SendMessageToGroup(string group, string message, string sender)
         {
             var userEmail = Context.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
             var username = _user.GetUserByEmailOrIdAsync(userEmail);
@@ -53,7 +53,8 @@ namespace CarPool.Web.Hubs
             {
                 User = $"{username.Result.FirstName} {username.Result.LastName}",
                 Text = message,
-                Date = System.DateTime.UtcNow.ToString("dd/MMM/yy")
+                Date = System.DateTime.UtcNow.ToString("dd/MMM/yy"),
+                Sender = sender
             });
         }
 

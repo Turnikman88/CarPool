@@ -63,7 +63,8 @@ namespace CarPool.Web.Controllers
             }
             var model = new ChatViewModel()
             {
-                TripsIds = tripsids
+                TripsIds = tripsids,
+                Sender = requestEmail
             };
 
 
