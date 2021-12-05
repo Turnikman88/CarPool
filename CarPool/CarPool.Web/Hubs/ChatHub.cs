@@ -39,6 +39,11 @@ namespace CarPool.Web.Hubs
             return Groups.AddToGroupAsync(Context.ConnectionId, group);
         }
 
+        public Task LeaveGroup(string group)
+        {
+            return Groups.RemoveFromGroupAsync(Context.ConnectionId, group);
+        }
+
         public Task SendMessageToGroup(string group, string message)
         {
             var userEmail = Context.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;

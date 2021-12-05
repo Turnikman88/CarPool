@@ -5,21 +5,24 @@
 }
 
 <h1>@this.ViewBag.Title</h1>
-<div>
-    <input type="button" id="joinGroup" value="Join Private Group" />
-</div>
 
 <textarea name="message" id="message"></textarea>
 <select id="group">
-    
+
     @foreach (var item in Model.TripsIds)
     {
         var id = $"PrivateGroup#{item}";
-        <option value=@id>@id</option>
+
+        <option value=@item>@id</option>
     }
 
-
 </select>
+<div>
+    <input type="button" id="joinGroup" value="Join Private Group" />
+</div>
+<div>
+    <input type="button" id="leaveGroup" value="Leave this chat" />
+</div>
 <input type="button" id="sendButton" value="Send Message" />
 
 <div id="messages"></div>
@@ -60,21 +63,12 @@
         });
 
         document.getElementById("sendButton").addEventListener("click", function (event) {
+            //let idtrip = document.querySelector('[id^="PrivateGroup#"]').value;
+            //var idtrip = document.getElementById("group").value;
+            var idtrip = document.getElementById("group").value;
             var message = document.getElementById("message").value;
-            var groupElement = document.getElementById("group");
-            var groupValue = groupElement.options[groupElement.selectedIndex].value;
-
-            if (groupValue === "All" || groupValue === "Myself") {
-                var method = groupValue === "All" ? "SendMessageToAll" : "SendMessageToCaller";
-                connection.invoke(method, message).catch(function (err) {
-                    return console.error(err.toString());
-                });
-            } else if (groupValue === "PrivateGroup") {
-                connection.invoke("SendMessageToGroup", "PrivateGroup", message).catch(function (err) {
-                    return console.error(err.toString());
-                });
-            } else {
-                connection.invoke("SendMessageToUser", groupValue, message).catch(function (err) {
+            if (true) {
+                connection.invoke("SendMessageToGroup", idtrip, message).catch(function (err) {
                     return console.error(err.toString());
                 });
             }
@@ -82,9 +76,17 @@
             event.preventDefault();
         });
 
-        let idtrip = document.querySelector('[id^="PrivateGroup#"]').id.split('#')[1];
         document.getElementById("joinGroup").addEventListener("click", function (event) {
+            var idtrip = document.getElementById("group").value;
             connection.invoke("JoinGroup", idtrip).catch(function (err) {
+                return console.error(err.toString());
+            });
+            event.preventDefault();
+        });
+
+        document.getElementById("leaveGroup").addEventListener("click", function (event) {
+            var idtrip = document.getElementById("group").value;
+            connection.invoke("LeaveGroup", idtrip).catch(function (err) {
                 return console.error(err.toString());
             });
             event.preventDefault();

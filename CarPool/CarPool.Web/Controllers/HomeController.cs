@@ -59,7 +59,7 @@ namespace CarPool.Web.Controllers
 
             foreach (var item in trips)
             {
-                tripsids.Add($"{item.DepartureTime.Date.ToString("MMMM dd, yyyy")}/{item.StartAddressCity}/{item.DestinationAddressCity}");
+                tripsids.Add($"{item.DepartureTime.Date.ToString("dd/MM/yyyy")}/{item.StartAddressCity}/{item.DestinationAddressCity}");
             }
             var model = new ChatViewModel()
             {
