@@ -23,12 +23,15 @@
             <th scope="col">To</th>
             <th scope="col">Departure Date</th>
             <th scope="col">
-                <button class="btn-default btn-details"
-                        onclick="showInPopup('@Url.Action("Create", "Trip")', 'Create')">
-                    Add
-                </button>
+                <div style="padding:7px 10px;">
+                    <button class="btn-default btn-details"
+                            onclick="showInPopup('@Url.Action("Create", "Trip")', 'Create')">
+                        Add
+                    </button>
+                </div>
             </th>
             <th>
+                <div class="btn"><a href="javascript:showInPopup('@Url.Action("Chat", "Home")')" class="fas fa-comments fa-3x"></a></div>
             </th>
             <th></th>
         </tr>
@@ -50,12 +53,14 @@
                     <td scope="col">@tr.DepartureTime.ToString("MMMM dd, yyyy")</td>
 
                     <td scope="col">
-                        <button class="btn-default btn-details" style="background-color: #7066e0!important"
-                                onclick="showDetails('@tr.DurationInMinutes', '@tr.Distance', '@tr.DriverName',
+                        <div class="btn">
+                            <a href="javascript:showDetails('@tr.DurationInMinutes', '@tr.Distance', '@tr.DriverName',
                                                     '@tr.PassengersCount', '@tr.FreeSeats', '@tr.DriverVehicle',
-                                                        '@tr.DriverVehicleColor', '@price', '@tr.AdditionalComment')">
-                            Details
-                        </button>
+                                                        '@tr.DriverVehicleColor', '@price', '@tr.AdditionalComment')"
+                               class="btn-default text-underline btn-small">
+                                Details
+                            </a>
+                        </div>
                     </td>
 
                     <td scope="col">
@@ -97,7 +102,6 @@
     <button id="next-page" style="text-align: center; background-color: #FF3CAC; margin-left: 20px; " class="btn-default btn-details dark-theme" onclick="ExecuteEmptyAjax('@Url.Action("Index", "Trip", new { p = page + 1 })')"><span class="fas fa-arrow-right"></span></button>
 
 </div>
-<div class="btn"><a href="javascript:showInPopup('@Url.Action("Chat", "Home")')" class="fas fa-comments fa-3x float"></a></div>
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="~/assets/js/vendor/jquery.min.js"></script>

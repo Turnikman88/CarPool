@@ -48,12 +48,14 @@
                     <td scope="col">@tr.DepartureTime.ToString("MMMM dd, yyyy")</td>
 
                     <td scope="col">
-                        <button class="btn-default btn-details" style="background-color: #7066e0!important"
-                                onclick="showDetails('@tr.DurationInMinutes', '@tr.Distance', '@tr.DriverName',
+                        <div class="btn">
+                            <a href="javascript:showDetails('@tr.DurationInMinutes', '@tr.Distance', '@tr.DriverName',
                                                     '@tr.PassengersCount', '@tr.FreeSeats', '@tr.DriverVehicle',
-                                                        '@tr.DriverVehicleColor', '@price', '@tr.AdditionalComment')">
-                            Details
-                        </button>
+                                                        '@tr.DriverVehicleColor', '@price', '@tr.AdditionalComment')"
+                               class="btn-default text-underline btn-small">
+                                Details
+                            </a>
+                        </div>
                     </td>
 
                     <td scope="col">

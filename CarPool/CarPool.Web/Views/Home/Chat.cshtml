@@ -5,32 +5,35 @@
 }
 @section Styles{
     <link rel="stylesheet" href="~/assets/css/chat.css">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 }
 
-<div class="chat">
+<div class="chat" style="display:flex; justify-content:center;">
 
     <h1>@this.ViewBag.Title</h1>
+    <form class="contact-form-1 rwt-dynamic-form">
+        <div class="form-group">
+            <select id="group">
 
-    <select id="group">
+                @foreach (var item in Model.TripsIds)
+                {
+                    var id = $"PrivateGroup#{item}";
 
-        @foreach (var item in Model.TripsIds)
-        {
-            var id = $"PrivateGroup#{item}";
+                    <option value=@item>@id</option>
+                }
 
-            <option value=@item>@id</option>
-        }
-
-    </select>
+            </select>
+        </div>
+    </form>
     @*    <div>
             <input type="button" id="joinGroup" value="Join Private Group" />
         </div>*@
     @*    <div>
             <input type="button" id="leaveGroup" value="Leave this chat" />
         </div>*@
-    <textarea name="message" id="message"></textarea>
+    <textarea name="message" id="message" style="margin-top:10px;"></textarea>
 
-    <input type="button" id="sendButton" value="Send Message" />
+    <button class="btn-default btn-details" type="button" style="margin-right: auto; margin-top: 10px; margin-left: auto; width: 120px !important;" id="sendButton">Send</button>
 
     <div id="messages"></div>
     @*    <div class="yours messages">
