@@ -47,7 +47,7 @@ namespace CarPool.Services.Data.Services
         }
 
         public async Task<IEnumerable<CountryDTO>> GetAsync(int page)
-        {            
+        {
             return await _db.Countries
                 .Include(c => c.Cities)
                 .Skip(page * GlobalConstants.PageSkip)
@@ -71,7 +71,7 @@ namespace CarPool.Services.Data.Services
                 return new CountryDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
             }
 
-            if (await _db.Countries.AnyAsync(x => x.Name == obj.Name))
+            if (await _db.Countries.AnyAsync(x => x.Name == obj.Name && x.IsDeleted == false))
             {
                 return new CountryDTO { ErrorMessage = GlobalConstants.COUNTRY_EXISTS };
             }
@@ -98,7 +98,7 @@ namespace CarPool.Services.Data.Services
 
         public async Task<CountryDTO> UpdateAsync(int id, CountryDTO obj)
         {
-            if(await _db.Countries.FirstOrDefaultAsync(x => x.Name == obj.Name) != null)
+            if (await _db.Countries.FirstOrDefaultAsync(x => x.Name == obj.Name) != null)
             {
                 return new CountryDTO { ErrorMessage = GlobalConstants.COUNTRY_EXISTS };
             }
@@ -106,7 +106,6 @@ namespace CarPool.Services.Data.Services
             if (string.IsNullOrEmpty(obj.Name))
             {
                 return new CountryDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
-
             }
 
             var model = await _db.Countries.Include(c => c.Cities).FirstOrDefaultAsync(x => x.Id == id);
@@ -132,6 +131,7 @@ namespace CarPool.Services.Data.Services
             }
 
             model.DeletedOn = System.DateTime.Now;
+            model.IsDeleted = true;
             _db.Countries.Remove(model);
             await _db.SaveChangesAsync();
 
