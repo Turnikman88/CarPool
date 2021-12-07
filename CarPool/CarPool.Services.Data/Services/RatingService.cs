@@ -19,14 +19,15 @@ namespace CarPool.Services.Data.Services
 
         public async Task<RatingDTO> PostReportAsync(RatingDTO obj)
         {
-            if (await IsAlreadyReportedAsync(obj.ApplicationUserId.ToString(), obj.AddedByUserId.ToString(), obj.TripId))
-            {
-                return new RatingDTO { ErrorMessage = GlobalConstants.TRIP_ALREADY_REPORTED };
-            }
 
             if (obj.ApplicationUserId == obj.AddedByUserId)
             {
                 return new RatingDTO { ErrorMessage = GlobalConstants.TRIP_YOU_CANNOT_REVEIW_YOURSELF };
+            }
+
+            if (await IsAlreadyReportedAsync(obj.ApplicationUserId.ToString(), obj.AddedByUserId.ToString(), obj.TripId))
+            {
+                return new RatingDTO { ErrorMessage = GlobalConstants.TRIP_ALREADY_REPORTED };
             }
 
             var model = obj.GetModel();
@@ -39,14 +40,15 @@ namespace CarPool.Services.Data.Services
 
         public async Task<RatingDTO> PostFeedbackAsync(RatingDTO obj)
         {
-            if (await IsAlreadyRatedAsync(obj.ApplicationUserId.ToString(), obj.AddedByUserId.ToString(), obj.TripId))
-            {
-                return new RatingDTO { ErrorMessage = GlobalConstants.TRIP_ALREADY_REVIEWED };
-            }
 
             if (obj.ApplicationUserId == obj.AddedByUserId)
             {
                 return new RatingDTO { ErrorMessage = GlobalConstants.TRIP_YOU_CANNOT_REVEIW_YOURSELF };
+            }
+
+            if (await IsAlreadyRatedAsync(obj.ApplicationUserId.ToString(), obj.AddedByUserId.ToString(), obj.TripId))
+            {
+                return new RatingDTO { ErrorMessage = GlobalConstants.TRIP_ALREADY_REVIEWED };
             }
 
             var model = obj.GetModel();

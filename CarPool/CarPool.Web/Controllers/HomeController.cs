@@ -67,7 +67,6 @@ namespace CarPool.Web.Controllers
                 Sender = requestEmail
             };
 
-
             return this.View(model);
         }
 

@@ -43,7 +43,9 @@ namespace CarPool.Services.Data.Services
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (city is null)
+            {
                 return new CityDTO() { ErrorMessage = GlobalConstants.CITY_NOT_FOUND };
+            }
 
             return city.GetDTO();
         }
@@ -57,7 +59,9 @@ namespace CarPool.Services.Data.Services
                 .FirstOrDefaultAsync(x => x.Name.ToLower() == name.ToLower());
 
             if (city is null)
+            {
                 return new CityDTO() { ErrorMessage = GlobalConstants.CITY_NOT_FOUND };
+            }
 
             return city.GetDTO();
         }
@@ -92,7 +96,9 @@ namespace CarPool.Services.Data.Services
             obj.CountryId = country.Id;
 
             if (await _check.CityExistsAsync(obj.Name, obj.CountryId))
+            {
                 return new CityDTO() { ErrorMessage = GlobalConstants.CITY_EXISTS };
+            }
 
 
             CityDTO result = null;
@@ -132,7 +138,9 @@ namespace CarPool.Services.Data.Services
             obj.CountryId = country.Id;
 
             if (await _check.CityExistsAsync(obj.Name, obj.CountryId))
+            {
                 return new CityDTO() { ErrorMessage = GlobalConstants.CITY_EXISTS };
+            }
 
             var city = await _db.Cities
                 .Include(x => x.Addresses)
@@ -140,10 +148,14 @@ namespace CarPool.Services.Data.Services
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (city is null)
+            {
                 return new CityDTO() { ErrorMessage = GlobalConstants.CITY_NOT_FOUND };
+            }
 
             if (obj.Name is null)
+            {
                 return new CityDTO() { ErrorMessage = GlobalConstants.INCORRECT_DATA };
+            }
 
 
             city.Name = obj.Name;
@@ -163,7 +175,9 @@ namespace CarPool.Services.Data.Services
                 .FirstOrDefaultAsync(x => x.Id == id);
 
             if (city is null)
+            {
                 return new CityDTO() { ErrorMessage = GlobalConstants.CITY_NOT_FOUND };
+            }
 
             city.DeletedOn = System.DateTime.Now;
             _db.Cities.Remove(city);

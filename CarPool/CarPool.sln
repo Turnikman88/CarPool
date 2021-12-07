@@ -77,6 +77,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CarPool.Web", "CarPool.Web\
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7ACD2F05-F128-4355-ABC3-CC28633751E9}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CarPool.Services.Data.Test", "CarPool.Services.Test\CarPool.Services.Data.Test.csproj", "{5C89E72F-F957-4EBA-9C0A-FAE2B0F5DF17}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -131,6 +133,10 @@ Global
 		{4E0DB386-8B9B-49D7-AA21-6741FEBCBB3C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4E0DB386-8B9B-49D7-AA21-6741FEBCBB3C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4E0DB386-8B9B-49D7-AA21-6741FEBCBB3C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{5C89E72F-F957-4EBA-9C0A-FAE2B0F5DF17}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5C89E72F-F957-4EBA-9C0A-FAE2B0F5DF17}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{5C89E72F-F957-4EBA-9C0A-FAE2B0F5DF17}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{5C89E72F-F957-4EBA-9C0A-FAE2B0F5DF17}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -147,6 +153,7 @@ Global
 		{147A638F-0344-4920-8F40-673A57762F2D} = {7C113A2E-2F44-4320-A49A-019B6615A274}
 		{1D0D4817-E401-4DCC-8EB2-B49FC8F6F03C} = {9C58FE7C-20FD-4C48-A597-AAA467784CF1}
 		{4E0DB386-8B9B-49D7-AA21-6741FEBCBB3C} = {DFFBD565-B9F7-49BA-A483-7AA65768B062}
+		{5C89E72F-F957-4EBA-9C0A-FAE2B0F5DF17} = {8A65F881-9554-4861-830E-35C4B3E66886}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {10E06D77-F505-4E84-A2C0-02E7B62F5827}

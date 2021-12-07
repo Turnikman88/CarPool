@@ -1,141 +1,30 @@
 ﻿using CarPool.Common;
+using CarPool.Data;
 using CarPool.Data.Models.DatabaseModels;
-using Microsoft.EntityFrameworkCore;
+using Moq;
 using System;
 using System.Collections.Generic;
 
-namespace CarPool.Data.Models.DAL
+namespace CarPool.Services.Data.Test
 {
-    public static class Seeder
+    public static class Helper
     {
-        public static void Seed(this ModelBuilder db)
+        static Guid userId0 = Guid.Parse("bb23505b-05d4-485e-80eb-ac7295281398");
+        static Guid userId1 = Guid.Parse("56cb6af1-5172-4873-ad97-1365298b94db");
+        static Guid userId2 = Guid.Parse("1e227b3e-64eb-4ecf-9155-5e4f994ffcc6");
+        static Guid userId3 = Guid.Parse("85b2a941-9a45-4d97-a821-58aec861dab8");
+        static Guid userId4 = Guid.Parse("9a9bc4b8-add8-423d-a2de-9f4ce1176c1a");
+        static Guid userId5 = Guid.Parse("3181be47-fe62-4980-b8f0-c2636d2894b5");
+        static Guid userId6 = Guid.Parse("9ef2aed3-8e58-4292-845b-ee59177499bb");
+        static Guid userId7 = Guid.Parse("b474befe-251c-4a92-ab6f-57e940d76363");
+        static Guid userId8 = Guid.Parse("8d86d20b-59b1-46e1-9d66-db4216bada8c");
+        static Guid userId9 = Guid.Parse("0c5104d7-d971-4f58-a2cb-915533023b91");
+        public static List<Address> Addresses
         {
-            var userId0 = Guid.NewGuid();
-
-            var userId1 = Guid.NewGuid();
-
-            var userId2 = Guid.NewGuid();
-
-            var userId3 = Guid.NewGuid();
-
-            var userId4 = Guid.NewGuid();
-
-            var userId5 = Guid.NewGuid();
-
-            var userId6 = Guid.NewGuid();
-
-            var userId7 = Guid.NewGuid();
-
-            var userId8 = Guid.NewGuid();
-
-            var userId9 = Guid.NewGuid();
-
-            var countries = new List<Country>()
+            get
             {
-             new Country
+                return new List<Address>()
                 {
-                    Id = 1,
-                    Name = "Bulgaria"
-                },
-             new Country
-                {
-                    Id = 2,
-                    Name = "Turkey"
-                },
-             new Country
-                {
-                    Id = 3,
-                    Name = "Greece"
-                },
-              new Country
-                {
-                    Id = 4,
-                    Name = "Romania"
-                }
-            };
-
-            db.Entity<Country>().HasData(countries);
-
-            var cities = new List<City>()
-            {
-                new City
-                {
-                    Id = 1,
-                    Name = "Sofia",
-                    CountryId = 1
-                },
-                new City
-                {
-                    Id = 2,
-                    Name = "Plovdiv",
-                    CountryId = 1
-                },
-                new City
-                {
-                    Id = 3,
-                    Name = "Varna",
-                    CountryId = 1
-                },
-                new City
-                {
-                    Id = 4,
-                    Name = "Istanbul",
-                    CountryId = 2
-                },
-                new City
-                {
-                    Id = 5,
-                    Name = "Athens",
-                    CountryId = 3
-                },
-                new City
-                {
-                    Id = 6,
-                    Name = "Thessaloniki",
-                    CountryId = 3
-                },
-                new City
-                {
-                    Id = 7,
-                    Name = "Patras",
-                    CountryId = 3
-                },
-                new City
-                {
-                    Id = 8,
-                    Name = "Yash",
-                    CountryId = 4
-                },
-                new City
-                {
-                    Id = 9,
-                    Name = "Odrin",
-                    CountryId = 2
-                },
-                new City
-                {
-                    Id = 10,
-                    Name = "Ankara",
-                    CountryId = 2
-                },
-                new City
-                {
-                    Id = 11,
-                    Name = "Bucharest",
-                    CountryId = 4
-                },
-                new City
-                {
-                    Id = 12,
-                    Name = "Craiova",
-                    CountryId = 4
-                }
-            };
-
-            db.Entity<City>().HasData(cities);
-
-            var addresses = new List<Address>()
-            {
                 new Address
                 {
                     Id = 1,
@@ -208,11 +97,14 @@ namespace CarPool.Data.Models.DAL
                     Latitude = 41.669344M,
                     Longitude = 26.568406M
                 }
-            };
-
-            db.Entity<Address>().HasData(addresses);
-
-            var roles = new List<ApplicationRole>()
+                };
+            }
+        }
+        public static List<ApplicationRole> ApplicationRoles
+        {
+            get
+            {
+                return new List<ApplicationRole>()
             {
                 new ApplicationRole
                 {
@@ -235,11 +127,15 @@ namespace CarPool.Data.Models.DAL
                     Name = "NotConfirmed"
                 }
             };
-
-            db.Entity<ApplicationRole>().HasData(roles);
-
-            var users = new List<ApplicationUser>()
+            }
+        }
+        public static List<ApplicationUser> ApplicationUsers
+        {
+            get
             {
+
+                return new List<ApplicationUser>()
+                {
                new ApplicationUser
                 {
                     Id = userId0,
@@ -371,97 +267,212 @@ namespace CarPool.Data.Models.DAL
                     AddressId = 9
                 }
             };
-
-            db.Entity<ApplicationUser>().HasData(users);
-
-            var vehicles = new List<UserVehicle>()
+            }
+        }
+        public static List<Country> Countries
+        {
+            get
             {
-                new UserVehicle
+                return new List<Country>() {
+                    new Country
+                    {
+                        Id = 1,
+                        Name = "Bulgaria"
+                    },
+                    new Country
+                    {
+                        Id = 2,
+                        Name = "Turkey"
+                    },
+                    new Country
+                    {
+                        Id = 3,
+                        Name = "Greece"
+                    },
+                    new Country
+                    {
+                        Id = 4,
+                        Name = "Romania"
+                    }
+                };
+            }
+        }
+        public static List<City> Cities
+        {
+            get
+            {
+                return new List<City>
+                {
+                    new City
                 {
                     Id = 1,
-                    ApplicationUserId = userId0,
-                    Color = "Red",
-                    FuelConsumptionPerHundredKilometers = 12,
-                    Model = "Ferrari"
+                    Name = "Sofia",
+                    CountryId = 1
                 },
-                new UserVehicle
+                new City
                 {
                     Id = 2,
-                    ApplicationUserId = userId1,
-                    Color = "Blue",
-                    FuelConsumptionPerHundredKilometers = 8,
-                    Model = "Alfa Romeo"
+                    Name = "Plovdiv",
+                    CountryId = 1
                 },
-                new UserVehicle
+                new City
                 {
                     Id = 3,
-                    ApplicationUserId = userId2,
-                    Color = "Black",
-                    FuelConsumptionPerHundredKilometers = 10,
-                    Model = "Mercedes S Class"
+                    Name = "Varna",
+                    CountryId = 1
                 },
-                new UserVehicle
+                new City
                 {
                     Id = 4,
-                    ApplicationUserId = userId3,
-                    Color = "Silver",
-                    FuelConsumptionPerHundredKilometers = 15,
-                    Model = "BMW M5"
+                    Name = "Istanbul",
+                    CountryId = 2
                 },
-                new UserVehicle
+                new City
                 {
                     Id = 5,
-                    ApplicationUserId = userId4,
-                    Color = "Green",
-                    FuelConsumptionPerHundredKilometers = 11,
-                    Model = "Lambo"
+                    Name = "Athens",
+                    CountryId = 3
                 },
-                new UserVehicle
+                new City
                 {
                     Id = 6,
-                    ApplicationUserId = userId5,
-                    Color = "Black",
-                    FuelConsumptionPerHundredKilometers = 9,
-                    Model = "Golf4"
+                    Name = "Thessaloniki",
+                    CountryId = 3
                 },
-                new UserVehicle
+                new City
                 {
                     Id = 7,
-                    ApplicationUserId = userId6,
-                    Color = "Orange",
-                    FuelConsumptionPerHundredKilometers = 10,
-                    Model = "Dacia"
+                    Name = "Patras",
+                    CountryId = 3
                 },
-                new UserVehicle
+                new City
                 {
                     Id = 8,
-                    ApplicationUserId = userId7,
-                    Color = "Silver",
-                    FuelConsumptionPerHundredKilometers = 6,
-                    Model = "BMW M5"
+                    Name = "Yash",
+                    CountryId = 4
                 },
-                new UserVehicle
+                new City
                 {
                     Id = 9,
-                    ApplicationUserId = userId8,
-                    Color = "Carbon Black",
-                    FuelConsumptionPerHundredKilometers = 2,
-                    Model = "Tesla Model S"
+                    Name = "Odrin",
+                    CountryId = 2
                 },
-                new UserVehicle
+                new City
                 {
                     Id = 10,
-                    ApplicationUserId = userId9,
-                    Color = "Silver",
-                    FuelConsumptionPerHundredKilometers = 16,
-                    Model = "Mercedes-Benz S Coupe"
+                    Name = "Ankara",
+                    CountryId = 2
                 },
+                new City
+                {
+                    Id = 11,
+                    Name = "Bucharest",
+                    CountryId = 4
+                },
+                new City
+                {
+                    Id = 12,
+                    Name = "Craiova",
+                    CountryId = 4
+                }
+                };
+            }
+        }
+        public static List<UserVehicle> UserVehicles
+        {
+            get
+            {
+                return new List<UserVehicle>()
+                {
+                    new UserVehicle
+                    {
+                        Id = 1,
+                        ApplicationUserId = userId0,
+                        Color = "Red",
+                        FuelConsumptionPerHundredKilometers = 12,
+                        Model = "Ferrari"
+                    },
+                    new UserVehicle
+                    {
+                        Id = 2,
+                        ApplicationUserId = userId1,
+                        Color = "Blue",
+                        FuelConsumptionPerHundredKilometers = 8,
+                        Model = "Alfa Romeo"
+                    },
+                    new UserVehicle
+                    {
+                        Id = 3,
+                        ApplicationUserId = userId2,
+                        Color = "Black",
+                        FuelConsumptionPerHundredKilometers = 10,
+                        Model = "Mercedes S Class"
+                    },
+                    new UserVehicle
+                    {
+                        Id = 4,
+                        ApplicationUserId = userId3,
+                        Color = "Silver",
+                        FuelConsumptionPerHundredKilometers = 15,
+                        Model = "BMW M5"
+                    },
+                    new UserVehicle
+                    {
+                        Id = 5,
+                        ApplicationUserId = userId4,
+                        Color = "Green",
+                        FuelConsumptionPerHundredKilometers = 11,
+                        Model = "Lambo"
+                    },
+                    new UserVehicle
+                    {
+                        Id = 6,
+                        ApplicationUserId = userId5,
+                        Color = "Black",
+                        FuelConsumptionPerHundredKilometers = 9,
+                        Model = "Golf4"
+                    },
+                    new UserVehicle
+                    {
+                        Id = 7,
+                        ApplicationUserId = userId6,
+                        Color = "Orange",
+                        FuelConsumptionPerHundredKilometers = 10,
+                        Model = "Dacia"
+                    },
+                    new UserVehicle
+                    {
+                        Id = 8,
+                        ApplicationUserId = userId7,
+                        Color = "Silver",
+                        FuelConsumptionPerHundredKilometers = 6,
+                        Model = "BMW M5"
+                    },
+                    new UserVehicle
+                    {
+                        Id = 9,
+                        ApplicationUserId = userId8,
+                        Color = "Carbon Black",
+                        FuelConsumptionPerHundredKilometers = 2,
+                        Model = "Tesla Model S"
+                    },
+                    new UserVehicle
+                    {
+                        Id = 10,
+                        ApplicationUserId = userId9,
+                        Color = "Silver",
+                        FuelConsumptionPerHundredKilometers = 16,
+                        Model = "Mercedes-Benz S Coupe"
+                    }
 
-            };
-
-            db.Entity<UserVehicle>().HasData(vehicles);
-
-            var bans = new List<Ban>()
+                };
+            }
+        }
+        public static List<Ban> Bans
+        {
+            get
+            {
+                return new List<Ban>()
             {
                 new Ban
                 {
@@ -477,15 +488,18 @@ namespace CarPool.Data.Models.DAL
                     BlockedOn = System.DateTime.Today
                 }
             };
-
-            db.Entity<Ban>().HasData(bans);
-
-            var trips = new List<Trip>()
+            }
+        }
+        public static List<Trip> Trips
+        {
+            get
+            {
+                return new List<Trip>()
             {
                 new Trip
                 {
                     Id = 1,
-                    DriverId = userId0,
+                    DriverId =  userId0,
                     StartAddressId = 1,
                     DestinationAddressId = 2,
                     DepartureTime = DateTime.Now.AddDays(2),
@@ -497,7 +511,7 @@ namespace CarPool.Data.Models.DAL
                 new Trip
                 {
                     Id = 2,
-                    DriverId = userId1,
+                    DriverId =  userId1,
                     StartAddressId = 2,
                     DestinationAddressId = 3,
                     DepartureTime = DateTime.Now.AddDays(2),
@@ -523,7 +537,7 @@ namespace CarPool.Data.Models.DAL
                 new Trip
                 {
                     Id = 4,
-                    DriverId = userId2,
+                    DriverId =  userId3,
                     StartAddressId = 4,
                     DestinationAddressId = 1,
                     DepartureTime = DateTime.Now.AddDays(2),
@@ -588,7 +602,7 @@ namespace CarPool.Data.Models.DAL
                 new Trip
                 {
                     Id = 9,
-                    DriverId = userId0,
+                    DriverId = userId7,
                     StartAddressId = 2,
                     DestinationAddressId = 3,
                     DepartureTime = DateTime.Now,
@@ -601,7 +615,7 @@ namespace CarPool.Data.Models.DAL
                 new Trip
                 {
                     Id = 10,
-                    DriverId = userId1,
+                    DriverId = userId8,
                     StartAddressId = 3,
                     DestinationAddressId = 1,
                     DepartureTime = DateTime.Now,
@@ -614,7 +628,7 @@ namespace CarPool.Data.Models.DAL
                 new Trip
                 {
                     Id = 11,
-                    DriverId = userId2,
+                    DriverId = userId1,
                     StartAddressId = 1,
                     DestinationAddressId = 3,
                     DepartureTime = DateTime.Now,
@@ -710,10 +724,13 @@ namespace CarPool.Data.Models.DAL
                     AdditionalComment = "No kids"
                 }
             };
-
-            db.Entity<Trip>().HasData(trips);
-
-            var tripPassengeer = new List<TripPassenger>()
+            }
+        }
+        public static List<TripPassenger> TripPassengers
+        {
+            get
+            {
+                return new List<TripPassenger>()
             {
                 new TripPassenger
                 {
@@ -756,7 +773,7 @@ namespace CarPool.Data.Models.DAL
 
                 new TripPassenger
                 {
-                     ApplicationUserId = userId0,
+                     ApplicationUserId = userId4,
                      TripId = 4
                 },
 
@@ -805,11 +822,13 @@ namespace CarPool.Data.Models.DAL
                      TripId = 16
                 },
             };
-
-            db.Entity<TripPassenger>().HasData(tripPassengeer);
-
-
-            var pictures = new List<ProfilePicture>()
+            }
+        }
+        public static List<ProfilePicture> ProfilePictures
+        {
+            get
+            {
+                return new List<ProfilePicture>()
             {
                 new ProfilePicture
                 {
@@ -872,10 +891,13 @@ namespace CarPool.Data.Models.DAL
                     ImageLink = GlobalConstants.DefaultPicture
                 }
             };
-
-            db.Entity<ProfilePicture>().HasData(pictures);
-
-            var ratings = new List<Rating>()
+            }
+        }
+        public static List<Rating> Ratings
+        {
+            get
+            {
+                return new List<Rating>()
             {
                 new Rating
                 {
@@ -908,7 +930,7 @@ namespace CarPool.Data.Models.DAL
                 {
                     Id = 4,
                     TripId = 4,
-                    AddedByUserId = userId3,
+                    AddedByUserId =userId3,
                     ApplicationUserId = userId4,
                     Feedback = "dirty car, good person",
                     Value = 4
@@ -917,7 +939,7 @@ namespace CarPool.Data.Models.DAL
                 {
                     Id = 5,
                     TripId = 5,
-                    AddedByUserId = userId4,
+                    AddedByUserId =userId4,
                     ApplicationUserId = userId5,
                     Feedback = "Great trip",
                     Value = 3
@@ -959,8 +981,42 @@ namespace CarPool.Data.Models.DAL
                     Value = 5
                 }
             };
-
-            db.Entity<Rating>().HasData(ratings);
+            }
         }
+
+        public static Mock<CarPoolDBContext> MockDbContext
+        {
+            get
+            {
+                var mockDbContext = new Mock<CarPoolDBContext>();
+
+                //var mockDbSetCountries = Countries.AsQueryable().BuildMockDbSet();
+                //var mockDbSetCities = Cities.AsQueryable().BuildMockDbSet();
+                //var mockDbSetAddresses = Addresses.AsQueryable().BuildMockDbSet();
+                //var mockDbSetAppRoles = ApplicationRoles.AsQueryable().BuildMockDbSet();
+                //var mockDbSetAppUsers = ApplicationUsers.AsQueryable().BuildMockDbSet();
+                //var mockDbSetVehicles = UserVehicles.AsQueryable().BuildMockDbSet();
+                //var mockDbSetBans = Bans.AsQueryable().BuildMockDbSet();
+                //var mockDbSetTrips = Trips.AsQueryable().BuildMockDbSet();
+                //var mockDbSetTripPassengers = TripPassengers.AsQueryable().BuildMockDbSet();
+                //var mockDbSetProfilePictures = ProfilePictures.AsQueryable().BuildMockDbSet();
+                //var mockDbSetRatings = Ratings.AsQueryable().BuildMockDbSet();
+
+                //mockDbContext.Setup(db => db.Countries).Returns(mockDbSetCountries.Object);
+                //mockDbContext.Setup(db => db.Ratings).Returns(mockDbSetRatings.Object);
+                //mockDbContext.Setup(db => db.Cities).Returns(mockDbSetCities.Object);
+                //mockDbContext.Setup(db => db.Addresses).Returns(mockDbSetAddresses.Object);
+                //mockDbContext.Setup(db => db.ApplicationRoles).Returns(mockDbSetAppRoles.Object);
+                //mockDbContext.Setup(db => db.ApplicationUsers).Returns(mockDbSetAppUsers.Object);
+                //mockDbContext.Setup(db => db.UserVehicles).Returns(mockDbSetVehicles.Object);
+                //mockDbContext.Setup(db => db.Bans).Returns(mockDbSetBans.Object);
+                //mockDbContext.Setup(db => db.Trips).Returns(mockDbSetTrips.Object);
+                //mockDbContext.Setup(db => db.TripPassengers).Returns(mockDbSetTripPassengers.Object);
+                //mockDbContext.Setup(db => db.ProfilePictures).Returns(mockDbSetProfilePictures.Object);
+
+                return mockDbContext;
+            }
+        }
+
     }
 }
