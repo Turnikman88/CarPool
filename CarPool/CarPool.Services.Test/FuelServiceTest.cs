@@ -10,14 +10,12 @@ namespace CarPool.Services.Data.Test
         [TestMethod]
         public async Task GetPriceTest()
         {
-
             var service = new FuelService();
 
             var result = await service.Price(123, 11.5);
 
             Assert.IsNotNull(result);
             Assert.IsInstanceOfType(result, typeof(decimal));
-
         }
     }
 }
