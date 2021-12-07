@@ -387,7 +387,7 @@ namespace CarPool.Services.Data.Test
                     new UserVehicle
                     {
                         Id = 1,
-                        ApplicationUserId = ApplicationUsers[0].Id,
+                        ApplicationUserId = userId0,
                         Color = "Red",
                         FuelConsumptionPerHundredKilometers = 12,
                         Model = "Ferrari"
@@ -395,7 +395,7 @@ namespace CarPool.Services.Data.Test
                     new UserVehicle
                     {
                         Id = 2,
-                        ApplicationUserId = ApplicationUsers[1].Id,
+                        ApplicationUserId = userId1,
                         Color = "Blue",
                         FuelConsumptionPerHundredKilometers = 8,
                         Model = "Alfa Romeo"
@@ -403,7 +403,7 @@ namespace CarPool.Services.Data.Test
                     new UserVehicle
                     {
                         Id = 3,
-                        ApplicationUserId = ApplicationUsers[2].Id,
+                        ApplicationUserId = userId2,
                         Color = "Black",
                         FuelConsumptionPerHundredKilometers = 10,
                         Model = "Mercedes S Class"
@@ -411,7 +411,7 @@ namespace CarPool.Services.Data.Test
                     new UserVehicle
                     {
                         Id = 4,
-                        ApplicationUserId = ApplicationUsers[3].Id,
+                        ApplicationUserId = userId3,
                         Color = "Silver",
                         FuelConsumptionPerHundredKilometers = 15,
                         Model = "BMW M5"
@@ -419,7 +419,7 @@ namespace CarPool.Services.Data.Test
                     new UserVehicle
                     {
                         Id = 5,
-                        ApplicationUserId = ApplicationUsers[4].Id,
+                        ApplicationUserId = userId4,
                         Color = "Green",
                         FuelConsumptionPerHundredKilometers = 11,
                         Model = "Lambo"
@@ -427,7 +427,7 @@ namespace CarPool.Services.Data.Test
                     new UserVehicle
                     {
                         Id = 6,
-                        ApplicationUserId = ApplicationUsers[5].Id,
+                        ApplicationUserId = userId5,
                         Color = "Black",
                         FuelConsumptionPerHundredKilometers = 9,
                         Model = "Golf4"
@@ -435,7 +435,7 @@ namespace CarPool.Services.Data.Test
                     new UserVehicle
                     {
                         Id = 7,
-                        ApplicationUserId = ApplicationUsers[6].Id,
+                        ApplicationUserId = userId6,
                         Color = "Orange",
                         FuelConsumptionPerHundredKilometers = 10,
                         Model = "Dacia"
@@ -443,7 +443,7 @@ namespace CarPool.Services.Data.Test
                     new UserVehicle
                     {
                         Id = 8,
-                        ApplicationUserId = ApplicationUsers[7].Id,
+                        ApplicationUserId = userId7,
                         Color = "Silver",
                         FuelConsumptionPerHundredKilometers = 6,
                         Model = "BMW M5"
@@ -451,7 +451,7 @@ namespace CarPool.Services.Data.Test
                     new UserVehicle
                     {
                         Id = 9,
-                        ApplicationUserId = ApplicationUsers[8].Id,
+                        ApplicationUserId = userId8,
                         Color = "Carbon Black",
                         FuelConsumptionPerHundredKilometers = 2,
                         Model = "Tesla Model S"
@@ -459,7 +459,7 @@ namespace CarPool.Services.Data.Test
                     new UserVehicle
                     {
                         Id = 10,
-                        ApplicationUserId = ApplicationUsers[9].Id,
+                        ApplicationUserId = userId9,
                         Color = "Silver",
                         FuelConsumptionPerHundredKilometers = 16,
                         Model = "Mercedes-Benz S Coupe"
@@ -477,14 +477,14 @@ namespace CarPool.Services.Data.Test
                 new Ban
                 {
                     Id = 1,
-                    ApplicationUserId = ApplicationUsers[6].Id,
+                    ApplicationUserId = userId6,
                     BlockedOn = System.DateTime.Today,
                     BlockedDue = System.DateTime.Today.AddDays(5)
                 },
                 new Ban
                 {
                     Id = 2,
-                    ApplicationUserId = ApplicationUsers[6].Id,
+                    ApplicationUserId = userId6,
                     BlockedOn = System.DateTime.Today
                 }
             };
@@ -499,7 +499,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 1,
-                    DriverId =  ApplicationUsers[0].Id,
+                    DriverId =  userId0,
                     StartAddressId = 1,
                     DestinationAddressId = 2,
                     DepartureTime = DateTime.Now.AddDays(2),
@@ -511,7 +511,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 2,
-                    DriverId =  ApplicationUsers[1].Id,
+                    DriverId =  userId1,
                     StartAddressId = 2,
                     DestinationAddressId = 3,
                     DepartureTime = DateTime.Now.AddDays(2),
@@ -524,7 +524,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 3,
-                    DriverId =  ApplicationUsers[2].Id,
+                    DriverId = userId2,
                     StartAddressId = 4,
                     DestinationAddressId = 2,
                     DepartureTime = DateTime.Now.AddDays(2),
@@ -537,7 +537,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 4,
-                    DriverId =  ApplicationUsers[3].Id,
+                    DriverId =  userId3,
                     StartAddressId = 4,
                     DestinationAddressId = 1,
                     DepartureTime = DateTime.Now.AddDays(2),
@@ -550,7 +550,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 5,
-                    DriverId =  ApplicationUsers[2].Id,
+                    DriverId = userId2,
                     StartAddressId = 1,
                     DestinationAddressId = 4,
                     DepartureTime = DateTime.Now.AddDays(2),
@@ -563,7 +563,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 6,
-                    DriverId =  ApplicationUsers[3].Id,
+                    DriverId = userId3,
                     StartAddressId = 2,
                     DestinationAddressId = 4,
                     DepartureTime = DateTime.Now.AddDays(2),
@@ -576,7 +576,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 7,
-                    DriverId =  ApplicationUsers[1].Id,
+                    DriverId = userId1,
                     StartAddressId = 4,
                     DestinationAddressId = 2,
                     DepartureTime = DateTime.Now.AddDays(2),
@@ -589,7 +589,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 8,
-                    DriverId =  ApplicationUsers[0].Id,
+                    DriverId = userId0,
                     StartAddressId = 1,
                     DestinationAddressId = 2,
                     DepartureTime = DateTime.Now.AddDays(2),
@@ -602,7 +602,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 9,
-                    DriverId =  ApplicationUsers[7].Id,
+                    DriverId = userId7,
                     StartAddressId = 2,
                     DestinationAddressId = 3,
                     DepartureTime = DateTime.Now,
@@ -615,7 +615,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 10,
-                    DriverId =  ApplicationUsers[8].Id,
+                    DriverId = userId8,
                     StartAddressId = 3,
                     DestinationAddressId = 1,
                     DepartureTime = DateTime.Now,
@@ -628,7 +628,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 11,
-                    DriverId =  ApplicationUsers[1].Id,
+                    DriverId = userId1,
                     StartAddressId = 1,
                     DestinationAddressId = 3,
                     DepartureTime = DateTime.Now,
@@ -642,7 +642,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 12,
-                    DriverId =  ApplicationUsers[3].Id,
+                    DriverId = userId3,
                     StartAddressId = 4,
                     DestinationAddressId = 3,
                     DepartureTime = DateTime.Now,
@@ -656,7 +656,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 13,
-                    DriverId =  ApplicationUsers[2].Id,
+                    DriverId = userId2,
                     StartAddressId = 3,
                     DestinationAddressId = 4,
                     DepartureTime = DateTime.Now,
@@ -670,7 +670,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 14,
-                    DriverId =  ApplicationUsers[1].Id,
+                    DriverId = userId1,
                     StartAddressId = 1,
                     DestinationAddressId = 3,
                     DepartureTime = DateTime.Now,
@@ -684,7 +684,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 15,
-                    DriverId =  ApplicationUsers[0].Id,
+                    DriverId = userId0,
                     StartAddressId = 3,
                     DestinationAddressId = 2,
                     DepartureTime = DateTime.Now,
@@ -698,7 +698,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 16,
-                    DriverId =  ApplicationUsers[1].Id,
+                    DriverId = userId1,
                     StartAddressId = 2,
                     DestinationAddressId = 1,
                     DepartureTime = DateTime.Now.AddDays(-2),
@@ -712,7 +712,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 17,
-                    DriverId =  ApplicationUsers[2].Id,
+                    DriverId = userId2,
                     StartAddressId = 1,
                     DestinationAddressId = 3,
                     DepartureTime = DateTime.Now.AddDays(-2),
@@ -734,91 +734,91 @@ namespace CarPool.Services.Data.Test
             {
                 new TripPassenger
                 {
-                     ApplicationUserId = ApplicationUsers[0].Id,
+                     ApplicationUserId = userId0,
                      TripId = 1
                 },
                 new TripPassenger
                 {
-                     ApplicationUserId = ApplicationUsers[1].Id,
+                     ApplicationUserId = userId1,
                      TripId = 2
                 },
                 new TripPassenger
                 {
-                     ApplicationUserId = ApplicationUsers[2].Id,
+                     ApplicationUserId = userId2,
                      TripId = 3
                 },
                 new TripPassenger
                 {
-                     ApplicationUserId = ApplicationUsers[3].Id,
+                     ApplicationUserId = userId3,
                      TripId = 1
                 },
 
                 new TripPassenger
                 {
-                     ApplicationUserId = ApplicationUsers[3].Id,
+                     ApplicationUserId = userId3,
                      TripId = 2
                 },
 
                 new TripPassenger
                 {
-                     ApplicationUserId = ApplicationUsers[3].Id,
+                     ApplicationUserId = userId3,
                      TripId = 3
                 },
 
                 new TripPassenger
                 {
-                     ApplicationUserId = ApplicationUsers[0].Id,
+                     ApplicationUserId = userId0,
                      TripId = 3
                 },
 
                 new TripPassenger
                 {
-                     ApplicationUserId = ApplicationUsers[4].Id,
+                     ApplicationUserId = userId4,
                      TripId = 4
                 },
 
                 new TripPassenger
                 {
-                     ApplicationUserId = ApplicationUsers[0].Id,
+                     ApplicationUserId = userId0,
                      TripId = 5
                 },
 
                 new TripPassenger
                 {
-                     ApplicationUserId = ApplicationUsers[0].Id,
+                     ApplicationUserId = userId0,
                      TripId = 6
                 },
 
                 new TripPassenger
                 {
-                     ApplicationUserId = ApplicationUsers[0].Id,
+                     ApplicationUserId = userId0,
                      TripId = 7
                 },
 
                 new TripPassenger
                 {
-                     ApplicationUserId = ApplicationUsers[0].Id,
+                     ApplicationUserId = userId0,
                      TripId = 8
                 },
 
                 new TripPassenger
                 {
-                     ApplicationUserId = ApplicationUsers[1].Id,
+                     ApplicationUserId = userId1,
                      TripId = 15
                 },
                 new TripPassenger
                 {
-                     ApplicationUserId = ApplicationUsers[0].Id,
+                     ApplicationUserId = userId0,
                      TripId = 16
                 },
                 new TripPassenger
                 {
-                     ApplicationUserId = ApplicationUsers[2].Id,
+                     ApplicationUserId = userId2,
                      TripId = 15
                 },
                 new TripPassenger
                 {
-                     ApplicationUserId = ApplicationUsers[2].Id,
+                     ApplicationUserId = userId2,
                      TripId = 16
                 },
             };
@@ -833,61 +833,61 @@ namespace CarPool.Services.Data.Test
                 new ProfilePicture
                 {
                     Id = 1,
-                    ApplicationUserId = ApplicationUsers[0].Id,
+                    ApplicationUserId = userId0,
                     ImageLink = GlobalConstants.DefaultPicture
                 },
                 new ProfilePicture
                 {
                     Id = 2,
-                    ApplicationUserId = ApplicationUsers[1].Id,
+                    ApplicationUserId = userId1,
                     ImageLink = GlobalConstants.DefaultPicture
                 },
                 new ProfilePicture
                 {
                     Id = 3,
-                    ApplicationUserId = ApplicationUsers[2].Id,
+                    ApplicationUserId = userId2,
                     ImageLink = GlobalConstants.DefaultPicture
                 },
                 new ProfilePicture
                 {
                     Id = 4,
-                    ApplicationUserId = ApplicationUsers[3].Id,
+                    ApplicationUserId = userId3,
                     ImageLink = GlobalConstants.DefaultPicture
                 },
                 new ProfilePicture
                 {
                     Id = 5,
-                    ApplicationUserId = ApplicationUsers[4].Id,
+                    ApplicationUserId = userId4,
                     ImageLink = GlobalConstants.DefaultPicture
                 },
                 new ProfilePicture
                 {
                     Id = 6,
-                    ApplicationUserId = ApplicationUsers[5].Id,
+                    ApplicationUserId = userId5,
                     ImageLink = GlobalConstants.DefaultPicture
                 },
                 new ProfilePicture
                 {
                     Id = 7,
-                    ApplicationUserId = ApplicationUsers[6].Id,
+                    ApplicationUserId = userId6,
                     ImageLink = GlobalConstants.DefaultPicture
                 },
                 new ProfilePicture
                 {
                     Id = 8,
-                    ApplicationUserId = ApplicationUsers[7].Id,
+                    ApplicationUserId = userId7,
                     ImageLink = GlobalConstants.DefaultPicture
                 },
                 new ProfilePicture
                 {
                     Id = 9,
-                    ApplicationUserId = ApplicationUsers[8].Id,
+                    ApplicationUserId = userId8,
                     ImageLink = GlobalConstants.DefaultPicture
                 },
                 new ProfilePicture
                 {
                     Id = 10,
-                    ApplicationUserId = ApplicationUsers[9].Id,
+                    ApplicationUserId = userId9,
                     ImageLink = GlobalConstants.DefaultPicture
                 }
             };
