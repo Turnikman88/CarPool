@@ -58,7 +58,12 @@
 @section Scripts {
     <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
     <script>
-                 
+        $('#form-modal').hasClass('show', function () {
+            var idtrip = document.getElementById("group").value;
+            connection.invoke("JoinGroup", idtrip).catch(function (err) {
+                return console.error(err.toString());
+            })
+        });
         var connection = new signalR.HubConnectionBuilder()
             .withUrl("/chat", {
                 accessTokenFactory: () => "testing"
@@ -102,13 +107,21 @@
             event.preventDefault();
         });*@
 
-       @* document.getElementById("leaveGroup").addEventListener("click", function (event) {
+        @* document.getElementById("leaveGroup").addEventListener("click", function (event) {
             var idtrip = document.getElementById("group").value;
             connection.invoke("LeaveGroup", idtrip).catch(function (err) {
                 return console.error(err.toString());
             });
             event.preventDefault();
         });*@
+
+        document.getElementById("group").addEventListener("change", function (event) {
+            var idtrip = document.getElementById("group").value;
+            connection.invoke("LeaveGroup", idtrip).catch(function (err) {
+                return console.error(err.toString());
+            });
+            event.preventDefault();
+        });
 
         function escapeHtml(unsafe) {
             return unsafe
@@ -119,12 +132,7 @@
                 .replace(/'/g, "&#039;");
         }
 
-        window.onload = function () {
-            var idtrip = document.getElementById("group").value;
-            connection.invoke("JoinGroup", idtrip).catch(function (err) {
-                return console.error(err.toString());
-            })
-        };
+
 
         @*window.onload
             var idtrip = document.getElementById("group").value;
