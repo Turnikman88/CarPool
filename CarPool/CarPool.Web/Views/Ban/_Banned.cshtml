@@ -12,7 +12,7 @@
         <th></th>
     </tr>
 
-    @if (Model.Banned.Count() == 0)
+    @if (!Model.Banned.Any())
     {
         <tr>
             <td>

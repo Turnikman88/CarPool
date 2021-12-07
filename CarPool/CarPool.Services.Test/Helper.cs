@@ -1,16 +1,24 @@
 ﻿using CarPool.Common;
 using CarPool.Data;
 using CarPool.Data.Models.DatabaseModels;
-using MockQueryable.Moq;
 using Moq;
 using System;
 using System.Collections.Generic;
-using System.Linq;
 
 namespace CarPool.Services.Data.Test
 {
     public static class Helper
     {
+        static Guid userId0 = Guid.Parse("bb23505b-05d4-485e-80eb-ac7295281398");
+        static Guid userId1 = Guid.Parse("56cb6af1-5172-4873-ad97-1365298b94db");
+        static Guid userId2 = Guid.Parse("1e227b3e-64eb-4ecf-9155-5e4f994ffcc6");
+        static Guid userId3 = Guid.Parse("85b2a941-9a45-4d97-a821-58aec861dab8");
+        static Guid userId4 = Guid.Parse("9a9bc4b8-add8-423d-a2de-9f4ce1176c1a");
+        static Guid userId5 = Guid.Parse("3181be47-fe62-4980-b8f0-c2636d2894b5");
+        static Guid userId6 = Guid.Parse("9ef2aed3-8e58-4292-845b-ee59177499bb");
+        static Guid userId7 = Guid.Parse("b474befe-251c-4a92-ab6f-57e940d76363");
+        static Guid userId8 = Guid.Parse("8d86d20b-59b1-46e1-9d66-db4216bada8c");
+        static Guid userId9 = Guid.Parse("0c5104d7-d971-4f58-a2cb-915533023b91");
         public static List<Address> Addresses
         {
             get
@@ -125,25 +133,6 @@ namespace CarPool.Services.Data.Test
         {
             get
             {
-                var userId0 = Guid.NewGuid();
-
-                var userId1 = Guid.NewGuid();
-
-                var userId2 = Guid.NewGuid();
-
-                var userId3 = Guid.NewGuid();
-
-                var userId4 = Guid.NewGuid();
-
-                var userId5 = Guid.NewGuid();
-
-                var userId6 = Guid.NewGuid();
-
-                var userId7 = Guid.NewGuid();
-
-                var userId8 = Guid.NewGuid();
-
-                var userId9 = Guid.NewGuid();
 
                 return new List<ApplicationUser>()
                 {
@@ -914,8 +903,8 @@ namespace CarPool.Services.Data.Test
                 {
                     Id = 1,
                     TripId = 1,
-                    AddedByUserId = ApplicationUsers[0].Id,
-                    ApplicationUserId = ApplicationUsers[1].Id,
+                    AddedByUserId = userId0,
+                    ApplicationUserId = userId1,
                     Feedback = "Nice car",
                     Value = 4
                 },
@@ -923,17 +912,17 @@ namespace CarPool.Services.Data.Test
                 {
                     Id = 2,
                     TripId = 2,
-                    AddedByUserId = ApplicationUsers[1].Id,
-                    ApplicationUserId = ApplicationUsers[2].Id,
+                    AddedByUserId = userId1,
+                    ApplicationUserId = userId2,
                     Feedback = "Bad person",
-                    Value = 1
+                    IsReport = true
                 },
                 new Rating
                 {
                     Id = 3,
                     TripId = 3,
-                    AddedByUserId = ApplicationUsers[2].Id,
-                    ApplicationUserId = ApplicationUsers[3].Id,
+                    AddedByUserId = userId2,
+                    ApplicationUserId = userId3,
                     Feedback = "Great trip",
                     Value = 5
                 },
@@ -941,8 +930,8 @@ namespace CarPool.Services.Data.Test
                 {
                     Id = 4,
                     TripId = 4,
-                    AddedByUserId = ApplicationUsers[3].Id,
-                    ApplicationUserId = ApplicationUsers[4].Id,
+                    AddedByUserId =userId3,
+                    ApplicationUserId = userId4,
                     Feedback = "dirty car, good person",
                     Value = 4
                 },
@@ -950,8 +939,8 @@ namespace CarPool.Services.Data.Test
                 {
                     Id = 5,
                     TripId = 5,
-                    AddedByUserId = ApplicationUsers[4].Id,
-                    ApplicationUserId = ApplicationUsers[5].Id,
+                    AddedByUserId =userId4,
+                    ApplicationUserId = userId5,
                     Feedback = "Great trip",
                     Value = 3
                 },
@@ -959,8 +948,8 @@ namespace CarPool.Services.Data.Test
                 {
                     Id = 6,
                     TripId = 5,
-                    AddedByUserId = ApplicationUsers[5].Id,
-                    ApplicationUserId = ApplicationUsers[6].Id,
+                    AddedByUserId = userId5,
+                    ApplicationUserId = userId6,
                     Feedback = "safe driver",
                     Value = 5
                 },
@@ -968,17 +957,17 @@ namespace CarPool.Services.Data.Test
                 {
                     Id = 7,
                     TripId = 5,
-                    AddedByUserId = ApplicationUsers[6].Id,
-                    ApplicationUserId = ApplicationUsers[7].Id,
+                    AddedByUserId = userId6,
+                    ApplicationUserId = userId7,
                     Feedback = "Bad driver",
-                    Value = 3
+                    IsReport = true
                 },
                 new Rating
                 {
                     Id = 8,
                     TripId = 5,
-                    AddedByUserId = ApplicationUsers[7].Id,
-                    ApplicationUserId = ApplicationUsers[8].Id,
+                    AddedByUserId = userId7,
+                    ApplicationUserId = userId8,
                     Feedback = "Good friend",
                     Value = 5
                 },
@@ -986,8 +975,8 @@ namespace CarPool.Services.Data.Test
                 {
                     Id = 9,
                     TripId = 5,
-                    AddedByUserId = ApplicationUsers[8].Id,
-                    ApplicationUserId = ApplicationUsers[9].Id,
+                    AddedByUserId = userId8,
+                    ApplicationUserId = userId9,
                     Feedback = "Best driver",
                     Value = 5
                 }
@@ -995,39 +984,39 @@ namespace CarPool.Services.Data.Test
             }
         }
 
-
         public static Mock<CarPoolDBContext> MockDbContext
         {
             get
             {
                 var mockDbContext = new Mock<CarPoolDBContext>();
 
-                var mockDbSetCountries = Countries.AsQueryable().BuildMockDbSet();
-                var mockDbSetCities = Cities.AsQueryable().BuildMockDbSet();
-                var mockDbSetAddresses = Addresses.AsQueryable().BuildMockDbSet();
-                var mockDbSetAppRoles = ApplicationRoles.AsQueryable().BuildMockDbSet();
-                var mockDbSetAppUsers = ApplicationUsers.AsQueryable().BuildMockDbSet();
-                var mockDbSetVehicles = UserVehicles.AsQueryable().BuildMockDbSet();
-                var mockDbSetBans = Bans.AsQueryable().BuildMockDbSet();
-                var mockDbSetTrips = Trips.AsQueryable().BuildMockDbSet();
-                var mockDbSetTripPassengers = TripPassengers.AsQueryable().BuildMockDbSet();
-                var mockDbSetProfilePictures = ProfilePictures.AsQueryable().BuildMockDbSet();
-                var mockDbSetRatings = Ratings.AsQueryable().BuildMockDbSet();
+                //var mockDbSetCountries = Countries.AsQueryable().BuildMockDbSet();
+                //var mockDbSetCities = Cities.AsQueryable().BuildMockDbSet();
+                //var mockDbSetAddresses = Addresses.AsQueryable().BuildMockDbSet();
+                //var mockDbSetAppRoles = ApplicationRoles.AsQueryable().BuildMockDbSet();
+                //var mockDbSetAppUsers = ApplicationUsers.AsQueryable().BuildMockDbSet();
+                //var mockDbSetVehicles = UserVehicles.AsQueryable().BuildMockDbSet();
+                //var mockDbSetBans = Bans.AsQueryable().BuildMockDbSet();
+                //var mockDbSetTrips = Trips.AsQueryable().BuildMockDbSet();
+                //var mockDbSetTripPassengers = TripPassengers.AsQueryable().BuildMockDbSet();
+                //var mockDbSetProfilePictures = ProfilePictures.AsQueryable().BuildMockDbSet();
+                //var mockDbSetRatings = Ratings.AsQueryable().BuildMockDbSet();
 
-                mockDbContext.Setup(db => db.Countries).Returns(mockDbSetCountries.Object);
-                mockDbContext.Setup(db => db.Cities).Returns(mockDbSetCities.Object);
-                mockDbContext.Setup(db => db.Addresses).Returns(mockDbSetAddresses.Object);
-                mockDbContext.Setup(db => db.ApplicationRoles).Returns(mockDbSetAppRoles.Object);
-                mockDbContext.Setup(db => db.ApplicationUsers).Returns(mockDbSetAppUsers.Object);
-                mockDbContext.Setup(db => db.UserVehicles).Returns(mockDbSetVehicles.Object);
-                mockDbContext.Setup(db => db.Bans).Returns(mockDbSetBans.Object);
-                mockDbContext.Setup(db => db.Trips).Returns(mockDbSetTrips.Object);
-                mockDbContext.Setup(db => db.Ratings).Returns(mockDbSetRatings.Object);
-                mockDbContext.Setup(db => db.TripPassengers).Returns(mockDbSetTripPassengers.Object);
-                mockDbContext.Setup(db => db.ProfilePictures).Returns(mockDbSetProfilePictures.Object);
+                //mockDbContext.Setup(db => db.Countries).Returns(mockDbSetCountries.Object);
+                //mockDbContext.Setup(db => db.Ratings).Returns(mockDbSetRatings.Object);
+                //mockDbContext.Setup(db => db.Cities).Returns(mockDbSetCities.Object);
+                //mockDbContext.Setup(db => db.Addresses).Returns(mockDbSetAddresses.Object);
+                //mockDbContext.Setup(db => db.ApplicationRoles).Returns(mockDbSetAppRoles.Object);
+                //mockDbContext.Setup(db => db.ApplicationUsers).Returns(mockDbSetAppUsers.Object);
+                //mockDbContext.Setup(db => db.UserVehicles).Returns(mockDbSetVehicles.Object);
+                //mockDbContext.Setup(db => db.Bans).Returns(mockDbSetBans.Object);
+                //mockDbContext.Setup(db => db.Trips).Returns(mockDbSetTrips.Object);
+                //mockDbContext.Setup(db => db.TripPassengers).Returns(mockDbSetTripPassengers.Object);
+                //mockDbContext.Setup(db => db.ProfilePictures).Returns(mockDbSetProfilePictures.Object);
 
                 return mockDbContext;
             }
         }
+
     }
 }

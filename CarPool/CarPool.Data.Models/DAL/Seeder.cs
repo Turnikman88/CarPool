@@ -893,7 +893,7 @@ namespace CarPool.Data.Models.DAL
                     AddedByUserId = userId1,
                     ApplicationUserId = userId2,
                     Feedback = "Bad person",
-                    Value = 1
+                    IsReport = true
                 },
                 new Rating
                 {
@@ -938,7 +938,7 @@ namespace CarPool.Data.Models.DAL
                     AddedByUserId = userId6,
                     ApplicationUserId = userId7,
                     Feedback = "Bad driver",
-                    Value = 3
+                    IsReport = true
                 },
                 new Rating
                 {
