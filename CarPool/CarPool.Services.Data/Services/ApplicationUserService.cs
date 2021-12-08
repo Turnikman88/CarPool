@@ -197,9 +197,9 @@ namespace CarPool.Services.Data.Services
             return await _db.ApplicationUsers.Include(x => x.Ratings)
                                              .Include(x => x.Trips)
                                              .Include(x => x.ProfilePicture)
-                                             .OrderByDescending(x => x.Ratings.Select(x => x.Value).Average())
+                                             .OrderByDescending(x => x.Ratings.Select(x => x.Value).Average(x => x))
                                                 .ThenByDescending(x => x.Trips.Count)
-                                             .Take(10)
+                                             .Take(9)
                                              .Select(x => x.GetTopUserDTO())
                                              .ToListAsync();
         }
