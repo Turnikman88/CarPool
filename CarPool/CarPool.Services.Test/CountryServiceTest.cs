@@ -1,7 +1,6 @@
 using CarPool.Common;
 using CarPool.Data;
 using CarPool.Services.Data.Services;
-using CarPool.Services.Data.Test;
 using CarPool.Services.Mapping.DTOs;
 using CarPool.Services.Mapping.Mappers;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -10,7 +9,7 @@ using Moq;
 using System.Linq;
 using System.Threading.Tasks;
 
-namespace CarPool.Services.Test
+namespace CarPool.Services.Data.Test
 {
     [TestClass]
     public class CountryServiceTest

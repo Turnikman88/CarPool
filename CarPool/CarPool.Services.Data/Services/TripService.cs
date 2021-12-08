@@ -41,15 +41,17 @@ namespace CarPool.Services.Data.Services
 
         public async Task<IEnumerable<TripDTO>> GetAsync(int page)
         {
-            return await _db.Trips.Include(x => x.Driver).ThenInclude(x => x.Vehicle)
+            var totla = await _db.Trips.Include(x => x.Driver).ThenInclude(x => x.Vehicle)
                                         .Include(x => x.StartAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
                                         .Include(x => x.DestinationAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
                                         .Include(x => x.Passengers).ThenInclude(x => x.Trip)
                                         .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser)
                                         .Skip(page * GlobalConstants.PageSkip)
-                                        .Take(10)
-                                        .Select(x => x.GetDTO()).ToListAsync();
+                                        .Take(10).Select(x => x.GetDTO()).ToListAsync();
+            return totla;
         }
+
+
 
         public async Task<IEnumerable<TripDTO>> GetAllUpcomingTripsAsync(int page)
         {
@@ -71,39 +73,39 @@ namespace CarPool.Services.Data.Services
             return page;
         }
 
-        public async Task<int> GetPageCountPerUserAsync(string email)
+        public async Task<int> GetPageCountPerUserAsync(string userIdentificator)
         {
             var user = await _db.ApplicationUsers.Include(x => x.Address)
                                                   .Include(x => x.Ratings)
                                                   .Include(x => x.Trips).ThenInclude(x => x.DestinationAddress)
                                                   .Include(x => x.Vehicle)
-                                                  .FirstOrDefaultAsync(x => x.Email == email);
+                                                  .FirstOrDefaultAsync(x => x.Email == userIdentificator || x.Id.ToString() == userIdentificator);
             var count = user.Trips.Where(x => x.DepartureTime.Date >= DateTime.Today.Date).Count();
 
             var page = count / GlobalConstants.PageSkip;
             return page;
         }
 
-        public async Task<IEnumerable<TripDTO>> GetPastByUserTrips(int page, string email)
+        public async Task<IEnumerable<TripDTO>> GetPastByUserTrips(int page, string userIdentificator)
         {
             return await _db.Trips.Include(x => x.Driver).ThenInclude(x => x.Vehicle)
                                   .Include(x => x.StartAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
                                   .Include(x => x.DestinationAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
                                   .Include(x => x.Passengers).ThenInclude(x => x.Trip)
                                   .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser)
-                                  .Where(x => x.DepartureTime.Date < DateTime.Today.Date && (x.Passengers.Any(x => x.ApplicationUser.Email == email) || x.Driver.Email == email))
+                                  .Where(x => x.DepartureTime.Date < DateTime.Today.Date && (x.Passengers.Any(x => x.ApplicationUser.Email == userIdentificator || x.ApplicationUser.Id.ToString() == userIdentificator) || x.Driver.Email == userIdentificator))
                                   .Skip(page * GlobalConstants.PageSkip)
                                   .Take(10)
                                   .Select(x => x.GetDTO()).ToListAsync();
         }
-        public async Task<IEnumerable<TripDTO>> GetUpcomingTripsByUserAsync(int page, string email)
+        public async Task<IEnumerable<TripDTO>> GetUpcomingTripsByUserAsync(int page, string userIdentificator)
         {
             return await _db.Trips.Include(x => x.Driver).ThenInclude(x => x.Vehicle)
                                   .Include(x => x.StartAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
                                   .Include(x => x.DestinationAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
                                   .Include(x => x.Passengers).ThenInclude(x => x.Trip)
                                   .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser)
-                                  .Where(x => x.DepartureTime.Date >= DateTime.Today.Date && x.Passengers.Any(x => x.ApplicationUser.Email == email))
+                                  .Where(x => x.DepartureTime.Date >= DateTime.Today.Date && x.Passengers.Any(x => x.ApplicationUser.Email == userIdentificator /*|| x.ApplicationUser.Id == Guid.Parse(userIdentificator)*/))
                                   .Skip(page * GlobalConstants.PageSkip)
                                   .Take(10)
                                   .Select(x => x.GetDTO()).ToListAsync();
@@ -171,7 +173,7 @@ namespace CarPool.Services.Data.Services
 
             var addressOriginData = await _ads.GetAddressByIdAsync(obj.StartAddressId);
             var addressDestinationData = await _ads.GetAddressByIdAsync(obj.DestinationAddressId);
-            var travelData = await _bing.GetTripDataCoordinatesAsync($"{addressOriginData.Latitude},{addressOriginData.Longitude}", $"{addressDestinationData.Latitude},{addressDestinationData.Longitude}");
+            var travelData = await _bing.GetTripDataByCoordinatesAsync($"{addressOriginData.Latitude},{addressOriginData.Longitude}", $"{addressDestinationData.Latitude},{addressDestinationData.Longitude}");
 
             var vehicle = await _db.UserVehicles.FirstOrDefaultAsync(x => x.ApplicationUserId == Guid.Parse(obj.DriverId));
 
@@ -201,32 +203,51 @@ namespace CarPool.Services.Data.Services
             _check.CheckId(id);
 
             var toUpdate = await _db.Trips.Include(x => x.Driver).ThenInclude(x => x.Vehicle)
-                                               .Include(x => x.StartAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
-                                               .Include(x => x.DestinationAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
-                                               .Include(x => x.Passengers).ThenInclude(x => x.Trip)
-                                               .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser)
-                                               .FirstOrDefaultAsync(x => x.Id == id);
+                                           .Include(x => x.StartAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
+                                           .Include(x => x.DestinationAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
+                                           .Include(x => x.Passengers).ThenInclude(x => x.Trip)
+                                           .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser)
+                                           .FirstOrDefaultAsync(x => x.Id == id);
 
             if (toUpdate is null)
             {
                 return new TripDTO() { ErrorMessage = GlobalConstants.TRIP_NOT_FOUND };
             }
 
-            var travelData = await _bing.GetTripDataCityCountryAsync($"{obj.StartAddressCity} {obj.StartAddressCountry}", $"{obj.DestinationAddressCity} {obj.DestinationAddressCountry}");
+            var originAddressID = await _ads.AddressToId(
+              new AddressDTO
+              {
+                  CityName = obj.StartAddressCity,
+                  CountryName = obj.StartAddressCountry,
+                  StreetName = obj.StartAddressStreet
+              });
+
+            var destinationAddressID = await _ads.AddressToId(
+                new AddressDTO
+                {
+                    CityName = obj.DestinationAddressCity,
+                    CountryName = obj.DestinationAddressCountry,
+                    StreetName = obj.DestinationAddressStreet
+                });
+
+            var addressOriginData = await _ads.GetAddressByIdAsync(originAddressID);
+            var addressDestinationData = await _ads.GetAddressByIdAsync(destinationAddressID);
+
+            var travelData = await _bing.GetTripDataByCityCountryAsync($"{obj.StartAddressCity} {obj.StartAddressCountry}", $"{obj.DestinationAddressCity} {obj.DestinationAddressCountry}");
 
             var price = await _fus.Price(obj.Distance, toUpdate.Driver.Vehicle.FuelConsumptionPerHundredKilometers) / (obj.FreeSeats + obj.PassengersCount);
 
             toUpdate.AdditionalComment = obj.AdditionalComment;
             toUpdate.DurationInMinutes = travelData.Item2;
             toUpdate.ModifiedOn = System.DateTime.UtcNow;
+            toUpdate.StartAddressId = originAddressID;
+            toUpdate.DestinationAddressId = destinationAddressID;
             toUpdate.DepartureTime = obj.DepartureTime;
-            toUpdate.DestinationAddressId = obj.DestinationAddressId;
             toUpdate.Distance = travelData.Item1;
             toUpdate.DriverId = new Guid(obj.DriverId);
             toUpdate.FreeSeats = obj.FreeSeats;
             toUpdate.PassengersCount = obj.PassengersCount;
             toUpdate.Price = price;
-            toUpdate.StartAddressId = obj.StartAddressId;
 
             await _db.SaveChangesAsync();
 
@@ -244,7 +265,7 @@ namespace CarPool.Services.Data.Services
                                            .Include(x => x.Passengers).ThenInclude(x => x.Trip)
                                            .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser).FirstOrDefaultAsync(x => x.Id == id);
 
-            if (trip != null)
+            if (trip == null)
             {
                 return new TripDTO() { ErrorMessage = GlobalConstants.TRIP_NOT_FOUND };
             }
@@ -364,5 +385,6 @@ namespace CarPool.Services.Data.Services
         {
             return await _db.Trips.CountAsync();
         }
+
     }
 }

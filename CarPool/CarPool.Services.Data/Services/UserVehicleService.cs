@@ -12,7 +12,6 @@ namespace CarPool.Services.Data.Services
     public class UserVehicleService : IUserVehicleService
     {
         private readonly CarPoolDBContext _db;
-        private readonly IAuthService _auth;
 
         public UserVehicleService(CarPoolDBContext db)
         {

@@ -24,8 +24,8 @@ namespace CarPool.Services.Data.Services
 
         public async Task<(decimal, decimal)> GetLatitudeAndLongitude(string city, string country, string street)
         {
-            var cityCountryJSON = await (await client.GetAsync(string.Format(locationUrl, $"{city} {street} {country}"))).Content.ReadAsStringAsync(); 
-            dynamic cityCountryJSONdata = JsonConvert.DeserializeObject<ExpandoObject>(cityCountryJSON, new ExpandoObjectConverter());    
+            var cityCountryJSON = await (await client.GetAsync(string.Format(locationUrl, $"{city} {street} {country}"))).Content.ReadAsStringAsync();
+            dynamic cityCountryJSONdata = JsonConvert.DeserializeObject<ExpandoObject>(cityCountryJSON, new ExpandoObjectConverter());
             var coordinates = cityCountryJSONdata.resourceSets[0].resources[0].point.coordinates;
 
             decimal latitude = (decimal)coordinates[0];
@@ -34,7 +34,7 @@ namespace CarPool.Services.Data.Services
             return (latitude, longitude);
         }
 
-        public async Task<(int, int)> GetTripDataCityCountryAsync(string origin, string destination)
+        public async Task<(int, int)> GetTripDataByCityCountryAsync(string origin, string destination)
         {
             var originJson = await (await client.GetAsync(string.Format(locationUrl, origin))).Content.ReadAsStringAsync(); // Get origin JSON
             dynamic originData = JsonConvert.DeserializeObject<ExpandoObject>(originJson, new ExpandoObjectConverter());    // Deserialize
@@ -47,7 +47,7 @@ namespace CarPool.Services.Data.Services
             var destinationCoordsString = $"{destinationCoords[0]},{destinationCoords[1]}";                                            // exact same procedure
 
             var travelDataResult = await client.GetAsync(string.Format(distanceMatrixUrl, originCoordsString, destinationCoordsString)); // to get distance bing api works only with latitude and longituted
-            var travelDataJson = await travelDataResult.Content.ReadAsStringAsync();                                                       
+            var travelDataJson = await travelDataResult.Content.ReadAsStringAsync();
             dynamic travelData = JsonConvert.DeserializeObject<ExpandoObject>(travelDataJson, new ExpandoObjectConverter());
 
             var distance = (int)travelData.resourceSets[0].resources[0].results[0].travelDistance;
@@ -56,7 +56,7 @@ namespace CarPool.Services.Data.Services
             return (distance, duration);
         }
 
-        public async Task<(int, int)> GetTripDataCoordinatesAsync(string originCoordinates, string destinationCoordinates)
+        public async Task<(int, int)> GetTripDataByCoordinatesAsync(string originCoordinates, string destinationCoordinates)
         {
             var travelDataResult = await client.GetAsync(string.Format(distanceMatrixUrl, originCoordinates, destinationCoordinates));
             var travelDataJson = await travelDataResult.Content.ReadAsStringAsync();

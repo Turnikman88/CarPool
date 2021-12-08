@@ -499,7 +499,7 @@ namespace CarPool.Services.Data.Test
                 new Trip
                 {
                     Id = 1,
-                    DriverId =  userId0,
+                    DriverId = userId0,
                     StartAddressId = 1,
                     DestinationAddressId = 2,
                     DepartureTime = DateTime.Now.AddDays(2),
