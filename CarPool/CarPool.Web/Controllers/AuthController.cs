@@ -165,22 +165,6 @@ namespace CarPool.Web.Controllers
             return RedirectToAction("index", "home");
         }
 
-        // TODO: Move in admin panel
-/*        [HttpGet]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public IActionResult Ban()
-        {
-            return View(new BanUserDTO());
-        }
-
-        [HttpPost]
-        [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
-        public async Task<IActionResult> Ban(string email, string reason, System.DateTime? days)
-        {
-            await _ban.BanUserAsync(email, reason, days);
-            return this.View(); // return json with model 
-        }*/
-
         [HttpGet]
         public async Task<IActionResult> ConfirmEmail(string token)
         {
@@ -259,8 +243,7 @@ namespace CarPool.Web.Controllers
             return View(new UpdatePasswordDTO());
         }
 
-
-        [HttpGet]
+       /* [HttpGet]
         public async Task<IActionResult> ForgotPassword(string email)
         {
 
@@ -270,7 +253,7 @@ namespace CarPool.Web.Controllers
                 return Ok();
             }
             return NotFound();
-        }
+        }*/
 
         [HttpGet]
         [Authorize(Roles = GlobalConstants.UserRoleName + "," + GlobalConstants.AdministratorRoleName)]

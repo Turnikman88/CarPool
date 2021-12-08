@@ -484,7 +484,7 @@ namespace CarPool.Services.Data.Test
                 new Ban
                 {
                     Id = 2,
-                    ApplicationUserId = userId6,
+                    ApplicationUserId = userId7,
                     BlockedOn = System.DateTime.Today
                 }
             };

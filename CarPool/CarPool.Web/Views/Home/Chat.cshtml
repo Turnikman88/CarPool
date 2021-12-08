@@ -8,54 +8,41 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 }
 
-<div class="chat">
+<div class="chat" style="display: flex; justify-content:center;">
 
     <h1>@this.ViewBag.Title</h1>
+    <form class="contact-form-1 rwt-dynamic-form">
+        <div class="form-group">
+            <select id="group">
+                <option value="">Select Trip</option>
+                @foreach (var item in Model.TripsIds)
+                {
+                    var id = $"PrivateGroup#{item}";
 
-    <select id="group">
+                    <option value=@item>@id</option>
+                }
 
-        @foreach (var item in Model.TripsIds)
-        {
-            var id = $"PrivateGroup#{item}";
+            </select>
 
-            <option value=@item>@id</option>
-        }
-
-    </select>
-    @*    <div>
-            <input type="button" id="joinGroup" value="Join Private Group" />
-        </div>*@
-    @*    <div>
-            <input type="button" id="leaveGroup" value="Leave this chat" />
-        </div>*@
-    <textarea name="message" id="message"></textarea>
-
-    <input type="button" id="sendButton" value="Send Message" />
-
-    <div id="messages"></div>
-    @*    <div class="yours messages">
-            <div class="message last">
-                Dude
+            <textarea name="message" id="message" placeholder="Type message" style="margin-top:10px;"></textarea>
+            <div style="display:flex; justify-content:center; margin-top:10px;">
+                <button type="submit" id="sendButton" class="btn-default btn-large rn-btn"
+                        style="background-color: #FF3CAC; cursor: pointer;">
+                    <span>Send Message</span>
+                </button>
             </div>
         </div>
+    </form>
 
-            <div class="mine messages">
-                <div class="message last">
-                    Dude
-                </div>
-            </div>
-            <div class="yours messages">
-                <div class="message">
-                    Hey!
-                </div>
-            </div>
-        </div>*@
+
+    <div id="messages"></div>
+
 </div>
 
 @section Scripts {
     <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
     <script>
-                 
+
         var connection = new signalR.HubConnectionBuilder()
             .withUrl("/chat", {
                 accessTokenFactory: () => "testing"
@@ -116,18 +103,20 @@
                 .replace(/'/g, "&#039;");
         }
 
-        window.onload = function () {
+@*        window.onload = function () {
             var idtrip = document.getElementById("group").value;
-            connection.invoke("JoinGroup", idtrip).catch(function (err) {
-                return console.error(err.toString());
-            })
-        };
+            connection.invoke("JoinGroup", idtrip);
 
-        @*window.onload
-            var idtrip = document.getElementById("group").value;
-            connection.invoke("JoinGroup", idtrip).catch(function (err) {
-                return console.error(err.toString());
-            }
         };*@
+        $(document).ready(function () {
+            $('#group').on('change', function () {
+
+                var idtrip = document.getElementById("group").value;
+                connection.invoke("LeaveGroup", idtrip);
+
+                var idtrip = document.getElementById("group").value;
+                connection.invoke("JoinGroup", idtrip);
+            })
+            })
     </script>
 }

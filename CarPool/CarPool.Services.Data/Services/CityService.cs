@@ -92,8 +92,12 @@ namespace CarPool.Services.Data.Services
 
         public async Task<CityDTO> PostAsync(CityDTO obj)
         {
-            var country = await _cs.GetCountryByNameAsync(obj.CountryName);
-            obj.CountryId = country.Id;
+            var country = await _cs.GetCountryByNameAsync(obj.CountryName ?? "");
+
+            if (country.Id == 0)
+            {
+                obj.CountryId = country.Id;
+            }
 
             if (await _check.CityExistsAsync(obj.Name, obj.CountryId))
             {
@@ -106,7 +110,7 @@ namespace CarPool.Services.Data.Services
             var deletedCity = await _db.Cities.Include(x => x.Country).IgnoreQueryFilters()
                 .FirstOrDefaultAsync(x => x.CountryId == obj.CountryId && x.Name == obj.Name && x.IsDeleted == true);
 
-            if (obj is null || obj.Name is null)
+            if (obj is null || string.IsNullOrEmpty(obj.Name))
             {
                 return new CityDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
             }
@@ -135,7 +139,10 @@ namespace CarPool.Services.Data.Services
             _check.CheckId(id);
 
             var country = await _cs.GetCountryByNameAsync(obj.CountryName);
-            obj.CountryId = country.Id;
+            if (country.Id == 0)
+            {
+                obj.CountryId = country.Id;
+            }
 
             if (await _check.CityExistsAsync(obj.Name, obj.CountryId))
             {
@@ -152,7 +159,7 @@ namespace CarPool.Services.Data.Services
                 return new CityDTO() { ErrorMessage = GlobalConstants.CITY_NOT_FOUND };
             }
 
-            if (obj.Name is null)
+            if (string.IsNullOrEmpty(obj.Name) || obj.CountryId <= 0)
             {
                 return new CityDTO() { ErrorMessage = GlobalConstants.INCORRECT_DATA };
             }

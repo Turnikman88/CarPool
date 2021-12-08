@@ -18,10 +18,12 @@
             <th scope="col">To</th>
             <th scope="col">Departure Date</th>
             <th scope="col">
-                <button class="btn-default btn-details"
-                        onclick="showInPopup('@Url.Action("Create", "Trip")', 'Create')">
-                    Add
-                </button>
+                <div style="padding:7px 10px;">
+                    <button class="btn-default btn-details"
+                            onclick="showInPopup('@Url.Action("Create", "Trip")', 'Create')">
+                        Add
+                    </button>
+                </div>
             </th>
             <th></th>
             <th></th>
@@ -43,13 +45,23 @@
                     <td scope="col">@tr.DestinationAddressCity</td>
                     <td scope="col">@tr.DepartureTime.ToString("MMMM dd, yyyy")</td>
 
-                    <td scope="col"><button class="btn-default btn-details" style="background-color: #7066e0!important" 
-                                            onclick="showDetails('@tr.DurationInMinutes', '@tr.Distance', '@tr.DriverName',
+                    <td scope="col">
+                        <div class="btn">
+                            <a href="javascript:showDetails('@tr.DurationInMinutes', '@tr.Distance', '@tr.DriverName',
                                                     '@tr.PassengersCount', '@tr.FreeSeats', '@tr.DriverVehicle',
-                                                        '@tr.DriverVehicleColor', '@price', '@tr.AdditionalComment')">Details</button></td>
+                                                        '@tr.DriverVehicleColor', '@price', '@tr.AdditionalComment')"
+                               class="btn-default text-underline btn-small">
+                                Details
+                            </a>
+                        </div>
+                    </td>
 
-                    <td scope="col"><button class="btn-default btn-details" style="background-color: #7066e0!important" 
-                                            onclick="openMaps('@dir')">Map</button></td>
+                    <td scope="col">
+                        <button class="btn-default btn-details" style="background-color: #7066e0!important"
+                                onclick="openMaps('@dir')">
+                            Map
+                        </button>
+                    </td>
                     @if (email != tr.DriverEmail)
                     {
                         <td scope="col">
@@ -106,7 +118,7 @@
             backdrop: false,
             customClass: 'swal-trip',
             title: '<h4 class="swal-title"> Details </h4>',
-            showConfirmButton: true,            
+            showConfirmButton: true,
             html:
             `<div class='row' style='height: 400px;'>` +
                 `<div class='col'>` +
@@ -132,5 +144,5 @@
             `</div>`
         })
     }
-</script> 
+</script>
 
