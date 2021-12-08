@@ -37,7 +37,7 @@ namespace CarPool.Web.Controllers
             {
                 Banned = banned,
                 CurrentPage = p,
-                MaxPages = await _ban.GetPageCountAsync()
+                MaxPages = await _ban.GetMaxPageAsync()
             };
             return Json(new {html = await Helper.RenderViewAsync(this, "_Banned", model, true) });
         }

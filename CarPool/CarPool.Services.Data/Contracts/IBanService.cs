@@ -19,6 +19,6 @@ namespace CarPool.Services.Data.Contracts
 
         Task IgnoreReportAsync(string email);
 
-        Task<int> GetPageCountAsync();
+        Task<int> GetMaxPageAsync();
     }
 }

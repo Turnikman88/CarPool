@@ -43,7 +43,10 @@ namespace CarPool.Services.Data.Services
                 .Where(x => x.ApplicationUser.Email == email)
                 .FirstOrDefaultAsync();
 
-            report.IsReport = false;
+            if (report != null)
+            {
+                report.IsReport = false;
+            }
 
             if (days != null)
             {
@@ -141,7 +144,8 @@ namespace CarPool.Services.Data.Services
 
             return new BanDTO() { ApplicationUserId = user.Id, BanRemovedMessage = string.Format(GlobalConstants.USER_UNBLOCKED, $"{user.Email}") };
         }
-        public async Task<int> GetPageCountAsync()
+
+        public async Task<int> GetMaxPageAsync()
         {
             var count = await this._db.Bans.CountAsync();
             var page = count / GlobalConstants.PageSkip;
