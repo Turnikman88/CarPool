@@ -31,7 +31,7 @@
                 </div>
             </th>
             <th>
-                <div class="btn"><a href="javascript:showInPopup('@Url.Action("Chat", "Home")')" class="fas fa-comments fa-3x"></a></div>
+                <div class="btn"><a href="javascript:openChat()" class="fas fa-comments fa-3x"></a></div>
             </th>
             <th></th>
         </tr>
@@ -105,7 +105,13 @@
 
 <script src="//cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 <script src="~/assets/js/vendor/jquery.min.js"></script>
+<script>
+    function openChat() {
+        $("#form-modal").addClass("chat-modal");
 
+        showInPopup('@Url.Action("Chat", "Home")');
+    }
+</script>
 <script>
     openMaps = (url) => {
         window.open(url, '_blank').focus()

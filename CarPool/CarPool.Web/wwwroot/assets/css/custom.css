@@ -280,6 +280,10 @@ body.active-light-mode .modal-body .main-content {
     background-color: white;
 }
 
+.chat-modal {
+    margin-top:20vh;
+    max-height: 520px !important;
+}
 .swal-wide {
     width: 850px;
     background-color: red;
