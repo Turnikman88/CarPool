@@ -19,9 +19,9 @@
     <label>Rating</label>
     <div id="full-stars-example-two">
         <div class="rating-group">
-            <input asp-for="Value" disabled class="rating__input rating__input--none" name="Value" id="rating3-none" value=0 type="radio">
+            <input asp-for="Value" disabled class="rating__input rating__input--none" name="Value" id="rating3-none" value=0 type="radio" style="visibility: hidden!important;">
             <label aria-label="1 star" class="rating__label" for="rating3-1"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
-            <input asp-for="Value" class="rating__input" name="Value" id="rating3-1"  value=@one type="radio">
+            <input asp-for="Value" class="rating__input" name="Value" id="rating3-1"  value=@one type="radio" style="visibility: hidden!important;">
             <label aria-label="2 stars" class="rating__label" for="rating3-2"><i class="rating__icon rating__icon--star fa fa-star"></i></label>
             <input asp-for="Value" class="rating__input" name="Value" id="rating3-2"  value=@two type="radio">
             <label aria-label="3 stars" class="rating__label" for="rating3-3"><i class="rating__icon rating__icon--star fa fa-star"></i></label>

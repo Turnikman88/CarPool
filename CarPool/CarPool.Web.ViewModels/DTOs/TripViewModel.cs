@@ -1,19 +1,27 @@
 ﻿using CarPool.Services.Mapping.DTOs;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace CarPool.Web.ViewModels.DTOs
 {
     public class TripViewModel
     {
-
+        [Required]
+        [DisplayName("Origin Country")]
         public string OriginCountry { get; set; }
 
+        [Required]
+        [DisplayName("Origin City")]
         public string OriginCity { get; set; }
 
+        [Required]
+        [DisplayName("Destination Country")]
         public string DestinationCountry { get; set; }
 
+        [Required]
+        [DisplayName("Destination City")]
         public string DestinationCity { get; set; }
 
         public int MaxPages { get; set; }
@@ -32,5 +40,6 @@ namespace CarPool.Web.ViewModels.DTOs
         public IEnumerable<TripDTO> PastTrips { get; set; }
         public IEnumerable<TripDriverDTO> ManageableTrips { get; set; }
 
+        public IEnumerable<PassangerInfoViewModel> PassangerInfo { get; set; }
     }
 }

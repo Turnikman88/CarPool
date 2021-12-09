@@ -42,7 +42,7 @@ namespace CarPool.Web.ViewModels.DTOs
         [MinLength(8, ErrorMessage = GlobalConstants.PASSWORD_ERROR_MESSAGE)]
         public string NewPassword { get; set; }
 
-        [Required]
+        
         [MinLength(5, ErrorMessage = GlobalConstants.ADDRESS_TOO_SHORT)]
         public string Address { get; set; }
 
@@ -60,6 +60,8 @@ namespace CarPool.Web.ViewModels.DTOs
         public string Role { get; set; }
 
         public IFormFile ProfilePicture { get; set; }
+
+        public string ProfilePictureLink { get; set; }
 
         public bool IsGoogleAccount { get; set; }
     }

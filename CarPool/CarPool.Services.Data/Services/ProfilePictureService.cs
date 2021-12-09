@@ -50,5 +50,13 @@ namespace CarPool.Services
             }
             return true;
         }
+
+        public async Task<string> GetPictureLinkByUserEmail(string email)
+        {
+            return await _db.ApplicationUsers
+                .Where(x => x.Email == email)
+                .Select(x => x.ProfilePicture.ImageLink)
+                .FirstOrDefaultAsync();
+        }
     }
 }

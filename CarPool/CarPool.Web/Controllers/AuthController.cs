@@ -243,18 +243,6 @@ namespace CarPool.Web.Controllers
             return View(new UpdatePasswordDTO());
         }
 
-       /* [HttpGet]
-        public async Task<IActionResult> ForgotPassword(string email)
-        {
-
-            if (await _auth.IsEmailValidForPasswordReset(email))
-            {
-                await _mail.SendEmailAsync(new MailDTO { Reciever = email, ResetPassword = true });
-                return Ok();
-            }
-            return NotFound();
-        }*/
-
         [HttpGet]
         [Authorize(Roles = GlobalConstants.UserRoleName + "," + GlobalConstants.AdministratorRoleName)]
         public async Task<IActionResult> Settings()
@@ -275,7 +263,7 @@ namespace CarPool.Web.Controllers
             model.Country = address.CountryName;
             model.City = address.CityName;
             model.Address = address.StreetName;
-
+            model.ProfilePictureLink = await _pps.GetPictureLinkByUserEmail(email);
             return View(model);
         }
 
@@ -299,6 +287,8 @@ namespace CarPool.Web.Controllers
 
             if (!ModelState.IsValid)
             {
+                TempData["IsGoogleAccount"] = model.IsGoogleAccount;
+
                 model.Countries = await RenderCountries();
                 return View(model);
             }

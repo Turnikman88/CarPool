@@ -14,15 +14,32 @@
                         </div>
                     </div>
                     <div class="col-lg-4" style="margin-right:30px;">
-                        <a href="javascript:showInPopup('@Url.Action("Index", "Vehicle")', 'My Car')">
-                            <div style="display:flex; justify-content:center;">
-                                <div>
-                                    <i class="fas fa-car fa-2x"></i>
+                        <div style="display:flex; justify-content:center;">
+                            <div style="float:left; margin:10px;">
+                                <a href="javascript:showInPopup('@Url.Action("Index", "Vehicle")', 'My Car')">
+                                    <div style="display:flex; justify-content:center;">
+                                        <div>
+                                            <i class="fas fa-car fa-2x"></i>
 
-                                    <p style="display:inline; margin-left: 10px;" class="btn-text"><b>My Car</b></p>
-                                </div>
+                                            <p style="display:inline; margin-left: 10px;" class="btn-text"><b>My Car</b></p>
+                                        </div>
+                                    </div>
+                                </a>
                             </div>
-                        </a>
+                            <div style=" margin: 10px;">
+                                <a href="javascript:showUserInfo('@Model.ProfilePictureLink', '@Model.FirstName', '@Model.LastName', '@Model.Username',
+                                   '@Model.Country', '@Model.City', '@Model.PhoneNumber')">
+                                    <div style="display:flex; justify-content:center;">
+                                        <div>
+                                            <i class="fas fa-user-circle fa-2x"></i>
+
+                                            <p style="display:inline; margin-left: 10px;" class="btn-text"><b>Profile Info</b></p>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
+                        </div>
+
                         <hr />
 
                         <form asp-action="Settings" class="contact-form-1 rwt-dynamic-form" encType="multipart/form-data">
@@ -35,7 +52,7 @@
                             <div class="form-group pic">
                                 <input asp-for="ProfilePicture" placeholder="Username" accept="image/*">
                                 <span asp-validation-for="ProfilePicture" class="form-error"></span>
-                                <img src='@Model.ProfilePicture'  style="border-radius: 50%;"/>
+                                <img src='@Model.ProfilePicture' style="border-radius: 50%;" />
                             </div>
 
                             <div class="form-group personal">
@@ -109,7 +126,19 @@
         </div>
     </div>
 </div>
-
+@*<div class="col-lg-4 col-md-6 col-12 mt--30" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
+    <div class="rn-team team-style-default">
+        <div class="inner">
+            <div class="thumbnail">
+                <img src="@Model.ProfilePictureLink">
+            </div>
+            <div class="content">
+                <h2 class="title">@Model.FirstName </h2>
+                <h6 class="subtitle theme-gradient"></h6>
+            </div>
+        </div>
+    </div>
+</div>*@
 
 
 @section Scripts{

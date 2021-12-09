@@ -28,6 +28,8 @@ namespace CarPool.Services.Mapping.DTOs
         public string Role { get; set; }
 
         public string ErrorMessage { get; set; }
+
+        public string ImageLink { get; set; }
     }
 }
 

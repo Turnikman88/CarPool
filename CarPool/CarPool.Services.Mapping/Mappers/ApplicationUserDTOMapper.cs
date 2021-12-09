@@ -34,7 +34,32 @@ namespace CarPool.Services.Mapping.Mappers
                 AddressId = user.AddressId
             };
         }
+        public static ApplicationUserDTO GetDTOWithPicture(this ApplicationUser user)
+        {
+            if (user is null || user.Username is null || user.FirstName is null
+                || user.LastName is null || user.Email is null
+                || !Regex.IsMatch(user.PhoneNumber ?? "", GlobalConstants.PhoneRegex)
+                || !Regex.IsMatch(user.Password ?? "", GlobalConstants.PassRegex))
+            {
+                return new ApplicationUserDTO { ErrorMessage = GlobalConstants.INCORRECT_DATA };
+            }
 
+            return new ApplicationUserDTO
+            {
+                Id = user.Id,
+                Username = user.Username,
+                HasVehicle = user.Vehicle?.CreatedOn == null ? true : false,
+                FirstName = user.FirstName,
+                LastName = user.LastName,
+                Email = user.Email,
+                IsBlocked = user.Ban?.BlockedOn == null ? false : true,
+                PhoneNumber = user.PhoneNumber,
+                Password = user.Password,
+                Role = user.ApplicationRole.Name,
+                AddressId = user.AddressId,
+                ImageLink = user.ProfilePicture.ImageLink
+            };
+        }
         public static ApplicationUser GetEntity(this ApplicationUserDTO user)
         {
             return new ApplicationUser

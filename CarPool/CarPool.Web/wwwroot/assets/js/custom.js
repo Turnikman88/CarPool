@@ -137,6 +137,62 @@ function showDetails(duration, distance, driver, passengers, seats, vehicalModel
     })
 }
 
+function showUserInfo(image, firstName, lastName, username, country, city, phone) {
+    Swal.fire({
+        position: 'center',
+        backdrop: false,
+        customClass: 'swal-trip',
+        showConfirmButton: true,
+        html:
+            `<div>` +
+                `<div class="rn-team team-style-default">` +
+                    `<div class="inner">` +
+                        `<div class="thumbnail">` +
+                            `<img src="${image}" >` +
+                        `</div>` +
+                            `<div class="content">` +
+                                `<h2 class="title">${firstName} ${lastName}</h2>` +
+                                `<h6 class="subtitle theme-gradient">${username}</h6>` +
+                                `<span class="team-form">` +
+                                    `<i class="feather-map-pin"></i>` +
+                                    `<span class="location">${city}, ${country}</span>` +
+                                `</span>` +
+                                `<span class="team-form">` +
+                                    `<i class="fas fa-phone-alt"></i>` +
+                                    `<span>${phone}</span>` +
+                                `</span>` +
+                            `</div>` +
+                        `</div>` +
+                    `</div>` +
+               `</div>`
+    })
+}
+function showPassangerInfo(image, firstName, lastName, username, phone) {
+    Swal.fire({
+        position: 'center',
+        backdrop: false,
+        customClass: 'swal-trip',
+        showConfirmButton: true,
+        html:
+            `<div>` +
+            `<div class="rn-team team-style-default">` +
+            `<div class="inner">` +
+            `<div class="thumbnail">` +
+            `<img src="${image}" >` +
+            `</div>` +
+            `<div class="content">` +
+            `<h2 class="title">${firstName} ${lastName}</h2>` +
+            `<h6 class="subtitle theme-gradient">${username}</h6>` +            
+            `<span class="team-form">` +
+            `<i class="fas fa-phone-alt"></i>` +
+            `<span>${phone}</span>` +
+            `</span>` +
+            `</div>` +
+            `</div>` +
+            `</div>` +
+            `</div>`
+    })
+}
 function timeConvert(n) {
     var num = n;
     var hours = (num / 60);

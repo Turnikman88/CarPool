@@ -122,6 +122,7 @@ namespace CarPool.Services.Data.Services
                                        .Include(x => x.DestinationAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
                                        .Include(x => x.Passengers).ThenInclude(x => x.Trip)
                                        .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser).ThenInclude(x => x.ApplicationRole)
+                                       .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser).ThenInclude(x => x.ProfilePicture)                                       
                                        .Where(x => x.DepartureTime.Date >= DateTime.Today.Date && x.Driver.Email == email)
                                        .OrderBy(x => x.DepartureTime)
                                        .Skip(page * GlobalConstants.PageSkip)
@@ -133,7 +134,7 @@ namespace CarPool.Services.Data.Services
             foreach (var trp in query)
             {
                 var model = trp.GetTripDriverDTO();
-                var colll = trp.Passengers.Select(x => x.ApplicationUser.GetDTO()).ToList();
+                var colll = trp.Passengers.Select(x => x.ApplicationUser.GetDTOWithPicture()).ToList();
                 model.Passengers = colll;
                 trips.Add(model);
             }

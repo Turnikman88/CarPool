@@ -1,4 +1,6 @@
-﻿using CarPool.Services.Data.Contracts;
+﻿using CarPool.Common;
+using CarPool.Services.Data.Contracts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Linq;
 using System.Security.Claims;
@@ -6,6 +8,7 @@ using System.Threading.Tasks;
 
 namespace CarPool.Web.Controllers
 {
+    [Authorize(Roles = GlobalConstants.UserRoleName + "," + GlobalConstants.AdministratorRoleName)]
     public class InboxController : Controller
     {
         private readonly IInboxService _inbox;
