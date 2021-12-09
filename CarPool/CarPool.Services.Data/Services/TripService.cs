@@ -96,6 +96,7 @@ namespace CarPool.Services.Data.Services
                                   .Include(x => x.Passengers).ThenInclude(x => x.Trip)
                                   .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser)
                                   .Where(x => x.DepartureTime.Date < DateTime.Today.Date && (x.Passengers.Any(x => x.ApplicationUser.Email == userIdentificator || x.ApplicationUser.Id.ToString() == userIdentificator) || x.Driver.Email == userIdentificator))
+                                  .OrderBy(x => x.DepartureTime)
                                   .Skip(page * GlobalConstants.PageSkip)
                                   .Take(10)
                                   .Select(x => x.GetDTO()).ToListAsync();
@@ -108,6 +109,7 @@ namespace CarPool.Services.Data.Services
                                   .Include(x => x.Passengers).ThenInclude(x => x.Trip)
                                   .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser)
                                   .Where(x => x.DepartureTime.Date >= DateTime.Today.Date && x.Passengers.Any(x => x.ApplicationUser.Email == userIdentificator /*|| x.ApplicationUser.Id == Guid.Parse(userIdentificator)*/))
+                                  .OrderBy(x => x.DepartureTime)
                                   .Skip(page * GlobalConstants.PageSkip)
                                   .Take(10)
                                   .Select(x => x.GetDTO()).ToListAsync();
@@ -121,6 +123,7 @@ namespace CarPool.Services.Data.Services
                                        .Include(x => x.Passengers).ThenInclude(x => x.Trip)
                                        .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser).ThenInclude(x => x.ApplicationRole)
                                        .Where(x => x.DepartureTime.Date >= DateTime.Today.Date && x.Driver.Email == email)
+                                       .OrderBy(x => x.DepartureTime)
                                        .Skip(page * GlobalConstants.PageSkip)
                                        .Take(10)
                                        .ToListAsync();
