@@ -8,13 +8,13 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
 }
 
-<div class="chat" style="display: flex; justify-content:center;">
+<div class="chat" style="display: flex; justify-content: center; flex-direction: column-reverse;">
 
-    <h1>@this.ViewBag.Title</h1>
     <form class="contact-form-1 rwt-dynamic-form">
         <div class="form-group">
             <select id="group">
-                <option value="">Select Trip</option>
+                <option value="">Select Chat</option>
+                <option value="global">Global Chat</option>
                 @foreach (var item in Model.TripsIds)
                 {
                     var id = $"PrivateGroup#{item}";
@@ -24,7 +24,7 @@
 
             </select>
 
-            <textarea name="message" id="message" placeholder="Type message" style="margin-top:10px;"></textarea>
+            <textarea name="message" id="message" placeholder="Type message" style="margin-top:10px; max-height:100px!important;"></textarea>
             <div style="display:flex; justify-content:center; margin-top:10px;">
                 <button type="submit" id="sendButton" class="btn-default btn-large rn-btn"
                         style="background-color: #FF3CAC; cursor: pointer;">
@@ -33,13 +33,21 @@
             </div>
         </div>
     </form>
-
-
     <div id="messages"></div>
 
 </div>
 
 @section Scripts {
+
+    <script>
+        $("#form-modal").on('hide.bs.modal', function () {
+            var idtrip = document.getElementById("group").value;
+            connection.invoke("LeaveGroup", idtrip);
+            $("#form-modal").removeClass("chat-modal");
+
+        });
+
+    </script>
     <script src="~/lib/microsoft/signalr/dist/browser/signalr.min.js"></script>
     <script>
 
@@ -67,32 +75,13 @@
             var idtrip = document.getElementById("group").value;
             var message = document.getElementById("message").value;
 
-                connection.invoke("JoinGroup", idtrip).catch(function (err) {
-                    return console.error(err.toString());
-                });
                 connection.invoke("SendMessageToGroup", idtrip, message, '@Model.Sender').catch(function (err) {
                     return console.error(err.toString());
                 });
 
-
+            $("#message").val('');
             event.preventDefault();
         });
-
-        @*document.getElementById("joinGroup").addEventListener("click", function (event) {
-            var idtrip = document.getElementById("group").value;
-            connection.invoke("JoinGroup", idtrip).catch(function (err) {
-                return console.error(err.toString());
-            });
-            event.preventDefault();
-        });*@
-
-       @* document.getElementById("leaveGroup").addEventListener("click", function (event) {
-            var idtrip = document.getElementById("group").value;
-            connection.invoke("LeaveGroup", idtrip).catch(function (err) {
-                return console.error(err.toString());
-            });
-            event.preventDefault();
-        });*@
 
         function escapeHtml(unsafe) {
             return unsafe
@@ -103,19 +92,17 @@
                 .replace(/'/g, "&#039;");
         }
 
-@*        window.onload = function () {
-            var idtrip = document.getElementById("group").value;
-            connection.invoke("JoinGroup", idtrip);
 
-        };*@
         $(document).ready(function () {
             $('#group').on('change', function () {
 
                 var idtrip = document.getElementById("group").value;
                 connection.invoke("LeaveGroup", idtrip);
-
-                var idtrip = document.getElementById("group").value;
-                connection.invoke("JoinGroup", idtrip);
+                if (idtrip != "") {
+                    var idtrip = document.getElementById("group").value;
+                    connection.invoke("JoinGroup", idtrip);
+                }
+                $("#messages").html('');
             })
             })
     </script>

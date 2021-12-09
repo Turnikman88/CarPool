@@ -5458,7 +5458,7 @@ input[type="radio"] ~ label::after {
       border-color: var(--color-primary); }
 
   .form-group textarea {
-    min-height: 193px;
+    min-height: 100px;
     border: var(--border-width) solid var(--color-border);
     border-radius: var(--radius);
     resize: none;
