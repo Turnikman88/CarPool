@@ -1,91 +1,201 @@
-# Travel With Style
+# RideShare
+
+**Carpooling system - Share the ride** 
+
+# Desktop
+![Android](./images/HomePageDesktop.png)
 
 
+# Android
+![Android](./images/HomePageAndroid.png)
 
-## Getting started
 
-To make it easy for you to get started with GitLab, here's a list of recommended next steps.
+# Project Description 
+**RideShare** is a web application that enables you to share your travel from one location to other with other passengers. Every user can either organize a shared travel or request to join someone else’s travel.
 
-Already a pro? Just edit this README.md and make it your own. Want to make it easy? [Use the template at the bottom](#editing-this-readme)!
-
-## Add your files
-
-- [ ] [Create](https://gitlab.com/-/experiment/new_project_readme_content:585fbcbf5a980c094d103ae9514d3270?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#create-a-file) or [upload](https://gitlab.com/-/experiment/new_project_readme_content:585fbcbf5a980c094d103ae9514d3270?https://docs.gitlab.com/ee/user/project/repository/web_editor.html#upload-a-file) files
-- [ ] [Add files using the command line](https://gitlab.com/-/experiment/new_project_readme_content:585fbcbf5a980c094d103ae9514d3270?https://docs.gitlab.com/ee/gitlab-basics/add-file.html#add-a-file-using-the-command-line) or push an existing Git repository with the following command:
-
+# How to install 
+```diff
+ To use this application you will need the following tools:
+    - Visual Studio 2019 or newer
+    - Microsoft SQL Server
+    
++ 1. Download the project
+  2. Open the .sln file
+  3. Setup database migration
+- 4. Go to CarPool.Common and find GlobalConstants then change the domain field to "localhost"
+  5. Start the project 
 ```
-cd existing_repo
-git remote add origin https://gitlab.com/p2961/travel-with-style.git
-git branch -M main
-git push -uf origin main
+# How to install on Android
+```diff
+1. Follow the link below or download from our website
+2. Open the folder you downloaded the apk file
+3. Install
+- Your device may need a permision to install "unverified" apps
+4. Click the icon on your home screen or in the Apps menu
 ```
 
-## Integrate with your tools
+# 🔗 Links
 
-- [ ] [Set up project integrations](https://gitlab.com/-/experiment/new_project_readme_content:585fbcbf5a980c094d103ae9514d3270?https://docs.gitlab.com/ee/user/project/integrations/)
+* [Site](https://rideshare-app.azurewebsites.net/)
 
-## Collaborate with your team
 
-- [ ] [Invite team members and collaborators](https://gitlab.com/-/experiment/new_project_readme_content:585fbcbf5a980c094d103ae9514d3270?https://docs.gitlab.com/ee/user/project/members/)
-- [ ] [Create a new merge request](https://gitlab.com/-/experiment/new_project_readme_content:585fbcbf5a980c094d103ae9514d3270?https://docs.gitlab.com/ee/user/project/merge_requests/creating_merge_requests.html)
-- [ ] [Automatically close issues from merge requests](https://gitlab.com/-/experiment/new_project_readme_content:585fbcbf5a980c094d103ae9514d3270?https://docs.gitlab.com/ee/user/project/issues/managing_issues.html#closing-issues-automatically)
-- [ ] [Automatically merge when pipeline succeeds](https://gitlab.com/-/experiment/new_project_readme_content:585fbcbf5a980c094d103ae9514d3270?https://docs.gitlab.com/ee/user/project/merge_requests/merge_when_pipeline_succeeds.html)
+![Download AndroidApp](./images/Android_Robot.png)
+* [Download For Android Here](https://drive.google.com/file/d/1VsYYvLCSnAQjyMbeslrjkq9RUmD4Z7Dg/view)
 
-## Test and Deploy
+# Functional Requirements 
 
-Use the built-in continuous integration in GitLab.
+# ⚙️ Entities 
 
-- [ ] [Get started with GitLab CI/CD](https://gitlab.com/-/experiment/new_project_readme_content:585fbcbf5a980c094d103ae9514d3270?https://docs.gitlab.com/ee/ci/quick_start/index.html)
-- [ ] [Analyze your code for known vulnerabilities with Static Application Security Testing(SAST)](https://gitlab.com/-/experiment/new_project_readme_content:585fbcbf5a980c094d103ae9514d3270?https://docs.gitlab.com/ee/user/application_security/sast/)
-- [ ] [Deploy to Kubernetes, Amazon EC2, or Amazon ECS using Auto Deploy](https://gitlab.com/-/experiment/new_project_readme_content:585fbcbf5a980c094d103ae9514d3270?https://docs.gitlab.com/ee/topics/autodevops/requirements.html)
-- [ ] [Use pull-based deployments for improved Kubernetes management](https://gitlab.com/-/experiment/new_project_readme_content:585fbcbf5a980c094d103ae9514d3270?https://docs.gitlab.com/ee/user/clusters/agent/)
+``` 
+☑️ Each user must have a username, password, first name, last name, email, and phone number.
 
-***
+☑️ Username must be unique and between 2 and 20 symbols.
 
-# Editing this README
+☑️ Password must be at least 8 symbols and should contain capital letter, digit and special symbol (+, -, *, &, ^, …)
 
-When you're ready to make this README your own, just edit this file and use the handy template below (or feel free to structure it however you want - this is just a starting point!).  Thank you to [makeareadme.com](https://gitlab.com/-/experiment/new_project_readme_content:585fbcbf5a980c094d103ae9514d3270?https://www.makeareadme.com/) for this template.
+☑️ First and last names must be between 2 and 20 symbols.
 
-## Suggestions for a good README
-Every project is different, so consider which of these sections apply to yours. The sections used in the template are suggestions for most open source projects. Also keep in mind that while a README can be too long and detailed, too long is better than too short. If you think your README is too long, consider utilizing another form of documentation rather than cutting out information.
+☑️ Email must be valid email and unique in the system.
 
-## Name
-Choose a self-explaining name for your project.
+☑️ Phone number must be 10 digits and unique in the system. 
 
-## Description
-Let people know what your project can do specifically. Provide context and add a link to any reference visitors might be unfamiliar with. A list of Features or a Background subsection can also be added here. If there are alternatives to your project, this is a good place to list differentiating factors.
+☑️ Each travel must have a starting and ending points, departure time, number of free spots and, optional comment (e.g. no smoking/luggage)
+ ```
 
-## Badges
-On some READMEs, you may see small images that convey metadata, such as whether or not all the tests are passing for the project. You can use Shields to add some to your README. Many services also have instructions for adding a badge.
+# 📢 Public Part 
+```diff
+☑️  The public part _must_ be accessible without authentication i.e., for anonymous users.
 
-## Visuals
-Depending on what you are making, it can be a good idea to include screenshots or even a video (you'll frequently see GIFs rather than actual videos). Tools like ttygif can help, but check out Asciinema for a more sophisticated method.
+☑️ Anonymous users must be able to register and login. Registration of a new user should use email verification flow.
 
-## Installation
-Within a particular ecosystem, there may be a common way of installing things, such as using Yarn, NuGet, or Homebrew. However, consider the possibility that whoever is reading your README is a novice and would like more guidance. Listing specific steps helps remove ambiguity and gets people to using your project as quickly as possible. If it only runs in a specific context like a particular programming language version or operating system or has dependencies that have to be installed manually, also add a Requirements subsection.
+☑️ Anonymous users must see detailed information about Carpooling and its features as well as how many people are using the platform and how many travels have happened.
 
-## Usage
-Use examples liberally, and show the expected output if you can. It's helpful to have inline the smallest example of usage that you can demonstrate, while providing links to more sophisticated examples if they are too long to reasonably include in the README.
+☑️ Anonymous users should be able to see list of the top 10 travel organizers and top 10 passengers.
+```
+# 🔒 Private part
+```
+☑️ Accessible only if the user is authenticated.
 
-## Support
-Tell people where they can go to for help. It can be any combination of an issue tracker, a chat room, an email address, etc.
+☑️ Users must be able to login/logout, update their profile, set a profile photo/avatar.
 
-## Roadmap
-If you have ideas for releases in the future, it is a good idea to list them in the README.
+☑️ Each user must be able to create a new travel that he is planning.
 
-## Contributing
-State if you are open to contributions and what your requirements are for accepting them.
+☑️ Each user must be able to browse the available trips created by other users with an option to sort and filter them. List with trips should support pagination.
 
-For people who want to make changes to your project, it's helpful to have some documentation on how to get started. Perhaps there is a script that they should run or some environment variables that they need to set. Make these steps explicit. These instructions could also be useful to your future self.
+☑️ Each user must be able to apply for a trip as a passenger. The driver can approve/decline passengers from the candidates’ pool. After approval from the driver, passenger still can cancel his participation and driver still can reject a passenger.
 
-You can also document commands to lint the code or run tests. These steps help to ensure high code quality and reduce the likelihood that the changes inadvertently break something. Having instructions for running tests is especially helpful if it requires external setup, such as starting a Selenium server for testing in a browser.
+☑️ The driver must be able to cancel a trip before the departure time. He also must be able to mark the trip as complete.
 
-## Authors and acknowledgment
-Show your appreciation to those who have contributed to the project.
+☑️ When the trip is complete the passengers must be able to leave feedback about the driver as well as the driver must be able to leave feedback for every passenger. Feedback must include numeric rating (from 0 to 5) and optional text comment.
 
-## License
-For open source projects, say how it is licensed.
+☑️ Each user must be able to view all his travels (with option to filter and sort them), all his feedback and all feedback for any other user. List with travels/feedback should support pagination.
+```
+# 👨‍💻 Administrative part
+```
+☑️ Accessible to users with administrative privileges.
 
-## Project status
-If you have run out of energy or time for your project, put a note at the top of the README saying that development has slowed down or stopped completely. Someone may choose to fork your project or volunteer to step in as a maintainer or owner, allowing your project to keep going. You can also make an explicit request for maintainers.
+☑️ Admin users must be able to see list of all users and search them by phone number, username or email and block or unblock them. A blocked user must not be able to create travels and apply for travels. List with users should support pagination.
 
+☑️ Admin users must be able to view a list of all travels with option to filter and sort them. List with travels should support pagination.
+```
+
+# REST API 
+To provide other developers with your service, you need to develop a REST API. It should leverage HTTP as a transport protocol and clear text JSON for the request and response payloads.
+
+A great API is nothing without a great documentation. The documentation holds the information that is required to successfully consume and integrate with an API. You must use Swagger to document yours.
+
+The REST API provides the following capabilities:
+
+1. Users
+
+* CRUD operations (must)
+
+* Block/unblock user (must)
+
+* Search by username, email, or phone (must)
+
+2. Travels
+
+* CRUD operations (must)
+
+* Apply for a travel (must)
+
+* List and manage (approve/reject) applicants (must)
+
+* Filter and sort travels (must)
+
+# Database Diagram
+![Diagram](./images/database_diagram.png)
+
+# Swagger 
+* [Swagger](https://ride-shareapi.azurewebsites.net/swagger/index.html)
+
+
+
+
+
+### Technical Requirements 
+1. General 
+* Follow OOP principles when coding 
+* Follow KISS, SOLID, DRY principles when coding 
+* Follow REST API design best practices when designing the REST API (see 
+Appendix) 
+* Use tiered project structure (separate the application in layers) 
+* The service layer (i.e., "business" functionality) must have at least 80% unit 
+test code coverage 
+* Follow BDD when writing unit tests 
+* You should implement proper exception handling and propagation 
+* Try to think ahead. When developing something, think – “How hard would it 
+be to change/modify this later?”
+2. Database 
+> The data of the application must be stored in a relational database. You need to identify the core domain objects and model their relationships accordingly. Database structure should avoid data duplication and empty data (normalize your database).
+
+Your repository must include two scripts – one to create the database and one to fill it with data. 
+
+3. Git 
+> Commits in the GitLab repository should give a good overview of how the project 
+was developed, which features were created first and the people who contributed. 
+Contributions from all team members must be evident through the git commit 
+history! The repository must contain the complete application source code and any 
+scripts (database scripts, for example). 
+Provide a link to a GitLab repository with the following information in the 
+README.md file: 
+* Project description 
+* Link to the Swagger documentation (must)
+* Link to the hosted project (if hosted online) 
+* Instructions how to setup and run the project locally 
+* Images of the database relations (must)
+
+## 🏁 Areas
+* Public - users are able to register(or use forgot password option), see top users list, chat with bot and send contact emails
+* Private - available after registration, can edit profile, can create and join trip, can manage trips, can see profiles, can chat with other users, can leave feedback
+* Administrative - available for administrators only, can review reports and ban users
+
+## 👷 Built with:
+* ASP .NET Core
+* MsSQL Server
+* Entity Framework
+* Swagger
+* Azure
+* Android Xamarin
+* Google Auth - Google profiles
+* Bing API
+* Facebook Chat Bot
+* Javascript/jQuery/AJAX
+* HTML5/CSS/Bootstrap/SweetAlert/Animate.css
+* HTML Scrapper
+
+## 🤝 Authors
+![Georgi Petrov](./images/georgi-avatar.jpg)
+* Georgi Petrov [GitHub](https://github.com/Turnikman88) | [LinkedIn](https://www.linkedin.com/in/georgi-petrov-88a259225/)
+
+
+![Kalin Balimezov](./images/kalin-avatar.jpg)
+* Kalin Balimezov [GitHub](https://github.com/balimka) | [LinkedIn](https://linkedin.com/in/kalin-balimezov-6755a8204)
+
+
+## 📃 License
+*This project was developed for educational purposes  __only__ during Telerik Academy Program C# 35 (Jul - Dec 2021)*
+
+## 🤖 Project status
+☑️ **DONE** 

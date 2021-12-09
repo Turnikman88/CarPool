@@ -218,7 +218,7 @@ namespace CarPool.Services.Data.Services
 
             if (obj.LastName != null)
             {
-                user.LastName = obj.FirstName;
+                user.LastName = obj.LastName;
             }
 
             if (obj.Email != null && Regex.IsMatch(obj.Email ?? "", @"[^@\t\r\n]+@[^@\t\r\n]+\.[^@\t\r\n]+"))
