@@ -118,7 +118,6 @@ namespace CarPool.Services.Data.Services
 
             var newCity = obj.GetEntity();
             newCity.CountryId = country.Id;
-
             if (deletedCity == null)
             {
                 await _db.Cities.AddAsync(newCity);

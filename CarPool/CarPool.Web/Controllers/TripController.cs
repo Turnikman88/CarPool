@@ -115,6 +115,11 @@ namespace CarPool.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(TripViewModel obj)
         {
+            if (!ModelState.IsValid)
+            {
+                return Json(new { isValid = false, html = await Helper.RenderViewAsync(this, "Create", obj, false) });
+            }
+
             var requestEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
             var driver = await _user.GetUserByEmailOrIdAsync(requestEmail);
 
@@ -130,7 +135,12 @@ namespace CarPool.Web.Controllers
                 FreeSeats = obj.FreeSeats
             });
 
-            var trips = new TripViewModel { UpcomingTrips = await _trip.GetUpcomingTripsByUserAsync(0, requestEmail) };
+            var trips = new TripViewModel 
+            { 
+                UpcomingTrips = await _trip.GetAllUpcomingTripsAsync(0), 
+                MaxPages = await _trip.GetPageCountAsync(),
+                CurrentPage = 0
+            };
 
             return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_TableTrips", trips, true) });
         }
