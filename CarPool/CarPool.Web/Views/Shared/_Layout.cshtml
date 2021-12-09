@@ -47,41 +47,41 @@
                             <div class="header-right">
                                 @if (role == null || role != null && role == GlobalConstants.NotConfirmedRoleName)
                                 {
-                                    <nav class="mainmenu-nav d-none d-lg-block">
-                                        <ul class="mainmenu">
-                                            <li class="has-droupdown has-menu-child-item">
-                                                <a asp-controller="Home" asp-action="Index">Home</a>
-                                            </li>
-                                            <li><a asp-controller="Home" asp-action="About">About</a></li>
+                                <nav class="mainmenu-nav d-none d-lg-block">
+                                    <ul class="mainmenu">
+                                        <li class="has-droupdown has-menu-child-item">
+                                            <a asp-controller="Home" asp-action="Index">Home</a>
+                                        </li>
+                                        <li><a asp-controller="Home" asp-action="About">About</a></li>
 
-                                            <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
-                                        </ul>
+                                        <li><a asp-controller="Home" asp-action="Contact">Contact</a></li>
+                                    </ul>
 
 
-                                    </nav>
+                                </nav>
                                 }
                                 <!-- Start Header Btn  -->
                                 @if (role != null && role != GlobalConstants.NotConfirmedRoleName)
                                 {
                                     if (role == GlobalConstants.UserRoleName)
                                     {
-                                        <div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Trip" asp-action="Index">Trips</a></div>
+                                <div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Trip" asp-action="Index">Trips</a></div>
                                     }
                                     else if (role == GlobalConstants.AdministratorRoleName)
                                     {
-                                        <div class="btn">
-                                            <a asp-action="index" asp-controller="Ban"
-                                               class="btn-default text-underline btn-small">Ban</a>
-                                        </div>
+                                <div class="btn">
+                                    <a asp-action="index" asp-controller="Ban"
+                                       class="btn-default text-underline btn-small">Ban</a>
+                                </div>
                                     }
 
-                                    <div class="btn"><a class="far fa-envelope fa-3x" asp-controller="Inbox" asp-action="Index"></a></div>
-                                    <div class="btn"><a class="fas fa-cog fa-3x settings-btn" style="" asp-controller="Auth" asp-action="Settings"></a></div>
-                                    <div class="btn"><a class="fas fa-sign-out-alt fa-3x" asp-controller="Auth" asp-action="Logout"></a></div>
+                                <div class="btn"><a class="far fa-envelope fa-3x" asp-controller="Inbox" asp-action="Index"></a></div>
+                                <div class="btn"><a class="fas fa-cog fa-3x settings-btn" style="" asp-controller="Auth" asp-action="Settings"></a></div>
+                                <div class="btn"><a class="fas fa-sign-out-alt fa-3x" asp-controller="Auth" asp-action="Logout"></a></div>
                                 }
                                 else
                                 {
-                                    <div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Auth" asp-action="Login">JOIN US</a></div>
+                                <div class="btn"><a class="btn-default text-underline btn-small" asp-controller="Auth" asp-action="Login">JOIN US</a></div>
                                 }
                                 <!-- End Header Btn  -->
                                 <!-- Start Mobile-Menu-Bar -->
@@ -126,7 +126,7 @@
             </div>
             <!-- ***** Preloader End ***** -->
             <!--Modal Start-->
-            <div class="modal" id="form-modal" >
+            <div class="modal" id="form-modal">
                 <div class="modal-dialog">
                     <div class="modal-content">
                         <div class="modal-header">
@@ -183,9 +183,12 @@
 
         <script>
             var chatbox = document.getElementById('fb-customer-chat');
-            chatbox.setAttribute("page_id", "106060421920874");
+            chatbox.setAttribute("page_id", "106912251841897");
             chatbox.setAttribute("attribution", "biz_inbox");
+        </script>
 
+        <!-- Your SDK code -->
+        <script>
             window.fbAsyncInit = function () {
                 FB.init({
                     xfbml: true,
