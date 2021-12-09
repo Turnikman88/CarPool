@@ -72,7 +72,7 @@
             confirmButtonText: 'Send',
             showLoaderOnConfirm: true,
             preConfirm: (login) => {
-                return fetch(`//localhost:5001/Auth/ForgotPassword?email=${login}`)
+                return fetch(`//@GlobalConstants.Domain/Auth/ForgotPassword?email=${login}`)
                     .then(response => {
 
                         if (!response.ok) {

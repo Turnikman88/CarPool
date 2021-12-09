@@ -173,9 +173,9 @@
                     if (key.toLowerCase() == 'delete') {
                         $.ajax({
                             type: 'DELETE',
-                            url: '//localhost:5001/Auth/DeleteGoogleAccount',
+                            url: '@GlobalConstants.Domain/Auth/DeleteGoogleAccount',
                             success: function () {
-                                window.open("https://localhost:5001/", "_self");
+                                window.open("@GlobalConstants.Domain", "_self");
                             }
                         })
                     }
