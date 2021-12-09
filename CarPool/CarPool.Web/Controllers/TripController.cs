@@ -135,7 +135,12 @@ namespace CarPool.Web.Controllers
                 FreeSeats = obj.FreeSeats
             });
 
-            var trips = new TripViewModel { UpcomingTrips = await _trip.GetUpcomingTripsByUserAsync(0, requestEmail) };
+            var trips = new TripViewModel 
+            { 
+                UpcomingTrips = await _trip.GetAllUpcomingTripsAsync(0), 
+                MaxPages = await _trip.GetPageCountAsync(),
+                CurrentPage = 0
+            };
 
             return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_TableTrips", trips, true) });
         }

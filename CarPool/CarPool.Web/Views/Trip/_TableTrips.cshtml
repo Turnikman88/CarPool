@@ -112,37 +112,6 @@
             timer: 3500
         })
     }
-    function showDetails(duration, distance, driver, passengers, seats, vehicalModel, vehicleColor, price, comment) {
-        Swal.fire({
-            position: 'center',
-            backdrop: false,
-            customClass: 'swal-trip',
-            title: '<h4 class="swal-title"> Details </h4>',
-            showConfirmButton: true,
-            html:
-            `<div class='row' style='height: 400px;'>` +
-                `<div class='col'>` +
-                    `<h5>Trip duration</h5>` +
-                    `<h6>${duration}</h6>` +
-                    `<h5>Trip Distance</h5>` +
-                    `<h6>${distance}</h6>` +
-                    `<h5>Driver Name</h5>` +
-                    `<h6>${driver}</h6>` +
-                    `<h5>Passengers Count</h5>` +
-                    `<h6>${passengers}</h6>` +
-                `</div>` +
-                `<div class='col'>` +
-                    `<h5>Free Seats</h5>` +
-                    `<h6>${seats}</h6>` +
-                    `<h5>Vehicle</h5>` +
-                    `<h6>${vehicalModel} ${vehicleColor}</h6>` +
-                    `<h5>Trip Price</h5>` +
-                    `<h6>${price}</h6>` +
-                    `<h5>Comment</h5>` +
-                    `<h6>${comment}</h6>` +
-                `</div>` +
-            `</div>`
-        })
-    }
+    
 </script>
 

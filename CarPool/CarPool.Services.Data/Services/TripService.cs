@@ -46,6 +46,7 @@ namespace CarPool.Services.Data.Services
                                         .Include(x => x.DestinationAddress).ThenInclude(x => x.City).ThenInclude(x => x.Country)
                                         .Include(x => x.Passengers).ThenInclude(x => x.Trip)
                                         .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser)
+                                        .OrderBy(x => x.DepartureTime)
                                         .Skip(page * GlobalConstants.PageSkip)
                                         .Take(10)
                                         .Select(x => x.GetDTO()).ToListAsync();
@@ -93,6 +94,7 @@ namespace CarPool.Services.Data.Services
                                            .Include(x => x.Passengers).ThenInclude(x => x.Trip)
                                            .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser)
                                            .Where(x => x.DepartureTime.Date < DateTime.Today.Date && (x.Passengers.Any(x => x.ApplicationUser.Email == email) || x.Driver.Email == email))
+                                           .OrderBy(x => x.DepartureTime)
                                            .Skip(page * GlobalConstants.PageSkip)
                                            .Take(10)
                                            .Select(x => x.GetDTO()).ToListAsync();
@@ -105,6 +107,7 @@ namespace CarPool.Services.Data.Services
                                         .Include(x => x.Passengers).ThenInclude(x => x.Trip)
                                         .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser)
                                         .Where(x => x.DepartureTime.Date >= DateTime.Today.Date && x.Passengers.Any(x => x.ApplicationUser.Email == email))
+                                        .OrderBy(x => x.DepartureTime)
                                         .Skip(page * GlobalConstants.PageSkip)
                                         .Take(10)
                                         .Select(x => x.GetDTO()).ToListAsync();
@@ -118,6 +121,7 @@ namespace CarPool.Services.Data.Services
                                             .Include(x => x.Passengers).ThenInclude(x => x.Trip)
                                             .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser).ThenInclude(x => x.ApplicationRole)
                                             .Where(x => x.DepartureTime.Date >= DateTime.Today.Date && x.Driver.Email == email)
+                                            .OrderBy(x => x.DepartureTime)
                                             .Skip(page * GlobalConstants.PageSkip)
                                             .Take(10)
                                             .ToListAsync();
@@ -244,7 +248,14 @@ namespace CarPool.Services.Data.Services
                                            .Include(x => x.Passengers).ThenInclude(x => x.ApplicationUser).FirstOrDefaultAsync(x => x.Id == id);
 
             if (trip != null)
+            {
                 return new TripDTO() { ErrorMessage = GlobalConstants.TRIP_NOT_FOUND };
+            }
+
+            var passengers = await _db.TripPassengers.Where(x => x.TripId == trip.Id).ToListAsync(); foreach (var person in passengers)
+            {
+                _db.TripPassengers.Remove(person);
+            }
 
             _db.Trips.Remove(trip);
             await _db.SaveChangesAsync();

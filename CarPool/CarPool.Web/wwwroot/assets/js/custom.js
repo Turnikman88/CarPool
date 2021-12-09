@@ -103,3 +103,45 @@ ajaxId = (url, id) => {
         }
     })
 }
+
+function showDetails(duration, distance, driver, passengers, seats, vehicalModel, vehicleColor, price, comment) {
+    Swal.fire({
+        position: 'center',
+        backdrop: false,
+        customClass: 'swal-trip',
+        title: '<h4 class="swal-title"> Details </h4>',
+        showConfirmButton: true,
+        html:
+            `<div class='row' style='height: 400px;'>` +
+            `<div class='col'>` +
+            `<h5>Trip duration</h5>` +
+            `<h6>${timeConvert(duration)}</h6>` +
+            `<h5>Trip Distance</h5>` +
+            `<h6>${distance} km</h6>` +
+            `<h5>Driver Name</h5>` +
+            `<h6>${driver}</h6>` +
+            `<h5>Passengers Count</h5>` +
+            `<h6>${passengers}</h6>` +
+            `</div>` +
+            `<div class='col'>` +
+            `<h5>Free Seats</h5>` +
+            `<h6>${seats}</h6>` +
+            `<h5>Vehicle</h5>` +
+            `<h6>${vehicalModel} ${vehicleColor}</h6>` +
+            `<h5>Trip Price</h5>` +
+            `<h6>${price} lev/person</h6>` +
+            `<h5>Comment</h5>` +
+            `<h6>${comment}</h6>` +
+            `</div>` +
+            `</div>`
+    })
+}
+
+function timeConvert(n) {
+    var num = n;
+    var hours = (num / 60);
+    var rhours = Math.floor(hours);
+    var minutes = (hours - rhours) * 60;
+    var rminutes = Math.round(minutes);
+    return rhours + " h " + rminutes + " min";
+}
