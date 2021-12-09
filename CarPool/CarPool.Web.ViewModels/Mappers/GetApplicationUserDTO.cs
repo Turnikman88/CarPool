@@ -6,7 +6,7 @@ namespace CarPool.Web.ViewModels.Mappers
 {
     public static class GetApplicationUserDTO
     {
-        public static ApplicationUserDTO GetDTO(this RegisterDTO user)
+        public static ApplicationUserDTO GetDTO(this RegisterViewModel user)
         {
             return new ApplicationUserDTO
             {

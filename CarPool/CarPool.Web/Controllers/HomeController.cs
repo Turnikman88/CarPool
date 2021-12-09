@@ -129,7 +129,7 @@ namespace CarPool.Web.Controllers
             }
 
             var statuscode = HttpContext.Response.StatusCode;
-            return View(new ErrorDTO { StatusCode = statuscode, Message = exception?.Message ?? "Wrong Address!", ImageLink = imageLink });
+            return View(new ErrorViewModel { StatusCode = statuscode, Message = exception?.Message ?? "Wrong Address!", ImageLink = imageLink });
         }
     }
 }

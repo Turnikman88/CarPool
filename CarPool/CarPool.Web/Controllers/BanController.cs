@@ -25,7 +25,7 @@ namespace CarPool.Web.Controllers
         {
             var reported = await _ban.GetTopReportedUsersAsync();
 
-            return this.View(reported); 
+            return this.View(reported);
         }
 
 
@@ -33,13 +33,13 @@ namespace CarPool.Web.Controllers
         public async Task<IActionResult> Banned(int p)
         {
             var banned = await _ban.GetAllBannedUsersAsync(p);
-            var model = new BanViewModel 
+            var model = new BanViewModel
             {
                 Banned = banned,
                 CurrentPage = p,
                 MaxPages = await _ban.GetMaxPageAsync()
             };
-            return Json(new {html = await Helper.RenderViewAsync(this, "_Banned", model, true) });
+            return Json(new { html = await Helper.RenderViewAsync(this, "_Banned", model, true) });
         }
 
         [HttpPost]
@@ -71,7 +71,7 @@ namespace CarPool.Web.Controllers
             var message = $"Due: {model.Days} Reasnons: {temp.Reason}";
             await _ms.SendEmailAsync(new MailDTO { IsBan = true, Reciever = temp.Email, Message = message });
 
-            return Json(new {isValid = true,  html = await Helper.RenderViewAsync(this, "_Reported", reported, true) });
+            return Json(new { isValid = true, html = await Helper.RenderViewAsync(this, "_Reported", reported, true) });
         }
 
         [HttpPost]

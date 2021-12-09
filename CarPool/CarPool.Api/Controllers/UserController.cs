@@ -75,13 +75,13 @@ namespace CarPool.API.Controllers
 
             return BadRequest(new { ErrorMessage = response.ErrorMessage });
         }
-        
+
         [HttpPut]
         [ProducesResponseType(200)]
         [ProducesResponseType(401)]
         [Authorize]
         public async Task<ActionResult<ApplicationUserDisplayDTO>> UpdateAsync(ApplicationUserDTO obj)
-        {            
+        {
             var user = HttpContext.Items[GlobalConstants.UserRoleName] as ResponseAuthDTO;
 
             var response = await _us.UpdateAsync(user.Email, obj);

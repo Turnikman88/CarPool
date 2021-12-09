@@ -98,8 +98,8 @@ namespace CarPool.Services.Data.Services
         {
             var tokenByte = Convert.FromBase64String(token);
             var tokenToEmail = System.Text.Encoding.Unicode.GetString(tokenByte);
-                var user = await _db.ApplicationUsers
-                                .FirstOrDefaultAsync(x => x.Email == tokenToEmail);
+            var user = await _db.ApplicationUsers
+                            .FirstOrDefaultAsync(x => x.Email == tokenToEmail);
             if (user != null && user.ApplicationRoleId == 4)
             {
                 user.ApplicationRoleId = 2;

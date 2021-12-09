@@ -6,12 +6,9 @@ using CarPool.Services.Data.Services;
 using CarPool.Services.Mapping.DTOs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
-using MockQueryable.Moq;
 using Moq;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CarPool.Services.Data.Test
@@ -26,8 +23,8 @@ namespace CarPool.Services.Data.Test
         [TestInitialize]
         public void Init()
         {
-             cs = new Mock<ICountryService>();
-             check = new Mock<ICheckExistenceService>();
+            cs = new Mock<ICountryService>();
+            check = new Mock<ICheckExistenceService>();
 
             var options = new DbContextOptionsBuilder<CarPoolDBContext>()
                                .UseInMemoryDatabase(Guid.NewGuid().ToString())
@@ -39,11 +36,11 @@ namespace CarPool.Services.Data.Test
 
         [TestMethod]
         public async Task GetAllCities()
-        {           
+        {
             await context.AddRangeAsync(Helper.Countries);
             await context.AddRangeAsync(Helper.Cities);
             await context.SaveChangesAsync();
-           
+
             var service = new CityService(context, check.Object, cs.Object);
 
             var result = await service.GetAsync(0);
@@ -54,7 +51,7 @@ namespace CarPool.Services.Data.Test
 
         [TestMethod]
         public async Task GetAllCitiesZeroReturn()
-        {           
+        {
             await context.AddRangeAsync(Helper.Countries);
             await context.AddRangeAsync(Helper.Cities);
             await context.SaveChangesAsync();
@@ -251,7 +248,7 @@ namespace CarPool.Services.Data.Test
             await context.AddRangeAsync(Helper.Cities);
 
             await context.SaveChangesAsync();
-            
+
             cs.Setup(x => x.GetCountryByNameAsync(It.IsAny<string>())).ReturnsAsync(new CountryDTO { Id = 1, Name = "Bulgaria" });
 
             var service = new CityService(context, check.Object, cs.Object);

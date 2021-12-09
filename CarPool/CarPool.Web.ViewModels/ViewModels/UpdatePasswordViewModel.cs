@@ -4,7 +4,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CarPool.Web.ViewModels.DTOs
 {
-    public class UpdatePasswordDTO
+    public class UpdatePasswordViewModel
     {
         public string Email { get; set; }
 

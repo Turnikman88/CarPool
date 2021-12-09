@@ -5,10 +5,10 @@
 
     public class ApplicationRole : BaseDeletableModel<int>
     {
-/*        public ApplicationRole(string name)
-        {
-            this.Name = name;
-        }*/
+        /*        public ApplicationRole(string name)
+                {
+                    this.Name = name;
+                }*/
 
         public string Name { get; set; }
 

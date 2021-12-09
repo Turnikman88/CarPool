@@ -3,7 +3,7 @@ using System.Threading.Tasks;
 
 namespace CarPool.Services.Data.Contracts
 {
-    public interface IUserVehicleService 
+    public interface IUserVehicleService
     {
         Task<UserVehicleDTO> PostAsync(UserVehicleDTO obj);
 

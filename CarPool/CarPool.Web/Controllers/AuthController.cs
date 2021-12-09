@@ -89,14 +89,14 @@ namespace CarPool.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> GoogleSignUp()
         {
-            var model = new GoogleRegisterDTO();
+            var model = new GoogleRegisterViewModel();
             model.Countries = await RenderCountries();
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> GoogleSignUp(GoogleRegisterDTO model)
+        public async Task<IActionResult> GoogleSignUp(GoogleRegisterViewModel model)
         {
             model.Countries = await RenderCountries();
 
@@ -160,7 +160,7 @@ namespace CarPool.Web.Controllers
         [Authorize]
         public async Task<IActionResult> Logout()
         {
-            await HttpContext.SignOutAsync();  
+            await HttpContext.SignOutAsync();
 
             return RedirectToAction("index", "home");
         }
@@ -182,14 +182,14 @@ namespace CarPool.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Register()
         {
-            var model = new RegisterDTO();
+            var model = new RegisterViewModel();
             model.Countries = await RenderCountries();
 
             return View(model);
         }
 
         [HttpPost]
-        public async Task<IActionResult> Register(RegisterDTO model)
+        public async Task<IActionResult> Register(RegisterViewModel model)
         {
             model.Countries = await RenderCountries();
 
@@ -229,18 +229,18 @@ namespace CarPool.Web.Controllers
             if (email.Contains('@'))
             {
                 TempData["Email"] = email;
-                return View(new UpdatePasswordDTO());
+                return View(new UpdatePasswordViewModel());
             }
             return RedirectToAction("error", "home");
         }
 
         [HttpPost]
-        public async Task<IActionResult> UpdatePassword(UpdatePasswordDTO obj)
+        public async Task<IActionResult> UpdatePassword(UpdatePasswordViewModel obj)
         {
             var email = TempData["Email"].ToString();
             await _us.UpdatePasswordAsync(email, obj.Password);
             ViewData["PasswordUpdated"] = true;
-            return View(new UpdatePasswordDTO());
+            return View(new UpdatePasswordViewModel());
         }
 
         [HttpGet]
@@ -269,7 +269,7 @@ namespace CarPool.Web.Controllers
 
         [HttpPost]
         [Authorize(Roles = GlobalConstants.UserRoleName + "," + GlobalConstants.AdministratorRoleName)]
-        public async Task<IActionResult> Settings(SettingsDTO model)
+        public async Task<IActionResult> Settings(SettingsViewModel model)
         {
             var email = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email)?.Value;
             var role = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Role)?.Value;
@@ -330,7 +330,7 @@ namespace CarPool.Web.Controllers
             return Ok();
         }
 
-        private RegisterDTO GetGoogleData(AuthenticateResult result)
+        private RegisterViewModel GetGoogleData(AuthenticateResult result)
         {
             var claims = result.Principal.Identities.FirstOrDefault()
                             .Claims.Select(claim => new
@@ -350,7 +350,7 @@ namespace CarPool.Web.Controllers
             var lastName = claims.Where(c => c.Type == ClaimTypes.Surname)
                    .Select(c => c.Value).SingleOrDefault();
             var username = email.Split('@');
-            var model = new RegisterDTO
+            var model = new RegisterViewModel
             {
                 Email = email,
                 Password = $"User#{password}",

@@ -5,9 +5,7 @@ using CarPool.Services.Mapping.DTOs;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CarPool.Services.Data.Test
@@ -202,7 +200,7 @@ namespace CarPool.Services.Data.Test
             await context.AddRangeAsync(Helper.ApplicationUsers);
             await context.AddRangeAsync(Helper.ApplicationRoles);
             await context.AddRangeAsync(Helper.Addresses);
-            
+
             await context.SaveChangesAsync();
 
             var service = new ApplicationUserService(context);
@@ -352,9 +350,9 @@ namespace CarPool.Services.Data.Test
         public async Task UsersCountAsync()
         {
             await context.AddRangeAsync(Helper.ApplicationUsers);
-           
+
             await context.SaveChangesAsync();
-           
+
             var service = new ApplicationUserService(context);
 
             var result = await service.UsersCountAsync();

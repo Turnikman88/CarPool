@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 namespace CarPool.Data.Models.DatabaseModels
 {
-    public class City : BaseDeletableModel<int> 
+    public class City : BaseDeletableModel<int>
     {
         public City()
         {

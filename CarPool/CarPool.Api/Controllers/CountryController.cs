@@ -28,7 +28,7 @@ namespace CarPool.API.Controllers
             return Ok(await _cs.GetAsync(page));
         }
 
-        
+
         [HttpGet("{id}")]
         [ProducesResponseType(200)]
         [ProducesResponseType(404)]
@@ -58,7 +58,7 @@ namespace CarPool.API.Controllers
             {
                 return Ok(response);
             }
-            return NotFound(new { ErrorMessage = response.ErrorMessage});
+            return NotFound(new { ErrorMessage = response.ErrorMessage });
         }
 
         [HttpGet("partname/{part}")]
@@ -94,7 +94,7 @@ namespace CarPool.API.Controllers
         [ProducesResponseType(401)]
         [Authorize(Roles = GlobalConstants.AdministratorRoleName)]
         public async Task<ActionResult<CountryDTO>> UpdateCountryAsync(int id, CountryDTO obj)
-        {            
+        {
             var response = await _cs.UpdateAsync(id, obj);
 
             if (response.ErrorMessage is null)

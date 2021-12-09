@@ -10,7 +10,7 @@ namespace CarPool.Services.Mapping.DTOs
         public string Email { get; set; }
 
         [Required]
-        [RegularExpression (GlobalConstants.PassRegex, ErrorMessage = GlobalConstants.WRONG_CREDENTIALS)]
+        [RegularExpression(GlobalConstants.PassRegex, ErrorMessage = GlobalConstants.WRONG_CREDENTIALS)]
         public string Password { get; set; }
     }
 }

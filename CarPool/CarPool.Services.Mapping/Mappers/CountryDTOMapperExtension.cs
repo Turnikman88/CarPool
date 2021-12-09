@@ -22,7 +22,7 @@ namespace CarPool.Services.Mapping.Mappers
         }
         public static Country GetEntity(this CountryDTO country)
         {
-            
+
             return new Country
             {
                 Id = country.Id,

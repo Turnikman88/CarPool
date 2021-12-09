@@ -5,9 +5,9 @@ namespace CarPool.Web.ViewModels.Mappers
 {
     public static class SettingsDTOMapper
     {
-        public static SettingsDTO GetDTO(this ApplicationUserDTO user)
+        public static SettingsViewModel GetDTO(this ApplicationUserDTO user)
         {
-            return new SettingsDTO
+            return new SettingsViewModel
             {
                 Username = user.Username,
                 FirstName = user.FirstName,
@@ -17,7 +17,7 @@ namespace CarPool.Web.ViewModels.Mappers
             };
         }
 
-        public static ApplicationUserDTO GetDTO(this SettingsDTO user)
+        public static ApplicationUserDTO GetDTO(this SettingsViewModel user)
         {
             return new ApplicationUserDTO
             {

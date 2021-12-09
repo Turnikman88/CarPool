@@ -7,7 +7,7 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CarPool.Web.ViewModels.DTOs
 {
-    public class SettingsDTO
+    public class SettingsViewModel
     {
         //profile picture
         [Required]
@@ -42,7 +42,7 @@ namespace CarPool.Web.ViewModels.DTOs
         [MinLength(8, ErrorMessage = GlobalConstants.PASSWORD_ERROR_MESSAGE)]
         public string NewPassword { get; set; }
 
-        
+
         [MinLength(5, ErrorMessage = GlobalConstants.ADDRESS_TOO_SHORT)]
         public string Address { get; set; }
 

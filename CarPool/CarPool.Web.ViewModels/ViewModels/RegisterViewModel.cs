@@ -1,12 +1,12 @@
 ﻿using CarPool.Common;
+using Microsoft.AspNetCore.Mvc.Rendering;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
-using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace CarPool.Web.ViewModels.DTOs
 {
-    public class RegisterDTO
+    public class RegisterViewModel
     {
         [Required]
         [StringLength(20, MinimumLength = 2, ErrorMessage = GlobalConstants.VALUE_LENGTH_ERROR)]

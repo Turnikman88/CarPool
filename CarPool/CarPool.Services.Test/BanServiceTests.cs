@@ -4,9 +4,7 @@ using CarPool.Services.Data.Services;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
 using System;
-using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace CarPool.Services.Data.Test
@@ -30,8 +28,8 @@ namespace CarPool.Services.Data.Test
         [TestMethod]
         public async Task BanUserAsync()
         {
-            await context.AddRangeAsync(Helper.ApplicationUsers);            
-            await context.AddRangeAsync(Helper.Ratings);            
+            await context.AddRangeAsync(Helper.ApplicationUsers);
+            await context.AddRangeAsync(Helper.Ratings);
             await context.AddRangeAsync(Helper.Bans);
 
             await context.SaveChangesAsync();
@@ -110,7 +108,7 @@ namespace CarPool.Services.Data.Test
             Assert.IsNotNull(result);
             Assert.AreEqual(2, result.Count());
         }
-        
+
         [TestMethod]
         public async Task GetReportedUserByEmailAsync()
         {
@@ -144,7 +142,7 @@ namespace CarPool.Services.Data.Test
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.Message);
         }
-        
+
         [TestMethod]
         public async Task IgnoreReportAsync()
         {
@@ -158,7 +156,7 @@ namespace CarPool.Services.Data.Test
                 .Where(x => x.ApplicationUser.Email == "koksal@asd.tr")
                 .Select(x => x.IsReport)
                 .FirstOrDefaultAsync();
-                
+
             await service.IgnoreReportAsync("koksal@asd.tr");
 
             var reportIgnored = await context.Ratings
@@ -168,7 +166,7 @@ namespace CarPool.Services.Data.Test
 
             Assert.AreNotEqual(report, reportIgnored);
         }
-        
+
         [TestMethod]
         public async Task UnbanUserAsync()
         {
@@ -178,13 +176,13 @@ namespace CarPool.Services.Data.Test
             await context.SaveChangesAsync();
 
             var service = new BanService(context);
-                
+
             var result = await service.UnbanUserAsync("merkez@grece.com");
-            
+
             Assert.IsNotNull(result);
             Assert.AreEqual(Guid.Parse("9ef2aed3-8e58-4292-845b-ee59177499bb"), result.ApplicationUserId);
         }
-        
+
         [TestMethod]
         public async Task UnbanUserAsync_NotFound()
         {
@@ -194,13 +192,13 @@ namespace CarPool.Services.Data.Test
             await context.SaveChangesAsync();
 
             var service = new BanService(context);
-                
+
             var result = await service.UnbanUserAsync("");
-            
+
             Assert.IsNotNull(result);
             Assert.IsNotNull(result.ErrorMessage);
         }
-        
+
         [TestMethod]
         public async Task GetMaxPageAsync()
         {
@@ -209,9 +207,9 @@ namespace CarPool.Services.Data.Test
             await context.SaveChangesAsync();
 
             var service = new BanService(context);
-                
+
             var result = await service.GetMaxPageAsync();
-            
+
             Assert.IsNotNull(result);
             Assert.AreEqual(0, result);
         }

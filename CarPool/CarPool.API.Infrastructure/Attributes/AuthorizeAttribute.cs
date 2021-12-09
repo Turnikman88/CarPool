@@ -1,8 +1,8 @@
-﻿using System;
-using CarPool.Common;
+﻿using CarPool.Common;
 using CarPool.Services.Mapping.DTOs;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Filters;
+using System;
 
 namespace CarPool.API.Infrastructure.Attributes
 {
@@ -27,7 +27,7 @@ namespace CarPool.API.Infrastructure.Attributes
             {
                 context.Result = new UnauthorizedObjectResult(GlobalConstants.NOT_AUTHORIZED);
             }
-            
+
         }
     }
 }

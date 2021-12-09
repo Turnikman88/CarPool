@@ -8,7 +8,7 @@ namespace CarPool.Services.Mapping.Mappers
     {
         public static UserVehicleDTO GetDTO(this UserVehicle vehicle)
         {
-            if (vehicle is null || string.IsNullOrEmpty(vehicle.Model) 
+            if (vehicle is null || string.IsNullOrEmpty(vehicle.Model)
                 || string.IsNullOrEmpty(vehicle.Color)
                 || vehicle.FuelConsumptionPerHundredKilometers <= 0)
             {

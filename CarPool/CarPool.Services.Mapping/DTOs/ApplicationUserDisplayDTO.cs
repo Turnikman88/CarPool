@@ -23,9 +23,9 @@ namespace CarPool.Services.Mapping.DTOs
 
         public decimal Longitude { get; set; }
 
-        public string Vehicle { get; set; } 
+        public string Vehicle { get; set; }
 
-        public string VehicleColor { get; set; } 
+        public string VehicleColor { get; set; }
 
         public bool IsBlocked { get; set; }
 
