@@ -269,6 +269,12 @@ namespace CarPool.Services.Data.Services
             {
                 return new TripDTO() { ErrorMessage = GlobalConstants.TRIP_NOT_FOUND };
             }
+            var passengers = await _db.TripPassengers.Where(x => x.TripId == trip.Id).ToListAsync();
+
+            foreach (var person in passengers)
+            {
+                _db.TripPassengers.Remove(person);
+            }
 
             _db.Trips.Remove(trip);
             await _db.SaveChangesAsync();
@@ -338,13 +344,14 @@ namespace CarPool.Services.Data.Services
                 return new TripDTO() { ErrorMessage = (GlobalConstants.TRIP_NOT_FOUND) };
             }
 
+            var tripEntity = await _db.TripPassengers.FirstOrDefaultAsync(x => x.TripId == id && x.ApplicationUserId == user.Id);
+            _db.TripPassengers.Remove(tripEntity);
+
             if (trip.DriverId == user.Id)
             {
                 return await DeleteAsync(trip.Id);
             }
 
-            var tripEntity = await _db.TripPassengers.FirstOrDefaultAsync(x => x.TripId == id && x.ApplicationUserId == user.Id);
-            _db.TripPassengers.Remove(tripEntity);
             trip.PassengersCount--;
             trip.FreeSeats++;
             await _db.SaveChangesAsync();
