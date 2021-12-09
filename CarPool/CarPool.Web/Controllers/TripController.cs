@@ -115,6 +115,11 @@ namespace CarPool.Web.Controllers
         [HttpPost]
         public async Task<IActionResult> Create(TripViewModel obj)
         {
+            if (!ModelState.IsValid)
+            {
+                return Json(new { isValid = false, html = await Helper.RenderViewAsync(this, "Create", obj, false) });
+            }
+
             var requestEmail = HttpContext.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
             var driver = await _user.GetUserByEmailOrIdAsync(requestEmail);
 

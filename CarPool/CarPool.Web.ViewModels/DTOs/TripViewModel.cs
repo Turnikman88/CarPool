@@ -7,6 +7,7 @@ namespace CarPool.Web.ViewModels.DTOs
 {
     public class TripViewModel
     {
+
         public string OriginCountry { get; set; }
 
         public string OriginCity { get; set; }

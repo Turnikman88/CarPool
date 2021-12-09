@@ -64,7 +64,7 @@
                                             {
                                                 @if (psnger.Email != email)
                                                 {
-                                                    <p>
+                                                    <p style="margin:10px;">
                                                         @psnger.FirstName @psnger.LastName
                                                         <button style="background-color: red!important" class="btn-default btn-details" id="kick-id" onclick="ajaxId('@Url.Action("KickUser", "Trip", new { id = psnger.Id.ToString(), tripid = tr.Id })', 'upcoming-trips')"> Kick </button>
                                                     </p><br />
