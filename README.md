@@ -205,7 +205,7 @@ README.md file:
 
 
 ## 📃 License
-*This project was developed for educational purposes  __only__ during Telerik Academy Program C# 35 (Jul - Dec 2021)*
+*This project was developed for educational purposes  __only__ during Telerik Academy Program C# 31 (Jul - Dec 2021)*
 
 ## 🤖 Project status
 ☑️ **DONE** 
