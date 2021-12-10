@@ -38,14 +38,16 @@ namespace CarPool.Services.Data.Services
             user.Ban.Reason = reason;
             user.ApplicationRoleId = 3;
 
-            var report = await _db.Ratings
-                .Include(x => x.ApplicationUser)
-                .Where(x => x.ApplicationUser.Email == email)
-                .FirstOrDefaultAsync();
+            var reports = await _db.Ratings
+                                   .Include(x => x.ApplicationUser)
+                                   .Where(x => x.ApplicationUser.Email == email)
+                                   .ToListAsync();
 
-            if (report != null)
+
+
+            foreach (var rep in reports)
             {
-                report.IsReport = false;
+                rep.IsReport = false;
             }
 
             if (days != null)

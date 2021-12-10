@@ -223,6 +223,17 @@ namespace CarPool.Web.Controllers
         }
 
         [HttpGet]
+        public async Task<IActionResult> ForgotPassword(string email)
+        {
+            if (await _auth.IsEmailValidForPasswordReset(email))
+            {
+                await _mail.SendEmailAsync(new MailDTO { Reciever = email, ResetPassword = true });
+                return Ok();
+            }
+            return NotFound();
+        }
+
+        [HttpGet]
         public IActionResult UpdatePassword(string token)
         {
             var email = _auth.CheckConfirmTokenAndExtractEmail(token);

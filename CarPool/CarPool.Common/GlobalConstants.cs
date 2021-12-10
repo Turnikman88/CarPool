@@ -2,7 +2,7 @@
 {
     public static class GlobalConstants
     {
-        public const string Domain = "https://rideshare-app.azurewebsites.net/";
+        public const string Domain = "https://rideshare-app.azurewebsites.net";
 
         public const string ImageKitPublicKey = "public_2fV7UoL16UxkSqKTdkgtOM1M4k8=";
 
