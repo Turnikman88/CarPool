@@ -1,4 +1,7 @@
 ﻿@model SettingsViewModel
+@{
+    string email = Context.User.Claims.FirstOrDefault(x => x.Type == ClaimTypes.Email).Value;
+}
 
 <div class="rwt-split-area rn-section-gap">
     <div class="wrapper">
@@ -9,7 +12,16 @@
                         <div class="thumbnail">
                             <div class="holder">
                                 <div class="bar"></div>
-                                <iframe class="frame" src='https://my.spline.design/untitled-05e485ed55bd3df2bafb647aa1ce7b68/' frameborder='0' style="width: 800px; height:400px;"></iframe>
+                                @if (email.Contains("stanoev") || email.Contains("kstanoev"))
+                                {
+                                    <iframe class="frame" src='https://my.spline.design/untitled-8d18c24d83393e58b14d43fa3c3c1281/' frameborder='0' style="width: 800px; height:400px;"></iframe>
+                                }
+                                else
+                                {
+                                    <iframe class="frame" src='https://my.spline.design/untitled-05e485ed55bd3df2bafb647aa1ce7b68/' frameborder='0' style="width: 800px; height:400px;"></iframe>
+                                }
+
+
                             </div>
                         </div>
                     </div>
@@ -127,18 +139,18 @@
     </div>
 </div>
 @*<div class="col-lg-4 col-md-6 col-12 mt--30" data-sal="slide-up" data-sal-duration="700" data-sal-delay="100">
-    <div class="rn-team team-style-default">
-        <div class="inner">
-            <div class="thumbnail">
-                <img src="@Model.ProfilePictureLink">
-            </div>
-            <div class="content">
-                <h2 class="title">@Model.FirstName </h2>
-                <h6 class="subtitle theme-gradient"></h6>
+        <div class="rn-team team-style-default">
+            <div class="inner">
+                <div class="thumbnail">
+                    <img src="@Model.ProfilePictureLink">
+                </div>
+                <div class="content">
+                    <h2 class="title">@Model.FirstName </h2>
+                    <h6 class="subtitle theme-gradient"></h6>
+                </div>
             </div>
         </div>
-    </div>
-</div>*@
+    </div>*@
 
 
 @section Scripts{

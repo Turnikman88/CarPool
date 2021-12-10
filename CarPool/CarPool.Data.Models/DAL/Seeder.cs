@@ -30,6 +30,8 @@ namespace CarPool.Data.Models.DAL
 
             var userId9 = Guid.NewGuid();
 
+            var userId10 = Guid.NewGuid();
+
             var countries = new List<Country>()
             {
              new Country
@@ -369,6 +371,19 @@ namespace CarPool.Data.Models.DAL
                     PhoneNumber = "+3292233015",
                     ApplicationRoleId = 2,
                     AddressId = 9
+                },
+                new ApplicationUser
+                {
+                    Id = userId10,
+                    Username = "KiroVijan",
+                    FirstName = "Kiril",
+                    LastName = "Stanoev",
+                    Email = "stanoeev@telerik.com",
+                    EmailConfirmed = true,
+                    Password = BCrypt.Net.BCrypt.HashPassword("Kiro123$"),
+                    PhoneNumber = "+3298883015",
+                    ApplicationRoleId = 2,
+                    AddressId = 8
                 }
             };
 
