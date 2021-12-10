@@ -2,18 +2,25 @@
 
 **Carpooling system - Share the ride** 
 
-# Desktop
+# 🏆 Awards
+🥇 Best project for Telerik Academy C# A31 - [American Eagle](https://www.americaneagle.com/)
+
+🥇 Best project for Telerik Academy C# A31 - [Bede Gaming](https://bedegaming.com/)
+
+🥇 Best project for Telerik Academy C# A31 - [Mercell](https://www.negometrix.com/)
+
+# 🖥️ Desktop
 ![Android](./images/HomePageDesktop.png)
 
 
-# Android
+# 📱 Android
 ![Android](./images/HomePageAndroid.png)
 
 
-# Project Description 
+# 🧾 Project Description 
 **RideShare** is a web application that enables you to share your travel from one location to other with other passengers. Every user can either organize a shared travel or request to join someone else’s travel.
 
-# How to install 
+# 🚪 How to install 
 ```diff
  To use this application you will need the following tools:
     - Visual Studio 2019 or newer
@@ -25,7 +32,7 @@
 - 4. Go to CarPool.Common and find GlobalConstants then change the domain field to "localhost"
   5. Start the project 
 ```
-# How to install on Android
+# 🤖 How to install on Android
 ```diff
 1. Follow the link below or download from our website
 2. Open the folder you downloaded the apk file
@@ -124,17 +131,13 @@ The REST API provides the following capabilities:
 
 * Filter and sort travels (must)
 
-# Database Diagram
+# 📈 Database Diagram
 ![Diagram](./images/database_diagram.png)
 
-# Swagger 
+# 🎯 Swagger 
 * [Swagger](https://ride-shareapi.azurewebsites.net/swagger/index.html)
 
-
-
-
-
-### Technical Requirements 
+# ⚙️ Technical Requirements 
 1. General 
 * Follow OOP principles when coding 
 * Follow KISS, SOLID, DRY principles when coding 
@@ -176,11 +179,18 @@ README.md file:
 * MsSQL Server
 * Entity Framework
 * Swagger
-* Azure
-* Android Xamarin
+* Azure hosting
+* SignalR chats(private and global)
+* Android Xamarin 👽
+* Mail Service
+* Auto unban background service
+* JWT for API / Cookies for WEB
+* Sensitive data BCrypt
 * Google Auth - Google profiles
 * Bing API
+* ImageKitAPI
 * Facebook Chat Bot
+* Moq testing
 * Javascript/jQuery/AJAX
 * HTML5/CSS/Bootstrap/SweetAlert/Animate.css
 * HTML Scrapper
